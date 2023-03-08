@@ -47,8 +47,9 @@
       <input type="password" formControlName="confirm_password" class="form-control" id="inputPassword4">
     </div>
     <div *ngIf="get_Register.confirm_password.touched && get_Register.confirm_password.invalid" class="text-danger">
-        <div *ngIf="get_Register.confirm_password.errors?.['required']" class="text-danger">Password Must Required</div>
-        <div *ngIf="get_Register.confirm_password.errors?.['minlength']" class="text-danger">Password MustShould be 8 Character</div></div>
+        <div *ngIf="get_Register.confirm_password.errors?.['required']" class="text-danger">Confirm Password Must Required</div>
+        <div *ngIf="get_Register.confirm_password.errors?.['minlength']" class="text-danger">Confirm Password MustShould be 8 Character</div>
+        <div *ngIf="get_Register.confirm_password.errors?.notMatch">Password do not match.</div></div>
     <div class="col-10">
         <label for="inputAddress" class="form-label">Address</label>
         <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="834 Main St">
@@ -63,22 +64,34 @@
     <div *ngIf="get_Register.address_2.touched && get_Register.address_2.invalid" class="text-danger">
         <div *ngIf="get_Register.address_2.errors?.['required']" class="text-danger">Address 2 Must Required</div>
         </div>
+        <div class="col-md-3">
+          <label for="inputState" class="form-label" >State</label>
+          <select id="inputState" formControlName="state" class="form-select" [(ngModel)]="selectedState">
+            <option *ngFor="let state of states" [value]="state.name">{{ state.name }}</option>
+          </select>
+        </div>
+        <div *ngIf="get_Register.state.touched && get_Register.state.invalid" class="text-danger">
+          <div *ngIf="get_Register.state.errors?.['required']" class="text-danger">State Must Required</div></div>
+      
     <div class="col-md-5">
         <label for="inputCity" class="form-label">City</label>
-      <input type="text" formControlName="city" class="form-control" id="inputCity">
-    </div>
-
-    <div class="col-md-3">
-      <label for="inputState" class="form-label">State</label>
-      <select id="inputState" formControlName="state" class="form-select">
-        <option selected>Choose...</option>
-        <option>...</option>
+      <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
+        
+        <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
       </select>
     </div>
+    <div *ngIf="get_Register.city.touched && get_Register.city.invalid" class="text-danger">
+      <div *ngIf="get_Register.city.errors?.['required']" class="text-danger">City Must Required</div>
+      </div>
+  
     <div class="col-md-2">
-      <label for="inputZip" class="form-label">Zip</label>
-      <input type="text" formControlName="zip" class="form-control" id="inputZip">
+      <label for="inputZip" class="form-label">Zip Code</label>
+      <input type="number" formControlName="zip" class="form-control" id="inputZip" ngModel pattern="[0-9]*">
     </div>
+    <div *ngIf="get_Register.zip.touched && get_Register.zip.invalid" class="text-danger">
+      <div *ngIf="get_Register.zip.errors?.['required']" class="text-danger">Zip Code Must Required</div>
+      <div *ngIf="get_Register.zip.errors?.['minlength']" class="text-danger">Zip Code Should be 6 Character</div></div>
+  
     <div class="col-10">
       
     </div>
