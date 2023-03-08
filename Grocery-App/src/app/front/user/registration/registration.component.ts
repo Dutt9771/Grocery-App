@@ -172,8 +172,8 @@ export class RegistrationComponent {
       Validators.required,
       Validators.email
     ]),
-    password: new FormControl('', [Validators.required]),
-    confirm_password: new FormControl ('', [Validators.required]),
+    password: new FormControl('', [Validators.required,Validators.minLength(8)]),
+    confirm_password: new FormControl ('', [Validators.required,Validators.minLength(8)]),
     address:new FormControl ("",[
       Validators.required
     ]),
@@ -188,7 +188,9 @@ export class RegistrationComponent {
     ]),
     zip:new FormControl ("",[
       Validators.required,
-      Validators.minLength(6)
+      Validators.maxLength(6),
+      Validators.minLength(4),
+      Validators.pattern('^[0-9]{6}(?:-[0-9]{4})?$')
     ]),
 
     })

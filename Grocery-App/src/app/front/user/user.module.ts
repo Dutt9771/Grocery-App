@@ -6,12 +6,12 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { LogoutComponent } from './logout/logout.component';
 
 @NgModule({
   declarations: [
-    
     UserProfileComponent,
-    LoginComponent
+    LogoutComponent,
   ],
   imports: [
     CommonModule,

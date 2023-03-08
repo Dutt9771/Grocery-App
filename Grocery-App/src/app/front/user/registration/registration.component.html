@@ -1,25 +1,6 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<!-- <form>
-    <div class="form-group">
 
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name" formControlName="name">
-    </div>
-    <div class="form-group"><label for="email">Email</label>
-        <input type="email" ></div>
-    <div class="form-group"> <label for="password">Password</label>
-        <input type="password" name="password" id="password" formControlName="password">
-        </div>
-    <div class="form-group"><label for="confirm_password">Confirm Password</label>
-        <input type="password" name="confirm_password" id="confirm_password">
-        </div>
-    
-   <label for="confirm_password">Confirm Password</label>
-    <input type="password" name="confirm_password" id="confirm_password">
-    <label for="address">Address</label>
-    <input type="address" name="address" id="address">
-</form> -->
 <form class="row g-3" [formGroup]="Register" (ngSubmit)="Reg_click()" novalidate>
         <div class="col-10">
         <label for="inputAddress" class="form-label">Name</label>
@@ -39,13 +20,13 @@
       <label for="inputPassword4" class="form-label">Password</label>
       <input type="password" formControlName="password" class="form-control" id="inputPassword4">
     </div>
-    <div *ngIf="get_Register.password.touched && get_Register.password.invalid" class="text-danger">
-        <div *ngIf="get_Register.password.errors?.['required']" class="text-danger">Password Must Required</div>
-        <div *ngIf="get_Register.password.errors?.['minlength']" class="text-danger">Password MustShould be 8 Character</div></div>
     <div class="col-md-5">
       <label for="inputPassword4" class="form-label">Confirm Password</label>
       <input type="password" formControlName="confirm_password" class="form-control" id="inputPassword4">
     </div>
+    <div *ngIf="get_Register.password.touched && get_Register.password.invalid" class="text-danger">
+        <div *ngIf="get_Register.password.errors?.['required']" class="text-danger">Password Must Required</div>
+        <div *ngIf="get_Register.password.errors?.['minlength']" class="text-danger">Password MustShould be 8 Character</div></div>
     <div *ngIf="get_Register.confirm_password.touched && get_Register.confirm_password.invalid" class="text-danger">
         <div *ngIf="get_Register.confirm_password.errors?.['required']" class="text-danger">Confirm Password Must Required</div>
         <div *ngIf="get_Register.confirm_password.errors?.['minlength']" class="text-danger">Confirm Password MustShould be 8 Character</div>
@@ -70,28 +51,32 @@
             <option *ngFor="let state of states" [value]="state.name">{{ state.name }}</option>
           </select>
         </div>
+        <div class="col-md-5">
+          <label for="inputCity" class="form-label">City</label>
+          <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
+            
+            <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
+          </select>
+        </div>
+        <div class="col-md-2">
+          
+          <label for="inputZip" class="form-label">Zip Code</label>
+          <input type="text" formControlName="zip" class="form-control" id="inputZip">
+        </div>
         <div *ngIf="get_Register.state.touched && get_Register.state.invalid" class="text-danger">
           <div *ngIf="get_Register.state.errors?.['required']" class="text-danger">State Must Required</div></div>
       
-    <div class="col-md-5">
-        <label for="inputCity" class="form-label">City</label>
-      <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
-        
-        <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
-      </select>
-    </div>
     <div *ngIf="get_Register.city.touched && get_Register.city.invalid" class="text-danger">
       <div *ngIf="get_Register.city.errors?.['required']" class="text-danger">City Must Required</div>
       </div>
-  
-    <div class="col-md-2">
-      <label for="inputZip" class="form-label">Zip Code</label>
-      <input type="number" formControlName="zip" class="form-control" id="inputZip" ngModel pattern="[0-9]*">
-    </div>
-    <div *ngIf="get_Register.zip.touched && get_Register.zip.invalid" class="text-danger">
-      <div *ngIf="get_Register.zip.errors?.['required']" class="text-danger">Zip Code Must Required</div>
-      <div *ngIf="get_Register.zip.errors?.['minlength']" class="text-danger">Zip Code Should be 6 Character</div></div>
-  
+        <div *ngIf="get_Register.zip.touched && get_Register.zip.invalid" class="text-danger">
+          <div *ngIf="get_Register.zip.errors?.['required']" class="text-danger">Zip Code Must Required</div>
+      <div *ngIf="get_Register.zip.errors?.['maxlength']" class="text-danger">Zip Code Should be 6 Character</div>
+      <div *ngIf="get_Register.zip.errors?.['minlength']" class="text-danger">Zip Code Should be 6 Character</div>
+      <div *ngIf="get_Register.zip.errors?.['pattern']">
+        Zip code must be in Number
+      </div></div>
+    
     <div class="col-10">
       
     </div>
