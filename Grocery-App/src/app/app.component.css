@@ -25,6 +25,7 @@ margin-right: 20px;}
       text-align: center;
       padding: 14px 16px;
       text-decoration: none;
+      margin-top: 12px;
     }
     
     li a:hover, .dropdown:hover .dropbtn {
@@ -64,8 +65,15 @@ margin-right: 20px;}
       color: white;
       float: left;
       margin-right: 40px;
+      margin-top: 22px;
+      margin-left: 10px;
     }
-   
+   img{
+    width: 75px;
+    height: 75px;
+    align-items: center;
+    float:left;
+   }
     
   /* footer */
     footer {

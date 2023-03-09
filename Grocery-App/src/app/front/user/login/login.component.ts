@@ -50,7 +50,12 @@ email:new FormControl('',
 get get_login(){
 return this.login.controls
 }
+
+@Input() loggedInuser:any
 login_click(){
   console.log(this.login.value)
+  localStorage.setItem('user', JSON.stringify(this.user));
+  this.router.navigate(['front/user/user-profile']);
+  this.loggedInuser=true
 }
 }

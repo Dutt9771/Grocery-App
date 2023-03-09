@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -9,4 +9,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class AppComponent {
   
   title = 'Grocery-App';
+  loggedInuser:boolean=true
+  logout(){
+    this.loggedInuser=true;
+    localStorage.removeItem('user')
+  }
 }
