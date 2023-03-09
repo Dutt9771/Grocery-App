@@ -2,7 +2,7 @@ import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './admin/admin.module';
 import { FrontModule } from './front/front.module';
@@ -13,6 +13,7 @@ import { LoginComponent } from './front/user/login/login.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [

@@ -29,7 +29,7 @@ export class LoginComponent {
       };
       if(user){
         this.router.navigate(['front/user/user-profile'], navigationExtras);
-this.buttonval="Logout"
+        this.buttonval="Logout"
       }
       
     });
@@ -50,12 +50,13 @@ email:new FormControl('',
 get get_login(){
 return this.login.controls
 }
+ 
 
-@Input() loggedInuser:any
 login_click(){
   console.log(this.login.value)
-  localStorage.setItem('user', JSON.stringify(this.user));
-  this.router.navigate(['front/user/user-profile']);
-  this.loggedInuser=true
+  this.router.navigate(['front/user/registration']);
+  localStorage.setItem('User', JSON.stringify(this.login.value));
+ 
+  
 }
 }
