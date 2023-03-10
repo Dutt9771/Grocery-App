@@ -2,6 +2,14 @@
 .active{
 color:red
 }
+.nav-link{
+  color: black;
+  }
+  .nav-link:hover{
+  color: blue;
+  }
+
+  
 /* navbar */
 /* ul.topnav li.right {float: right;
 
@@ -74,9 +82,13 @@ margin-right: 20px;}
     align-items: center;
     float:left;
    }
+
+
      */
   /* footer */
-    footer {
+
+
+    /* footer {
   padding: 20px;
   text-align: left;
   position: fixed;
@@ -105,7 +117,8 @@ svg{
 a{
   text-align: right;
   padding-right: 5px;
-}
-a:hover {
+} */
+i:hover {
   color: #007bff;
 }
+

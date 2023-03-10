@@ -19,7 +19,7 @@ export class LoginComponent {
       this.user = user;
       this.loggedIn = (user != null);
       
-      localStorage.setItem('user', JSON.stringify(user));
+      localStorage.setItem('User', JSON.stringify(user));
       
       // navigate to the UserProfileComponent and pass the user data
       let navigationExtras: NavigationExtras = {
