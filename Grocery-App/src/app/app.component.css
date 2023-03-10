@@ -1,9 +1,9 @@
 /* routerlink active */
 .active{
-  background-color:red
+color:red
 }
 /* navbar */
-ul.topnav li.right {float: right;
+/* ul.topnav li.right {float: right;
 
 margin-right: 20px;}
   
@@ -74,7 +74,7 @@ margin-right: 20px;}
     align-items: center;
     float:left;
    }
-    
+     */
   /* footer */
     footer {
   padding: 20px;
