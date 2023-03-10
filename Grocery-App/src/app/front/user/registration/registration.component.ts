@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup,Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -172,9 +172,15 @@ export class RegistrationComponent {
       Validators.required,
       Validators.email
     ]),
-    password: new FormControl('', [Validators.required,Validators.minLength(8)]),
-    confirm_password: new FormControl ('', [Validators.required,Validators.minLength(8)]),
-    address:new FormControl ("",[
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8)
+    ]),
+    confirm_password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(8),
+      this.matchPasswordValidator()
+    ]),address:new FormControl ("",[
       Validators.required
     ]),
     address_2:new FormControl ("",[
@@ -200,6 +206,22 @@ export class RegistrationComponent {
     }
     Reg_click(){
         console.log(this.Register.value)
+        
   
     }
-}
+    // matchPasswordValidator(): ValidatorFn {
+    // return (control: AbstractControl): {[key: string]: any} | null => {
+    //   const password = this.Register.value['password'];
+    //   const confirm_password = control.value;
+    //   return password === confirm_password ? null : {matchPassword: {value: control.value}};
+    // };
+    matchPasswordValidator(): ValidatorFn {
+      return (control: AbstractControl): ValidationErrors | null => {
+        const password = control.root.get('password')?.value;
+        const confirmPassword = control.value;
+  
+        return password === confirmPassword ? null : { matchPassword: { value: control.value } };
+      };
+    }
+    
+  }

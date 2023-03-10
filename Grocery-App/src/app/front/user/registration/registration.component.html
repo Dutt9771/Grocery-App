@@ -30,7 +30,7 @@
     <div *ngIf="get_Register.confirm_password.touched && get_Register.confirm_password.invalid" class="text-danger">
         <div *ngIf="get_Register.confirm_password.errors?.['required']" class="text-danger">Confirm Password Must Required</div>
         <div *ngIf="get_Register.confirm_password.errors?.['minlength']" class="text-danger">Confirm Password MustShould be 8 Character</div>
-        <div *ngIf="get_Register.confirm_password.errors?.notMatch">Password do not match.</div></div>
+        <div *ngIf="get_Register.confirm_password.errors?.matchPassword">Confirm Password does not match Password.</div></div>
     <div class="col-10">
         <label for="inputAddress" class="form-label">Address</label>
         <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="834 Main St">

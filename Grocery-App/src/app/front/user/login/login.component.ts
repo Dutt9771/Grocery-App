@@ -37,7 +37,7 @@ export class LoginComponent {
   }
  
 // Validation Form
-
+  @Output() login_logout=new EventEmitter<any>()
   @Input() login:any = new FormGroup({
 email:new FormControl('',
 [Validators.email,
@@ -56,7 +56,13 @@ login_click(){
   console.log(this.login.value)
   this.router.navigate(['front/user/registration']);
   localStorage.setItem('User', JSON.stringify(this.login.value));
- 
   
 }
+
+logout(){
+  localStorage.removeItem('User')
+  this.router.navigate(['front/user/registration'])
 }
+};
+
+

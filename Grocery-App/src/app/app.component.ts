@@ -12,22 +12,20 @@ export class AppComponent {
   }
   
   ngOnInit(){
-    console.log(this.loginuser)
+    console.log(this.email)
   }
   title = 'Grocery-App';
   login_logout:boolean |undefined;
   // logout(loggedInuser: boolean) {
     //   this.LoginService.log_out(loggedInuser)    
     //   }
-   ngOnChange(){
-    
-   } 
-  loginuser = localStorage.getItem('User')
-
+   
+    userData:any = localStorage.getItem('User');
+    email:any = this.userData
   logout(){
     localStorage.removeItem('User')
     this.router.navigate(['front/user/registration'])
-    console.log(this.loginuser)
+    console.log(this.email)
   }
   };
   
