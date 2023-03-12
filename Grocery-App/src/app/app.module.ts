@@ -10,7 +10,7 @@ import { ErrorPageComponent } from './error-page/error-page.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from './front/user/registration/registration.component';
 import { LoginComponent } from './front/user/login/login.component';
-import { GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
+import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
@@ -45,6 +45,10 @@ import { AppComponent } from './app.component';
           provider: new GoogleLoginProvider(
             '625408325836-r5q6i5chqvi42d4gone2ef0a5hetmk4k.apps.googleusercontent.com'
           )
+        },
+        {
+          id: FacebookLoginProvider.PROVIDER_ID,
+          provider: new FacebookLoginProvider('610808490382171'),
         },
       ],
       onError: (err: any) => {

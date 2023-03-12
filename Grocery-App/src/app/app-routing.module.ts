@@ -7,7 +7,7 @@ import { UserProfileComponent } from './front/user/user-profile/user-profile.com
 
 
 const routes: Routes = [
-  {path:'',component:LoginComponent},
+  {path:'',redirectTo:'front/home',pathMatch:'full'},
 //   {path:'login',component:LoginComponent},
 // {path:'front/user/registration',component:RegistrationComponent},
 {path:'front',
