@@ -3,7 +3,7 @@
 <div class="row g-3 d-flex justify-content-center">
     <div class="col-md-3">
       <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" formControlName="email" class="form-control" id="inputEmail4">
+      <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Enter Email">
     </div></div>
     <div *ngIf="get_login.email.touched && get_login.email.invalid" class="text-danger text-center">
         <div *ngIf="get_login.email.errors?.['required']" class="text-danger">Email Must Required</div>
@@ -11,7 +11,7 @@
  <div class="row g-3 d-flex justify-content-center"> 
   <div class="col-md-3">
       <label for="inputPassword4" class="form-label">Password</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword4">
+      <input type="password" formControlName="password" class="form-control" id="inputPassword4" placeholder="Enter Password">
     </div>
     <div *ngIf="get_login.password.touched && get_login.password.invalid" class="text-danger text-center">
         <div *ngIf="get_login.password.errors?.['required']" class="text-danger">Password Must Required</div>

@@ -4,7 +4,7 @@
     <div class="row g-3 d-flex justify-content-center"> 
         <div class="col-md-4">
           <label for="inputEmail4" class="form-label">Email</label>
-          <input type="email" formControlName="email" class="form-control" id="inputEmail4">
+          <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Enter Email">
         </div></div>
         <div *ngIf="Contact_us_data.email.touched && Contact_us_data.email.invalid" class="text-danger text-center">
             <div *ngIf="Contact_us_data.email.errors?.['required']" class="text-danger">Email Must Required</div>
@@ -12,7 +12,7 @@
      <div class="row g-3 d-flex justify-content-center"> 
       <div class="col-md-4">
           <label for="inputPassword4" class="form-label">Message</label>
-          <textarea rows="" cols="" formControlName="message" class="form-control" id="inputPassword4"></textarea>
+          <textarea rows="" cols="" formControlName="message" class="form-control" id="inputPassword4" placeholder="Enter Message Here"></textarea>
         </div>
         <div *ngIf="Contact_us_data.message.touched && Contact_us_data.message.invalid" class="text-danger text-center">
             <div *ngIf="Contact_us_data.message.errors?.['required']" class="text-danger">Message Must Required</div></div>
