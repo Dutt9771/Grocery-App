@@ -1,7 +1,8 @@
 /* routerlink active */
 .active{
-color:red
+font-weight:bolder;
 }
+
 .nav-link{
   color: black;
   }

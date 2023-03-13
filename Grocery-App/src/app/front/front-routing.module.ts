@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorPageComponent } from '../error-page/error-page.component';
-import { ContactUsComponent } from './contact-us/contact-us.component';
-import { HomeComponent } from './home/home.component';
+import { ContactUsComponent } from './Dashboard/contact-us/contact-us.component';
+import { HomeComponent } from './Dashboard/home/home.component';
+
 import { LoginComponent } from './user/login/login.component';
 import { RegistrationComponent } from './user/registration/registration.component';
 import { UserProfileComponent } from './user/user-profile/user-profile.component';

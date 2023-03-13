@@ -5,13 +5,15 @@ import { CatalogueRoutingModule } from './catalogue-routing.module';
 import { CategoryComponent } from './category/category.component';
 import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
+import { HomeComponent } from '../Dashboard/home/home.component';
 
 
 @NgModule({
   declarations: [
     CategoryComponent,
     ProductListComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

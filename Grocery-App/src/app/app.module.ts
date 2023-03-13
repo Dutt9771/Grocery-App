@@ -1,4 +1,4 @@
-import { NgModule ,CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,12 +15,13 @@ import { AuthUserGuard } from './auth-user.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
     RegistrationComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,
@@ -57,6 +58,6 @@ import { AppComponent } from './app.component';
     } as SocialAuthServiceConfig,
   },AuthUserGuard],
   bootstrap: [AppComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+  schemas: []
 })
 export class AppModule { }

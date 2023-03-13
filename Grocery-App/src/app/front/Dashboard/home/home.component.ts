@@ -1,7 +1,7 @@
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { CategoryComponent } from '../../catalogue/category/category.component';
 
 
 @Component({
@@ -10,7 +10,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-
   loginForm!: FormGroup;
   socialUser!: SocialUser;
   isLoggedin?: boolean = undefined;
