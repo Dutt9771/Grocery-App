@@ -7,6 +7,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { HomeComponent } from '../Dashboard/home/home.component';
 
+import { CarouselModule } from 'ngx-owl-carousel-o';
+
 
 @NgModule({
   declarations: [
@@ -17,7 +19,10 @@ import { HomeComponent } from '../Dashboard/home/home.component';
   ],
   imports: [
     CommonModule,
-    CatalogueRoutingModule
+    CatalogueRoutingModule,
+    
+    CarouselModule 
+    
   ]
 })
 export class CatalogueModule { }

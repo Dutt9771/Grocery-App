@@ -2,18 +2,20 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
-
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './admin/admin.module';
 import { FrontModule } from './front/front.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { RegistrationComponent } from './front/user/registration/registration.component';
 import { LoginComponent } from './front/user/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
+import { ProductDetailsComponent } from './front/catalogue/product-details/product-details.component';
+import { CatalogueModule } from './front/catalogue/catalogue.module';
+import { CarouselModule } from 'ngx-owl-carousel-o';
 
 
 @NgModule({
@@ -22,6 +24,7 @@ import { AppComponent } from './app.component';
     ErrorPageComponent,
     RegistrationComponent,
     LoginComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,10 @@ import { AppComponent } from './app.component';
     ReactiveFormsModule,
     SocialLoginModule,
     NgbModule,
-    HttpClientModule
+    HttpClientModule,
+    CatalogueModule,
+    NgbCarouselModule,
+    CarouselModule 
     
   ],
   providers: [{

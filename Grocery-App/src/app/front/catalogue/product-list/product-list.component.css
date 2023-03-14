@@ -1,0 +1,34 @@
+.carousel-container {
+    overflow: hidden;
+    position: relative;
+  }
+  
+  .carousel-items {
+    display: flex;
+    flex-wrap: nowrap;
+    transition: transform 0.5s ease;
+  }
+  
+  .carousel-item {
+    flex: 0 0 calc(100% / 3);
+    margin-right: 10px;
+  }
+  
+  @media screen and (max-width: 768px) {
+    .carousel-item {
+      flex: 0 0 calc(100% / 2);
+    }
+  }
+  
+  @media screen and (max-width: 576px) {
+    .carousel-item {
+      flex: 0 0 100%;
+      margin-right: 0;
+    }
+  }
+  div {
+    font-family: 'Inter'
+}
+#product_list_text{
+  font-size: 1000px;
+}

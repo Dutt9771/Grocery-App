@@ -20,7 +20,7 @@ import { ProductDetailsComponent } from './catalogue/product-details/product-det
   imports: [
     CommonModule,
     FrontRoutingModule,
-    CatalogueModule,
+    
     FormsModule,
     ReactiveFormsModule
 

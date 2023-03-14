@@ -127,7 +127,7 @@
     <div class="carousel-inner">
       <div class="carousel-item active">
         <div class="cards-wrapper w-auto " >
-        <div class="card bg-warning-subtle p-3 m-2">
+        <div class="card bg-warning-subtle p-3 m-2" (click)="Peach()" >
          <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
 <div class="card-body text-center"><p>Peans</p><small>20 items</small>
 </div>
@@ -267,3 +267,51 @@
     </button>
   </div>
   </div>
+
+
+  <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" >
+      
+      <div class="carousel-item active" >
+          
+          <div class="cards-wrapper w-auto " >
+        <div class="card bg-warning-subtle p-3 m-2" *ngFor="let product of grocery_items" [routerLink]="['/front/catalogue/products', product.category.toLowerCase()]">
+         <img src="/assets/{{product.image}}" alt="" width="120" height="120"/>
+<div class="card-body text-center" >
+    <h4>{{product.category}}</h4>
+
+        <small>{{product.quantity}}</small>
+</div>
+        </div>
+
+      </div>
+ 
+      
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls2" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4" *ngFor="let category of categories">
+        <div class="card">
+          <img [src]="category.image" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">{{ category.name }}</h5>
+            <p class="card-text">{{ category.quantity }} Products</p>
+            <a [routerLink]="['/front/catalogue/products', category.name.toLowerCase()]" class="btn btn-primary">View Products</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

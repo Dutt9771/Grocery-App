@@ -26,171 +26,36 @@
   <script src="js/addons/rating.js"></script>
 
 <div id="carouselExampleControls2" class="carousel slide" data-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <div class="cards-wrapper w-auto " >
-        <div class="card bg-warning-subtle p-3 m-2">
-         <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-<div class="card-body">
-    <small>Vegetables</small>
-    <h4>Redish 500g</h4>
+    <div class="carousel-inner" >
+      
+      <div class="carousel-item active" >
+          
+          <div class="cards-wrapper w-auto " >
+        <div class="card bg-warning-subtle p-3 m-2" *ngFor="let product of productArray">
+         <img src="/assets/{{product.imageurl}}" alt="" width="120" height="120"/>
+<div class="card-body" >
+    <small>{{product.name}}</small>
+    <h4>{{product.weight}}</h4>
     <ul class="card-body rating" data-mdb-toggle="rating">
         <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
         <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
         <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
         <i class="fas fa-star fa-sm text-primary" title="Good"></i>
         <i class="far fa-star fa-sm text-primary" title="Excellent"></i><br>
-        <small>By MrFood</small>
-        <h4><i class="fas fa-dollar-sign"></i>2</h4> <h4>3.45</h4> <button><i class="fas fa-cart-plus"></i>ADD</button>
-      </ul><p>Peans</p><small>20 items</small>
+    </ul>
+        <small>{{product.sellerName}}</small>
+        <div class="row">
+<div class="col"><i class="fas fa-dollar-sign">{{product.moneyOfferPrice}}</i></div>
+<div class="col"><i class="fas fa-dollar-sign text-decoration-line-through">{{product.price}}</i></div>
+<div class="col"><button><i class="fas fa-cart-plus">ADD</i></button></div>
+        </div>
 </div>
         </div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-          
-            <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-            
-            <div class="card-body text-center">
-            <ul class="card-body rating" data-mdb-toggle="rating">
-                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
-                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
-                <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
-                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
-                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-              </ul>
-    <p>Peans</p><small>20 items</small>
-   </div>
-           
-            
-        </div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-         
-            <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-   <div class="card-body text-center">
-    <ul class="card-body rating" data-mdb-toggle="rating">
-        <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
-        <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
-        <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
-        <i class="far fa-star fa-sm text-primary" title="Good"></i>
-        <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-      </ul><p>Peans</p><small>20 items</small>
-   </div>
-           
-            
-        </div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-    <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-    <div class="card-body text-center">
-        <ul class="card-body rating" data-mdb-toggle="rating">
-            <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
-            <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
-            <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
-            <i class="fas fa-star fa-sm text-primary" title="Good"></i>
-            <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-          </ul>
-        <p>Peans</p>
-        <small>20 items</small>
-    </div>
-</div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-    <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-    <div class="card-body text-center">
-        <ul class="card-body rating" data-mdb-toggle="rating">
-            <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
-            <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
-            <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
-            <i class="far fa-star fa-sm text-primary" title="Good"></i>
-            <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-          </ul>
-        <p>Peans</p>
-        <small>20 items</small>
-    </div>
-</div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-    <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-    <div class="card-body text-center">
-        <p>Peans</p>
-        <small>20 items</small>
-    </div>
-</div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-    <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-    <div class="card-body text-center">
-        <p>Peans</p>
-        <small>20 items</small>
-    </div>
-</div>
-        <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-    <img src="/assets/Peach.jpg" alt="" width="120" height="120"/>
-    <div class="card-body text-center">
-        <p>Peans</p>
-        <small>20 items</small>
-    </div>
-</div>
 
-        
       </div>
-      </div>
-      <div class="carousel-item">
-        <div class="cards-wrapper">
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          <div class="card d-none d-md-block bg-warning-subtle  p-3 m-2">
-            <img src="/assets/Vegetables.jpg" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <p>Peans</p>
-                <small>20 items</small>
-            </div>
-        </div>
-          
-      </div>
-      </div>
+ 
+      
+    </div>
       
     <!-- <a class="carousel-control-prev" data-bs-target="#carouselExampleControls" role="button" data-slide="prev">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -210,3 +75,5 @@
     </button>
   </div>
   </div>
+
+  
