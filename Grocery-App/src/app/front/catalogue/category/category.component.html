@@ -275,7 +275,7 @@
       <div class="carousel-item active" >
           
           <div class="cards-wrapper w-auto " >
-        <div class="card bg-warning-subtle p-3 m-2" *ngFor="let product of grocery_items" [routerLink]="['/front/catalogue/products', product.category.toLowerCase()]">
+        <div class="card bg-warning-subtle p-3 m-2" *ngFor="let product of grocery_items" [routerLink]="['/front/catalogue/products-list', product.category.toLowerCase()]">
          <img src="/assets/{{product.image}}" alt="" width="120" height="120"/>
 <div class="card-body text-center" >
     <h4>{{product.category}}</h4>
@@ -299,7 +299,7 @@
     </button>
   </div>
   </div>
-
+<!-- 
   <div class="container">
     <div class="row">
       <div class="col-sm-4" *ngFor="let category of categories">
@@ -308,10 +308,10 @@
           <div class="card-body">
             <h5 class="card-title">{{ category.name }}</h5>
             <p class="card-text">{{ category.quantity }} Products</p>
-            <a [routerLink]="['/front/catalogue/products', category.name.toLowerCase()]" class="btn btn-primary">View Products</a>
+            <a [routerLink]="['/front/catalogue/products-list', category.name.toLowerCase()]" class="btn btn-primary">View Products</a>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+   -->

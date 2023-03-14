@@ -76,4 +76,89 @@
   </div>
   </div>
 
+ 
   
+  <div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" >
+      
+
+        <div class="col" *ngFor="let product of productArray">
+            <div class="carousel-item active" >
+    <div class="card bg-white p-2 m-2" >
+        <img class="rounded mx-auto d-block" src="/assets/{{product.imageurl}}" alt="" width="120" height="120"/>
+<div class="card-body" >
+   <small>{{product.name}}</small>
+   <h4>{{product.weight}}</h4>
+   <ul class="card-body rating" data-mdb-toggle="rating">
+       <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+       <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+       <i class="fas fa-star fa-sm text-primary" title="OK" ></i>
+       <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+       <i class="far fa-star fa-sm text-primary" title="Excellent"></i><br>
+   </ul>
+       <small>{{product.sellerName}}</small>
+<div>        
+<i class="fas fa-dollar-sign m-2">{{product.moneyOfferPrice}}</i>
+<i class="fas fa-dollar-sign text-decoration-line-through m-4">{{product.price}}</i>
+<button class="btn btn-outline-light"><img src="/assets/Cart-btn.png" alt=""></button>
+</div>
+</div>
+       </div>
+
+
+</div>
+<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="prev">
+  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Previous</span>
+</button>
+<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1" data-bs-slide="next">
+  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  <span class="visually-hidden">Next</span>
+</button>
+</div>
+</div>
+
+
+<!-- 
+<div id="carouselExampleControls1" class="carousel slide" data-ride="carousel">
+  <div class="carousel-inner">
+    <div class="row row-cols-4">
+      <div class="col" *ngFor="let product of productArray; let i=index">
+        <div [ngClass]="{'carousel-item': true, 'active': i === 0}">
+          <div class="card bg-white p-2 m-2">
+            <img class="rounded mx-auto d-block" src="/assets/{{product.imageurl}}" alt="" width="120"
+              height="120" />
+            <div class="card-body">
+              <small>{{product.name}}</small>
+              <h4>{{product.weight}}</h4>
+              <ul class="card-body rating" data-mdb-toggle="rating">
+                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                  <i class="far fa-star fa-sm text-primary" title="Excellent"></i><br>
+              </ul>
+              <small>{{product.sellerName}}</small>
+              <div>
+                <i class="fas fa-dollar-sign m-2">{{product.moneyOfferPrice}}</i>
+                <i class="fas fa-dollar-sign text-decoration-line-through m-4">{{product.price}}</i>
+                <button class="btn btn-outline-light"><img src="/assets/Cart-btn.png" alt=""></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls1"
+      data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls1"
+      data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
+</div> -->
+

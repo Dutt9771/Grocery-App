@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './admin/admin.module';
 import { FrontModule } from './front/front.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
-import { NgbCarouselModule, NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
 import { RegistrationComponent } from './front/user/registration/registration.component';
 import { LoginComponent } from './front/user/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
@@ -17,6 +17,7 @@ import { ProductDetailsComponent } from './front/catalogue/product-details/produ
 import { CatalogueModule } from './front/catalogue/catalogue.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -38,8 +39,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
     NgbModule,
     HttpClientModule,
     CatalogueModule,
-    NgbCarouselModule,
-    CarouselModule 
+    CarouselModule,
+    
     
   ],
   providers: [{

@@ -54,7 +54,7 @@
          <ul class="dropdown-menu">
            <li><a class="dropdown-item nav-link" routerLink="front/user/user-profile" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >User-Profile</a></li>
            <li><a class="dropdown-item nav-link" routerLink="front/catalogue/product-details" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >Product-details</a></li>
-           <li><a class="dropdown-item nav-link" routerLink="front/catalogue/product-list" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >Product-List</a></li>
+           <li><a class="dropdown-item nav-link" [routerLink]="['front/catalogue/products-list', 'all']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}" >Product-List</a></li>
           </ul>
         </li> 
         <li class="nav-item">

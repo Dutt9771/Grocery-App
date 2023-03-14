@@ -1,29 +1,39 @@
-<p>product-list works!</p>
-
 <!-- Display the products that belong to the selected category -->
 
 <div class="card bg-body-transparent text-black">
     <img src="/assets/product_list_background.jpg" alt="" class="card-img w-100 h-auto opacity-75" height="100" >
     <div class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center">
-       <div>
-           <p id="product_list_text"class="card-title fs-1 fw-bolder">{{ category }}</p>
-       </div> 
+<div>
+  <p id="product_list_text"class="card-title fs-1 fw-bolder">{{ category }}</p>
+      </div>
+
+
     </div>
   </div>
   
-      
-      <div class="btn-group">
-          <img  src="https://img.icons8.com/fluency/48/null/filter--v1.png"/>
+      <div class="d-flex justify-content-end m-2">
+
+        <div class="btn-group">
+          
           <button type="button" class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-  </div>
+            <img  src="https://img.icons8.com/fluency/48/null/filter--v1.png"/>
+          </button>
+          <ul class="dropdown-menu" >
+            <li *ngIf="category=='all';else other_category"><a class="dropdown-item" [routerLink]="['/front/catalogue/products-list', category.category.toLowerCase()]"><input type="radio" name="radio" id="">{{category.category}}</a></li>
+            <ng-template #other_category>
+              <li><a class="dropdown-item nav-link" (click)="bysellername()">By Seller Name</a></li>
+              <li><a class="dropdown-item nav-link" (click)="byname()">By Name</a></li>
+            </ng-template>
+            <!-- <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li> -->
+          </ul>
+        </div>
         
-<!-- <div class="row">
+      </div>
+      <div *ngFor="let category of productArray">
+        {{category.category}}
+      </div>
+        <!-- <div class="row">
   <div class="col-md-4" *ngFor="let product of products">
     <div class="card my-3">
       <img [src]="product.image" alt="{{ product.name }}" class="card-img-top">

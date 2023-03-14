@@ -66,9 +66,14 @@ category:any
     this.route.paramMap.subscribe(params => {
       // Read category parameter from URL
       const category = params.get('category');
-      if (category) {
+      console.log(category)
+      if (category=='all') {
         // Filter products array based on category
-        this.productArray = this.products.filter(product => product.category === category);
+        this.productArray
+        console.log(this.productArray)
+        this.category='Fruits And Vegetables'
+      }else{
+        this.productArray = this.productArray.filter(productArray => productArray.category === category);
         this.category=category
       }
     });
@@ -149,35 +154,35 @@ category:any
       category: "fruits",
       name: "Vegetables",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
+      sellerName: "Vishvash Farms Inc.",
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Vegetables",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "Cabbage",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
+      sellerName: "Abhay Farms Inc.",
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Vegetables",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "LadiesFinger",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
+      sellerName: "Ajay Farms Inc.",
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Vegetables",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "Potato",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 3,
@@ -186,13 +191,44 @@ category:any
     },
     {
       
-      category: "Vegetables",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "Tomato",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
+      sellerName: "Vishnu Farms Inc.",
       moneyOfferPrice: 5,
       price:12,
       money: "USD",
     },
   ]
+
+  bysellername(){
+    this.productArray = this.sortBySellerName(this.productArray);
+    console.log(this.productArray)
+  }
+  byname(){
+    this.productArray = this.sortByName(this.productArray);
+    console.log(this.productArray)
+  }
+
+  sortBySellerName(products:any) {
+    return products.sort((a:any, b:any) => {
+      if (a.sellerName < b.sellerName) {
+        return -1;
+      } else if (a.sellerName > b.sellerName) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  sortByName(products:any) {
+    return products.sort((a:any, b:any) => {
+      if (a.name < b.name) {
+        return -1;
+      } else if (a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  
 }
