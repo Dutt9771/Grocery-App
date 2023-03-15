@@ -26,7 +26,7 @@
             </ng-template>
          </ul> -->
           <ul class="dropdown-menu">
-            <li  *ngFor="let category of productArray"><a class="dropdown-item" [routerLink]="['/front/catalogue/products-list', category.category.toLowerCase()]"><input type="radio" name="radio" id="">{{category.category}}</a></li>
+            <li *ngFor="let category of categories"><a class="dropdown-item" [routerLink]="['/front/catalogue/products-list', category.toLowerCase()]"><input type="radio" name="radio" id="" >{{category}}</a></li>
             <!-- <ng-template #other_category>
               <li><a class="dropdown-item nav-link" (click)="bysellername()">By Seller Name</a></li>
               <li><a class="dropdown-item nav-link" (click)="byname()">By Name</a></li>

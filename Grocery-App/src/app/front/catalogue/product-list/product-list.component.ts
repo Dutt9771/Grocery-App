@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductListService } from 'src/app/services/product-list.service';
 
@@ -69,11 +69,10 @@ category:any
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      // Read category parameter from URL
       const category = params.get('category');
       console.log(category)
       if (category=='all') {
-        // Filter products array based on category
+
         this.productArray
         console.log(this.productArray)
         this.category='Fruits And Vegetables'
@@ -81,10 +80,33 @@ category:any
         this.productArray = this.productArray.filter(productArray => productArray.category === category);
         this.category=category
       }
+
+
+      console.log(this.categories)
     });
-    // this.listservice.ProductListShow()
-    // console.log(this.listservice.ProductListShow())
+
   }
+
+
+  // checkCategory() {
+  //   this.route.paramMap.subscribe(params => {
+  //     const category = params.get('category');
+  //     console.log(category)
+  //     if (category == 'all') {
+  //       // Filter products array based on category
+  //       this.productArray
+  //       console.log(this.productArray)
+  //       this.category='Fruits And Vegetables'
+  //     } else {
+  //       this.productArray = this.productArray.filter(productArray => productArray.category === category);
+  //       this.category=category
+  //     }
+  
+  //     console.log(this.categories)
+  //   });
+  // }
+  
+
   productArray = [
     {
       imageurl:"Peach.jpg",
@@ -237,4 +259,8 @@ category:any
       return 0;
     });
   }
+  categories = Array.from(new Set(this.productArray.map(product => product.category)));
+  category_all:any = this.categories.push('all')
+  i:any
+
 }
