@@ -17,6 +17,21 @@ constructor(private router:Router){}
       quantity: '1 kg'
     },
     {
+      category: 'Fruits',
+      image: '/assets/Peach.jpg',
+      quantity: '1 kg'
+    },
+    {
+      category: 'Fruits',
+      image: '/assets/Peach.jpg',
+      quantity: '1 kg'
+    },
+    {
+      category: 'Fruits',
+      image: '/assets/Peach.jpg',
+      quantity: '1 kg'
+    },
+    {
       category: 'Vegetables',
       image: '/assets/vegetables/broccoli.jpg',
       quantity: '500 g'

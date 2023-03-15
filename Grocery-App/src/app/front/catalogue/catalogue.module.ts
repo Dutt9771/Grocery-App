@@ -8,6 +8,7 @@ import { ProductDetailsComponent } from './product-details/product-details.compo
 import { HomeComponent } from '../Dashboard/home/home.component';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
   imports: [
     CommonModule,
     CatalogueRoutingModule,
-    
+    IvyCarouselModule,
+
     CarouselModule 
     
   ]

@@ -18,6 +18,7 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     CatalogueModule,
     CarouselModule,
+    CarouselModule,
+    IvyCarouselModule
     
     
   ],
