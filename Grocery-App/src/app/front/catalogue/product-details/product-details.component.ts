@@ -77,57 +77,7 @@ export class ProductDetailsComponent {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 5,
-      price:12,
-      money: "USD",
-    },
+    }
     
   ];
 
