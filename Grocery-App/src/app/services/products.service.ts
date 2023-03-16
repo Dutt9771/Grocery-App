@@ -1,17 +1,14 @@
-import { Component } from '@angular/core';
+import { Injectable } from '@angular/core';
 
-
-@Component({
-  selector: 'app-product-details',
-  templateUrl: './product-details.component.html',
-  styleUrls: ['./product-details.component.css']
+@Injectable({
+  providedIn: 'root'
 })
-export class ProductDetailsComponent {
-  productArray = [
+export class ProductsService {
+  productArray:any[] = [
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice1",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 8,
@@ -21,7 +18,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice2",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 9,
@@ -31,7 +28,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice3",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -41,7 +38,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice4",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -50,8 +47,8 @@ export class ProductDetailsComponent {
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice",
+      category: "fruits",
+      name: "Organic Brown Rice5",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 2,
@@ -60,7 +57,7 @@ export class ProductDetailsComponent {
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
+      category: "fruits",
       name: "Vegetables",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
@@ -70,7 +67,7 @@ export class ProductDetailsComponent {
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
+      category: "fruits",
       name: "Vegetables",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
@@ -80,8 +77,38 @@ export class ProductDetailsComponent {
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
+      category: "fruits",
       name: "Vegetables",
+      weight: "500 grams",
+      sellerName: "Vishvash Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"Vegetables.jpg",
+      category: "vegetables",
+      name: "Cabbage",
+      weight: "500 grams",
+      sellerName: "Abhay Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"Vegetables.jpg",
+      category: "vegetables",
+      name: "LadiesFinger",
+      weight: "500 grams",
+      sellerName: "Ajay Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"Vegetables.jpg",
+      category: "vegetables",
+      name: "Potato",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 3,
@@ -89,99 +116,18 @@ export class ProductDetailsComponent {
       money: "USD",
     },
     {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
+      
+      category: "vegetables",
+      name: "Tomato",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
+      sellerName: "Vishnu Farms Inc.",
+      moneyOfferPrice: 5,
+      price:12,
       money: "USD",
     },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    
-  ];
+  ]
 
-
-
-
-
-
-
-
-
-
-
-
- 
-  
+    getProducts() {
+      return this.productArray
+  }
 }

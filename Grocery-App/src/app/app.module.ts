@@ -13,12 +13,13 @@ import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, So
 import { AuthUserGuard } from './auth-user.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
-import { ProductDetailsComponent } from './front/catalogue/product-details/product-details.component';
-import { CatalogueModule } from './front/catalogue/catalogue.module';
+
+
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { CatalogueModule } from './front/catalogue/catalogue.module';
 
 @NgModule({
   declarations: [

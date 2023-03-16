@@ -1,6 +1,7 @@
 import { AfterContentInit, Component, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductListService } from 'src/app/services/product-list.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-product-list',
@@ -8,10 +9,11 @@ import { ProductListService } from 'src/app/services/product-list.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
- 
 
-  constructor(private route: ActivatedRoute,private listservice:ProductListService) {
-    
+  defaultCategory='all';
+  selectedCategory:string;
+  constructor(private route: ActivatedRoute,private productservice:ProductsService) {
+    this.selectedCategory = this.defaultCategory;
   }
 category:any
   // products: any[] = [
@@ -66,24 +68,27 @@ category:any
   //   }
   // ];
 
-
+  Product_Arr:any
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      const category = params.get('category');
-      console.log(category)
-      if (category=='all') {
+    this.Product_Arr=this.productservice.getProducts()
+    this.Filter_Category(this.selectedCategory);
 
-        this.productArray
-        console.log(this.productArray)
-        this.category='Fruits And Vegetables'
-      }else{
-        this.productArray = this.productArray.filter(productArray => productArray.category === category);
-        this.category=category
-      }
+    // this.route.paramMap.subscribe(params => {
+    //   const category = params.get('category');
+    //   console.log(category)
+    //   if (category=='all') {
+
+    //     this.productArray
+    //     console.log(this.productArray)
+    //     this.category='Fruits And Vegetables'
+    //   }else{
+    //     this.productArray = this.productArray.filter(productArray => productArray.category === category);
+    //     this.category=category
+    //   }
 
 
-      console.log(this.categories)
-    });
+    //   console.log(this.categories)
+    // });
 
   }
 
@@ -107,11 +112,11 @@ category:any
   // }
   
 
-  productArray = [
+  productArray:any[] = [
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice1",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 8,
@@ -121,7 +126,7 @@ category:any
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice2",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 9,
@@ -131,7 +136,7 @@ category:any
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice3",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -141,7 +146,7 @@ category:any
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice4",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -151,7 +156,7 @@ category:any
     {
       imageurl:"Vegetables.jpg",
       category: "fruits",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice5",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 2,
@@ -260,7 +265,25 @@ category:any
     });
   }
   categories = Array.from(new Set(this.productArray.map(product => product.category)));
-  category_all:any = this.categories.push('all')
-  i:any
-
+  category_all:any = this.categories.unshift('all')
+  filteredItems:any[]=[]
+  Filter_Category(category:any){
+    this.selectedCategory = 'all';
+  //   let tempArr: any[]=[]
+  //   // console.log("Temp",category_value)
+  //   console.log(this.productArray.length)
+  //   for(let i=0;i<this.productArray.length;i++){
+  //     if(this.productArray[i].category===this.categories[i]){
+  //       let temp = tempArr.push(this.productArray[i])
+  //     }
+  //   }
+  //   // console.log("Data",tempArr)
+  //   return tempArr
+if(category==='all'){
+  this.filteredItems=this.productArray
+}else{
+  this.filteredItems = this.productArray.filter(item => item.category === category);
+  console.log(this.filteredItems)
+}
+}
 }
