@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, OnChanges, OnInit } from '@angular/core';
+import { AfterContentInit, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductListService } from 'src/app/services/product-list.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -9,13 +9,137 @@ import { ProductsService } from 'src/app/services/products.service';
   styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent implements OnInit {
-
   defaultCategory='all';
   selectedCategory:string;
   constructor(private route: ActivatedRoute,private productservice:ProductsService) {
     this.selectedCategory = this.defaultCategory;
   }
 category:any
+
+
+productArray:any[] = [
+  {
+    imageurl:"Peach.jpg",
+    category: "Grocery",
+    name: "Organic Brown Rice1",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 8,
+    price:12,
+    money: "USD",
+  },
+  {
+    imageurl:"Peach.jpg",
+    category: "Grocery",
+    name: "Organic Brown Rice2",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 9,
+    price:12,
+    money: "USD",
+  },
+  {
+    imageurl:"Peach.jpg",
+    category: "Grocery",
+    name: "Organic Brown Rice3",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 10,
+    price:12,
+    money: "USD",
+  },
+  {
+    imageurl:"Peach.jpg",
+    category: "Grocery",
+    name: "Organic Brown Rice4",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 10,
+    money: "USD",
+    price:20,
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "fruits",
+    name: "Organic Brown Rice5",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 2,
+    price:5,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "fruits",
+    name: "Vegetables",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "fruits",
+    name: "Vegetables",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "fruits",
+    name: "Vegetables",
+    weight: "500 grams",
+    sellerName: "Vishvash Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "vegetables",
+    name: "Cabbage",
+    weight: "500 grams",
+    sellerName: "Abhay Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "vegetables",
+    name: "LadiesFinger",
+    weight: "500 grams",
+    sellerName: "Ajay Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    imageurl:"Vegetables.jpg",
+    category: "vegetables",
+    name: "Potato",
+    weight: "500 grams",
+    sellerName: "Organic Farms Inc.",
+    moneyOfferPrice: 3,
+    price:10,
+    money: "USD",
+  },
+  {
+    
+    category: "vegetables",
+    name: "Tomato",
+    weight: "500 grams",
+    sellerName: "Vishnu Farms Inc.",
+    moneyOfferPrice: 5,
+    price:12,
+    money: "USD",
+  },
+]
+
   // products: any[] = [
   //   {
   //     name: 'Apple',
@@ -70,171 +194,76 @@ category:any
 
   Product_Arr:any
   ngOnInit() {
-    this.Product_Arr=this.productservice.getProducts()
+    this.filteredItems=this.productservice.getProducts()
+    
+    this.route.paramMap.subscribe(params => {
+      const categories = params.get('category');
+    })
+if(this.categories){
+
+  this.route.paramMap.subscribe(params => {
+    const categories = params.get('category');
+    console.log(categories)
+    if (categories=='all') {
+
+      this.filteredItems
+        console.log("filteredItems",this.filteredItems)
+        this.category='Fruits And Vegetables'
+      }else{
+        this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.category === categories);
+        this.category=categories
+      }
+      
+      
+      console.log("Categories",this.categories)
+    });
+  }else{
     this.Filter_Category(this.selectedCategory);
-
-    // this.route.paramMap.subscribe(params => {
-    //   const category = params.get('category');
-    //   console.log(category)
-    //   if (category=='all') {
-
-    //     this.productArray
-    //     console.log(this.productArray)
-    //     this.category='Fruits And Vegetables'
-    //   }else{
-    //     this.productArray = this.productArray.filter(productArray => productArray.category === category);
-    //     this.category=category
-    //   }
-
-
-    //   console.log(this.categories)
-    // });
-
+  }
+    
   }
 
-
-  // checkCategory() {
-  //   this.route.paramMap.subscribe(params => {
-  //     const category = params.get('category');
-  //     console.log(category)
-  //     if (category == 'all') {
-  //       // Filter products array based on category
-  //       this.productArray
-  //       console.log(this.productArray)
-  //       this.category='Fruits And Vegetables'
-  //     } else {
-  //       this.productArray = this.productArray.filter(productArray => productArray.category === category);
-  //       this.category=category
+  categories = Array.from(new Set(this.productArray.map(product => product.category)));
+  category_all:any = this.categories.unshift('all')
+  filteredItems:any[]=[]
+  Filter_Category(category:any){
+    this.selectedCategory = 'all';
+  //   let tempArr: any[]=[]
+  //   // console.log("Temp",category_value)
+  //   console.log(this.productArray.length)
+  //   for(let i=0;i<this.productArray.length;i++){
+  //     if(this.productArray[i].category===this.categories[i]){
+  //       let temp = tempArr.push(this.productArray[i])
   //     }
-  
-  //     console.log(this.categories)
-  //   });
-  // }
-  
+  //   }
+  //   // console.log("Data",tempArr)
+  //   return tempArr
+if(category==='all'){
+  this.filteredItems=this.productArray
+}else{
+  this.filteredItems = this.productArray.filter(item => item.category === category);
+  console.log(this.filteredItems)
+}
+}
 
-  productArray:any[] = [
-    {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice1",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 8,
-      price:12,
-      money: "USD",
-    },
-    {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice2",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 9,
-      price:12,
-      money: "USD",
-    },
-    {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice3",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 10,
-      price:12,
-      money: "USD",
-    },
-    {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice4",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 10,
-      money: "USD",
-      price:20,
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "fruits",
-      name: "Organic Brown Rice5",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 2,
-      price:5,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "fruits",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "fruits",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "fruits",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Vishvash Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "vegetables",
-      name: "Cabbage",
-      weight: "500 grams",
-      sellerName: "Abhay Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "vegetables",
-      name: "LadiesFinger",
-      weight: "500 grams",
-      sellerName: "Ajay Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "vegetables",
-      name: "Potato",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      
-      category: "vegetables",
-      name: "Tomato",
-      weight: "500 grams",
-      sellerName: "Vishnu Farms Inc.",
-      moneyOfferPrice: 5,
-      price:12,
-      money: "USD",
-    },
-  ]
-
+  checkCategory() {
+    this.route.paramMap.subscribe(params => {
+      const category = params.get('category');
+      console.log(category)
+      if (category == 'all') {
+        // Filter products array based on category
+        this.productArray
+        console.log(this.productArray)
+        this.category='Grocery Products'
+      } else {
+        this.productArray = this.productArray.filter(productArray => productArray.category === category);
+        this.category=category
+      }
+  
+      console.log(this.categories)
+    });
+  }
+  
   bysellername(){
     this.productArray = this.sortBySellerName(this.productArray);
     console.log(this.productArray)
@@ -264,26 +293,6 @@ category:any
       return 0;
     });
   }
-  categories = Array.from(new Set(this.productArray.map(product => product.category)));
-  category_all:any = this.categories.unshift('all')
-  filteredItems:any[]=[]
-  Filter_Category(category:any){
-    this.selectedCategory = 'all';
-  //   let tempArr: any[]=[]
-  //   // console.log("Temp",category_value)
-  //   console.log(this.productArray.length)
-  //   for(let i=0;i<this.productArray.length;i++){
-  //     if(this.productArray[i].category===this.categories[i]){
-  //       let temp = tempArr.push(this.productArray[i])
-  //     }
-  //   }
-  //   // console.log("Data",tempArr)
-  //   return tempArr
-if(category==='all'){
-  this.filteredItems=this.productArray
-}else{
-  this.filteredItems = this.productArray.filter(item => item.category === category);
-  console.log(this.filteredItems)
-}
-}
+
+
 }

@@ -105,4 +105,10 @@ Category_Products(Category){
 
 }
 
+Clicked_category:any
+Category_Show(category:any){
+  this.Clicked_category=category
+  console.log(category)
+}
+
 }
