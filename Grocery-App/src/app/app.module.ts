@@ -21,12 +21,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
 
+
 @NgModule({
   declarations: [
     AppComponent,
     ErrorPageComponent,
     RegistrationComponent,
     LoginComponent,
+  
 
   ],
   imports: [

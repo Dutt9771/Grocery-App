@@ -134,7 +134,11 @@
               </div>
           </div>
         </div> -->
-
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="filterValue">
+          <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
+          
+        </form>
         <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
             <div class="col" *ngFor="let product of filteredItems">

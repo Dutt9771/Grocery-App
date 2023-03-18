@@ -9,6 +9,7 @@ import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 
 
+
 @NgModule({
   declarations: [
     UserProfileComponent,

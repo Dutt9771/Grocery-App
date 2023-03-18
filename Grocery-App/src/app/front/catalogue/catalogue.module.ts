@@ -9,6 +9,7 @@ import { HomeComponent } from '../Dashboard/home/home.component';
 
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -16,13 +17,14 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
     CategoryComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    HomeComponent
+    HomeComponent,
+    
   ],
   imports: [
     CommonModule,
     CatalogueRoutingModule,
     IvyCarouselModule,
-
+    FormsModule,
     CarouselModule 
     
   ]

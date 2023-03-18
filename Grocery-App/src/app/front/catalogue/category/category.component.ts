@@ -3,15 +3,18 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { ProductsService } from 'src/app/services/products.service';
 
+
 @Component({
   selector: 'app-category',
   templateUrl: './category.component.html',
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent {
+
 constructor(private router:Router,private productservice:ProductsService){}
 Product_Arr:any
 ngOnInit(){
+ 
   this.Product_Arr=this.productservice.getProducts()
   console.log(this.Product_Arr)
 }
@@ -110,5 +113,7 @@ Category_Show(category:any){
   this.Clicked_category=category
   console.log(category)
 }
+
+
 
 }

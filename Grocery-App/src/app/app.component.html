@@ -58,14 +58,14 @@
           </ul>
         </li> 
         <li class="nav-item">
-          <a  class="nav-link fs-5" routerLink="front/user/registration" routerLinkActive="active">Registration</a>
+          <a  class="nav-link fs-5" routerLink="front/user/registration" routerLinkActive="active" [hidden]="!Registered_User">Registration</a>
         </li>
         <li class="nav-item">
-          <a  class="nav-link fs-5"routerLink="front/user/login" routerLinkActive="active"  [hidden]="!Login_Logout_msg">Login</a>
+          <a  class="nav-link fs-5"routerLink="front/user/login" routerLinkActive="active" *ngIf="Login_Logout_msg=='Login';else Logout">{{Login_Logout_msg}}</a>
          </li>
-         <ng-template #Logout_msg> 
+       <ng-template #Logout>
            <li class="nav-item">
-             <a  class="nav-link fs-5" (click)="logout()" [hidden]="Login_Logout_msg">Logout</a>
+             <a class="nav-link fs-5" (click)="logout()" >{{Login_Logout_msg}}</a>
             </li>
           </ng-template>
 <!--         
@@ -82,8 +82,8 @@
         </li> -->
       </ul>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" [(ngModel)]="filterValue">
+        <!-- <button class="btn btn-outline-success" type="submit">Search</button> -->
         
       </form>
     </div>
