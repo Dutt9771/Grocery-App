@@ -10,8 +10,10 @@ export class AuthUserGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
-      const user = localStorage.getItem('User')
-      if(user){
+      
+      const user = localStorage.getItem('User');
+      const RegisterData= JSON.parse(localStorage.getItem('Register_User'));
+      if(user || RegisterData){
         return true;
       }
       return false;

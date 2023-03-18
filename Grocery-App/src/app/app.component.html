@@ -61,11 +61,13 @@
           <a  class="nav-link fs-5" routerLink="front/user/registration" routerLinkActive="active">Registration</a>
         </li>
         <li class="nav-item">
-          <a  class="nav-link fs-5"routerLink="front/user/login" routerLinkActive="active" >Login</a>
+          <a  class="nav-link fs-5"routerLink="front/user/login" routerLinkActive="active"  [hidden]="!Login_Logout_msg">Login</a>
          </li>
-        <li class="nav-item">
-          <a  class="nav-link fs-5" (click)="logout()">Logout</a>
-        </li>
+         <ng-template #Logout_msg> 
+           <li class="nav-item">
+             <a  class="nav-link fs-5" (click)="logout()" [hidden]="Login_Logout_msg">Logout</a>
+            </li>
+          </ng-template>
 <!--         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

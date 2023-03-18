@@ -8,11 +8,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class UserProfileComponent implements OnInit {
   public user: any;
-
+  RegisterData:any
   constructor(private route: ActivatedRoute) { }
   ngOnInit(): void {
       this.user = localStorage.getItem('User');
-      if (this.user) {
+      this.RegisterData= JSON.parse(localStorage.getItem('Register_User'));
+      if (this.user || this.RegisterData) {
         try {
           this.user = JSON.parse(this.user);
         } catch (e) {

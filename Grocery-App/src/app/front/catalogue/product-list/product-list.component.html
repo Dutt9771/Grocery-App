@@ -23,7 +23,7 @@
           </button>
          <form >
           <ul class="dropdown-menu">
-            <li *ngFor="let category of categories" ><label class="dropdown-item" ><input type="radio" name="category" [value]="category" [checked]="category === defaultCategory" (click)="Filter_Category(category)">{{category}}</label></li>
+            <li *ngFor="let category of categories" ><button class="dropdown-item" type="button" name="category" [value]="category" (click)="Filter_Category(category)">{{category}}</button></li>
             <!-- <ng-template #other_category>
               <li><a class="dropdown-item nav-link" (click)="bysellername()">By Seller Name</a></li>
               <li><a class="dropdown-item nav-link" (click)="byname()">By Name</a></li>
@@ -101,7 +101,7 @@
             </div>
         </div>
      -->
-        <div class="container">
+        <!-- <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
             <div class="col" *ngFor="let product of filteredItems">
                 <div class="card bg-white p-2 m-2">
@@ -133,7 +133,7 @@
                   </div>
               </div>
           </div>
-        </div>
+        </div> -->
 
         <div class="container">
           <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">

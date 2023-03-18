@@ -1,0 +1,67 @@
+{
+  "Register": [
+    {
+      "name": "ram",
+      "email": "ram@gmail.com",
+      "password": "ram123",
+      "confirmpassword": "ram123",
+      "id": 1
+    },
+    {
+      "name": "Dutt Mistry",
+      "email": "dutta.mistry@gmail.com",
+      "password": "Dutt@9771",
+      "confirm_password": "Dutt@9771",
+      "id": 2
+    },
+    {
+      "name": "Dutt Mistry9771",
+      "email": "dutta.mistry@gmail.com",
+      "password": "Dutt@9498",
+      "confirm_password": "Dutt@9498",
+      "id": 3
+    },
+    {
+      "name": "Parag Paramar",
+      "email": "parag@gmail.com",
+      "password": "Parag123456",
+      "confirm_password": "Parag123456",
+      "id": 4
+    },
+    {
+      "name": "Dutt Mistry",
+      "email": "dutta.mistry9498@gmail.com",
+      "password": "Dutt@9771",
+      "confirm_password": "Dutt@9771",
+      "id": 5
+    },
+    {
+      "name": "Dutt Mistry",
+      "email": "dutta.mistry@gmail.com",
+      "password": "12345678",
+      "confirm_password": "12345678",
+      "id": 6
+    },
+    {
+      "name": "Dutt Mistry9771",
+      "email": "dutta.mistry9771@gmail.com",
+      "password": "12345678",
+      "confirm_password": "12345678",
+      "id": 7
+    },
+    {
+      "name": "Mistry Duttkumar Amitbhai",
+      "email": "dutta.mistry@gmail.com",
+      "password": "12345678",
+      "confirm_password": "12345678",
+      "id": 8
+    },
+    {
+      "name": "Mistry Duttkumar Amitbhai",
+      "email": "dutta.mistry@gmail.com",
+      "password": "12345678",
+      "confirm_password": "12345678",
+      "id": 9
+    }
+  ]
+}

@@ -11,7 +11,7 @@ import { RegistrationComponent } from './front/user/registration/registration.co
 import { LoginComponent } from './front/user/login/login.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 
@@ -43,7 +43,8 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
     CatalogueModule,
     CarouselModule,
     CarouselModule,
-    IvyCarouselModule
+    IvyCarouselModule,
+    HttpClientModule
     
     
   ],

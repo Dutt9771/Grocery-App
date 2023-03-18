@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
+import { RegisterService } from 'src/app/services/register.service';
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
@@ -7,7 +8,7 @@ import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,V
 })
 export class RegistrationComponent {
 
-  
+  constructor(private _RegisterService:RegisterService){}
   // For State and City
   selectedState: any;
   selectedCity: any;
@@ -180,24 +181,25 @@ export class RegistrationComponent {
       Validators.required,
       Validators.minLength(8),
       this.matchPasswordValidator()
-    ]),address:new FormControl ("",[
-      Validators.required
     ]),
-    address_2:new FormControl ("",[
-      Validators.required
-    ]),
-    city:new FormControl ("",[
-      Validators.required
-    ]),
-    state:new FormControl ("",[
-      Validators.required
-    ]),
-    zip:new FormControl ("",[
-      Validators.required,
-      Validators.maxLength(6),
-      Validators.minLength(4),
-      Validators.pattern('^[0-9]{6}(?:-[0-9]{4})?$')
-    ]),
+     //,address:new FormControl ("",[
+    //   Validators.required
+    // ]),
+    // address_2:new FormControl ("",[
+    //   Validators.required
+    // ]),
+    // city:new FormControl ("",[
+    //   Validators.required
+    // ]),
+    // state:new FormControl ("",[
+    //   Validators.required
+    // ]),
+    // zip:new FormControl ("",[
+    //   Validators.required,
+    //   Validators.maxLength(6),
+    //   Validators.minLength(4),
+    //   Validators.pattern('^[0-9]{6}(?:-[0-9]{4})?$')
+    // ]),
 
     })
 
@@ -206,7 +208,7 @@ export class RegistrationComponent {
     }
     Reg_click(){
         console.log(this.Register.value)
-        
+        this._RegisterService.get_Register_data(this.Register.value)
   
     }
     // matchPasswordValidator(): ValidatorFn {

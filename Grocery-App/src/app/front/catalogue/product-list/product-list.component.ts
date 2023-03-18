@@ -193,13 +193,14 @@ productArray:any[] = [
   // ];
 
   Product_Arr:any
+  category_path
   ngOnInit() {
     this.filteredItems=this.productservice.getProducts()
-    
+    ;
     this.route.paramMap.subscribe(params => {
-      const categories = params.get('category');
+      this.category_path= params.get('category');
     })
-if(this.categories){
+if(this.category_path){
 
   this.route.paramMap.subscribe(params => {
     const categories = params.get('category');
