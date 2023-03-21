@@ -33,7 +33,7 @@
     [autoplayInterval]="3000"
     [pauseOnHover]="true"
    >
-    <div class="carousel-cell" *ngFor="let product of productArray">
+    <div class="carousel-cell" *ngFor="let product of productArray"  [routerLink]="['/front/catalogue/product-details', product.name.toLowerCase()]">
         <div class="card bg-white p-2 m-2 w-auto">
             <img
                 class="rounded mx-auto d-block"

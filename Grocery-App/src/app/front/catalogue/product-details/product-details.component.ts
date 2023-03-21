@@ -171,13 +171,17 @@ quantity=1;
   // }
     
   }
-  quantitymin(price){
+  quantitymin(){
     if(this.quantity>1){
      this.quantity-=1;
     }
   }
-  quantitymax(price){
+  quantitymax(){
     
     this.quantity+=1;
+  }
+
+  Add_cart(){
+    this.filteredItems
   }
 }
