@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductsService } from 'src/app/services/products.service';
 
 
 @Component({
@@ -7,11 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./product-details.component.css']
 })
 export class ProductDetailsComponent {
-  productArray = [
+  productArray:any[] = [
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice1",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 8,
@@ -21,7 +23,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice2",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 9,
@@ -31,7 +33,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice3",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -41,7 +43,7 @@ export class ProductDetailsComponent {
     {
       imageurl:"Peach.jpg",
       category: "Grocery",
-      name: "Organic Brown Rice",
+      name: "Organic Brown Rice4",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -49,9 +51,9 @@ export class ProductDetailsComponent {
       price:20,
     },
     {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice",
+      imageurl:"fruits.jpg",
+      category: "fruits",
+      name: "Fruits",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 2,
@@ -59,9 +61,59 @@ export class ProductDetailsComponent {
       money: "USD",
     },
     {
+      imageurl:"fruits.jpg",
+      category: "fruits",
+      name: "Fruits",
+      weight: "500 grams",
+      sellerName: "Organic Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"fruits.jpg",
+      category: "fruits",
+      name: "Fruits",
+      weight: "500 grams",
+      sellerName: "Organic Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"fruits.jpg",
+      category: "fruits",
+      name: "Fruits",
+      weight: "500 grams",
+      sellerName: "Vishvash Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "Cabbage",
+      weight: "500 grams",
+      sellerName: "Abhay Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"Vegetables.jpg",
+      category: "vegetables",
+      name: "LadiesFinger",
+      weight: "500 grams",
+      sellerName: "Ajay Farms Inc.",
+      moneyOfferPrice: 3,
+      price:10,
+      money: "USD",
+    },
+    {
+      imageurl:"Vegetables.jpg",
+      category: "vegetables",
+      name: "Potato",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 3,
@@ -70,118 +122,52 @@ export class ProductDetailsComponent {
     },
     {
       imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
+      category: "vegetables",
+      name: "Tomato",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
+      sellerName: "Vishnu Farms Inc.",
+      moneyOfferPrice: 5,
+      price:12,
       money: "USD",
     },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
-    {
-      imageurl:"Vegetables.jpg",
-      category: "Grocery",
-      name: "Vegetables",
-      weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
-      moneyOfferPrice: 3,
-      price:10,
-      money: "USD",
-    },
+  ]
+
+  product_item:any
+  filteredItems:any
+  category_path:any
+  product_name:any
+constructor(private route:ActivatedRoute,private _productsservice:ProductsService){
+  this.route.paramMap.subscribe(params=>{
+    this.product_name=params.get('product_name')
+  })
+  console.log(this.product_name)
+}
+  ngOnInit() {
+    this.filteredItems=this._productsservice.getProducts()
     
-  ];
-
-
-
-
-
-
-
-
-
-
-
-
- 
+    this.route.paramMap.subscribe(params => {
+      this.category_path= params.get('product');
+    })
+    console.log(this.category_path)
   
+  if(this.category_path){
+
+    this.route.paramMap.subscribe(params => {
+      const product = params.get('product');
+      console.log(product)
+      
+        
+          this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name === product);
+          this.product_item=product
+        
+        
+        
+        console.log("Product_item",this.product_item)
+      });
+    // }else{
+    //   this.Filter_Category(this.selectedCategory);
+    // }
+  }
+    
+  }
 }

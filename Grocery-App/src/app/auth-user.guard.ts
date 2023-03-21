@@ -11,11 +11,13 @@ export class AuthUserGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
       
-      const user = localStorage.getItem('User');
-      const RegisterData= JSON.parse(localStorage.getItem('Register_User'));
+      const user = sessionStorage.getItem('User');
+      const RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
       if(user || RegisterData){
+       
         return true;
       }
+      alert("Please Login")
       return false;
   }
   

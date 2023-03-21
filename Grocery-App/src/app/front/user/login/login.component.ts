@@ -71,7 +71,7 @@ login_click(){
     let btn=this._RegisterService.Login_Logout_msg.next("Logout")
     console.log(btn)
   }else{
-    this.invalid = "Invalid Credential"
+    this.invalid = "Invalid Credential Please Register"
   }
 }else{
   alert("Please register")

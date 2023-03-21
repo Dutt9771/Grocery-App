@@ -10,6 +10,7 @@ import { HomeComponent } from '../Dashboard/home/home.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { FormsModule } from '@angular/forms';
+import { ProductsComponent } from './products/products.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { FormsModule } from '@angular/forms';
     ProductListComponent,
     ProductDetailsComponent,
     HomeComponent,
+    ProductsComponent,
     
   ],
   imports: [

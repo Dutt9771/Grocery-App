@@ -111,6 +111,20 @@
       "password": "123123123",
       "confirm_password": "123123123",
       "id": 16
+    },
+    {
+      "name": "Dutt Mistry",
+      "email": "dutta.mistry@gmail.com",
+      "password": "123456789",
+      "confirm_password": "123456789",
+      "id": 17
+    },
+    {
+      "name": "Dutt Mistry",
+      "email": "dutta.mistry@gmail.com",
+      "password": "12345678",
+      "confirm_password": "12345678",
+      "id": 18
     }
   ]
 }

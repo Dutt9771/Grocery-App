@@ -39,16 +39,15 @@ product.category.toLowerCase()]" -->
     [height]="300"
     [autoplayInterval]="3000"
     [pauseOnHover]="true">
-    <div class="carousel-cell" *ngFor="let product of grocery_items ">
+    <div class="carousel-cell" *ngFor="let product of grocery_items">
         <div
-            class="card bg-warning-subtle p-3 m-2"
+            class="card bg-transparent p-3 m-2"
             (click)="Category_Products(product.category)">
-            <img src="/assets/{{product.image}}" alt="" width="120" height="120"/>
+            <img src="{{product.image}}" alt="" width="120" height="120"/>
             <div class="card-body text-center">
                 <h4>{{product.category }}</h4>
                 <small>{{product.quantity}}</small>
             </div>
         </div>
-
     </div>
 </carousel>

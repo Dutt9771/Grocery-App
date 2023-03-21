@@ -1,5 +1,5 @@
 export class User {
-    name: any = user.name
+    name: any = User.name
     email: any;
     photoUrl: any;
     // add other properties as needed

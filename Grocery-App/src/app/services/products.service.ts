@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -46,9 +47,9 @@ export class ProductsService {
       price:20,
     },
     {
-      imageurl:"Vegetables.jpg",
+      imageurl:"fruits.jpg",
       category: "fruits",
-      name: "Organic Brown Rice5",
+      name: "Fruits",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 2,
@@ -56,9 +57,9 @@ export class ProductsService {
       money: "USD",
     },
     {
-      imageurl:"Vegetables.jpg",
+      imageurl:"fruits.jpg",
       category: "fruits",
-      name: "Vegetables",
+      name: "Fruits",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 3,
@@ -66,9 +67,9 @@ export class ProductsService {
       money: "USD",
     },
     {
-      imageurl:"Vegetables.jpg",
+      imageurl:"fruits.jpg",
       category: "fruits",
-      name: "Vegetables",
+      name: "Fruits",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 3,
@@ -76,9 +77,9 @@ export class ProductsService {
       money: "USD",
     },
     {
-      imageurl:"Vegetables.jpg",
+      imageurl:"fruits.jpg",
       category: "fruits",
-      name: "Vegetables",
+      name: "Fruits",
       weight: "500 grams",
       sellerName: "Vishvash Farms Inc.",
       moneyOfferPrice: 3,
@@ -116,7 +117,7 @@ export class ProductsService {
       money: "USD",
     },
     {
-      
+      imageurl:"Vegetables.jpg",
       category: "vegetables",
       name: "Tomato",
       weight: "500 grams",
@@ -130,4 +131,18 @@ export class ProductsService {
     getProducts() {
       return this.productArray
   }
+  name:any
+  constructor(private route:ActivatedRoute) { }
+  // ProductShow(){
+  // this.route.paramMap.subscribe(params => {
+  //   // Read category parameter from URL
+  //   const productOnRoute = params.get('product');
+  //   console.log(productOnRoute)
+  //     this.productArray = this.productArray.filter(productArray => productArray.name.toLowerCase() === productOnRoute);
+  //     this.name=productOnRoute
+  //     return this.productArray
+    
+  // });
+  
+  // }
 }

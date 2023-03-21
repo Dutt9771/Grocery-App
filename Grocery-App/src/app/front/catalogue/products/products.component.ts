@@ -1,10 +1,12 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 
-@Injectable({
-  providedIn: 'root'
+@Component({
+  selector: 'app-products',
+  templateUrl: './products.component.html',
+  styleUrls: ['./products.component.css']
 })
-export class ProductListService {
+export class ProductsComponent {
+
   productArray:any[] = [
     {
       imageurl:"Peach.jpg",
@@ -127,25 +129,6 @@ export class ProductListService {
       money: "USD",
     },
   ]
-  category: any;
 
-  constructor(private route:ActivatedRoute) { }
-//   ProductListShow(){
-//   this.route.paramMap.subscribe(params => {
-//     // Read category parameter from URL
-//     const categoryOnRoute = params.get('category');
-//     console.log(categoryOnRoute)
-//     if (categoryOnRoute=='all') {
-//       // Filter products array based on category
-//       console.log(this.productArray)
-//       this.category='Fruits And Vegetables'
-//       return this.productArray
-//     }else{
-//       this.productArray = this.productArray.filter(productArray => productArray.category === categoryOnRoute);
-//       this.category=categoryOnRoute
-//       return this.productArray
-//     }
-//   });
   
-// }
 }

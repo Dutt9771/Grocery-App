@@ -82,8 +82,12 @@
     <div class="col-10">
       
     </div> -->
-    <div class="d-grid gap-2 col-10 d-md-block">
-      <button type="submit" [disabled]="!Register.valid" class="btn btn-primary">Sign in</button>
-    </div>
+  <div class="d-grid gap-2 col-10 d-md-block">
+    <button type="submit" [disabled]="!Register.valid" class="btn btn-primary">Sign in</button>
+</div>
+
+<div class="d-grid gap-2 col-10 d-md-block" *ngIf="!Register.valid">
+  <span class="text-danger">Please Enter all Details</span>
+</div>
 
   </form>

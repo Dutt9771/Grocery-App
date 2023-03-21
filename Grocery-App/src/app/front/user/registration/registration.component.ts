@@ -206,9 +206,13 @@ export class RegistrationComponent {
     get get_Register(){
       return this.Register.controls
     }
+
     Reg_click(){
+      if(this.Register.valid){
+
         console.log(this.Register.value)
         this._RegisterService.get_Register_data(this.Register.value)
+      }
   
     }
     // matchPasswordValidator(): ValidatorFn {

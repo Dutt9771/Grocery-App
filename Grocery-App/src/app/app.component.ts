@@ -21,6 +21,8 @@ export class AppComponent {
   RegisterData:any
   User:any
   LoginData:any
+
+
   ngOnInit(){
     
     this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));

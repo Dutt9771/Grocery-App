@@ -59,9 +59,9 @@ productArray:any[] = [
     price:20,
   },
   {
-    imageurl:"Vegetables.jpg",
+    imageurl:"fruits.jpg",
     category: "fruits",
-    name: "Organic Brown Rice5",
+    name: "Fruits",
     weight: "500 grams",
     sellerName: "Organic Farms Inc.",
     moneyOfferPrice: 2,
@@ -69,9 +69,9 @@ productArray:any[] = [
     money: "USD",
   },
   {
-    imageurl:"Vegetables.jpg",
+    imageurl:"fruits.jpg",
     category: "fruits",
-    name: "Vegetables",
+    name: "Fruits",
     weight: "500 grams",
     sellerName: "Organic Farms Inc.",
     moneyOfferPrice: 3,
@@ -79,9 +79,9 @@ productArray:any[] = [
     money: "USD",
   },
   {
-    imageurl:"Vegetables.jpg",
+    imageurl:"fruits.jpg",
     category: "fruits",
-    name: "Vegetables",
+    name: "Fruits",
     weight: "500 grams",
     sellerName: "Organic Farms Inc.",
     moneyOfferPrice: 3,
@@ -89,9 +89,9 @@ productArray:any[] = [
     money: "USD",
   },
   {
-    imageurl:"Vegetables.jpg",
+    imageurl:"fruits.jpg",
     category: "fruits",
-    name: "Vegetables",
+    name: "Fruits",
     weight: "500 grams",
     sellerName: "Vishvash Farms Inc.",
     moneyOfferPrice: 3,
@@ -129,7 +129,7 @@ productArray:any[] = [
     money: "USD",
   },
   {
-    
+    imageurl:"Vegetables.jpg",
     category: "vegetables",
     name: "Tomato",
     weight: "500 grams",
@@ -148,6 +148,7 @@ productArray:any[] = [
     ;
     this.route.paramMap.subscribe(params => {
       this.category_path= params.get('category');
+      console.log(this.filteredItems)
     })
 if(this.category_path){
 
@@ -214,35 +215,35 @@ if(category==='all'){
     });
   }
   
-  bysellername(){
-    this.productArray = this.sortBySellerName(this.productArray);
-    console.log(this.productArray)
-  }
-  byname(){
-    this.productArray = this.sortByName(this.productArray);
-    console.log(this.productArray)
-  }
+  // bysellername(){
+  //   this.productArray = this.sortBySellerName(this.productArray);
+  //   console.log(this.productArray)
+  // }
+  // byname(){
+  //   this.productArray = this.sortByName(this.productArray);
+  //   console.log(this.productArray)
+  // }
 
-  sortBySellerName(products:any) {
-    return products.sort((a:any, b:any) => {
-      if (a.sellerName < b.sellerName) {
-        return -1;
-      } else if (a.sellerName > b.sellerName) {
-        return 1;
-      }
-      return 0;
-    });
-  }
-  sortByName(products:any) {
-    return products.sort((a:any, b:any) => {
-      if (a.name < b.name) {
-        return -1;
-      } else if (a.name > b.name) {
-        return 1;
-      }
-      return 0;
-    });
-  }
+  // sortBySellerName(products:any) {
+  //   return products.sort((a:any, b:any) => {
+  //     if (a.sellerName < b.sellerName) {
+  //       return -1;
+  //     } else if (a.sellerName > b.sellerName) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // }
+  // sortByName(products:any) {
+  //   return products.sort((a:any, b:any) => {
+  //     if (a.name < b.name) {
+  //       return -1;
+  //     } else if (a.name > b.name) {
+  //       return 1;
+  //     }
+  //     return 0;
+  //   });
+  // }
 
 
 }
