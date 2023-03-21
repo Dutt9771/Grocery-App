@@ -142,32 +142,42 @@ constructor(private route:ActivatedRoute,private _productsservice:ProductsServic
   })
   console.log(this.product_name)
 }
+quantity=1;
   ngOnInit() {
     this.filteredItems=this._productsservice.getProducts()
     
-    this.route.paramMap.subscribe(params => {
-      this.category_path= params.get('product');
-    })
-    console.log(this.category_path)
+    // this.route.paramMap.subscribe(params => {
+    //   this.product_path= params.get('product');
+    // })
+    // console.log(this.category_path)
   
-  if(this.category_path){
+  // if(this.category_path){
 
     this.route.paramMap.subscribe(params => {
-      const product = params.get('product');
+      const product = params.get('product_name');
       console.log(product)
       
         
-          this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name === product);
+          this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name.toLowerCase() === product);
           this.product_item=product
         
         
         
-        console.log("Product_item",this.product_item)
+        console.log("Product_item",this.filteredItems)
       });
     // }else{
     //   this.Filter_Category(this.selectedCategory);
     // }
-  }
+  // }
     
+  }
+  quantitymin(price){
+    if(this.quantity>1){
+     this.quantity-=1;
+    }
+  }
+  quantitymax(price){
+    
+    this.quantity+=1;
   }
 }

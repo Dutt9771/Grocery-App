@@ -53,15 +53,15 @@
 
 <div class="container mt-3">
   <div class="row g-0 ">
-  <div class="card mb-3 border-0" style="width: fit-content;height: max-content;">
+  <div class="card mb-3 border-0" style="width: fit-content;height: max-content;" *ngFor="let product of filteredItems">
     <div class="row g-0">
                     <div class="col-md-6">
                       <img src="/assets/Vegetables.jpg" class="img-fluid rounded-start" alt="...">
                     </div>
                     <div class="col-md-6">
                       <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                        <h5 class="card-title">{{product.name}}</h5>
+                        <p class="card-text">{{product.weight}}</p>
                         <ul class="rating" data-mdb-toggle="rating">
                           <span class="m-auto">Reviews</span>
                           <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
@@ -71,6 +71,13 @@
                           <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
                           <br></ul>
                         <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                        <button (click)="quantitymin(product.price)">-</button>
+                        {{quantity}}
+                        <button (click)="quantitymax(product.price)">+</button>
+                        <p>{{product.price * quantity}}</p>
+                        <div>
+                          <button>Add to Cart</button>
+                        </div>
                       </div>
                     </div>
                   </div>
