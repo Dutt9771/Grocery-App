@@ -43,7 +43,7 @@
   </div>
 
 
-  <div class="card mb-3" style="max-width: 540px;" *ngFor="let product of cart[0]">
+  <div class="card mb-3" style="max-width: 540px;" *ngFor="let product of cartItems">
     <div class="row g-0">
       <div class="col-md-4">
         <img src="/assets/{{product.imageurl}}"
@@ -52,7 +52,7 @@
         height="120" class="img-fluid rounded-start" alt="...">
       </div>
       <div class="col-md-8">
-        <div class="card-body">
+        <!-- <div class="card-body">
           <button type="button" class="btn btn-transparent float-end" (click)="DelectProduct(product.id)"><img  src="https://img.icons8.com/material/96/null/delete-sign--v1.png" width="25" height="25"/></button>
           <h5 class="card-title">{{product.name}}</h5>
           <p class="card-text">{{product.weight}}</p>
@@ -61,7 +61,7 @@
             <button (click)="quantitymax()">+</button>
             <p>{{product.moneyOfferPrice * quantity | currency}} </p>
             <small class="text-muted">{{product.moneyOfferPrice | currency}}</small></div>
-        </div>
+        </div> -->
       </div>
     </div>
   </div>

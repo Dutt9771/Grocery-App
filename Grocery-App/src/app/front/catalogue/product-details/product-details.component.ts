@@ -184,17 +184,20 @@ quantity=1;
    
     }
 ProductAddobj:any;
-  Add_cart(){
-    for(let i=0;i<this.filteredItems.length;i++){
-      this.ProductAddobj=this.filteredItems[i]
-      console.log("OBJ",this.ProductAddobj)
-    }
-    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
-      console.log(
-        res
-      )
-    })
-    this.route.navigate(['/front/cart'])
-    console.log(this.filteredItems)
+  Add_cart(item){
+    // for(let i=0;i<this.filteredItems.length;i++){
+    //   this.ProductAddobj=this.filteredItems[i]
+    //   console.log("OBJ",this.ProductAddobj)
+    // }
+    // this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+    //   console.log(
+    //     res
+    //   )
+    // })
+    // this.route.navigate(['/front/cart'])
+    // console.log(this.filteredItems)
+
+    this._cartservice.addToCart(item);
+ 
   }
 }

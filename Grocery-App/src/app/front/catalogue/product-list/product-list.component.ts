@@ -142,9 +142,12 @@ productArray:any[] = [
 ]
 
 
+
   Product_Arr:any
   category_path
   ngOnInit() {
+    
+
     this.filteredItems=this.productservice.getProducts()
     ;
     this.route.paramMap.subscribe(params => {
@@ -246,19 +249,22 @@ if(category==='all'){
   //   });
   // }
 
+
+
+
   ProductAddobj:any;
   Add_cart(){
-    for(let i=0;i<this.filteredItems.length;i++){
-      this.ProductAddobj=this.filteredItems[i]
-      console.log("OBJ",this.ProductAddobj)
-    }
-    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
-      console.log(
-        res
-      )
-    })
-    this.rout.navigate(['/front/cart'])
-    console.log(this.filteredItems)
+    // for(let i=0;i<this.filteredItems.length;i++){
+    //   this.ProductAddobj=this.filteredItems[i]
+    //   console.log("OBJ",this.ProductAddobj)
+    // }
+    // this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+    //   console.log(
+    //     res
+    //   )
+    // })
+    // this.rout.navigate(['/front/cart'])
+    // console.log(this.filteredItems)
   }
 
 }
