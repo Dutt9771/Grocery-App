@@ -11,6 +11,7 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './products/products.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { ProductsComponent } from './products/products.component';
     CatalogueRoutingModule,
     IvyCarouselModule,
     FormsModule,
-    CarouselModule 
+    CarouselModule,
+    HttpClientModule
     
   ]
 })

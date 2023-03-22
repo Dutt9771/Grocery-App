@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 
@@ -136,8 +137,8 @@ export class ProductDetailsComponent {
   filteredItems:any
   category_path:any
   product_name:any
-constructor(private route:ActivatedRoute,private _productsservice:ProductsService){
-  this.route.paramMap.subscribe(params=>{
+constructor(private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router){
+  this.router.paramMap.subscribe(params=>{
     this.product_name=params.get('product_name')
   })
   console.log(this.product_name)
@@ -153,16 +154,12 @@ quantity=1;
   
   // if(this.category_path){
 
-    this.route.paramMap.subscribe(params => {
+    this.router.paramMap.subscribe(params => {
       const product = params.get('product_name');
-      console.log(product)
-      
-        
+      console.log(product)    
           this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name.toLowerCase() === product);
           this.product_item=product
-        
-        
-        
+
         console.log("Product_item",this.filteredItems)
       });
     // }else{
@@ -172,16 +169,32 @@ quantity=1;
     
   }
   quantitymin(){
-    if(this.quantity>1){
-     this.quantity-=1;
-    }
+  
+
+      if(this.quantity>1){
+        this.quantity-=1;
+      }
+ 
   }
   quantitymax(){
-    
-    this.quantity+=1;
-  }
-
+   
+      
+      
+      this.quantity+=1;
+   
+    }
+ProductAddobj:any;
   Add_cart(){
-    this.filteredItems
+    for(let i=0;i<this.filteredItems.length;i++){
+      this.ProductAddobj=this.filteredItems[i]
+      console.log("OBJ",this.ProductAddobj)
+    }
+    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+      console.log(
+        res
+      )
+    })
+    this.route.navigate(['/front/cart'])
+    console.log(this.filteredItems)
   }
 }

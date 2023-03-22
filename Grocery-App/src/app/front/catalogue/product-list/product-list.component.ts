@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, Input, OnChanges, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductListService } from 'src/app/services/product-list.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -11,7 +12,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductListComponent implements OnInit {
   defaultCategory='all';
   selectedCategory:string;
-  constructor(private route: ActivatedRoute,private productservice:ProductsService) {
+  constructor(private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router) {
     this.selectedCategory = this.defaultCategory;
   }
 category:any
@@ -245,5 +246,19 @@ if(category==='all'){
   //   });
   // }
 
+  ProductAddobj:any;
+  Add_cart(){
+    for(let i=0;i<this.filteredItems.length;i++){
+      this.ProductAddobj=this.filteredItems[i]
+      console.log("OBJ",this.ProductAddobj)
+    }
+    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+      console.log(
+        res
+      )
+    })
+    this.rout.navigate(['/front/cart'])
+    console.log(this.filteredItems)
+  }
 
 }

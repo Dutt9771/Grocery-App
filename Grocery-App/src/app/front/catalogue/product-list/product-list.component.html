@@ -157,9 +157,9 @@
                       <br></ul>
                       <small>{{product.sellerName}}</small>
                       <div class="text-center">
-                        <i class="fas fa-dollar-sign m-2">{{product.moneyOfferPrice}}</i>
-                        <i class="fas fa-dollar-sign text-decoration-line-through m-4">{{product.price}}</i>
-                        <button class="btn btn-outline-light">
+                        <i class="m-2 fw-bolder">{{product.moneyOfferPrice | currency}}</i>
+                        <i class="text-decoration-line-through m-4">{{product.price | currency}}</i>
+                        <button class="btn btn-outline-light" (click)="Add_cart()">
                             <img src="/assets/Cart-btn.png" alt=""></button>
                         </div>
                       

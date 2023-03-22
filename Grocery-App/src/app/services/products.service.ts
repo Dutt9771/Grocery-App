@@ -129,6 +129,7 @@ export class ProductsService {
   ]
 
     getProducts() {
+      
       return this.productArray
   }
   name:any

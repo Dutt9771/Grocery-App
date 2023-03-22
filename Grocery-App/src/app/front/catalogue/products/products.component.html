@@ -33,14 +33,15 @@
     [autoplayInterval]="3000"
     [pauseOnHover]="true"
    >
-    <div class="carousel-cell" *ngFor="let product of productArray"  [routerLink]="['/front/catalogue/product-details', product.name.toLowerCase()]">
-        <div class="card bg-white p-2 m-2 w-auto">
+    <div class="carousel-cell" *ngFor="let product of productArray"  >
+        <div class="card bg-white p-2 m-2 w-auto" >
             <img
                 class="rounded mx-auto d-block"
                 src="/assets/{{product.imageurl}}"
                 alt=""
                 width="175"
-                height="175"/>
+                height="175"
+                [routerLink]="['/front/catalogue/product-details', product.name.toLowerCase()]"/>
             <div class="card-body text-left">
                 <small>{{product.name}}</small>
                 <h4>{{product.weight}}</h4>
@@ -53,8 +54,8 @@
                     <br></ul>
                     <small>{{product.sellerName}}</small>
                     <div class="text-center">
-                        <i class="fas fa-dollar-sign m-2">{{product.moneyOfferPrice}}</i>
-                        <i class="fas fa-dollar-sign text-decoration-line-through m-2">{{product.price}}</i>
+                        <i class="m-2">{{product.moneyOfferPrice | currency}}</i>
+                        <i class="text-decoration-line-through m-2">{{product.price | currency}}</i>
                         <button class="btn btn-outline-light">
                             <img class="w-auto h-auto" src="/assets/Cart-btn.png" alt=""></button>
                         </div>
