@@ -65,3 +65,9 @@
       </div>
     </div>
   </div>
+
+  <div>
+    <p>Subtotal: {{ Subtotal() | currency}}</p>
+    <p>GST: {{ GST | currency}}</p>
+    <p>Total Price: {{ Total | currency}}</p>
+  </div>
