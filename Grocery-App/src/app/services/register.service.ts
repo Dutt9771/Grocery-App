@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -9,9 +10,10 @@ import { Subject } from 'rxjs';
 export class RegisterService {
 
   constructor(private http:HttpClient,private router:Router) { }
-
+baseurl=environment.baseurl
+register=environment.register
   get_Register_data(data:any){
- return this.http.post("http://localhost:3000/Register",data,{observe:"response"}).subscribe(data=>{
+ return this.http.post(this.baseurl+this.register,data,{observe:"response"}).subscribe(data=>{
   sessionStorage.setItem("Register_User",JSON.stringify(data.body))
 this.router.navigate(['/front/user/login'])
  })

@@ -125,7 +125,39 @@
       "password": "12345678",
       "confirm_password": "12345678",
       "id": 18
+    },
+    {
+      "name": "aaaaqq",
+      "email": "dutta.mistry12@gmail.com",
+      "password": "123456789",
+      "confirm_password": "123456789",
+      "id": 19
     }
   ],
-  "cart": []
+  "cart": [
+    {
+      "imageurl": "Vegetables.jpg",
+      "category": "vegetables",
+      "name": "Tomato",
+      "weight": "500 grams",
+      "sellerName": "Vishnu Farms Inc.",
+      "moneyOfferPrice": 5,
+      "price": 12,
+      "money": "USD",
+      "quantity": 4,
+      "id": 1
+    },
+    {
+      "imageurl": "Vegetables.jpg",
+      "category": "vegetables",
+      "name": "Potato",
+      "weight": "500 grams",
+      "sellerName": "Organic Farms Inc.",
+      "moneyOfferPrice": 3,
+      "price": 10,
+      "money": "USD",
+      "quantity": 6,
+      "id": 2
+    }
+  ]
 }

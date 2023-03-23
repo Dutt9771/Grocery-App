@@ -147,6 +147,7 @@ quantity=1;
   ngOnInit() {
     this.filteredItems=this._productsservice.getProducts()
     
+    
     // this.route.paramMap.subscribe(params => {
     //   this.product_path= params.get('product');
     // })
@@ -168,36 +169,58 @@ quantity=1;
   // }
     
   }
-  quantitymin(){
-  
 
-      if(this.quantity>1){
-        this.quantity-=1;
-      }
- 
-  }
+  value:any
+  x:any
   quantitymax(){
-   
-      
-      
-      this.quantity+=1;
-   
-    }
-ProductAddobj:any;
-  Add_cart(item){
-    // for(let i=0;i<this.filteredItems.length;i++){
-    //   this.ProductAddobj=this.filteredItems[i]
-    //   console.log("OBJ",this.ProductAddobj)
-    // }
-    // this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
-    //   console.log(
-    //     res
-    //   )
-    // })
-    // this.route.navigate(['/front/cart'])
-    // console.log(this.filteredItems)
+      this.product_quantity.quantity+=1
+     
 
-    this._cartservice.addToCart(item);
+      // this.filteredItems[0].moneyOfferPrice=this.value
+    //   console.log(this.filteredItems[0].moneyOfferPrice)
+      
+    
+    // this.x= this.value* this.product_quantity.quantity;
+  
+    }
+    quantitymin(){
+      if(this.product_quantity.quantity>1){
+        // console.log(this.product_quantity.quantity)
+        this.product_quantity.quantity-=1
+        // this.value/=this.product_quantity.quantity;
+          // for(let i=0;i<this.filteredItems.length;i++){
+    
+          //   this.filteredItems[i].moneyOfferPrice=this.filteredItems[i].moneyOfferPrice/(this.product_quantity.quantity)
+          //   this.ProductObj=this.filteredItems[i]
+            
+          // }
+        }
+    }
+    product_quantity={
+      quantity:1,
+    }
+    
+    ProductObj:any
+ProductAddobj:any;
+  Add_cart(){
+    for(let i=0;i<this.filteredItems.length;i++){
+
+      // this.filteredItems[i].moneyOfferPrice=this.product_quantity.quantity
+      this.ProductObj=this.filteredItems[i]
+      this.ProductAddobj=Object.assign(this.ProductObj,this.product_quantity)
+      console.log("OBJ",this.ProductAddobj)
+    }
+    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+      console.log(
+        res
+      )
+    })
+    this.route.navigate(['/front/cart'])
+    console.log(this.filteredItems)
+
+
+
+    // this._cartservice.addToCart(item);
  
   }
 }
