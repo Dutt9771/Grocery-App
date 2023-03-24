@@ -2,3 +2,7 @@
     font-size: 1000px;
     font-family: 'Orbitron', sans-serif;
   }
+  tr,th,td{
+    padding: 8px;
+  }
+  

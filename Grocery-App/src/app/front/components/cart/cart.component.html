@@ -8,41 +8,8 @@
   </div>
 
 
-  <!-- <div class="container">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
-      <div class="col" *ngFor="let product of cart[0]">
-          <div class="card bg-white p-2 m-2">
-            <img
-                  class="rounded mx-auto d-block"
-                  src="/assets/{{product.imageurl}}"
-                  alt=""
-                  width="120"
-                  height="120"/>
-            <div class="card-body">
-              <small>{{product.name}}</small>
-              <h4>{{product.weight}}</h4>
-              <ul class="card-body rating" data-mdb-toggle="rating">
-                <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
-                <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
-                <i class="fas fa-star fa-sm text-primary" title="OK"></i>
-                <i class="fas fa-star fa-sm text-primary" title="Good"></i>
-                <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
-                <br></ul>
-                <small>{{product.sellerName}}</small>
-                <div class="text-center">
-                  <i class="m-2 fw-bolder">{{product.moneyOfferPrice | currency}}</i>
-                  <i class="text-decoration-line-through m-4">{{product.price | currency}}</i>
-                  <button class="btn btn-outline-light">
-                      <img src="/assets/Cart-btn.png" alt=""></button>
-                  </div>
-                
-              </div>
-            </div>
-        </div>
-    </div>
-  </div> -->
-
-
+ 
+<!-- 
   <div class="card mb-3" style="max-width: 540px;" *ngFor="let product of cart;let i=index">
     <div class="row g-0">
       <div class="col-md-4">
@@ -64,16 +31,18 @@
         </div>
       </div>
     </div>
-  </div>
+  </div> -->
+  
 
-<div class="table-responsive">
-  <table class="table container">
+<div class="table-responsive container">
+  <table class="table">
     <thead>
       <tr>
         
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
-        <th scope="col">Handle</th>
+        <th scope="col">Item Description</th>
+        <th scope="col">Unit Price</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Subtotal</th>
       </tr>
     </thead>
     <tbody class="table-group-divider">
@@ -85,7 +54,8 @@
         <td><button (click)="quantitymin(i)">-</button>
           {{product.quantity}}
           <button (click)="quantitymax(i)">+</button>
-          <p>{{product.moneyOfferPrice * product.quantity | currency}} </p></td>
+          </td>
+          <td class="fw-bolder">{{product.moneyOfferPrice * product.quantity | currency}}</td>
        
         <td> <button type="button" class="btn btn-transparent float-end" (click)="DelectProduct(product.id)"><img  src="https://img.icons8.com/material/96/null/delete-sign--v1.png" width="25" height="25"/></button>
         </td>
@@ -94,10 +64,32 @@
   </table>
   </div>
 
+  <div class="table-responsive container d-flex justify-content-end mt-3 mb-3">
+    <table>
+    <tr>
+      <td class="fs-6">Subtotal:</td>
+      <td class="fs-6">{{ Subtotal() | currency}}</td>
+    </tr>
+    <tr>
+      <td class="fs-6">GST:</td>
+      <td class="fs-6">{{ GST | currency}}</td>
+    </tr>
+    <tr>
+      <td colspan="2"><hr class="w-200 border border-dark border-2"></td>
+    </tr>
+  
 
-  <div>
-    <p>Subtotal: {{ Subtotal() | currency}}</p>
-    <p>GST: {{ GST | currency}}</p>
-    <p>Total Price: {{ Total | currency}}</p>
-    <button type="button" (click)="Checkout()">Checkout</button>
+    <tr class="mb-2">
+      <td class="fs-6">Total Price:</td>
+      <td class="fs-6">{{ Total | currency}}</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-center"><button type="button" class="btn btn-outline-success btn-transparent w-100" (click)="Checkout()">Checkout</button></td>
+    </tr>
+  </table>
+    <p class="d-flex justify-content-end"> </p>
+    <p class="d-flex justify-content-end"> </p>
+    <p class="d-flex justify-content-end"> </p>
+    
   </div>
+ 
