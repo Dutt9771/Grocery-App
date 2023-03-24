@@ -47,24 +47,6 @@ export class UserProfileComponent implements OnInit {
        contact:new FormControl('',[Validators.required,Validators.pattern("[- +()0-9]{13}")]),
        alternatecontact:new FormControl('',[Validators.required,Validators.pattern("[- +()0-9]{13}")]),
        dob:new FormControl('',[Validators.required])
-        //,address:new FormControl ("",[
-       //   Validators.required
-       // ]),
-       // address_2:new FormControl ("",[
-       //   Validators.required
-       // ]),
-       // city:new FormControl ("",[
-       //   Validators.required
-       // ]),
-       // state:new FormControl ("",[
-       //   Validators.required
-       // ]),
-       // zip:new FormControl ("",[
-       //   Validators.required,
-       //   Validators.maxLength(6),
-       //   Validators.minLength(4),
-       //   Validators.pattern('^[0-9]{6}(?:-[0-9]{4})?$')
-       // ]),
    
        })
    
@@ -80,20 +62,8 @@ export class UserProfileComponent implements OnInit {
          }
      
        }
-       // matchPasswordValidator(): ValidatorFn {
-       // return (control: AbstractControl): {[key: string]: any} | null => {
-       //   const password = this.Register.value['password'];
-       //   const confirm_password = control.value;
-       //   return password === confirm_password ? null : {matchPassword: {value: control.value}};
-       // };
-       matchPasswordValidator(): ValidatorFn {
-         return (control: AbstractControl): ValidationErrors | null => {
-           const password = control.root.get('password')?.value;
-           const confirmPassword = control.value;
-     
-           return password === confirmPassword ? null : { matchPassword: { value: control.value } };
-         };
-       }
+
+       
     
   }
 

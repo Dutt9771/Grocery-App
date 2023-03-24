@@ -22,7 +22,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
-
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -51,6 +51,7 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
     IvyCarouselModule,
     HttpClientModule,
     MatSnackBarModule,
+    MatExpansionModule
   
     
     

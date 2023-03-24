@@ -27,13 +27,10 @@
 
 <div class="d-flex justify-content-start">
 
-  <nav class="nav flex-column mt-5">
-    <a class="nav-link active" aria-current="page" href="#">Active</a>
-    <a class="nav-link" href="#">Link</a>
-    <a class="nav-link" href="#">Link</a>
-    <a class="nav-link disabled">Disabled</a>
+  <nav class="nav flex-column mt-5 my-3 w-25">
+    <app-profilenav></app-profilenav>
   </nav>
-  <div class="d-flex justify-content-center">
+  <div class="mx-5 d-flex justify-content-center">
 
     <form class="row g-5 m-lg-5 d-flex justify-content-center" [formGroup]="Profile" (ngSubmit)="Save_Profile()" novalidate>
       <div class="row g-2">
@@ -108,58 +105,7 @@
             <div *ngIf="get_Profile.dob.touched && get_Profile.dob.invalid" class="text-danger col-md-5">
               <div *ngIf="get_Profile.dob.errors?.['required']" class="text-danger">Date Of Birth Must Required</div></div>
             </div>
-            
-                <!-- <div class="col-md-10">
-            <label for="inputAddress" class="form-label">Address</label>
-            <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="Apartment Block,House Number">
-        </div>
-        <div *ngIf="get_Profile.address.touched && get_Profile.address.invalid" class="text-danger text-center">
-            <div *ngIf="get_Profile.address.errors?.['required']" class="text-danger">Address Must Required</div>
-            </div>
-        <div class="col-md-10">
-            <label for="inputAddress2" class="form-label">Address 2</label>
-          <input type="text" formControlName="address_2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-        </div>
-        <div *ngIf="get_Profile.address_2.touched && get_Profile.address_2.invalid" class="text-danger text-center">
-            <div *ngIf="get_Profile.address_2.errors?.['required']" class="text-danger">Address 2 Must Required</div>
-            </div>
-            <div class="col-md-3">
-              <label for="inputState" class="form-label" >State</label>
-              <select id="inputState" formControlName="state" class="form-select" [(ngModel)]="selectedState" >
-                <option disabled selected>Select State</option>
-                <option *ngFor="let state of states" [value]="state.name" >{{ state.name }}</option>
-              </select>
-            </div>
-    
-              <div class="col-md-5">
-                <label for="inputCity" class="form-label">City</label>
-                <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
-                  <option disabled selected>Select City</option>
-                  <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
-                </select>
-              </div>
-            <div class="col-md-2">
-              
-              <label for="inputZip" class="form-label">Zip Code</label>
-              <input type="text" formControlName="zip" class="form-control" id="inputZip" placeholder="Enter Zip Code">
-            </div>
-            <div *ngIf="get_Profile.state.touched && get_Profile.state.invalid" class="text-danger text-center">
-              <div *ngIf="get_Profile.state.errors?.['required']" class="text-danger">State Must Required</div></div>
-          
-        <div *ngIf="get_Profile.city.touched && get_Profile.city.invalid" class="text-danger text-center">
-          <div *ngIf="get_Profile.city.errors?.['required']" class="text-danger">City Must Required</div>
-          </div>
-            <div *ngIf="get_Profile.zip.touched && get_Profile.zip.invalid" class="text-danger text-center">
-              <div *ngIf="get_Profile.zip.errors?.['required']" class="text-danger">Zip Code Must Required</div>
-          <div *ngIf="get_Profile.zip.errors?.['maxlength']" class="text-danger">Zip Code Should be 6 Character</div>
-          <div *ngIf="get_Profile.zip.errors?.['minlength']" class="text-danger">Zip Code Should be 6 Character</div>
-          <div *ngIf="get_Profile.zip.errors?.['pattern']">
-            Zip code must be in Number
-          </div></div>
-        
-        <div class="col-10">
-          
-        </div> -->
+
       <div class="row g-2">
       <div class="col-md-5">  
         <button type="submit" [disabled]="!Profile.valid" class="btn btn-primary">Save</button>
