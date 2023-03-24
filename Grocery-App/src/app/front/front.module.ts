@@ -28,7 +28,6 @@ import { HeaderComponent } from './layout/header/header.component';
   imports: [
     CommonModule,
     FrontRoutingModule,
-    
     FormsModule,
     ReactiveFormsModule
 

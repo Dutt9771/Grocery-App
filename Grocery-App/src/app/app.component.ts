@@ -17,7 +17,7 @@ export class AppComponent {
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
   cartItemCount = 0;
-  constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
+  constructor(private _cartservice:CartService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
 
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
       this.Login_Logout_msg == res;
@@ -27,10 +27,14 @@ export class AppComponent {
   User:any
   LoginData:any
   cartMessage:any
-
+  CountArr:any=[]
   ngOnInit(){
 
     // cartcounter
+
+    // this.CountArr=(localStorage.getItem('Products_Count'))
+    // console.log("CountArr",JSON.parse(this.CountArr).length)
+    // this.cartItemCount=JSON.parse(this.CountArr).length
     this._cartService.cartSubject.subscribe(cart => {
       this.cartItemCount = cart.length;
     });
@@ -49,7 +53,13 @@ export class AppComponent {
     }
    
   }
+  cart:any=[]
   ngDoCheck(){
+  //   this._cartservice.ShowCart().subscribe((res)=>{
+  //     this.cart=res
+  //     this.cartItemCount=this.cart.length
+  //     console.log("cart length",this.cart.length)
+  // })
     this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
     if(this.RegisterData){

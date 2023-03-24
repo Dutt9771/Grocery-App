@@ -66,6 +66,35 @@
     </div>
   </div>
 
+<div class="table-responsive">
+  <table class="table container">
+    <thead>
+      <tr>
+        
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody class="table-group-divider">
+      <tr *ngFor="let product of cart;let i=index">
+        
+        <td>{{product.name}} <br/>{{product.weight}}</td>
+        <td></td>
+        <td><b>{{product.moneyOfferPrice | currency }}</b><br/> <span class="text-decoration-line-through">{{product.price | currency}}</span></td>
+        <td><button (click)="quantitymin(i)">-</button>
+          {{product.quantity}}
+          <button (click)="quantitymax(i)">+</button>
+          <p>{{product.moneyOfferPrice * product.quantity | currency}} </p></td>
+       
+        <td> <button type="button" class="btn btn-transparent float-end" (click)="DelectProduct(product.id)"><img  src="https://img.icons8.com/material/96/null/delete-sign--v1.png" width="25" height="25"/></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  </div>
+
+
   <div>
     <p>Subtotal: {{ Subtotal() | currency}}</p>
     <p>GST: {{ GST | currency}}</p>

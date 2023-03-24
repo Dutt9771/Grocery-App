@@ -203,6 +203,7 @@ quantity=1;
     
     ProductObj:any
 ProductAddobj:any;
+Product_Count_Obj:any=[]
   Add_cart(){
     for(let i=0;i<this.filteredItems.length;i++){
 
@@ -216,6 +217,11 @@ ProductAddobj:any;
         res
         )
       })
+
+      // this.Product_Count_Obj.push(this.ProductAddobj)
+      // localStorage.setItem('Products_Count',JSON.stringify(this.Product_Count_Obj))
+
+
       this._cartservice.cartmsg=this.filteredItems[0].name;
     // this.route.navigate(['/front/cart'])
     console.log("Filtered Item",this.filteredItems)

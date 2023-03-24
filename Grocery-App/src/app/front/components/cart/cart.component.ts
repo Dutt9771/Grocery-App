@@ -9,7 +9,7 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent {
 constructor(private _cartservice:CartService,private route:Router){}
-cart:any
+cart:any=[]
 // cartItems;
 price:any
 cartObj:any

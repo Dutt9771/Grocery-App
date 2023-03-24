@@ -136,52 +136,28 @@
   ],
   "cart": [
     {
-      "imageurl": "Vegetables.jpg",
-      "category": "vegetables",
-      "name": "Tomato",
+      "imageurl": "Peach.jpg",
+      "category": "Grocery",
+      "name": "Organic Brown Rice2",
       "weight": "500 grams",
-      "sellerName": "Vishnu Farms Inc.",
-      "moneyOfferPrice": 5,
+      "sellerName": "Organic Farms Inc.",
+      "moneyOfferPrice": 9,
       "price": 12,
       "money": "USD",
-      "quantity": 4,
+      "quantity": 1,
       "id": 1
     },
     {
-      "imageurl": "Vegetables.jpg",
-      "category": "vegetables",
-      "name": "Potato",
+      "imageurl": "Peach.jpg",
+      "category": "Grocery",
+      "name": "Organic Brown Rice4",
       "weight": "500 grams",
       "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 3,
-      "price": 10,
+      "moneyOfferPrice": 10,
       "money": "USD",
-      "quantity": 6,
+      "price": 20,
+      "quantity": 1,
       "id": 2
-    },
-    {
-      "imageurl": "Peach.jpg",
-      "category": "Grocery",
-      "name": "Organic Brown Rice1",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 8,
-      "price": 12,
-      "money": "USD",
-      "quantity": 1,
-      "id": 3
-    },
-    {
-      "imageurl": "Peach.jpg",
-      "category": "Grocery",
-      "name": "Organic Brown Rice1",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 8,
-      "price": 12,
-      "money": "USD",
-      "quantity": 1,
-      "id": 4
     }
   ]
 }
