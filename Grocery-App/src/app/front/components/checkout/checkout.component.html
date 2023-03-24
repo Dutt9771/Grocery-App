@@ -20,7 +20,8 @@
           <div class="card-body ms-4">
             <h5 class="card-title">Review Order</h5>
             <h6 class="card-subtitle mb-2 text-muted">By placing an order you agree to our Terms And Conditions</h6>
-            <p class="card-text">Payment Method: <b>Cash On Delivery</b></p>
+            <p class="card-text">Payment Method : <b>Cash On Delivery</b></p>
+            <p class="card-text">Grand Total : <b>{{cartTotal | currency}}</b></p>
           </div>
           <div class="d-flex justify-content-center mb-2"> 
             <button class="btn btn-outline-secondary m-1" (click)="Cancel_Checkout()">Cancel</button>

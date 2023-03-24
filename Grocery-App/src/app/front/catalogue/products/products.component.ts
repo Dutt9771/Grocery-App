@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-products',
@@ -6,7 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-
+constructor(private _cartservice:CartService){}
   productArray:any[] = [
     {
       imageurl:"Peach.jpg",
@@ -129,6 +130,26 @@ export class ProductsComponent {
       money: "USD",
     },
   ]
+
+  clickedItem:any=[]
+  Add_cart(i){
+   this.clickedItem= this.productArray[i]
+    // for(let i=0;i<this.filteredItems.length;i++){
+    //   this.ProductAddobj=this.filteredItems[i]
+    //   console.log("OBJ",this.ProductAddobj)
+    // }
+    // this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+    //   console.log(
+    //     res
+    //   )
+    // })
+    // this.rout.navigate(['/front/cart'])
+    console.log(this.clickedItem)
+    this._cartservice.cart.push(this.clickedItem);
+
+    // emit updated cart data to subscribers
+    this._cartservice.cartSubject.next(this._cartservice.cart);
+  }
 
   
 }

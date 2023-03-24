@@ -1,6 +1,7 @@
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CartService } from 'src/app/services/cart.service';
 import { CategoryComponent } from '../../catalogue/category/category.component';
 
 
@@ -16,8 +17,7 @@ export class HomeComponent {
   constructor(
     private formBuilder: FormBuilder,
     private socialAuthService: SocialAuthService
-  ) {
-    console.log(this.isLoggedin);
+  ) {  
   }
   ngOnInit() {
     this.loginForm = this.formBuilder.group({

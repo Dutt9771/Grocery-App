@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
 
 @Component({
@@ -7,7 +8,7 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-constructor(private _cartservice:CartService){}
+constructor(private _cartservice:CartService,private route:Router){}
 cart:any
 // cartItems;
 price:any
@@ -18,6 +19,7 @@ ngOnInit(){
     this.cart=res
     console.log(this.cart)
    
+    
   })
 
   // this._cartservice.getCartItems().subscribe(items => {
@@ -25,6 +27,13 @@ ngOnInit(){
   //   console.log(this.cartItems)
   // });
 }
+
+//Badge
+
+// update the cart badge count
+
+
+
 quantity=1
 Obj:any
 quantitymin(index){
@@ -43,7 +52,7 @@ quantitymax(index){
    this.cart[index].quantity+=1
   //  console.log(this.cart)
   // this.ShowCartTotal(index)
-  this.Price=this.cart[index].quantity*this.cart[index].moneyOfferPrice
+  // this.Price=this.cart[index].quantity*this.cart[index].moneyOfferPrice
 //   this.subtotal.push(this.Price)
 // console.log(this.subtotal)
   // this.Obj={
@@ -68,12 +77,12 @@ Subtotal() {
 
 
 
-Price:any
-totalPrice:any
-ShowCartTotal(){
-  console.log(this.Price)
-  this.totalPrice+=this.price
-}
+// Price:any
+// totalPrice:any
+// ShowCartTotal(){
+//   console.log(this.Price)
+//   this.totalPrice+=this.price
+// }
 
 DelectProduct(id:any){
  
@@ -85,4 +94,11 @@ DelectProduct(id:any){
     }
   })
 }
+
+Checkout(){
+  this._cartservice.setCartTotal(this.Total);
+  this.route.navigate(['/front/checkout'])
+}
+
+
 }

@@ -12,6 +12,7 @@ import { ProductDetailsComponent } from './catalogue/product-details/product-det
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
+import { HeaderComponent } from './layout/header/header.component';
 
 
 
@@ -21,6 +22,7 @@ import { SuccessComponent } from './success/success.component';
     CartComponent,
     CheckoutComponent,
     SuccessComponent,
+    HeaderComponent,
     
   ],
   imports: [

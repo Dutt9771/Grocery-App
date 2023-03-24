@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CartService } from './services/cart.service';
 import { RegisterService } from './services/register.service';
 
 
@@ -13,7 +14,9 @@ export class AppComponent {
   filterValue:any
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
-  constructor(private router:Router,private _RegisterService:RegisterService){
+  cartItemCount = 0;
+  constructor(private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
+
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
       this.Login_Logout_msg == res;
     })
@@ -24,7 +27,13 @@ export class AppComponent {
 
 
   ngOnInit(){
-    
+
+    // cartcounter
+    this._cartService.cartSubject.subscribe(cart => {
+      this.cartItemCount = cart.length;
+    });
+
+    // end cartcounter
     this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
     this.User= JSON.parse(sessionStorage.getItem('User'));
@@ -74,6 +83,12 @@ export class AppComponent {
     this.router.navigate(['front/user/registration'])
     // console.log(this.email)
     this.Login_Logout_msg="Login"
+  }
+
+
+ 
+  Add_cart_count(){
+    this.router.navigate(['/front/cart'])
   }
   };
   

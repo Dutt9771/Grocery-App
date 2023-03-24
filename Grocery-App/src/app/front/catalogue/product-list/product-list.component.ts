@@ -253,7 +253,9 @@ if(category==='all'){
 
 
   ProductAddobj:any;
-  Add_cart(){
+  clickedItem:any=[]
+  Add_cart(i){
+   this.clickedItem= this.filteredItems[i]
     // for(let i=0;i<this.filteredItems.length;i++){
     //   this.ProductAddobj=this.filteredItems[i]
     //   console.log("OBJ",this.ProductAddobj)
@@ -264,7 +266,11 @@ if(category==='all'){
     //   )
     // })
     // this.rout.navigate(['/front/cart'])
-    // console.log(this.filteredItems)
+    console.log(this.clickedItem)
+    this._cartservice.cart.push(this.clickedItem);
+
+    // emit updated cart data to subscribers
+    this._cartservice.cartSubject.next(this._cartservice.cart);
   }
 
 }

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -50,5 +50,16 @@ resname=environment.resname
 //     this.cartItems.next(updatedItems);
 //     console.log(updatedItems)
 //   }
+
+public cartTotal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+
+
+  setCartTotal(total: number) {
+    this.cartTotal$.next(total);
+  }
+
+  public cart = [];
+  public cartSubject = new Subject<any>();
+
 
 }

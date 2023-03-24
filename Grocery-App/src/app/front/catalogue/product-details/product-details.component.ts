@@ -215,9 +215,12 @@ ProductAddobj:any;
         res
       )
     })
-    this.route.navigate(['/front/cart'])
+    // this.route.navigate(['/front/cart'])
     console.log(this.filteredItems)
+    this._cartservice.cart.push(this.filteredItems);
 
+    // emit updated cart data to subscribers
+    this._cartservice.cartSubject.next(this._cartservice.cart);
 
 
     // this._cartservice.addToCart(item);

@@ -64,11 +64,21 @@
         <li class="nav-item">
           <a  class="nav-link fs-5"routerLink="front/user/login" routerLinkActive="active" *ngIf="Login_Logout_msg=='Login';else Logout">{{Login_Logout_msg}}</a>
          </li>
-       <ng-template #Logout>
+         <ng-template #Logout>
            <li class="nav-item">
              <a class="nav-link fs-5" (click)="logout()" >{{Login_Logout_msg}}</a>
             </li>
           </ng-template>
+          <li class="nav-item">
+            <a  class="nav-link fs-5 position-relative">
+              <!-- <i class="fas fa-cart-plus"></i> -->
+              <a (click)="Add_cart_count()"><i class="fas fa-shopping-cart"></i></a>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-primary" *ngIf="cartItemCount > 0">
+                {{cartItemCount}}
+                <span class="visually-hidden">unread messages</span>
+              </span>
+           </a>
+           </li>
 <!--         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
