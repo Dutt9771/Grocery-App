@@ -13,7 +13,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 const routes: Routes = [
   {path:'',redirectTo:'home',pathMatch:'full'},
   {path:'registration',component:RegistrationComponent},
-  {path:'user-profile',component:UserProfileComponent,canActivate:[AuthUserGuard]},
+  {path:'user-profile',component:UserProfileComponent},
   {path:'login',component:LoginComponent},
   {path:'home',component:HomeComponent},
   {path:'contact-us',component:ContactUsComponent},

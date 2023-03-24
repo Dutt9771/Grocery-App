@@ -73,12 +73,18 @@
             <a  class="nav-link fs-5 position-relative">
               <!-- <i class="fas fa-cart-plus"></i> -->
               <a (click)="Add_cart_count()"><i class="fas fa-shopping-cart"></i></a>
+              
               <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-primary" *ngIf="cartItemCount > 0">
                 {{cartItemCount}}
                 <span class="visually-hidden">unread messages</span>
               </span>
            </a>
            </li>
+
+          
+          
+          <!-- <button mat-stroked-button (click)="Add_cart_count()">Show snack-bar</button> -->
+          
 <!--         
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

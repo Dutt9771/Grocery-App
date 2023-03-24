@@ -20,6 +20,8 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
+import { ToastrModule } from 'ngx-toastr';
+import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 
 
 @NgModule({
@@ -35,6 +37,7 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    ToastrModule.forRoot(),
     AdminModule,
     FrontModule,
     FormsModule,
@@ -46,7 +49,9 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
     CarouselModule,
     CarouselModule,
     IvyCarouselModule,
-    HttpClientModule
+    HttpClientModule,
+    MatSnackBarModule,
+  
     
     
   ],
@@ -70,7 +75,9 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
         console.error(err);
       }
     } as SocialAuthServiceConfig,
-  },AuthUserGuard],
+  },AuthUserGuard,
+  {provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: {duration: 2500}}
+],
   bootstrap: [AppComponent],
   schemas: []
 })

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+
 import { CartService } from 'src/app/services/cart.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -213,16 +214,19 @@ ProductAddobj:any;
     this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res
-      )
-    })
+        )
+      })
+      this._cartservice.cartmsg=this.filteredItems[0].name;
     // this.route.navigate(['/front/cart'])
-    console.log(this.filteredItems)
+    console.log("Filtered Item",this.filteredItems)
     this._cartservice.cart.push(this.filteredItems);
+    // console.log("filteredItems.name",this.filteredItems[0].name)
+    
 
     // emit updated cart data to subscribers
     this._cartservice.cartSubject.next(this._cartservice.cart);
-
-
+    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+  
     // this._cartservice.addToCart(item);
  
   }

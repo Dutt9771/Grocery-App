@@ -52,14 +52,20 @@ resname=environment.resname
 //   }
 
 public cartTotal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 
   setCartTotal(total: number) {
     this.cartTotal$.next(total);
   }
+  setCartmsg(msg: string) {
+    this.cartmsg$.next(msg);
+  }
 
   public cart = [];
+  public cartmsg=''
   public cartSubject = new Subject<any>();
+  public cartMsg = new Subject<any>();
 
 
 }

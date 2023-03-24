@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+
 import { CartService } from './services/cart.service';
 import { RegisterService } from './services/register.service';
 
@@ -15,7 +17,7 @@ export class AppComponent {
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
   cartItemCount = 0;
-  constructor(private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
+  constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
 
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
       this.Login_Logout_msg == res;
@@ -24,13 +26,18 @@ export class AppComponent {
   RegisterData:any
   User:any
   LoginData:any
-
+  cartMessage:any
 
   ngOnInit(){
 
     // cartcounter
     this._cartService.cartSubject.subscribe(cart => {
       this.cartItemCount = cart.length;
+    });
+    this._cartService.cartMsg.subscribe(cart => {
+      this.cartMessage = cart
+      console.log(this.cartMessage)
+      this._snackBar.open(this.cartMessage+" Added Succesfully in Cart", "Ok");
     });
 
     // end cartcounter
@@ -54,19 +61,19 @@ export class AppComponent {
     if(this.LoginData || this.User){
       this.Login_Logout_msg="Logout"
     }
-  }
-  ngDoChanges(){
-    this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
-    this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-    if(this.RegisterData){
-      this.Registered_User=false
-    }else{
-      this.Registered_User=true
-    }
-    this.User= JSON.parse(sessionStorage.getItem('User'));
-    if(this.LoginData || this.User){
-      this.Login_Logout_msg="Logout"
-    }
+  // }
+  // ngDoChanges(){
+  //   this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
+  //   this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
+  //   if(this.RegisterData){
+  //     this.Registered_User=false
+  //   }else{
+  //     this.Registered_User=true
+  //   }
+  //   this.User= JSON.parse(sessionStorage.getItem('User'));
+  //   if(this.LoginData || this.User){
+  //     this.Login_Logout_msg="Logout"
+  //   }
   }
   title = 'Grocery-App';
   login_logout:boolean |undefined;
@@ -86,10 +93,13 @@ export class AppComponent {
   }
 
 
- 
+  
   Add_cart_count(){
+  
     this.router.navigate(['/front/cart'])
   }
+  
+  
   };
   
   
