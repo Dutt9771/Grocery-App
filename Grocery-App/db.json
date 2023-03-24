@@ -134,30 +134,5 @@
       "id": 19
     }
   ],
-  "cart": [
-    {
-      "imageurl": "Peach.jpg",
-      "category": "Grocery",
-      "name": "Organic Brown Rice2",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 9,
-      "price": 12,
-      "money": "USD",
-      "quantity": 1,
-      "id": 1
-    },
-    {
-      "imageurl": "Peach.jpg",
-      "category": "Grocery",
-      "name": "Organic Brown Rice4",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 10,
-      "money": "USD",
-      "price": 20,
-      "quantity": 1,
-      "id": 2
-    }
-  ]
+  "cart": []
 }

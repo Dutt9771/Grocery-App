@@ -34,7 +34,7 @@
   </div> -->
   
 
-<div class="table-responsive container">
+<div class="table-responsive container" *ngIf="cart.length!=0;else EmptyCart">
   <table class="table">
     <thead>
       <tr>
@@ -63,8 +63,13 @@
     </tbody>
   </table>
   </div>
+  <ng-template #EmptyCart>
+      <div class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
+        Cart is Empty
+      </div>
+  </ng-template>
 
-  <div class="table-responsive container d-flex justify-content-end mt-3 mb-3">
+  <div class="table-responsive container d-flex justify-content-end mt-3 mb-3" *ngIf="cart.length!=0">
     <table>
     <tr>
       <td class="fs-6">Subtotal:</td>
@@ -75,13 +80,17 @@
       <td class="fs-6">{{ GST | currency}}</td>
     </tr>
     <tr>
+      <td class="fs-6">Delivery Charges :</td>
+      <td class="fs-6">---</td>
+    </tr>
+    <tr>
       <td colspan="2"><hr class="w-200 border border-dark border-2"></td>
     </tr>
   
 
     <tr class="mb-2">
-      <td class="fs-6">Total Price:</td>
-      <td class="fs-6">{{ Total | currency}}</td>
+      <td class="fs-6 fw-bolder">Total Price:</td>
+      <td class="fs-6 fw-bolder">{{ Total | currency}}</td>
     </tr>
     <tr>
       <td colspan="2" class="text-center"><button type="button" class="btn btn-outline-success btn-transparent w-100" (click)="Checkout()">Checkout</button></td>

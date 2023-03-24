@@ -17,7 +17,7 @@ cartObj:any
 ngOnInit(){
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
-    console.log(this.cart)
+    console.log(this.cart.length)
    
     
   })
