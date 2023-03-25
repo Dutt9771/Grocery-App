@@ -39,3 +39,30 @@ h3:after {
   margin-bottom: -2px;
   max-width: 100px;
 }
+
+.star-rating {
+  font-size: 14px;
+}
+
+.star-rating i {
+  color: rgb(225, 225, 16);
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.star-rating i:hover {
+  color: rgb(84, 84, 84);
+}
+
+/* .star-ratings a:hover i {
+  color: orange;
+}
+
+.fa-star {
+  color: orange;
+}
+
+.fa-star-o {
+  color: lightgrey;
+} */
+

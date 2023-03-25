@@ -129,9 +129,9 @@ export class ProductsService {
     },
   ]
   topsells:any=[
-    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'2' },
-    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'4' },
-    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'6' }
+    {productId:1,name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'2',rating: 4 },
+    {productId:2,name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'4',rating: 3 },
+    {productId:3,name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'6',rating: 1 }
    ]
   
    toprated:any=[
@@ -147,9 +147,9 @@ export class ProductsService {
    ]
   
   recentlyAdded:any=[
-    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'20' },
-    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'1' },
-    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'5' }
+    {productId:1,name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'20' },
+    {productId:2,name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'1' },
+    {productId:3,name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'5' }
   ]
 
   Top_Sells(){

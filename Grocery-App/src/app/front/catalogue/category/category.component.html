@@ -34,4 +34,21 @@
 <!-- [routerLink]="['/front/catalogue/products-list',
 product.category.toLowerCase()]" -->
 
-this.topsells
+<carousel
+    [autoplay]="true"
+    [height]="300"
+    [autoplayInterval]="3000"
+    [pauseOnHover]="true"
+    class="container">
+    <div class="carousel-cell" *ngFor="let product of grocery_items">
+        <div
+            class="card bg-transparent p-3 m-2"
+            (click)="Category_Products(product.category)">
+            <img src="{{product.image}}" alt="" width="120" height="120"/>
+            <div class="card-body text-center">
+                <h4>{{product.category }}</h4>
+                <small>{{product.quantity}}</small>
+            </div>
+        </div>
+    </div>
+</carousel>

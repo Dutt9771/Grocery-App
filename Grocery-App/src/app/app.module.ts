@@ -15,15 +15,14 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 
 
-import { CarouselModule } from 'ngx-owl-carousel-o';
-
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { CatalogueModule } from './front/catalogue/catalogue.module';
-import { ToastrModule } from 'ngx-toastr';
+
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { HomeComponent } from './front/Dashboard/home/home.component';
+import { NgxStarRatingModule } from 'ngx-star-rating';
 
 @NgModule({
   declarations: [
@@ -39,7 +38,6 @@ import { HomeComponent } from './front/Dashboard/home/home.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     AdminModule,
     FrontModule,
     FormsModule,
@@ -48,12 +46,11 @@ import { HomeComponent } from './front/Dashboard/home/home.component';
     NgbModule,
     HttpClientModule,
     CatalogueModule,
-    CarouselModule,
-    CarouselModule,
     IvyCarouselModule,
     HttpClientModule,
     MatSnackBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxStarRatingModule
   
     
     
