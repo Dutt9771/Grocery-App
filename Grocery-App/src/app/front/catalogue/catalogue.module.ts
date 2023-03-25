@@ -19,7 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
     CategoryComponent,
     ProductListComponent,
     ProductDetailsComponent,
-    HomeComponent,
     ProductsComponent,
     
   ],
@@ -31,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     CarouselModule,
     HttpClientModule
     
-  ]
+  ],
+  exports:[CategoryComponent,ProductsComponent]
 })
 export class CatalogueModule { }

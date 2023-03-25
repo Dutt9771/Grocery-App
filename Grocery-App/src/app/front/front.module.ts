@@ -13,24 +13,28 @@ import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { FooterComponent } from './layout/footer/footer.component';
+
 
 
 
 @NgModule({
-  declarations: [
-    ContactUsComponent,
-    CartComponent,
-    CheckoutComponent,
-    SuccessComponent,
-    HeaderComponent,
-    
-  ],
-  imports: [
-    CommonModule,
-    FrontRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
-
-  ]
+    declarations: [
+        ContactUsComponent,
+        CartComponent,
+        CheckoutComponent,
+        SuccessComponent,
+        HeaderComponent,
+        HomeComponent,
+        FooterComponent
+    ],
+    exports: [HeaderComponent, HomeComponent, FooterComponent],
+    imports: [
+        CommonModule,
+        FrontRoutingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        CatalogueModule
+    ]
 })
 export class FrontModule { }

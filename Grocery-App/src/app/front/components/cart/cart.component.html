@@ -106,18 +106,5 @@
     
   </div>
  
-  <table>
-    <tr>
-      <th>Name</th>
-      <th>Price</th>
-    </tr>
-    <tbody *ngFor="let group of groupedProducts">
-      <tr><td colspan="2" class="text-center">{{ group.category }}</td></tr>
-      <tr *ngFor="let product of group.cart">
-        <td>{{ product.name }}</td>
-        <td>{{ product.price }}</td>
-      </tr>
-    </tbody>
-    </table>
   
   

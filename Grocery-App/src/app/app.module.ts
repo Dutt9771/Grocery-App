@@ -23,6 +23,7 @@ import { CatalogueModule } from './front/catalogue/catalogue.module';
 import { ToastrModule } from 'ngx-toastr';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { HomeComponent } from './front/Dashboard/home/home.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ErrorPageComponent,
     RegistrationComponent,
     LoginComponent,
+    
   
 
   ],

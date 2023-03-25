@@ -110,7 +110,7 @@ Checkout(){
 Subtotal_Per_Category(group) {
   let total = 0;
 let subtotal=0;
-    console.log("group",group.cart)
+    // console.log("group",group.cart)
     for (let i=0;i<group.cart.length;i++) {
       let itemTotal = group.cart[i].moneyOfferPrice * group.cart[i].quantity;
       subtotal += itemTotal;
