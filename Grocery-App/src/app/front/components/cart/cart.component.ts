@@ -1,3 +1,4 @@
+import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
@@ -14,13 +15,30 @@ cart:any=[]
 price:any
 cartObj:any
 
+
+groupedProducts: any[] = [];
+cartlength:any
 ngOnInit(){
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
     console.log(this.cart.length)
    
-    
-  })
+    this.groupedProducts = this.cart.reduce((acc, product) => {
+      const existingCategory = acc.find(group => group.category === product.category);
+      if (existingCategory) {
+        existingCategory.cart.push(product);
+        // this.groupedProducts=this.cartlength
+      } else {
+        acc.push({ category: product.category, cart: [product] });
+      }
+      return acc;
+    }, []);
+    console.log(this.groupedProducts,"CartLength")
+   })
+  
+
+
+
 
   // this._cartservice.getCartItems().subscribe(items => {
   //   this.cartItems = items;
@@ -36,32 +54,22 @@ ngOnInit(){
 
 quantity=1
 Obj:any
-quantitymin(index){
- 
+Subtotal_Per_Prod:any
+quantitymin(index,productindex){
+  // console.log("Quantity",this.groupedProducts[index].cart[productindex].quantity);
   //   console.log(this.cart[index].moneyOfferPrice)
-  if(this.cart[index].quantity>1){
-   this.cart[index].quantity-=1
-  //  console.log(this.cart)
-  // }
-  
+  if(this.groupedProducts[index].cart[productindex].quantity>1){
+    this.groupedProducts[index].cart[productindex].quantity-=1  
   }
 }
-quantitymax(index){
+quantitymax(index,productindex){
  
     // console.log(this.cart[index].moneyOfferPrice)
-   this.cart[index].quantity+=1
-  //  console.log(this.cart)
-  // this.ShowCartTotal(index)
-  // this.Price=this.cart[index].quantity*this.cart[index].moneyOfferPrice
-//   this.subtotal.push(this.Price)
-// console.log(this.subtotal)
-  // this.Obj={
-  // index:{
-  //   "Price":this.Price
-  // }}
+    this.groupedProducts[index].cart[productindex].quantity+=1
+  
 
 }
-// console.log("this.Obj.index.Price",this.Obj.index.Price)
+
 GST:any
 Total:any
 Subtotal() {
@@ -75,14 +83,6 @@ Subtotal() {
 
 }
 
-
-
-// Price:any
-// totalPrice:any
-// ShowCartTotal(){
-//   console.log(this.Price)
-//   this.totalPrice+=this.price
-// }
 
 DelectProduct(id:any){
  
@@ -101,4 +101,40 @@ Checkout(){
 }
 
 
+
+  
+
+// for Subtotal
+
+
+Subtotal_Per_Category(group) {
+  let total = 0;
+let subtotal=0;
+    console.log("group",group.cart)
+    for (let i=0;i<group.cart.length;i++) {
+      let itemTotal = group.cart[i].moneyOfferPrice * group.cart[i].quantity;
+      subtotal += itemTotal;
+    }
+    // console.log(`Subtotal for ${cart.category}: ${subtotal} ${cart.cart[0].moneyOfferPrice}`);
+    return total += subtotal;
+    // console.log(`Total: ${total} ${cart[0].cart[0].money}`);
+  }
 }
+
+
+
+
+
+// interface Product {
+//   name: string;
+//   price: number;
+//   category: string;
+// }
+
+// interface GroupedProduct {
+//   category: string;
+//   products: Product[];
+// }
+
+
+

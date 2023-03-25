@@ -34,26 +34,30 @@
   </div> -->
   
 
-<div class="table-responsive container" *ngIf="cart.length!=0;else EmptyCart">
-  <table class="table">
+<div class="table-responsive container mt-5" *ngIf="cart.length!=0;else EmptyCart">
+  <table class="table ">
     <thead>
       <tr>
         
-        <th scope="col">Item Description</th>
+        <th scope="col" colspan="2">Item Description</th>
         <th scope="col">Unit Price</th>
-        <th scope="col">Quantity</th>
-        <th scope="col">Subtotal</th>
+        <th scope="col" >Quantity</th>
+        <th scope="col" colspan="2">Subtotal</th>
       </tr>
     </thead>
-    <tbody class="table-group-divider">
-      <tr *ngFor="let product of cart;let i=index">
+    <tbody >
+     
+    <tbody class="table-group-divider" *ngFor="let group of groupedProducts;let y=index">
+      <tr><td colspan="6" class="text-left bg-secondary-subtle text-black fw-bold">{{ group.category }}  &nbsp;&nbsp;<span>{{group.cart.length}} </span>Items  Subtotal: {{Subtotal_Per_Category(group) | currency}}</td></tr>
+      
+      <tr *ngFor="let product of group.cart;let i=index">
         
         <td>{{product.name}} <br/>{{product.weight}}</td>
         <td></td>
         <td><b>{{product.moneyOfferPrice | currency }}</b><br/> <span class="text-decoration-line-through">{{product.price | currency}}</span></td>
-        <td><button (click)="quantitymin(i)">-</button>
+        <td><button class="btn btn-outline-transparent btn-transparent" (click)="quantitymin(y,i)"><img width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAn0lEQVR4nO3SuwrCMBiG4e/6bAfxAIoN1EO917ZzXXVrXIMOhcIvuYU4pbwPvPufj0gAAAAAAAAAAAAAEI2ulHedvJvknWVUvLfTeCqU7HMr9b1a/l3WaQPMTa/5bvnXtGkDhDoonC3/6pA2gK96vZ3lX5X4A16HQs+jLaCVkj32hYZtq2E7adhZPsV7492bPx4PAAAAAAAAAAAAAFqGH3QsHQWQBdHnAAAAAElFTkSuQmCC"></button>
           {{product.quantity}}
-          <button (click)="quantitymax(i)">+</button>
+          <button class="btn btn-outline-transparent btn-transparent" (click)="quantitymax(y,i)"><img width="20" height="20" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAACXBIWXMAAAsTAAALEwEAmpwYAAAEOElEQVR4nO3d30/VdRzH8del/AfFn1BIMmcIts4HDnaUgxzoRMc8wPnFOV4TXUizNTf7cdB0WZmLTVe22HRli01Xtth0ZQvBFZuubFFEZYdpI4RmWu/24dJCeV+8z2Gd12N7buxs7+3L573v4YLv2QGIiIiIiIiIiIjIXu/6Cuy4vwX99/Uu9nRVePE1KoH+qu3or5pBf5Xc1gx2rM5xJ8W0c/UePFMtd2xndZ5LKYZdD7Rj1xpZXtVbuBRru2vG8VyNLK81Y1yIpXxNJfJrRdXutfdyKVb2r6vDS+tE14PruRCzhdQ6vFwrqvwMGXm91uFgnajyM2RkcIPDG/Wiys+QkSMbHA4/JKr8DBk5GnB462FR5WfIyFDA4R0nqvwMGTkecDjWIKr8DBk5EXR4Lyiq/AwZGQ46fLBRVPkZMnIq5HAyJKr8DBk5HXL4aJOo8jNkZCTs8EmzqPIzZORs2OFMi6jyM2TkXMThs1ZR5WfIyGjE4Ys2UeVnyMiFiMN4u6jyM2RkIurwVVRU+RkycinqcLFDVPkZMnI55vBNTFT5GTIyGXP4bquo8jNk5Me4w9Q2UeVnyMgvcYefO0WVnyEjMwmHQreo8jNk5LeEw7WEqPIzZWc+XYnZZD3mUk2mzab68HtKVPkZ8+tK1uN6bgU8ITmfasdCZhwLGWEZfwZjmE+3lWYZN3r24M+ssOy/z+BGdqC4y5DsdvydE5Zb+gwk11OkZfRW4FZuBn/lhOWWPoNbuQIkscp+ITdzYb5NZZf3Vn0zu9l+IQvpp/BHj7Ceu5/BQs+T9guZy/ThekZY5u5nMJfptV/IbDqM2bSw9DLOIFWEt6ypjgpcTRZwLSUstfQZXE39isli/FH3ZlI5zKSEpZY+g0Iqg6K6kszjSlJY8j/OIPEiSmK6uxXT3WP4KSEsIZhOnMd0cgV8Nn4ycQ++76zHD11Npk119WGqW3R19Zlfl//d/RmUncm4w2SX6OI/qOxcjjt82ymq/AwZuRR3+DouqvwMGS7k4jZRxYUYmog5TDwhuvgYkJ0LMYcvt4oqP0OGCxmPiSouxNBozGH0cdHFO8TOuajD5x2iys+QkbNRh08fE1V+hgwXciYqqrgQQyNRh5FHRRfvEDunIw4ft4sqP0NGTkUcPmwTVX6GDBdyMiKquBBDwxGH4VbRxTvEzomww/tbRJWfISPHww7vtogqP0OGCzkWFlVciKGhsMNQs+jiHWLnaMjh7c2iys+QkSMhhzc3iSo/Q4YLORwSVVyIocGQw2BIlPEOMXMoVIdDj4iqg038ugozrzRV4rWNourVQBk+UVhMB5rGcaBJllfwfKkv9/9vXzCC/UFZVvsaV8CDz+Vgb+MA9jbKnWso0UcCylU+0IOBhgIGGuS2Csg3pEt9eeXp2cAqPN/QjBcCvYv5n/1rREREREREREREBGv/AO088Tx9eszMAAAAAElFTkSuQmCC"></button>
           </td>
           <td class="fw-bolder">{{product.moneyOfferPrice * product.quantity | currency}}</td>
        
@@ -102,3 +106,18 @@
     
   </div>
  
+  <table>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+    </tr>
+    <tbody *ngFor="let group of groupedProducts">
+      <tr><td colspan="2" class="text-center">{{ group.category }}</td></tr>
+      <tr *ngFor="let product of group.cart">
+        <td>{{ product.name }}</td>
+        <td>{{ product.price }}</td>
+      </tr>
+    </tbody>
+    </table>
+  
+  
