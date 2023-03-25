@@ -1,7 +1,7 @@
 <!-- navbar -->
 <!-- Responsive -->
 
-<nav class="navbar navbar-expand-lg bg-body-transparent">
+<nav class="navbar navbar-expand-lg bg-body-transparent ">
     <div class="container">
         <h2 class="navbar-brand m-3" href="#">Explore Categories</h2>
         <button
@@ -34,20 +34,4 @@
 <!-- [routerLink]="['/front/catalogue/products-list',
 product.category.toLowerCase()]" -->
 
-<carousel
-    [autoplay]="true"
-    [height]="300"
-    [autoplayInterval]="3000"
-    [pauseOnHover]="true">
-    <div class="carousel-cell" *ngFor="let product of grocery_items">
-        <div
-            class="card bg-transparent p-3 m-2"
-            (click)="Category_Products(product.category)">
-            <img src="{{product.image}}" alt="" width="120" height="120"/>
-            <div class="card-body text-center">
-                <h4>{{product.category }}</h4>
-                <small>{{product.quantity}}</small>
-            </div>
-        </div>
-    </div>
-</carousel>
+this.topsells

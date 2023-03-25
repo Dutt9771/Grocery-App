@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -127,7 +128,42 @@ export class ProductsService {
       money: "USD",
     },
   ]
+  topsells:any=[
+    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'2' },
+    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'4' },
+    {name:'Orange 1kg' , source:'assets/fruits.jpg' , price:'6' }
+   ]
+  
+   toprated:any=[
+    {name:'Orange 1kg' , source:'assets/Vegetables.jpg' , price:'6' },
+    {name:'Orange 1kg' , source:'assets/Vegetables.jpg' , price:'5' },
+    {name:'Orange 1kg' , source:'assets/Vegetables.jpg' , price:'3' }
+   ]
+  
+   trendingItems:any=[
+    {name:'Orange 1kg' , source:'assets/Peach.jpg' , price:'10' },
+    {name:'Orange 1kg' , source:'assets/Peach.jpg' , price:'15' },
+    {name:'Orange 1kg' , source:'assets/Peach.jpg' , price:'13' }
+   ]
+  
+  recentlyAdded:any=[
+    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'20' },
+    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'1' },
+    {name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'5' }
+  ]
 
+  Top_Sells(){
+    return (this.topsells)
+  }
+  Top_Rated(){
+    return this.toprated
+  }
+  Trending_Items(){
+    return this.trendingItems
+  }
+  Recently_Added(){
+    return this.recentlyAdded
+  }
     getProducts() {
       
       return this.productArray

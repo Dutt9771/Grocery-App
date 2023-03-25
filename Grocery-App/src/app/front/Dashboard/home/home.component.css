@@ -1,4 +1,4 @@
-.carousel-inner > .item > img {
+/* .carousel-inner > .item > img {
     width:640px;
     height:360px;
   }
@@ -27,4 +27,15 @@ hr:active{
 }
 .btn-pink {
   background-color: #fcb2b2 !important;
+} */
+
+h3 {
+  border-bottom: 2px solid lightgrey;
+}
+h3:after {
+  content: '';
+  display: block;
+  border-bottom: 2px solid green;
+  margin-bottom: -2px;
+  max-width: 100px;
 }
