@@ -4,16 +4,7 @@
       height: 11em;
     }
   }
-/* 
-  .Parag{
-   width: 40%;
-   display: block;
-   margin: 5px auto;
-  } */
-/* 
-  .product{
-    grid-template-columns: repeat(2fr);
-  } */
+
 
   #product_list_text{
     font-size: 1000px;

@@ -8,14 +8,15 @@ import { Observable } from 'rxjs';
 export class ProductsService {
   productArray:any[] = [
     {
-      imageurl:"Peach.jpg",
+      imageurl:"tatasault.png",
       category: "Grocery",
-      name: "Organic Brown Rice1",
+      name: "Tata Sault",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 8,
       price:12,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Peach.jpg",
@@ -26,6 +27,7 @@ export class ProductsService {
       moneyOfferPrice: 9,
       price:12,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Peach.jpg",
@@ -36,6 +38,7 @@ export class ProductsService {
       moneyOfferPrice: 10,
       price:12,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Peach.jpg",
@@ -44,8 +47,9 @@ export class ProductsService {
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
-      money: "USD",
       price:20,
+      money: "USD",
+      quantity:1
     },
     {
       imageurl:"fruits.jpg",
@@ -56,6 +60,7 @@ export class ProductsService {
       moneyOfferPrice: 2,
       price:5,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"fruits.jpg",
@@ -66,6 +71,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"fruits.jpg",
@@ -76,6 +82,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"fruits.jpg",
@@ -86,6 +93,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Vegetables.jpg",
@@ -96,6 +104,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Vegetables.jpg",
@@ -106,6 +115,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Vegetables.jpg",
@@ -116,6 +126,7 @@ export class ProductsService {
       moneyOfferPrice: 3,
       price:10,
       money: "USD",
+      quantity:1
     },
     {
       imageurl:"Vegetables.jpg",
@@ -126,6 +137,7 @@ export class ProductsService {
       moneyOfferPrice: 5,
       price:12,
       money: "USD",
+      quantity:1
     },
   ]
   topsells:any=[

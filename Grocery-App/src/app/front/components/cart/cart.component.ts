@@ -22,7 +22,10 @@ ngOnInit(){
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
     console.log(this.cart.length)
-   
+    // this._cartservice.cartSubject.subscribe(cart => {
+    //   this.cartItemCount = cart.length;
+    // });
+    
     this.groupedProducts = this.cart.reduce((acc, product) => {
       const existingCategory = acc.find(group => group.category === product.category);
       if (existingCategory) {
@@ -83,13 +86,16 @@ Subtotal() {
 
 }
 
-
+cartItemCount:number=0
 DelectProduct(id:any){
  
   this._cartservice.DelectProduct(id).subscribe((res)=>{
     if (res) {
       this.cart.splice(id-1, 1);
       console.log(this.cart);
+      // this._cartservice.cartSubject.subscribe(cart => {
+      //   this.cartItemCount = cart.length;
+      // });
       
     }
   })
