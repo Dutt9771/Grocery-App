@@ -3,8 +3,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
-import { CartService } from './services/cart.service';
-import { RegisterService } from './services/register.service';
+import { CartService } from './shared/services/cart.service';
+import { RegisterService } from './shared/services/register.service';
 
 
 @Component({

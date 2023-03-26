@@ -23,6 +23,8 @@ import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/mater
 import {MatExpansionModule} from '@angular/material/expansion';
 import { HomeComponent } from './front/Dashboard/home/home.component';
 import { NgxStarRatingModule } from 'ngx-star-rating';
+import { FooterComponent } from './shared/layout/footer/footer.component';
+import { HeaderComponent } from './shared/layout/header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,9 @@ import { NgxStarRatingModule } from 'ngx-star-rating';
     ErrorPageComponent,
     RegistrationComponent,
     LoginComponent,
+    FooterComponent,
+    HeaderComponent,
+    FooterComponent
     
   
 

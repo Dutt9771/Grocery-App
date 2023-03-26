@@ -1,9 +1,9 @@
 import { FacebookLoginProvider, SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit,Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/interface/item';
-import { CartService } from 'src/app/services/cart.service';
-import { ProductsService } from 'src/app/services/products.service';
+import { Item } from 'src/app/shared/interface/item';
+import { CartService } from 'src/app/shared/services/cart.service';
+import { ProductsService } from 'src/app/shared/services/products.service';
 import { CategoryComponent } from '../../catalogue/category/category.component';
 
 

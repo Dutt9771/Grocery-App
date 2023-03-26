@@ -12,8 +12,6 @@ import { ProductDetailsComponent } from './catalogue/product-details/product-det
 import { CartComponent } from './components/cart/cart.component';
 import { CheckoutComponent } from './components/checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
-import { HeaderComponent } from './layout/header/header.component';
-import { FooterComponent } from './layout/footer/footer.component';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 
 
@@ -25,11 +23,10 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
         CartComponent,
         CheckoutComponent,
         SuccessComponent,
-        HeaderComponent,
         HomeComponent,
-        FooterComponent
+
     ],
-    exports: [HeaderComponent, HomeComponent, FooterComponent],
+    exports: [HomeComponent],
     imports: [
         CommonModule,
         FrontRoutingModule,
