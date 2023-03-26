@@ -19,8 +19,10 @@ cartObj:any
 filteredItems:any=[]
 groupedProducts: any[] = [];
 cartlength:any
+
 ngOnInit(){
-  
+  this._cartservice.subtotal = this.Subtotal()
+  console.log("first Subtotal",this.Subtotal())
   this.filteredItems=this._productservice.getProducts()
 //   this._cartservice.cartSubject.subscribe(res => {
 //     
@@ -92,6 +94,7 @@ Subtotal() {
   }
   this.GST=subtotal*0.18;
   this.Total=subtotal+this.GST
+  console.log("Subtotal Function =" ,subtotal)
   return subtotal;
 
 }

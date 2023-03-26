@@ -148,6 +148,7 @@ ngOnInit(){
         res
       )
     })
+    this._cartservice.addItemToCart();
     // this.rout.navigate(['/front/cart'])
     console.log(this.clickedItem)
     this._cartservice.cart.push(this.clickedItem);

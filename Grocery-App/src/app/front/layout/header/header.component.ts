@@ -14,6 +14,7 @@ export class HeaderComponent {
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
   cartItemCount = 0;
+  subTotal = 0;
   constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
 
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
@@ -27,6 +28,7 @@ export class HeaderComponent {
   CountArr:any=[]
   cartItemslength:number
   ngOnInit(){
+    this.subTotal = this._cartService.subtotal;
     this.cartItemslength=this._cartService.getItemCount()
     // cartcounter
 

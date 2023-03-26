@@ -12,6 +12,7 @@ export class CartService {
 baseurl=environment.baseurl;
 resname=environment.resname
   addcart=[]
+
   AddCart(data:any){
     try {
       return this.http.post(this.baseurl+this.resname,data)
@@ -95,4 +96,7 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   removeItemFromCart() {
     return this.itemCount-=1;
   }
+
+
+  subtotal:any;
 }
