@@ -13,7 +13,7 @@ const routes: Routes = [
 {path:'front',
 loadChildren: () => import('./front/front.module').then(m => m.FrontModule)},
 {path:'admin',
-loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule)},
+loadChildren: () => import('./modules/admin/admin.module').then(m => m.AdminModule)},
 // {path:'front/user/user-profile',component:UserProfileComponent,canActivate:[AuthUserGuard]},
 // {path:'front/catalogue/product-details',component:ProductDetailsComponent},
 // {path:'front/catalogue/product-list',component:ProductListComponent},
