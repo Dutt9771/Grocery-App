@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -165,20 +165,40 @@ export class ProductsService {
   ]
 
   Top_Sells(){
-    return (this.topsells)
+    try {
+    return this.topsells
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
   }
   Top_Rated(){
-    return this.toprated
+    try {
+      return this.toprated
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
   }
   Trending_Items(){
-    return this.trendingItems
+    try {
+      return this.trendingItems
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
   }
   Recently_Added(){
-    return this.recentlyAdded
+    try {
+      return this.recentlyAdded
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
   }
     getProducts() {
+      try {
+        return this.productArray
+      } catch (error:any) {
+        return throwError(() => new Error(error))
+      }
       
-      return this.productArray
   }
   name:any
   constructor(private route:ActivatedRoute) { }

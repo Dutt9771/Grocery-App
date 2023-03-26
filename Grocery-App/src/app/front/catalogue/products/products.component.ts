@@ -9,7 +9,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent {
 constructor(private _cartservice:CartService,private productservice:ProductsService){}
-filteredItems:any[]=[]
+filteredItems:any=[]
 ngOnInit(){
   this.filteredItems=this.productservice.getProducts()
 }

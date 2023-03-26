@@ -14,7 +14,7 @@ export class HeaderComponent {
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
   cartItemCount = 0;
-  constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
+  constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
 
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
       this.Login_Logout_msg == res;
@@ -25,14 +25,16 @@ export class HeaderComponent {
   LoginData:any
   cartMessage:any
   CountArr:any=[]
+  cartItemslength:number
   ngOnInit(){
-
+    this.cartItemslength=this._cartService.getItemCount()
     // cartcounter
 
     // this.CountArr=(localStorage.getItem('Products_Count'))
     // console.log("CountArr",JSON.parse(this.CountArr).length)
     // this.cartItemCount=JSON.parse(this.CountArr).length
     this._cartService.cartSubject.subscribe(cart => {
+      console.log("cart",cart)
       this.cartItemCount = cart.length;
     });
     this._cartService.cartMsg.subscribe(cart => {

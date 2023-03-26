@@ -134,18 +134,5 @@
       "id": 19
     }
   ],
-  "cart": [
-    {
-      "imageurl": "Vegetables.jpg",
-      "category": "vegetables",
-      "name": "Tomato",
-      "weight": "500 grams",
-      "sellerName": "Vishnu Farms Inc.",
-      "moneyOfferPrice": 5,
-      "price": 12,
-      "money": "USD",
-      "quantity": 1,
-      "id": 1
-    }
-  ]
+  "cart": []
 }

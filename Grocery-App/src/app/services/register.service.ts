@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Subject } from 'rxjs';
+import { Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -13,14 +13,22 @@ export class RegisterService {
 baseurl=environment.baseurl
 register=environment.register
   get_Register_data(data:any){
- return this.http.post(this.baseurl+this.register,data,{observe:"response"}).subscribe(data=>{
-  sessionStorage.setItem("Register_User",JSON.stringify(data.body))
-this.router.navigate(['/front/user/login'])
- })
+    try {
+      return this.http.post(this.baseurl+this.register,data,{observe:"response"}).subscribe(data=>{
+        sessionStorage.setItem("Register_User",JSON.stringify(data.body))
+      this.router.navigate(['/front/user/login'])
+       })
+    } catch (error:any) {
+      return throwError(() => new Error('test'))
+    }
+
   }
   get_Login_data(data){
-
-  return sessionStorage.setItem("Login_User",JSON.stringify(data))
+    try {
+      return sessionStorage.setItem("Login_User",JSON.stringify(data))
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
 
  }
 

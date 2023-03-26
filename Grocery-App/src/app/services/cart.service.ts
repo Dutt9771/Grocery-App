@@ -56,16 +56,43 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 
   setCartTotal(total: number) {
-    this.cartTotal$.next(total);
+    try {
+      return this.cartTotal$.next(total);
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
   }
   setCartmsg(msg: string) {
-    this.cartmsg$.next(msg);
+    try {
+      return this.cartmsg$.next(msg);
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+    
   }
 
   public cart = [];
+
+  cartArr(){
+    return this.cart
+  }
   public cartmsg=''
   public cartSubject = new Subject<any>();
   public cartMsg = new Subject<any>();
 
 
+
+  private itemCount = 0;
+
+  getItemCount() {
+    return this.itemCount;
+  }
+
+  addItemToCart() {
+    return this.itemCount+=1;
+  }
+
+  removeItemFromCart() {
+    return this.itemCount-=1;
+  }
 }

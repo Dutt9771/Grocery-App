@@ -75,7 +75,9 @@
                 <a (click)="Add_cart_count()"><i class="fas fa-shopping-cart"></i></a>
                 
                 <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-primary" *ngIf="cartItemCount > 0">
-                  {{cartItemCount}}
+                  <!-- {{cartItemCount}} -->
+                  <!-- {{cartItemslength}} -->
+                  {{_cartService.getItemCount()}}
                   <span class="visually-hidden">unread messages</span>
                 </span>
              </a>

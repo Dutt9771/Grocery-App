@@ -2,6 +2,7 @@ import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/services/cart.service';
+import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
   selector: 'app-cart',
@@ -9,16 +10,25 @@ import { CartService } from 'src/app/services/cart.service';
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-constructor(private _cartservice:CartService,private route:Router){}
+constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router){}
 cart:any=[]
 // cartItems;
 price:any
 cartObj:any
 
-
+filteredItems:any=[]
 groupedProducts: any[] = [];
 cartlength:any
 ngOnInit(){
+  
+  this.filteredItems=this._productservice.getProducts()
+//   this._cartservice.cartSubject.subscribe(res => {
+//     
+    
+//     console.log("Before Cart",res)
+//     // cart.splice(1,1);
+//     // console.log("After Cart",cart)
+// });
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
     console.log(this.cart.length)
@@ -87,18 +97,23 @@ Subtotal() {
 }
 
 cartItemCount:number=0
+clickedItem:any=[]
 DelectProduct(id:any){
- 
+  this.clickedItem= this.filteredItems[id]
+  
   this._cartservice.DelectProduct(id).subscribe((res)=>{
     if (res) {
+      // this._cartservice.cart.splice(this.clickedItem,1);
+      // this._cartservice.cartSubject.next(this._cartservice.cart);
+      console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
       this.cart.splice(id-1, 1);
-      console.log(this.cart);
-      // this._cartservice.cartSubject.subscribe(cart => {
-      //   this.cartItemCount = cart.length;
-      // });
+      this._cartservice.removeItemFromCart();
+      console.log("cart",this.cart);
+      
       
     }
   })
+ 
 }
 
 Checkout(){

@@ -149,7 +149,6 @@ productArray:any[] = [
     
 
     this.filteredItems=this.productservice.getProducts()
-    ;
     this.route.paramMap.subscribe(params => {
       this.category_path= params.get('category');
       console.log(this.filteredItems)
@@ -180,7 +179,7 @@ if(this.category_path){
 
   categories = Array.from(new Set(this.productArray.map(product => product.category)));
   category_all:any = this.categories.unshift('all')
-  filteredItems:any[]=[]
+  filteredItems:any=[]
   Filter_Category(category:any){
     this.selectedCategory = 'all';
   //   let tempArr: any[]=[]
@@ -265,13 +264,15 @@ if(category==='all'){
         res
       )
     })
+
+    this._cartservice.addItemToCart();
     // this.rout.navigate(['/front/cart'])
-    console.log(this.clickedItem)
-    this._cartservice.cart.push(this.clickedItem);
+    // console.log("clickedItem",this.clickedItem)
+    // this._cartservice.cart.push(this.clickedItem);
 
     // emit updated cart data to subscribers
-    this._cartservice.cartSubject.next(this._cartservice.cart);
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    // this._cartservice.cartSubject.next(this._cartservice.cart);
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
   }
 
