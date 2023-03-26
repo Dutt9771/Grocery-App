@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CartService } from 'src/app/shared/services/cart.service';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { RegisterService } from 'src/app/shared/services/register.service';
 
 @Component({
