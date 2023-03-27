@@ -23,10 +23,10 @@ address:"Kathleen G. Hogan 3516 Layman AvenueFayetteville, NC 28306"
 address: any;
 
 Cancel_Checkout(){
-this.route.navigate(['/front/home'])
+this.route.navigate(['/home'])
 }
 Place_Order(){
-  this.route.navigate(['/front/success'])
+  this.route.navigate(['/front/cart/success'])
 }
 
 cartTotal: number;

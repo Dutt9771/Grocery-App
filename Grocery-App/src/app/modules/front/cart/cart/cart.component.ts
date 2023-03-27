@@ -25,13 +25,7 @@ ngOnInit(){
   this._cartservice.subtotal = this.Subtotal()
   console.log("first Subtotal",this.Subtotal())
   this.filteredItems=this._productservice.getProducts()
-//   this._cartservice.cartSubject.subscribe(res => {
-//     
-    
-//     console.log("Before Cart",res)
-//     // cart.splice(1,1);
-//     // console.log("After Cart",cart)
-// });
+
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
     console.log("cart",this.cart)
@@ -40,6 +34,7 @@ ngOnInit(){
     // });
     
     this.groupedProducts = this.cart.reduce((acc, product) => {
+      
       const existingCategory = acc.find(group => group.category === product.category);
       if (existingCategory) {
         existingCategory.cart.push(product);
@@ -62,6 +57,19 @@ ngOnInit(){
   // });
 }
 
+ngAfterViewInit(){
+  this._cartservice.ShowCart().subscribe((res)=>{
+    this.cart=res
+    console.log("cart",this.cart)
+  this._cartservice.cartSubject.subscribe(res => {
+    
+    
+    console.log("Before Cart",res)
+    this.cart.splice(1,1);
+    console.log("After Cart",this.cart)
+});
+  })
+}
 //Badge
 
 // update the cart badge count
@@ -109,7 +117,7 @@ Subtotal() {
   }
   this.GST=subtotal*0.18;
   this.Total=subtotal+this.GST
-  console.log("Subtotal Function =" ,subtotal)
+  // console.log("Subtotal Function =" ,subtotal)
   return subtotal;
 
 }
@@ -136,7 +144,7 @@ DelectProduct(id:any){
 
 Checkout(){
   this._cartservice.setCartTotal(this.Total);
-  this.route.navigate(['/front/checkout'])
+  this.route.navigate(['/front/cart/checkout'])
 }
 
 

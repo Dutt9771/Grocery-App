@@ -11,7 +11,7 @@ export class SuccessComponent {
   constructor(private route:Router){}
   ngOnInit(){
     setTimeout(()=>{
-      this.route.navigate(['/front/home'])
+      this.route.navigate(['/home'])
     },6000);
   }
 }

@@ -136,6 +136,30 @@
   ],
   "cart": [
     {
+      "imageurl": "Vegetables.jpg",
+      "category": "vegetables",
+      "name": "Tomato",
+      "weight": "500 grams",
+      "sellerName": "Vishnu Farms Inc.",
+      "moneyOfferPrice": 5,
+      "price": 12,
+      "money": "USD",
+      "quantity": 1,
+      "id": 1
+    },
+    {
+      "imageurl": "Vegetables.jpg",
+      "category": "vegetables",
+      "name": "Tomato",
+      "weight": "500 grams",
+      "sellerName": "Vishnu Farms Inc.",
+      "moneyOfferPrice": 5,
+      "price": 12,
+      "money": "USD",
+      "quantity": 1,
+      "id": 2
+    },
+    {
       "imageurl": "tatasault.png",
       "category": "Grocery",
       "name": "Tata Sault",
@@ -144,31 +168,7 @@
       "moneyOfferPrice": 8,
       "price": 12,
       "money": "USD",
-      "quantity": 14,
-      "id": 1
-    },
-    {
-      "imageurl": "Peach.jpg",
-      "category": "Grocery",
-      "name": "Organic Brown Rice2",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 9,
-      "price": 12,
-      "money": "USD",
-      "quantity": 5,
-      "id": 2
-    },
-    {
-      "imageurl": "Vegetables.jpg",
-      "category": "vegetables",
-      "name": "LadiesFinger",
-      "weight": "500 grams",
-      "sellerName": "Ajay Farms Inc.",
-      "moneyOfferPrice": 3,
-      "price": 10,
-      "money": "USD",
-      "quantity": 5,
+      "quantity": 1,
       "id": 3
     }
   ]

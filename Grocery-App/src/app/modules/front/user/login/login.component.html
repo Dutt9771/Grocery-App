@@ -24,12 +24,12 @@
           <button type="submit" [disabled]="!login.valid" class="btn btn-primary">Login</button>
         </div>
       </div>
-      <div class="row g-2 col-md-1 justify-content-center">
+      <!-- <div class="row g-2 col-md-1 justify-content-center">
         <div class="g-btn" *ngIf="!user">
           <asl-google-signin-button  class="g-logo"></asl-google-signin-button>
           <span>Google</span>
             </div>
-          </div>  
+          </div>   -->
       <div class="row g-2 d-flex justify-content-center text-danger" *ngIf="!login.valid"> 
         <span class="text-danger">Please Enter all Details</span>
     </div> 
