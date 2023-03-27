@@ -21,6 +21,13 @@ resname=environment.resname
       return throwError(()=>new Error(error))
     }
   }
+  EditCart(data:any){
+    try {
+      return this.http.put(this.baseurl+this.resname+'/'+data.id,data)
+    } catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+  }
   ShowCart(){
     try {
     return this.http.get(this.baseurl+this.resname)

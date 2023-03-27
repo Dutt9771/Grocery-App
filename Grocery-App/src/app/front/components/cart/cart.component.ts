@@ -34,7 +34,7 @@ ngOnInit(){
 // });
   this._cartservice.ShowCart().subscribe((res)=>{
     this.cart=res
-    console.log(this.cart.length)
+    console.log("cart",this.cart)
     // this._cartservice.cartSubject.subscribe(cart => {
     //   this.cartItemCount = cart.length;
     // });
@@ -76,13 +76,27 @@ quantitymin(index,productindex){
   //   console.log(this.cart[index].moneyOfferPrice)
   if(this.groupedProducts[index].cart[productindex].quantity>1){
     this.groupedProducts[index].cart[productindex].quantity-=1  
-  }
+    this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+    console.log("cart",this.cart)
+    this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
+      console.log("cart in Service",cart)
+      console.log("Product Index",productindex)
+      console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
+  })
+}
 }
 quantitymax(index,productindex){
  
     // console.log(this.cart[index].moneyOfferPrice)
     this.groupedProducts[index].cart[productindex].quantity+=1
-  
+    this._cartservice.ShowCart().subscribe((cart)=>{
+      cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+      console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
+      this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
+        console.log("cart in Service",cart)})
+
+    })
+
 
 }
 
