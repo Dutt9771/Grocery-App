@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
-import { RegisterService } from 'src/app/shared/services/register.service';
+import { RegisterService } from 'src/app/shared/services/register/register.service';
+
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',

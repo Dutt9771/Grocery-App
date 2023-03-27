@@ -2,7 +2,8 @@ import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
-import { ProductsService } from 'src/app/shared/services/products.service';
+import { ProductsService } from 'src/app/shared/services/products/products.service';
+
 
 @Component({
   selector: 'app-cart',

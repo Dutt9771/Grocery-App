@@ -2,7 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {SocialAuthService} from '@abacritt/angularx-social-login';
 import { NavigationExtras, Router } from '@angular/router';
-import { RegisterService } from 'src/app/shared/services/register.service';
+import { RegisterService } from 'src/app/shared/services/register/register.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',

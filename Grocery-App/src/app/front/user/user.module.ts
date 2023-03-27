@@ -9,9 +9,9 @@ import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LogoutComponent } from './logout/logout.component';
 import { ManageaddressComponent } from './manageaddress/manageaddress.component';
 import { OrdersComponent } from './orders/orders.component';
-import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { ProfilenavComponent } from './profilenav/profilenav.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { ChangepasswordComponent } from './changepassword/changepassword.component';
 
 
 
@@ -22,8 +22,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     LogoutComponent,
     ManageaddressComponent,
     OrdersComponent,
-    ChangepasswordComponent,
     ProfilenavComponent,
+    ChangepasswordComponent
     
   ],
   imports: [

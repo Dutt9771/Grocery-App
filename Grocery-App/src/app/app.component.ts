@@ -4,7 +4,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 
 import { CartService } from './shared/services/cart/cart.service';
-import { RegisterService } from './shared/services/register.service';
+import { RegisterService } from './shared/services/register/register.service';
+
 
 
 @Component({

@@ -3,7 +3,8 @@ import { Component, OnInit,Renderer2, ElementRef, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from 'src/app/shared/interface/item';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
-import { ProductsService } from 'src/app/shared/services/products.service';
+import { ProductsService } from 'src/app/shared/services/products/products.service';
+
 import { CategoryComponent } from '../../catalogue/category/category.component';
 
 

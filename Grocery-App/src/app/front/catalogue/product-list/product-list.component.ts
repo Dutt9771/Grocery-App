@@ -2,7 +2,8 @@ import { AfterContentInit, Component, Input, OnChanges, OnInit } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductListService } from 'src/app/shared/services/product-list/product-list.service';
-import { ProductsService } from 'src/app/shared/services/products.service';
+import { ProductsService } from 'src/app/shared/services/products/products.service';
+
 
 @Component({
   selector: 'app-product-list',
