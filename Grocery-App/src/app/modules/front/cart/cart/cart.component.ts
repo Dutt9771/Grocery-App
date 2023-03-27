@@ -126,21 +126,46 @@ cartItemCount:number=0
 clickedItem:any=[]
 DelectProduct(id:any){
   this.clickedItem= this.filteredItems[id]
-  
+  // if(this.groupedProducts[index].cart[productindex].quantity
   this._cartservice.DelectProduct(id).subscribe((res)=>{
     if (res) {
-      // this._cartservice.cart.splice(this.clickedItem,1);
-      // this._cartservice.cartSubject.next(this._cartservice.cart);
-      console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
       this.cart.splice(id-1, 1);
+      // console.log("Res",res)
+      this._cartservice.cartSubject.next(this._cartservice.cart);
+      this._cartservice.cart.splice(this.clickedItem,1);
+      console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
       this._cartservice.removeItemFromCart();
       console.log("cart",this.cart);
+      console.log("cart by Id",this.cart[id]);
       
       
     }
   })
  
 }
+
+
+// removeItem(id: any) {
+//   //  id =  parseInt(id)
+//   this.productId = id;
+//   console.log('id :', typeof id);
+
+//   this.cartService.removeCartProducts(id).subscribe((response) => {
+//     if (response) {
+//       console.log('delted : ', id, response);
+//       console.log('cart Items', this.cartItems);
+//       this.delete(id);
+//     }
+//   });
+// }
+delete(id: any) {
+  let deleted = this.cart.filter((product) => product.id !== id);
+  console.log('deleted items:', deleted);
+  this.cart = deleted;
+  console.log("cart Arr",this.cart);
+
+  return this.filteredItems;
+} 
 
 Checkout(){
   this._cartservice.setCartTotal(this.Total);

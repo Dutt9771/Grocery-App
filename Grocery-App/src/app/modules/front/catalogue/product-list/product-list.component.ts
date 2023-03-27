@@ -255,11 +255,13 @@ if(category==='all'){
   ProductAddobj:any;
   clickedItem:any=[]
   Add_cart(i){
-   this.clickedItem= this.filteredItems[i]
-    for(let i=0;i<this.filteredItems.length;i++){
-      this.ProductAddobj=this.filteredItems[i]
-      console.log("OBJ",this.ProductAddobj)
-    }
+    console.log("id",i)
+    console.log("Filtered Item Arr",this.filteredItems[i])
+    this.ProductAddobj= this.filteredItems[i]
+    // for(let i=0;i<this.filteredItems.length;i++){
+    //   this.ProductAddobj=this.filteredItems[i]
+    //   // console.log("OBJ",this.ProductAddobj)
+    // }
     this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res
