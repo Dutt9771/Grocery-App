@@ -42,10 +42,10 @@ export class ChangepasswordComponent {
     // };
     matchPasswordValidator(): ValidatorFn {
       return (control: AbstractControl): ValidationErrors | null => {
-        const password = control.root.get('password')?.value;
+        const newpassword = control.root.get('newpassword')?.value;
         const confirmPassword = control.value;
   
-        return password === confirmPassword ? null : { matchPassword: { value: control.value } };
+        return newpassword === confirmPassword ? null : { matchPassword: { value: control.value } };
       };
     }
 }

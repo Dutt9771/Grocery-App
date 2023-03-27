@@ -19,137 +19,27 @@ export class ProductListComponent implements OnInit {
 category:any
 
 filterValue:any
-productArray:any[] = [
-  {
-    imageurl:"Peach.jpg",
-    category: "Grocery",
-    name: "Organic Brown Rice1",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 8,
-    price:12,
-    money: "USD",
-  },
-  {
-    imageurl:"Peach.jpg",
-    category: "Grocery",
-    name: "Organic Brown Rice2",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 9,
-    price:12,
-    money: "USD",
-  },
-  {
-    imageurl:"Peach.jpg",
-    category: "Grocery",
-    name: "Organic Brown Rice3",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 10,
-    price:12,
-    money: "USD",
-  },
-  {
-    imageurl:"Peach.jpg",
-    category: "Grocery",
-    name: "Organic Brown Rice4",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 10,
-    money: "USD",
-    price:20,
-  },
-  {
-    imageurl:"fruits.jpg",
-    category: "fruits",
-    name: "Fruits",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 2,
-    price:5,
-    money: "USD",
-  },
-  {
-    imageurl:"fruits.jpg",
-    category: "fruits",
-    name: "Fruits",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"fruits.jpg",
-    category: "fruits",
-    name: "Fruits",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"fruits.jpg",
-    category: "fruits",
-    name: "Fruits",
-    weight: "500 grams",
-    sellerName: "Vishvash Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"Vegetables.jpg",
-    category: "vegetables",
-    name: "Cabbage",
-    weight: "500 grams",
-    sellerName: "Abhay Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"Vegetables.jpg",
-    category: "vegetables",
-    name: "LadiesFinger",
-    weight: "500 grams",
-    sellerName: "Ajay Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"Vegetables.jpg",
-    category: "vegetables",
-    name: "Potato",
-    weight: "500 grams",
-    sellerName: "Organic Farms Inc.",
-    moneyOfferPrice: 3,
-    price:10,
-    money: "USD",
-  },
-  {
-    imageurl:"Vegetables.jpg",
-    category: "vegetables",
-    name: "Tomato",
-    weight: "500 grams",
-    sellerName: "Vishnu Farms Inc.",
-    moneyOfferPrice: 5,
-    price:12,
-    money: "USD",
-  },
-]
+productArray:any = []
 
 
-
-  Product_Arr:any
+filteredItems:any=[]
+  Product_Arr:any=[]
   category_path
+  categories:any
   ngOnInit() {
     
-
     this.filteredItems=this.productservice.getProducts()
+    this.productArray=this.productservice.getProducts()
+
+    this.categories = this.productArray.reduce((acc, curr) => {
+      if (!acc.includes(curr.category)) {
+        acc.push(curr.category);
+      }
+      return acc;
+    }, []);
+    this.categories.unshift('all')
+     // categories = Array.from(new Set(this.productArray.map(product => product.category)));
+  
     this.route.paramMap.subscribe(params => {
       this.category_path= params.get('category');
       console.log(this.filteredItems)
@@ -171,16 +61,18 @@ if(this.category_path){
       
       
       console.log("Categories",this.categories)
+      console.log("productArray",this.productArray)
     });
   }else{
     this.Filter_Category(this.selectedCategory);
   }
     
   }
+  
+  
+ 
 
-  categories = Array.from(new Set(this.productArray.map(product => product.category)));
-  category_all:any = this.categories.unshift('all')
-  filteredItems:any=[]
+
   Filter_Category(category:any){
     this.selectedCategory = 'all';
   //   let tempArr: any[]=[]
@@ -269,13 +161,15 @@ if(category==='all'){
     })
 
     this._cartservice.addItemToCart();
+    this._cartservice.cartmsg=this.filteredItems[i].name;
+
     // this.rout.navigate(['/front/cart'])
     // console.log("clickedItem",this.clickedItem)
     // this._cartservice.cart.push(this.clickedItem);
 
     // emit updated cart data to subscribers
-    // this._cartservice.cartSubject.next(this._cartservice.cart);
-    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    this._cartservice.cartSubject.next(this._cartservice.cart);
+    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
   }
 

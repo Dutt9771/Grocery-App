@@ -10,7 +10,7 @@ export class ProductsService {
   productArray:any[] = [
     {
       imageurl:"tatasault.png",
-      category: "Grocery",
+      category: "Food",
       name: "Tata Sault",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
@@ -20,20 +20,20 @@ export class ProductsService {
       quantity:1
     },
     {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice2",
+      imageurl:"bakery.jpg",
+      category: "bakery",
+      name: "bakery",
       weight: "500 grams",
-      sellerName: "Organic Farms Inc.",
+      sellerName: "Bakery Inc.",
       moneyOfferPrice: 9,
       price:12,
       money: "USD",
       quantity:1
     },
     {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice3",
+      imageurl:"bakery.jpg",
+      category: "bakery",
+      name: "bakery2",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,
@@ -42,9 +42,9 @@ export class ProductsService {
       quantity:1
     },
     {
-      imageurl:"Peach.jpg",
-      category: "Grocery",
-      name: "Organic Brown Rice4",
+      imageurl:"bakery.jpg",
+      category: "bakery",
+      name: "bakery3",
       weight: "500 grams",
       sellerName: "Organic Farms Inc.",
       moneyOfferPrice: 10,

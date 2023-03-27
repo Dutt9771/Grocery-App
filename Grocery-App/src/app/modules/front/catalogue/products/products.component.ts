@@ -139,17 +139,20 @@ ngOnInit(){
   ProductAddobj:any;
   clickedItem:any=[]
   Add_cart(i){
-   this.clickedItem= this.productArray[i]
-    for(let i=0;i<this.filteredItems.length;i++){
-      this.ProductAddobj=this.filteredItems[i]
-      console.log("OBJ",this.ProductAddobj)
-    }
-    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+   this.clickedItem= this.filteredItems[i]
+    // for(let i=0;i<this.filteredItems.length;i++){
+    //   this.ProductAddobj=this.filteredItems[i]
+    //   console.log("OBJ",this.ProductAddobj)
+    // }
+    console.log("Cart Add Product",this.filteredItems[i])
+    this._cartservice.AddCart(this.filteredItems[i]).subscribe(res=>{
       console.log(
         res
       )
     })
     this._cartservice.addItemToCart();
+    this._cartservice.cartmsg=this.filteredItems[i].name;
+
     // this.rout.navigate(['/front/cart'])
     console.log(this.clickedItem)
     this._cartservice.cart.push(this.clickedItem);

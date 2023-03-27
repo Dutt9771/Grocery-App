@@ -32,8 +32,8 @@ ngOnInit(){
       quantity: '1 kg'
     },
     {
-      category: 'Fruits',
-      image: '/assets/fruits.jpg',
+      category: 'Food',
+      image: '/assets/food.jpg',
       quantity: '1 kg'
     },
     {
