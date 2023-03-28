@@ -24,7 +24,7 @@
                 <div style="display: inline-block; position: relative; top: -10px; background-color: white; padding: 0px 10px;font-size: 25px">Past Orders</div>
               </div>
       <mat-accordion>
-        <mat-expansion-panel>
+        <mat-expansion-panel *ngFor="let arr of PastOrderArr">
           <mat-expansion-panel-header>
             <mat-panel-title>
               <img
@@ -32,77 +32,17 @@
               />
               <small class="m-2 text-muted">Complete</small>
               <div class="vl"></div>
-              <small class="text-muted">12 March,Sun</small>
+              <small class="text-muted">{{arr.day}}</small>
             </mat-panel-title>
             <mat-panel-description>
-              <small>8:30 AM - 12:30 PM</small>
+              <small>{{arr.time}}</small>
               <div class="vl"></div>
-              <small>Order Amount: RS 162</small>
+              <small>Order Amount: RS {{arr.order_amount}}</small>
               <div class="vl"></div>
-              <span>2 Item</span>
+              <span>{{arr.item}} Item</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <img
-                src="https://img.icons8.com/cute-clipart/40/null/in-transit.png"
-              />
-              <small class="m-2 text-muted">Complete</small>
-              <div class="vl"></div>
-              <small class="text-muted">12 March,Sun</small>
-            </mat-panel-title>
-            <mat-panel-description>
-              <small>8:30 AM - 12:30 PM</small>
-              <div class="vl"></div>
-              <small>Order Amount: RS 162</small>
-              <div class="vl"></div>
-              <span>2 Item</span>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <img
-                src="https://img.icons8.com/cute-clipart/40/null/in-transit.png"
-              />
-              <small class="m-2 text-muted">Complete</small>
-              <div class="vl"></div>
-              <small class="text-muted">12 March,Sun</small>
-            </mat-panel-title>
-            <mat-panel-description>
-              <small>8:30 AM - 12:30 PM</small>
-              <div class="vl"></div>
-              <small>Order Amount: RS 162</small>
-              <div class="vl"></div>
-              <span>2 Item</span>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
-        </mat-expansion-panel>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-title>
-              <img
-                src="https://img.icons8.com/cute-clipart/40/null/in-transit.png"
-              />
-              <small class="m-2 text-muted">Complete</small>
-              <div class="vl"></div>
-              <small class="text-muted">12 March,Sun</small>
-            </mat-panel-title>
-            <mat-panel-description>
-              <small>8:30 AM - 12:30 PM</small>
-              <div class="vl"></div>
-              <small>Order Amount: RS 162</small>
-              <div class="vl"></div>
-              <span>2 Item</span>
-            </mat-panel-description>
-          </mat-expansion-panel-header>
-          <p>I'm visible because I am open</p>
+          <p>{{arr.product_details}}</p>
         </mat-expansion-panel>
               </mat-accordion>
 

@@ -143,7 +143,7 @@ constructor(private router:ActivatedRoute,private _productsservice:ProductsServi
   this.router.paramMap.subscribe(params=>{
     this.product_name=params.get('product_name')
   })
-  console.log(this.product_name)
+  // console.log("product_name",this.product_name)
 }
 ShowcartArr:any=[]
 quantity=1;
@@ -162,7 +162,7 @@ quantity=1;
 
     this.router.paramMap.subscribe(params => {
       const product = params.get('product_name');
-      console.log(product)    
+      // console.log(product)    
           this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name.toLowerCase() === product);
           this.product_item=product
 
