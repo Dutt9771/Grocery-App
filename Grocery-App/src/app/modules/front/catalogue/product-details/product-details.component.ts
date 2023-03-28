@@ -145,10 +145,13 @@ constructor(private router:ActivatedRoute,private _productsservice:ProductsServi
   })
   console.log(this.product_name)
 }
+ShowcartArr:any=[]
 quantity=1;
   ngOnInit() {
     this.filteredItems=this._productsservice.getProducts()
-    
+    this._cartservice.ShowCart().subscribe((res)=>{
+      this.ShowcartArr=res
+    })
     
     // this.route.paramMap.subscribe(params => {
     //   this.product_path= params.get('product');
@@ -199,15 +202,24 @@ quantity=1;
         }
     }
     product_quantity={
-      quantity:1,
+      quantity:this.quantity,
     }
     
     ProductObj:any
 ProductAddobj:any;
 Product_Count_Obj:any=[]
+QuantityErrMsg:string=''
   Add_cart(){
-    for(let i=0;i<this.filteredItems.length;i++){
 
+    if(this.product_quantity.quantity>0){
+      console.log("Show Cart Arr",this.ShowcartArr)
+      this.ShowcartArr.filter(cartItem => {
+        // Insert your matching condition here. For example:
+        console.log(this.filteredItems.some(filteredItem => filteredItem.id === cartItem.productId))
+      });
+      
+      for(let i=0;i<this.filteredItems.length;i++){
+        this.ShowcartArr
       // this.filteredItems[i].moneyOfferPrice=this.product_quantity.quantity
       this.ProductObj=this.filteredItems[i]
       this.ProductAddobj=Object.assign(this.ProductObj,this.product_quantity)
@@ -235,6 +247,9 @@ Product_Count_Obj:any=[]
     this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   
     // this._cartservice.addToCart(item);
+  }else{
+    this.QuantityErrMsg="Please Enter Valid Quantity"
+  }
  
   }
 }

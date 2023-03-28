@@ -117,12 +117,12 @@ export class CartComponent {
   
   Subtotal():number {
     let subtotal:any = 0;
-  console.log("GroupProducts In Subtotal",this.groupedProducts)
+  // console.log("GroupProducts In Subtotal",this.groupedProducts)
     if(this.groupedProducts.length){
   
       for (let i = 0; i < this.groupedProducts.length; i++) {
         for(let j=0;j<this.groupedProducts[i].cart.length;j++){
-          console.log("Cart in Subtottal",this.cart[i])
+          // console.log("Cart in Subtottal",this.cart[i])
           subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].moneyOfferPrice;
         }
     }
@@ -157,12 +157,14 @@ export class CartComponent {
   cartItemCount:number=0
   clickedItem:any=[]
   DelectProduct(id:any,index:any,productindex:any){
-    this.clickedItem= this.filteredItems[id]
-    // if(this.groupedProducts[index].cart[productindex].quantity
-    this._cartservice.DelectProduct(id).subscribe((res)=>{
-      if (res) {
-        console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
-        
+    
+      
+      this.clickedItem= this.filteredItems[id]
+      // if(this.groupedProducts[index].cart[productindex].quantity
+      this._cartservice.DelectProduct(id).subscribe((res)=>{
+        if (res) {
+          console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
+          
         this._cartservice.cartSubject.next(this._cartservice.cart);
         this._cartservice.removeItemFromCart();
       return this.groupedProducts[index].cart.splice(productindex,1)
@@ -177,33 +179,18 @@ export class CartComponent {
         
         
       }
+      this.Subtotal()
+    //   if(res && this.groupedProducts.length==1){
+    //     console.log('REs')
+    //     this.route.navigate(['/home'])
+  
+    // }
+    // console.log("groupedProducts.length",this.groupedProducts.length)
     })
-    this.Subtotal()
+    
    
   }
   
-  
-  // removeItem(id: any) {
-  //   //  id =  parseInt(id)
-  //   this.productId = id;
-  //   console.log('id :', typeof id);
-  
-  //   this.cartService.removeCartProducts(id).subscribe((response) => {
-  //     if (response) {
-  //       console.log('delted : ', id, response);
-  //       console.log('cart Items', this.cartItems);
-  //       this.delete(id);
-  //     }
-  //   });
-  // }
-  delete(id: any) {
-    let deleted = this.cart.filter((product) => product.id !== id);
-    console.log('deleted items:', deleted);
-    this.cart = deleted;
-    console.log("cart Arr",this.cart);
-  
-    return this.filteredItems;
-  } 
   
   Checkout(){
     this._cartservice.setCartTotal(this.Total);
