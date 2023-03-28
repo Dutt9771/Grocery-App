@@ -13,7 +13,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { MatSnackBarModule, MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { NgxStarRatingModule } from 'ngx-star-rating';
+
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { FrontModule } from './modules/front/front.module';
@@ -67,8 +67,7 @@ import { ContactUsComponent } from './shared/components/contact-us/contact-us.co
         HttpClientModule,
         MatSnackBarModule,
         MatExpansionModule,
-        NgxStarRatingModule,
-        CatalogueModule
+        CatalogueModule,
     ]
 })
 export class AppModule { }

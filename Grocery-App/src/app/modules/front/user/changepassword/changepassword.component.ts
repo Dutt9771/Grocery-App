@@ -34,7 +34,12 @@ export class ChangepasswordComponent {
       }
   
     }
-
+    // matchPasswordValidator(): ValidatorFn {
+    // return (control: AbstractControl): {[key: string]: any} | null => {
+    //   const password = this.Register.value['password'];
+    //   const confirm_password = control.value;
+    //   return password === confirm_password ? null : {matchPassword: {value: control.value}};
+    // };
     matchPasswordValidator(): ValidatorFn {
       return (control: AbstractControl): ValidationErrors | null => {
         const newpassword = control.root.get('newpassword')?.value;

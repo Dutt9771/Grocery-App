@@ -29,3 +29,7 @@
       height: 11em;
     }
   } */
+
+carousel{
+  z-index: 50;
+}

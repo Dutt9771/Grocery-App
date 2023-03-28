@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { CartComponent } from 'src/app/modules/front/cart/cart/cart.component';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { RegisterService } from '../../shared/services/register/register.service';
 
@@ -13,13 +12,13 @@ import { RegisterService } from '../../shared/services/register/register.service
 })
 export class HeaderComponent {
 
-    // @ViewChild(CartComponent) Subtotal :any;
     filterValue:any
     Registered_User:boolean=false
     Login_Logout_msg:string="Login"
     cartItemCount = 0;
+    subTotal = 0;
     constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
-      
+  
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
       })
@@ -29,13 +28,9 @@ export class HeaderComponent {
     LoginData:any
     cartMessage:any
     CountArr:any=[]
-    subtotal:number=0
     cartItemslength:number
-    ngOnInit(): void{
-      this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
-      // this.subTotal = this.Subtotal.Subtotal();
-      console.log("Subtotal",this.subtotal)
-      // this.subTotal = this._cartService.subtotal;
+    ngOnInit(){
+      this.subTotal = this._cartService.subtotal;
       this.cartItemslength=this._cartService.getItemCount()
       // cartcounter
   

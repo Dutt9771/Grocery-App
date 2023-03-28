@@ -124,4 +124,8 @@
     i:hover {
       color: #007bff;
     }
+
+    .navbar{
+      z-index: 100;
+    }
     

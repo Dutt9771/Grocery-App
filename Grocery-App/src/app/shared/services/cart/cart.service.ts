@@ -106,11 +106,5 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   }
 
 
-  
-  private subtotalSource = new BehaviorSubject<number>(0);
-  currentSubtotal = this.subtotalSource.asObservable();
-
-  updateSubtotal(subtotal: number) {
-    this.subtotalSource.next(subtotal);
-  }
+  subtotal:any;
 }
