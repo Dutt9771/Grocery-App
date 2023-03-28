@@ -22,8 +22,7 @@ groupedProducts: any[] = [];
 cartlength:any
 
 ngOnInit(){
-  this._cartservice.subtotal = this.Subtotal()
-  console.log("first Subtotal",this.Subtotal())
+ 
   this.filteredItems=this._productservice.getProducts()
 
   this._cartservice.ShowCart().subscribe((res)=>{
@@ -69,6 +68,7 @@ ngAfterViewInit(){
     console.log("After Cart",this.cart)
 });
   })
+  console.log("Subtotal From Cart",this.Subtotal())
 }
 //Badge
 
@@ -90,7 +90,10 @@ quantitymin(index,productindex){
       console.log("cart in Service",cart)
       console.log("Product Index",productindex)
       console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
-  })
+    })
+    
+    // console.log("Subtotal From Cart",this.Subtotal())
+
 }
 }
 quantitymax(index,productindex){
@@ -98,49 +101,84 @@ quantitymax(index,productindex){
     // console.log(this.cart[index].moneyOfferPrice)
     this.groupedProducts[index].cart[productindex].quantity+=1
     this._cartservice.ShowCart().subscribe((cart)=>{
-      cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+      this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
       console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
       this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
         console.log("cart in Service",cart)})
-
-    })
+      })
+      
+      // this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
 
 
 }
 
 GST:any
 Total:any
-Subtotal() {
+
+Subtotal():number {
   let subtotal:any = 0;
-  for (let i = 0; i < this.cart.length; i++) {
-    subtotal += this.cart[i].quantity * this.cart[i].moneyOfferPrice;
+console.log("GroupProducts In Subtotal",this.groupedProducts)
+  if(this.groupedProducts.length){
+
+    for (let i = 0; i < this.groupedProducts.length; i++) {
+      for(let j=0;j<this.groupedProducts[i].cart.length;j++){
+        console.log("Cart in Subtottal",this.cart[i])
+        subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].moneyOfferPrice;
+      }
   }
   this.GST=subtotal*0.18;
   this.Total=subtotal+this.GST
   // console.log("Subtotal Function =" ,subtotal)
+  this._cartservice.updateSubtotal(subtotal);
   return subtotal;
-
+}else{
+  subtotal=0
+  return subtotal;
 }
+  
+}
+
+// for Subtotal
+
+
+Subtotal_Per_Category(group) {
+  let total = 0;
+let subtotal=0;
+    // console.log("group",group.cart)
+    for (let i=0;i<group.cart.length;i++) {
+      let itemTotal = group.cart[i].moneyOfferPrice * group.cart[i].quantity;
+      subtotal += itemTotal;
+    }
+    // console.log(`Subtotal for ${cart.category}: ${subtotal} ${cart.cart[0].moneyOfferPrice}`);
+    return total += subtotal;
+    // console.log(`Total: ${total} ${cart[0].cart[0].money}`);
+  }
 
 cartItemCount:number=0
 clickedItem:any=[]
-DelectProduct(id:any){
+DelectProduct(id:any,index:any,productindex:any){
   this.clickedItem= this.filteredItems[id]
   // if(this.groupedProducts[index].cart[productindex].quantity
   this._cartservice.DelectProduct(id).subscribe((res)=>{
     if (res) {
-      this.cart.splice(id-1, 1);
-      // console.log("Res",res)
+      console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
+      
       this._cartservice.cartSubject.next(this._cartservice.cart);
-      this._cartservice.cart.splice(this.clickedItem,1);
-      console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
       this._cartservice.removeItemFromCart();
-      console.log("cart",this.cart);
-      console.log("cart by Id",this.cart[id]);
+    return this.groupedProducts[index].cart.splice(productindex,1)
+    // this.groupedProducts[index].cart[productindex];
+    
+      // this.cart.splice(id-1, 1);
+      // console.log("Res",res)
+      // this._cartservice.cart.splice(this.clickedItem,1);
+      // console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
+      // console.log("cart",this.cart);
+      // console.log("cart by Id",this.cart[id]);
       
       
     }
   })
+  this.Subtotal()
  
 }
 
@@ -176,21 +214,7 @@ Checkout(){
 
   
 
-// for Subtotal
 
-
-Subtotal_Per_Category(group) {
-  let total = 0;
-let subtotal=0;
-    // console.log("group",group.cart)
-    for (let i=0;i<group.cart.length;i++) {
-      let itemTotal = group.cart[i].moneyOfferPrice * group.cart[i].quantity;
-      subtotal += itemTotal;
-    }
-    // console.log(`Subtotal for ${cart.category}: ${subtotal} ${cart.cart[0].moneyOfferPrice}`);
-    return total += subtotal;
-    // console.log(`Total: ${total} ${cart[0].cart[0].money}`);
-  }
 }
 
 

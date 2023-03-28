@@ -48,7 +48,7 @@
     <tbody >
      
     <tbody class="table-group-divider" *ngFor="let group of groupedProducts;let y=index">
-      <tr><td colspan="6" class="text-left bg-secondary-subtle text-black fw-bold">{{ group.category }}  &nbsp;&nbsp;<span>{{group.cart.length}} </span>Items  Subtotal: {{Subtotal_Per_Category(group) | currency}}</td></tr>
+      <tr><td colspan="6" class="text-left bg-secondary-subtle text-black fw-bold" *ngIf="group.category!=''">{{ group.category }}  &nbsp;&nbsp;<span>{{group.cart.length}} </span>Items  Subtotal: {{Subtotal_Per_Category(group) | currency}}</td></tr>
       
       <tr *ngFor="let product of group.cart;let i=index">
         
@@ -61,7 +61,7 @@
           </td>
           <td class="fw-bolder">{{product.moneyOfferPrice * product.quantity | currency}}</td>
        
-        <td> <button type="button" class="btn btn-transparent float-end" (click)="DelectProduct(product.id)"><img  src="https://img.icons8.com/material/96/null/delete-sign--v1.png" width="25" height="25"/></button>
+        <td> <button type="button" class="btn btn-transparent float-end" (click)="DelectProduct(product.id,y,i)"><img  src="https://img.icons8.com/material/96/null/delete-sign--v1.png" width="25" height="25"/></button>
         </td>
       </tr>
     </tbody>
@@ -106,5 +106,4 @@
     
   </div>
  
-  
   
