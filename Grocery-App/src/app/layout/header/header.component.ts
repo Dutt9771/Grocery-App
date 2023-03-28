@@ -29,11 +29,13 @@ export class HeaderComponent {
     cartMessage:any
     CountArr:any=[]
     cartItemslength:number
-    ngOnInit(){
-      this.subTotal = this._cartService.subtotal;
-      this.cartItemslength=this._cartService.getItemCount()
-      // cartcounter
-  
+    subtotal:number=0
+    ngOnInit(): void{
+      this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
+      // this.subTotal = this.Subtotal.Subtotal();
+      console.log("Subtotal",this.subtotal)
+      // this.subTotal = this._cartService.subtotal;
+ 
       // this.CountArr=(localStorage.getItem('Products_Count'))
       // console.log("CountArr",JSON.parse(this.CountArr).length)
       // this.cartItemCount=JSON.parse(this.CountArr).length
