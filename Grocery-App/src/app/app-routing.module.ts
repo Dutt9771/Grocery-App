@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
+import { ErrorPageComponent } from './error-page/error-page.component';
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { HomeComponent } from './shared/components/home/home.component';
 
