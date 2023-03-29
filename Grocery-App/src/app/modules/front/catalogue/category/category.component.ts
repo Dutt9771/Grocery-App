@@ -16,7 +16,8 @@ constructor(private router:Router,private productservice:ProductsService){}
 Product_Arr:any
 ngOnInit(){
   this.productservice.getAllCategory().subscribe(arg => {
-    arg=this.grocery_items
+    console.log("arg",arg)
+    // arg=this.grocery_items
   });
   
   this.Product_Arr=this.productservice.getProducts()

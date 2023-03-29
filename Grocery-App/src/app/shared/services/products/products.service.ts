@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Category } from '../../interface/category';
 
 
 @Injectable({
@@ -221,9 +222,9 @@ export class ProductsService {
   
   // }
   baseUrl=environment.baseUrl
-  getAllCategory(){
+  getAllCategory():Observable<Category>{
     try {
-      return this.http.get<any>(this.baseUrl)
+      return this.http.get<Category>(this.baseUrl)
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }
