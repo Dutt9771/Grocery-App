@@ -275,7 +275,6 @@ export class RegistrationComponent {
           if(Register_error.status==400){
             this.errorMessage="User Already Exists"
           }else{
-
             this.errorMessage = Register_error.error.error.errors[0].message;
             this.loading = false;
             console.log('error caught in component',Register_error.error.error.errors[0].message)

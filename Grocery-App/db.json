@@ -134,30 +134,5 @@
       "id": 19
     }
   ],
-  "cart": [
-    {
-      "imageurl": "bakery.jpg",
-      "category": "bakery",
-      "name": "bakery",
-      "weight": "500 grams",
-      "sellerName": "Bakery Inc.",
-      "moneyOfferPrice": 9,
-      "price": 12,
-      "money": "USD",
-      "quantity": 59,
-      "id": 3
-    },
-    {
-      "imageurl": "tatasault.png",
-      "category": "Food",
-      "name": "Tata Sault",
-      "weight": "500 grams",
-      "sellerName": "Organic Farms Inc.",
-      "moneyOfferPrice": 8,
-      "price": 12,
-      "money": "USD",
-      "quantity": 11,
-      "id": 4
-    }
-  ]
+  "cart": []
 }

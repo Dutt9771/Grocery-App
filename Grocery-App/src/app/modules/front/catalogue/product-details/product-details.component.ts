@@ -234,6 +234,11 @@ console.log("Existing Product",this.existing_Product)
         res
         )
       })
+
+      // cardcount
+      this._cartservice.addToCart(product);
+
+      
       this._cartservice.addItemToCart();
       // this.Product_Count_Obj.push(this.ProductAddobj)
       // localStorage.setItem('Products_Count',JSON.stringify(this.Product_Count_Obj))

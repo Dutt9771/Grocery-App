@@ -112,4 +112,21 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   updateSubtotal(subtotal: number) {
     this.subtotalSource.next(subtotal);
   }
+
+
+
+  // cart counter
+  private readonly cartItems = new BehaviorSubject([]);
+  cartItems$ = this.cartItems.asObservable();
+
+
+  getCartItems(): Array<any> {
+    return this.cartItems.getValue();
+  }
+
+  addToCart(item: any): void {
+    const currentItems = this.getCartItems();
+    currentItems.push(item);
+    this.cartItems.next(currentItems);
+  }
 }

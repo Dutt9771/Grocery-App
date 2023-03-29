@@ -30,7 +30,14 @@ export class HeaderComponent {
     CountArr:any=[]
     cartItemslength:number
     subtotal:number=0
+    cartItemsCount:number
     ngOnInit(): void{
+
+      this._cartService.cartItems$.subscribe(cart => {
+        this.cartItemsCount = cart.length;
+      });
+
+
       this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
       // this.subTotal = this.Subtotal.Subtotal();
       console.log("Subtotal",this.subtotal)
