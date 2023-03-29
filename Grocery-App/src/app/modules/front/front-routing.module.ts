@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ErrorPageComponent } from 'src/app/error-page/error-page.component';
+import { ErrorPageComponent } from 'src/app/shared/components/error-page/error-page.component';
 
 const routes: Routes = [
   {path:'',redirectTo:'home',pathMatch:'full'},

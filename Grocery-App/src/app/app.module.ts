@@ -4,7 +4,7 @@ import { FormsModule,FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdminModule } from './modules/admin/admin.module';
-import { ErrorPageComponent } from './error-page/error-page.component';
+import { ErrorPageComponent } from './shared/components/error-page/error-page.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
