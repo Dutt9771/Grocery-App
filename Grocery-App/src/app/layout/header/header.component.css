@@ -128,4 +128,7 @@
     .navbar{
       z-index: 100;
     }
+    #brose{
+      z-index: 25;
+    }
     

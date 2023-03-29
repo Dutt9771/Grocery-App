@@ -11,7 +11,7 @@ import { RegisterService } from '../../shared/services/register/register.service
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-
+  category='all'
     filterValue:any
     Registered_User:boolean=false
     Login_Logout_msg:string="Login"
