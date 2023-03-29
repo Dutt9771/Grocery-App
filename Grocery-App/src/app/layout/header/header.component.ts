@@ -33,9 +33,9 @@ export class HeaderComponent {
     cartItemsCount:number
     ngOnInit(): void{
 
-      this._cartService.cartItems$.subscribe(cart => {
-        this.cartItemsCount = cart.length;
-      });
+      // this._cartService.cartItems$.subscribe(cart => {
+      //   this.cartItemsCount = cart.length;
+      // });
 
 
       this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);

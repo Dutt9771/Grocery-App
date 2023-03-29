@@ -116,17 +116,17 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 
   // cart counter
-  private readonly cartItems = new BehaviorSubject([]);
-  cartItems$ = this.cartItems.asObservable();
+  // private readonly cartItems = new BehaviorSubject([]);
+  // cartItems$ = this.cartItems.asObservable();
 
 
-  getCartItems(): Array<any> {
-    return this.cartItems.getValue();
-  }
+  // getCartItems(): Array<any> {
+  //   return this.cartItems.getValue();
+  // }
 
-  addToCart(item: any): void {
-    const currentItems = this.getCartItems();
-    currentItems.push(item);
-    this.cartItems.next(currentItems);
-  }
+  // addToCart(item: any): void {
+  //   const currentItems = this.getCartItems();
+  //   currentItems.push(item);
+  //   this.cartItems.next(currentItems);
+  // }
 }

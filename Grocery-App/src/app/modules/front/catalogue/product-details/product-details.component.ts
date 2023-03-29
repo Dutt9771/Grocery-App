@@ -148,10 +148,11 @@ constructor(private router:ActivatedRoute,private _productsservice:ProductsServi
 ShowcartArr:any=[]
 quantity=1;
   ngOnInit() {
+    this.Showcart()
     this.filteredItems=this._productsservice.getProducts()
-    this._cartservice.ShowCart().subscribe((res)=>{
-      this.ShowcartArr=res
-    })
+    // this._cartservice.ShowCart().subscribe((res)=>{
+    //   this.ShowcartArr=res
+    // })
     
     // this.route.paramMap.subscribe(params => {
     //   this.product_path= params.get('product');
@@ -210,17 +211,24 @@ ProductAddobj:any;
 Product_Count_Obj:any=[]
 QuantityErrMsg:string=''
 existing_Product:any=[]
+Showcart(){
+  this._cartservice.ShowCart().subscribe((res)=>{
+    this.ShowcartArr=res
+  })
+  console.log("ShowcartArr",this.ShowcartArr)
+  return this.ShowcartArr
+}
   Add_cart(product){
-
     
-console.log("ShowCartArr",this.ShowcartArr)
-console.log("Product",product)
-this.existing_Product = this.ShowcartArr.find((Item:any) => {
-  return Item.name.toLowerCase() === product.name.toLowerCase();
-});
-console.log("Existing Product",this.existing_Product)
+    console.log("ShowCartArr",this.ShowcartArr)
+    console.log("Product",product)
+    this.existing_Product = this.ShowcartArr.find((Item:any) => {
+      return Item.name.toLowerCase() === product.name.toLowerCase();
+    });
+    console.log("Existing Product",this.existing_Product)
     if(this.product_quantity.quantity>0 && !this.existing_Product){
       console.log("Show Cart Arr",this.ShowcartArr)
+      
       
       for(let i=0;i<this.filteredItems.length;i++){
         this.ShowcartArr
@@ -235,8 +243,7 @@ console.log("Existing Product",this.existing_Product)
         )
       })
 
-      // cardcount
-      this._cartservice.addToCart(product);
+    
 
       
       this._cartservice.addItemToCart();
