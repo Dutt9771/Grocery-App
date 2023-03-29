@@ -1,12 +1,15 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { throwError } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
+  
   productArray:any[] = [
     {
       imageurl:"tatasault.png",
@@ -165,6 +168,8 @@ export class ProductsService {
     {productId:3,name:'Orange 1kg' , source:'assets/bakery.jpg' , price:'5' }
   ]
 
+  
+
   Top_Sells(){
     try {
     return this.topsells
@@ -202,7 +207,7 @@ export class ProductsService {
       
   }
   name:any
-  constructor(private route:ActivatedRoute) { }
+  constructor(private route:ActivatedRoute,private http:HttpClient) { }
   // ProductShow(){
   // this.route.paramMap.subscribe(params => {
   //   // Read category parameter from URL
@@ -215,4 +220,13 @@ export class ProductsService {
   // });
   
   // }
+  baseUrl=environment.baseUrl
+  getAllCategory(){
+    try {
+      return this.http.get<any>(this.baseUrl)
+    } catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+
+  }
 }

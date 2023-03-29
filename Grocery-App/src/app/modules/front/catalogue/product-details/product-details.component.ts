@@ -209,14 +209,18 @@ quantity=1;
 ProductAddobj:any;
 Product_Count_Obj:any=[]
 QuantityErrMsg:string=''
-  Add_cart(){
+existing_Product:any=[]
+  Add_cart(product){
 
-    if(this.product_quantity.quantity>0){
+    
+console.log("ShowCartArr",this.ShowcartArr)
+console.log("Product",product)
+this.existing_Product = this.ShowcartArr.find((Item:any) => {
+  return Item.name.toLowerCase() === product.name.toLowerCase();
+});
+console.log("Existing Product",this.existing_Product)
+    if(this.product_quantity.quantity>0 && !this.existing_Product){
       console.log("Show Cart Arr",this.ShowcartArr)
-      this.ShowcartArr.filter(cartItem => {
-        // Insert your matching condition here. For example:
-        console.log(this.filteredItems.some(filteredItem => filteredItem.id === cartItem.productId))
-      });
       
       for(let i=0;i<this.filteredItems.length;i++){
         this.ShowcartArr
@@ -247,9 +251,19 @@ QuantityErrMsg:string=''
     this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   
     // this._cartservice.addToCart(item);
-  }else{
+    
+  }else if(this.existing_Product){
+    this.QuantityErrMsg="Product Is Existing"
+
+    this.existing_Product.quantity=this.existing_Product.quantity+1;
+    this.product_quantity.quantity=this.existing_Product.quantity
+    this._cartservice.EditCart(this.existing_Product).subscribe((cart)=>{
+      console.log("Edit Card Product",cart)
+      }
+      )}
+  
+  else{
     this.QuantityErrMsg="Please Enter Valid Quantity"
   }
- 
   }
 }
