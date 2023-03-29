@@ -2,6 +2,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginComponent {
   user:any; 
   loggedIn!:boolean;
  buttonval:any
-  constructor(private authService: SocialAuthService,private router:Router,private _RegisterService:RegisterService) { }
+  constructor(private authService: SocialAuthService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
   ngOnInit() {
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
@@ -41,43 +42,47 @@ export class LoginComponent {
  
 // Validation Form
   @Output() login_logout=new EventEmitter<any>()
-  @Input() login:any = new FormGroup({
-email:new FormControl('',
-[Validators.email,
-  Validators.required])
+  @Input() user_login:any = new FormGroup({
+username:new FormControl('',
+[Validators.required])
 ,
   password : new FormControl('',[
     Validators.required,Validators.minLength(8)
   ])
 })
-get get_login(){
-return this.login.controls
+get get_user_login(){
+return this.user_login.controls
 }
 Login_Logout_msg:string
 invalid:string
-login_click(){
- 
-  console.log("Login Data",this.login.value)
-  // this.router.navigate(['front/user/registration']);
-  // localStorage.setItem('User', JSON.stringify(this.login.value));
-  console.log("Register data",this.RegisterData)
-  if(this.RegisterData){
+Save_User_Login(){
+  console.log("user_login Value",this.user_login.value)
+  this._authservice.User_Login(this.user_login.value).subscribe((User_Login_res=>{
+    console.log("User_Login_res",User_Login_res)
+  }))
 
  
-  if((this.RegisterData.email==this.login.value.email) && (this.RegisterData.password==this.login.value.password)){
-    this._RegisterService.get_Login_data(this.login.value)
-    this.router.navigate(['/front/home']);  
-    // this._RegisterService.Change_btn(this.Login_Logout_msg)
-    // let btn=this._RegisterService.Change_btn(this.Login_Logout_msg)
-    let btn=this._RegisterService.Login_Logout_msg.next("Logout")
-    console.log(btn)
-  }else{
-    this.invalid = "Invalid Credential Please Register"
-  }
-}else{
-  alert("Please register")
-  this.router.navigate(['/front/user/registration']);  
-}
+//   console.log("Login Data",this.login.value)
+//   // this.router.navigate(['front/user/registration']);
+//   // localStorage.setItem('User', JSON.stringify(this.login.value));
+//   console.log("Register data",this.RegisterData)
+//   if(this.RegisterData){
+
+ 
+//   if((this.RegisterData.email==this.login.value.email) && (this.RegisterData.password==this.login.value.password)){
+//     this._RegisterService.get_Login_data(this.login.value)
+//     this.router.navigate(['/front/home']);  
+//     // this._RegisterService.Change_btn(this.Login_Logout_msg)
+//     // let btn=this._RegisterService.Change_btn(this.Login_Logout_msg)
+//     let btn=this._RegisterService.Login_Logout_msg.next("Logout")
+//     console.log(btn)
+//   }else{
+//     this.invalid = "Invalid Credential Please Register"
+//   }
+// }else{
+//   alert("Please register")
+//   this.router.navigate(['/front/user/registration']);  
+// }
 }
 
 logout(){

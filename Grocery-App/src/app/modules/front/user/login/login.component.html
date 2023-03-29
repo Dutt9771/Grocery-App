@@ -1,27 +1,26 @@
 
-<form class="row g-3 d-flex justify-content-center" [formGroup]="login" (ngSubmit)="login_click()" novalidate>
+<form class="row g-3 d-flex justify-content-center" [formGroup]="user_login" (ngSubmit)="Save_User_Login()" novalidate>
 <div class="row g-3 d-flex justify-content-center">
     <div class="col-md-3">
-      <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Enter Email">
+      <label for="username" class="form-label">Username</label>
+      <input type="text" formControlName="username" class="form-control" id="username" placeholder="Enter Username">
     </div></div>
-    <div *ngIf="get_login.email.touched && get_login.email.invalid" class="text-danger text-center">
-        <div *ngIf="get_login.email.errors?.['required']" class="text-danger">Email Must Required</div>
-        <div *ngIf="get_login.email.errors?.['email']" class="text-danger">Please Enter Valid Email</div></div>
+    <div *ngIf="get_user_login.username.touched && get_user_login.username.invalid" class="text-danger text-center">
+        <div *ngIf="get_user_login.username.errors?.['required']" class="text-danger">Username Must Required</div></div>
  <div class="row g-3 d-flex justify-content-center"> 
   <div class="col-md-3">
-      <label for="inputPassword4" class="form-label">Password</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword4" placeholder="Enter Password">
+      <label for="password" class="form-label">Password</label>
+      <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter Password">
     </div>
-    <div *ngIf="get_login.password.touched && get_login.password.invalid" class="text-danger text-center">
-        <div *ngIf="get_login.password.errors?.['required']" class="text-danger">Password Must Required</div>
-        <div *ngIf="get_login.password.errors?.['minlength']" class="text-danger">Register Password Should be 8 Character</div></div>
+    <div *ngIf="get_user_login.password.touched && get_user_login.password.invalid" class="text-danger text-center">
+        <div *ngIf="get_user_login.password.errors?.['required']" class="text-danger">Password Must Required</div>
+        <div *ngIf="get_user_login.password.errors?.['minlength']" class="text-danger">Register Password Should be 8 Character</div></div>
    
       </div>
   
       <div class="row g-2 d-flex justify-content-center">
         <div class="d-grid col-3 col-md-1 mx-auto">
-          <button type="submit" [disabled]="!login.valid" class="btn btn-primary">Login</button>
+          <button type="submit" [disabled]="!user_login.valid" class="btn btn-primary">Login</button>
         </div>
       </div>
       <!-- <div class="row g-2 col-md-1 justify-content-center">
@@ -30,7 +29,7 @@
           <span>Google</span>
             </div>
           </div>   -->
-      <div class="row g-2 d-flex justify-content-center text-danger" *ngIf="!login.valid"> 
+      <div class="row g-2 d-flex justify-content-center text-danger" *ngIf="!user_login.valid"> 
         <span class="text-danger">Please Enter all Details</span>
     </div> 
       <div class="row g-2 d-flex justify-content-center text-danger"> 

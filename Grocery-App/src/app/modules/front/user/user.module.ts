@@ -11,6 +11,7 @@ import { ProfilenavComponent } from './profilenav/profilenav.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -32,6 +33,7 @@ import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx
     FormsModule,
     ReactiveFormsModule,
     MatExpansionModule,
+    HttpClientModule
     
   ],
   providers:[{
