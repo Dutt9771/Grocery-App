@@ -15,6 +15,7 @@ export class LoginComponent {
   user:any; 
   loggedIn!:boolean;
  buttonval:any
+  errorMessage: string;
   constructor(private authService: SocialAuthService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
   ngOnInit() {
@@ -55,11 +56,26 @@ return this.user_login.controls
 }
 Login_Logout_msg:string
 invalid:string
+User_Login_Token:any
 Save_User_Login(){
-  console.log("user_login Value",this.user_login.value)
-  this._authservice.User_Login(this.user_login.value).subscribe((User_Login_res=>{
-    console.log("User_Login_res",User_Login_res)
-  }))
+  // console.log("user_login Value",this.user_login.value)
+  this._authservice.User_Login(this.user_login.value).subscribe({next:(User_Login_res)=>{
+    if(User_Login_res){
+      console.log("User_Login_res",User_Login_res)
+      this.User_Login_Token=User_Login_res
+      console.log("User_Login_Token",this.User_Login_Token.data)
+      sessionStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
+    }
+  },error:(Login_error)=>{ 
+    console.log("Register_error.status",Login_error.status)
+    console.log("Register_error.status",Login_error)
+    if(Login_error.status){
+      this.errorMessage = Login_error.error.message;
+      // this.errorMessage="Incorrect Password"
+      // this.errorMessage = Login_error.error.error.errors[0].message;
+      // console.log('error caught in component',Login_error.error.error.errors[0].message)
+    }
+  }})
 
  
 //   console.log("Login Data",this.login.value)

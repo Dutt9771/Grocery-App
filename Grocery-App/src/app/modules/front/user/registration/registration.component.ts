@@ -11,6 +11,11 @@ import { RegisterService } from 'src/app/shared/services/register/register.servi
 export class RegistrationComponent {
 
   constructor(private _RegisterService:RegisterService,private _authservice:AuthService){}
+  
+  ngDoCheck(){
+    sessionStorage.getItem('User_Login_Token')
+  }
+  
   // // For State and City
   // selectedState: any;
   // selectedCity: any;

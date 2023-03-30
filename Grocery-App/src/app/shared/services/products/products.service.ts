@@ -233,10 +233,11 @@ export class ProductsService {
   // });
   
   // }
-  baseUrl=environment.baseUrl
+  baseUrl=environment.baseUrl;
+  all_category=environment.all_category;
   getAllCategory():Observable<Category>{
     try {
-      return this.http.get<Category>(this.baseUrl)
+      return this.http.get<Category>(this.baseUrl+this.all_category)
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

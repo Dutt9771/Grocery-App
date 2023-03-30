@@ -146,7 +146,28 @@ if(category==='all'){
 
   ProductAddobj:any;
   clickedItem:any=[]
-  Add_cart(i){
+  ShowcartArr:any=[]
+  existing_Product:any
+  Showcart(){
+    this._cartservice.ShowCart().subscribe((res)=>{
+      this.ShowcartArr=res
+    })
+    console.log("ShowcartArr",this.ShowcartArr)
+    return this.ShowcartArr
+  }
+
+
+  Add_cart(i,product){
+
+
+
+    console.log("ShowCartArr",this.ShowcartArr)
+    console.log("Product",product)
+    this.existing_Product = this.ShowcartArr.find((Item:any) => {
+      return Item.name.toLowerCase() === product.name.toLowerCase();
+    });
+    console.log("Existing Product",this.existing_Product)
+    if(!this.existing_Product){
     console.log("id",i)
     console.log("Filtered Item Arr",this.filteredItems[i])
     this.ProductAddobj= this.filteredItems[i]
@@ -171,6 +192,11 @@ if(category==='all'){
     this._cartservice.cartSubject.next(this._cartservice.cart);
     this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
+  }else{
+    this._cartservice.cartmsg="Item Already";
+    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   }
+  this.Showcart()
 
+}
 }
