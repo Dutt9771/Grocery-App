@@ -32,13 +32,18 @@
       <!-- </nav> -->
       <div class="mx-5 d-flex justify-content-center">
         
-        <form class="row g-5 m-lg-5 d-flex justify-content-center" [formGroup]="Profile" (ngSubmit)="Save_Profile()" novalidate>
+        <form class="row g-5 m-lg-5 d-flex justify-content-center" [formGroup]="Profile" (ngSubmit)="User_Profile_Edit()" novalidate>
           <div class="row g-2 d-flex justify-content-end">
           <div class="col-md-5">  
             <button type="submit" [disabled]="!Profile.valid" class="btn btn-primary">Save</button>
           </div>
           </div>
           
+          <div class="row g-2 d-flex justify-content-end" *ngIf="!Profile.valid">
+          <div class="col-md-5">  
+            <span class="text-danger">{{errorMessage}}</span>
+          </div>
+          </div>
           <div class="row g-2 d-flex justify-content-end" *ngIf="!Profile.valid">
           <div class="col-md-5">  
             <span class="text-danger">Please Enter all Details</span>
@@ -62,27 +67,10 @@
       </div>
         </div>
 
-        <div class="row g-2">
-
-          <div class="col-md-5">
-            <label for="inputEmail4" class="form-label">Email</label>
-            <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Enter Email">
-            <div *ngIf="get_Profile.email.touched && get_Profile.email.invalid" class="text-danger col-md-5 mt-1">
-              <div *ngIf="get_Profile.email.errors?.['required']" class="text-danger">Email Must Required</div>
-              <div *ngIf="get_Profile.email.errors?.['email']" class="text-danger">Please Enter Valid Email</div></div>
-          </div>
-          <div class="col-md-5">
-            <label for="contact" class="form-label">Contact Number</label>
-            <input type="text" formControlName="contact" class="form-control" id="contact" placeholder="Please Enter Contact">
-            <div *ngIf="get_Profile.contact.touched && get_Profile.contact.invalid" class="text-danger col-md-5 mt-1">
-              <div *ngIf="get_Profile.contact.errors?.['required']" class="text-danger">Contact Must Required</div>
-              <div *ngIf="get_Profile.contact.errors?.['pattern']" class="text-danger">Please Enter Valid Contact</div></div>
-          </div>    
-        </div>
 
             <div class="row g-2">
               <div class="col-md-5">
-                <label for="inputEmail" class="form-label">Alternate Contact Email</label>
+                <label for="inputEmail" class="form-label">Secondary Contact Email</label>
                 <input type="email" formControlName="alternateemail" class="form-control" id="inputEmail" placeholder="Enter Alternate Contact Email">
                 <div *ngIf="get_Profile.alternateemail.touched && get_Profile.alternateemail.invalid" class="text-danger col-md-5 mt-1">
                   <div *ngIf="get_Profile.alternateemail.errors?.['required']" class="text-danger">Alternate Email Must Required</div>
@@ -90,7 +78,7 @@
               </div>
               
               <div class="col-md-5">
-                <label for="alternatecontact" class="form-label">Alternate Contact Number</label>
+                <label for="alternatecontact" class="form-label">Secondary Contact Number</label>
                 <input type="text" formControlName="alternatecontact" class="form-control" id="alternatecontact" placeholder="Please Enter Alternate Contact">
                 <div *ngIf="get_Profile.alternatecontact.touched && get_Profile.alternatecontact.invalid" class="text-danger col-md-5 mt-1">
                     <div *ngIf="get_Profile.alternatecontact.errors?.['required']" class="text-danger">Alternate Contact Must Required</div>
@@ -105,6 +93,13 @@
                 <input type="date" formControlName="dob" class="form-control" id="dob" placeholder="Enter Date Of Birth">
                 <div *ngIf="get_Profile.dob.touched && get_Profile.dob.invalid" class="text-danger col-md-5 mt-1">
                   <div *ngIf="get_Profile.dob.errors?.['required']" class="text-danger">Date Of Birth Must Required</div></div>
+              </div>
+              <div class="col-md-5">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" formControlName="password" class="form-control" id="password" placeholder="Enter Password">
+                <div *ngIf="get_Profile.password.touched && get_Profile.password.invalid" class="text-danger col-md-5 mt-1">
+                  <div *ngIf="get_Profile.password.errors?.['required']" class="text-danger">Password Must Required</div>
+                  <div *ngIf="get_Profile.password.errors?.['minlength']" class="text-danger">Password Length must be 8</div></div>
               </div>
               </div>
         </form>

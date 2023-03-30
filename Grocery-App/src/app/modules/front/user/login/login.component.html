@@ -24,7 +24,16 @@
         <div *ngIf="get_user_login.password.errors?.['minlength']" class="text-danger">Register Password Should be 8 Character</div></div>
    
       </div>
-  
+      
+      <div class="row g-2 d-flex justify-content-center text-danger" *ngIf="!user_login.valid"> 
+        <span class="text-danger">Please Enter all Details</span>
+    </div> 
+      <div class="row g-2 d-flex justify-content-center text-danger"> 
+        {{invalid}}
+    </div> 
+      <div class="row g-2 d-flex justify-content-center text-danger"> 
+        {{errorMessage}}
+    </div> 
       <div class="row g-2 d-flex justify-content-center">
         <div class="d-grid col-3 col-md-1 mx-auto">
           <button type="submit" [disabled]="!user_login.valid" class="btn btn-primary">Login</button>
@@ -36,14 +45,5 @@
           <span>Google</span>
             </div>
           </div>   -->
-      <div class="row g-2 d-flex justify-content-center text-danger" *ngIf="!user_login.valid"> 
-        <span class="text-danger">Please Enter all Details</span>
-    </div> 
-      <div class="row g-2 d-flex justify-content-center text-danger"> 
-        {{invalid}}
-    </div> 
-      <div class="row g-2 d-flex justify-content-center text-danger"> 
-        {{errorMessage}}
-    </div> 
 
   </form> 

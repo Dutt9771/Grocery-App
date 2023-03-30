@@ -2,6 +2,7 @@ export const environment = {
     baseUrl:"https://e099-117-217-127-105.in.ngrok.io/api/v1/",
     user_register:"customer/register",
     user_login:"customer/login",
+    edit_user:"customer/update-customer",
     all_category:"category/get-all-categories",
     change_password:"customer/changePassword",
     baseurl:"http://localhost:3000/",

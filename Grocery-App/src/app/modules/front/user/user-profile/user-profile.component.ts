@@ -8,6 +8,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Edit_user_detail } from 'src/app/shared/Models/edituserdetail';
+import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -17,7 +19,9 @@ import { ActivatedRoute } from '@angular/router';
 export class UserProfileComponent implements OnInit {
   public user: any;
   RegisterData: any;
-  constructor(private route: ActivatedRoute) {}
+  errorMessage: string;
+  User_login_Token: any;
+  constructor(private route: ActivatedRoute,private _editUserservice:EdituserService) {}
   ngOnInit(): void {
     //  google profile code
     // this.user = sessionStorage.getItem('User');
@@ -41,20 +45,12 @@ export class UserProfileComponent implements OnInit {
       Validators.required,
       Validators.minLength(3),
     ]),
-    email: new FormControl('', [
-      Validators.required,
-      Validators.email,
-      Validators.pattern('^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$'),
-    ]),
     alternateemail: new FormControl('', [
       //  Validators.required,
       //  Validators.email,
       //  Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ]),
-    contact: new FormControl('', [
-      Validators.required,
-      Validators.pattern('[- +()0-9]{13}'),
-    ]),
+    password:new FormControl('',[Validators.required,Validators.minLength(8)]),
     alternatecontact: new FormControl('', [
       // Validators.required,
       // Validators.pattern('[- +()0-9]{13}'),
@@ -70,5 +66,38 @@ export class UserProfileComponent implements OnInit {
     if (this.Profile.valid) {
       console.log(this.Profile.value);
     }
+  }
+
+  User_Profile_Edit(){
+    let userData = this.Profile.value
+    console.log("user data",userData);
+
+
+    let Edit_User_Details_body:Edit_user_detail={
+      first_name: userData.firstname,
+      last_name: userData.lastname,
+      password: userData.password,
+      date_of_birth: userData.dob,
+      secondary_mobile_number: userData.alternatecontact,
+      secondary_email: userData.alternateemail
+    }
+    console.log("Edit User Details body",Edit_User_Details_body)
+    if(this.Profile.valid){
+      this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
+      this._editUserservice.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
+          console.log("Edit_User_res",Edit_User_res)
+          this.errorMessage="User Details Successfully Edited"
+      },
+      error:(Edit_User_error)=>{ 
+        console.log("Edit_User_error status",Edit_User_error.status)
+        console.log("Edit_User_error",Edit_User_error)
+        if(Edit_User_error.status){
+          this.errorMessage = Edit_User_error.error.message;
+      console.log("Profile value",this.Profile.value)
+      }
+    }
+    })
+    }
+
   }
 }

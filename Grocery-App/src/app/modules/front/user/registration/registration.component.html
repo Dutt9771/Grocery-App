@@ -160,21 +160,21 @@
           </div>
         </div>
         
-        <div class="row d-flex justify-content-center mt-2">
-        <div class="col-md-5 text-center">  
-          <button type="submit" [disabled]="!User_Register.valid" class="btn btn-primary col-md-5">Save</button>
-        </div>
-        </div>
-        
         <div class="row d-flex justify-content-center mt-2" *ngIf="!User_Register.valid">
-            <div class="col-md-5 text-center">  
-          <span class="text-danger">Please Enter all Details</span>
-        </div>
+          <div class="col-md-5 text-center">  
+            <span class="text-danger">Please Enter all Details</span>
+          </div>
         </div>
         <div class="row d-flex justify-content-center mt-2">
             <div class="col-md-5 text-center">  
           <span class="text-danger text-capitalize">{{errorMessage}}</span>
         </div>
         </div>
+        <div class="row d-flex justify-content-center mt-2">
+        <div class="col-md-5 text-center">  
+          <button type="submit" [disabled]="!User_Register.valid" class="btn btn-primary col-md-5">Save</button>
+        </div>
+        </div>
+        
     </form>
   <!-- </div> -->
