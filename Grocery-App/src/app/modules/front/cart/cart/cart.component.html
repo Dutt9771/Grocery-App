@@ -34,8 +34,8 @@
   </div> -->
   
 
-<div class="table-responsive container mt-5" *ngIf="cart.length!=0;else EmptyCart">
-  <table class="table ">
+<div class="table-responsive container mt-5" *ngIf="cart.length;else EmptyCart">
+  <table class="table" *ngIf="groupedProducts.length">
     <thead>
       <tr>
         
@@ -48,7 +48,7 @@
     <tbody >
      
     <tbody class="table-group-divider" *ngFor="let group of groupedProducts;let y=index">
-      <tr><td colspan="6" class="text-left bg-secondary-subtle text-black fw-bold" *ngIf="group.category!=''">{{ group.category }}  &nbsp;&nbsp;<span>{{group.cart.length}} </span>Items  Subtotal: {{Subtotal_Per_Category(group) | currency}}</td></tr>
+      <tr><td colspan="6" class="text-left bg-secondary-subtle text-black fw-bold" *ngIf="group.category!=''" >{{ group.category }}  &nbsp;&nbsp;<span>{{group.cart.length}} </span>Items  Subtotal: {{Subtotal_Per_Category(group) | currency}}</td></tr>
 
       <tr *ngFor="let product of group.cart;let i=index">
         
@@ -73,7 +73,7 @@
       </div>
   </ng-template>
 
-  <div class="table-responsive container d-flex justify-content-end mt-3 mb-3" *ngIf="cart.length!=0">
+  <div class="table-responsive container d-flex justify-content-end mt-3 mb-3" *ngIf="cart.length!=0 && Subtotal()">
     <table>
     <tr>
       <td class="fs-6">Subtotal:</td>

@@ -70,10 +70,12 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       }
      
     }
+    
     cart:any=[]
     Login_User:any;
     Register_User:any
     ngDoCheck(){
+      
     //   this._cartservice.ShowCart().subscribe((res)=>{
     //     this.cart=res
     //     this.cartItemCount=this.cart.length
@@ -100,6 +102,8 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
         this.Registered_User=false
         this.Login_Logout_msg="Logout"
         this.User_name=this.Login_User.username
+      }else{
+        this.User_name="Guest"
       }
     }
     title = 'Grocery-App';
@@ -129,4 +133,3 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
     
   }
   
-

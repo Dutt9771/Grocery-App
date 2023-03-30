@@ -17,11 +17,12 @@ const routes: Routes = [
   { path: 'registration', component: RegistrationComponent },
   {
     path: 'user-profile',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    canActivate:[AuthUserGuard]
   },
-  { path: 'orders', component: OrdersComponent },
-  { path: 'changepassword', component: ChangepasswordComponent },
-  { path: 'manageaddress', component: ManageaddressComponent },
+  { path: 'orders', component: OrdersComponent ,canActivate:[AuthUserGuard]},
+  { path: 'changepassword', component: ChangepasswordComponent ,canActivate:[AuthUserGuard]},
+  { path: 'manageaddress', component: ManageaddressComponent ,canActivate:[AuthUserGuard]},
 
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profilenav',
@@ -6,5 +7,23 @@ import { Component } from '@angular/core';
   styleUrls: ['./profilenav.component.css']
 })
 export class ProfilenavComponent {
+  Login_User: any;
+  Register_User: any;
 
+  constructor(private router:Router) {}
+
+  ngOnInit(){
+    this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
+    this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
+  }
+  logout(){
+    if(this.Login_User){
+    sessionStorage.removeItem('User');
+    sessionStorage.removeItem('Login_User');
+    sessionStorage.removeItem('Register_User')
+    localStorage.removeItem('User_login_Token')
+    this.router.navigate(['front/user/login'])
+    // console.log(this.email)
+  }
+}
 }

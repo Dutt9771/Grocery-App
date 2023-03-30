@@ -25,7 +25,7 @@ export class CartComponent {
   filteredItems:any=[]
   groupedProducts: any[] = [];
   cartlength:any
-  
+  cartEmptyShow=true
   ngOnInit(){
    
     this.filteredItems=this._productservice.getProducts()
@@ -60,8 +60,9 @@ export class CartComponent {
     //   console.log(this.cartItems)
     // });
   }
-  
+ 
   ngAfterViewInit(){
+    this.CartEmptyShow_Data()
     this._cartservice.ShowCart().subscribe((res)=>{
       this.cart=res
       console.log("cart",this.cart)
@@ -158,7 +159,15 @@ export class CartComponent {
       return total += subtotal;
       // console.log(`Total: ${total} ${cart[0].cart[0].money}`);
     }
-  
+  CartEmptyShow_Data(){
+    if(!this.cart.length){
+      this.cartEmptyShow=false
+      console.log("cartEmptyShow",this.cartEmptyShow)
+    }else{
+              this.cartEmptyShow=true
+              console.log("cartEmptyShow",this.cartEmptyShow)
+            }
+  }
   cartItemCount:number=0
   clickedItem:any=[]
   DelectProduct(id:any,index:any,productindex:any,product){
@@ -186,6 +195,8 @@ export class CartComponent {
         
       }
       this.Subtotal()
+      // this.CartEmptyShow_Data()
+
     //   if(res && this.groupedProducts.length==1){
     //     console.log('REs')
     //     this.route.navigate(['/home'])

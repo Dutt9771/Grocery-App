@@ -156,7 +156,7 @@ ngOnInit(){
     console.log("ShowCartArr",this.ShowcartArr)
     console.log("Product",product)
     this.existing_Product = this.ShowcartArr.find((Item:any) => {
-      return Item.name.toLowerCase() === product.name.toLowerCase();
+      return Item.name.toLowerCase() == product.name.toLowerCase();
     });
     console.log("Existing Product",this.existing_Product)
     if(!this.existing_Product){

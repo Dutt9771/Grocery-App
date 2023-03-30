@@ -10,11 +10,10 @@ export class AuthUserGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree  {
-      
+      const Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
       const user = sessionStorage.getItem('User');
       const RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-      if(user || RegisterData){
-       
+      if(Login_User){
         return true;
       }
       alert("Please Login")

@@ -4,5 +4,5 @@
     <a class="nav-link" routerLink="../orders" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Orders</a>
     <a class="nav-link" routerLink="../manageaddress" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Manage Addresses</a>
     <a class="nav-link" routerLink="../changepassword"routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Change Password</a>
-    <a class="nav-link">Logout</a>
+    <a class="nav-link" (click)="logout()" *ngIf="Login_User">Logout</a>
       </nav>
