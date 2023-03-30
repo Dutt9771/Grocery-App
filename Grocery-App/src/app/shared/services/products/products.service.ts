@@ -13,6 +13,7 @@ export class ProductsService {
   
   productArray:any[] = [
     {
+      id: 1,
       imageurl:"tatasault.png",
       category: "Food",
       name: "Tata Sault",
@@ -24,6 +25,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:2,
       imageurl:"bakery.jpg",
       category: "bakery",
       name: "bakery",
@@ -35,6 +37,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:3,
       imageurl:"bakery.jpg",
       category: "bakery",
       name: "bakery2",
@@ -46,6 +49,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:4,
       imageurl:"bakery.jpg",
       category: "bakery",
       name: "bakery3",
@@ -57,6 +61,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:5,
       imageurl:"fruits.jpg",
       category: "fruits",
       name: "Fruits",
@@ -68,6 +73,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:6,
       imageurl:"fruits.jpg",
       category: "fruits",
       name: "Fruits",
@@ -79,6 +85,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:7,
       imageurl:"fruits.jpg",
       category: "fruits",
       name: "Fruits",
@@ -90,6 +97,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:8,
       imageurl:"fruits.jpg",
       category: "fruits",
       name: "Fruits",
@@ -101,6 +109,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:9,
       imageurl:"Vegetables.jpg",
       category: "vegetables",
       name: "Cabbage",
@@ -112,6 +121,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:10,
       imageurl:"Vegetables.jpg",
       category: "vegetables",
       name: "LadiesFinger",
@@ -123,6 +133,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:11,
       imageurl:"Vegetables.jpg",
       category: "vegetables",
       name: "Potato",
@@ -134,6 +145,7 @@ export class ProductsService {
       quantity:1
     },
     {
+      id:12,
       imageurl:"Vegetables.jpg",
       category: "vegetables",
       name: "Tomato",

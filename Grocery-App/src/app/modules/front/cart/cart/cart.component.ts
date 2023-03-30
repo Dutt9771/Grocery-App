@@ -11,7 +11,12 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
   styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
-  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router){}
+  cartItems:any[]=[]
+  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router){
+    this._cartservice.cartItems$.subscribe(cartItems => {
+      this.cartItems = cartItems;
+    });
+  }
   cart:any=[]
   // cartItems;
   price:any
@@ -156,7 +161,7 @@ export class CartComponent {
   
   cartItemCount:number=0
   clickedItem:any=[]
-  DelectProduct(id:any,index:any,productindex:any){
+  DelectProduct(id:any,index:any,productindex:any,product){
     
       
       this.clickedItem= this.filteredItems[id]
@@ -167,6 +172,7 @@ export class CartComponent {
           
         this._cartservice.cartSubject.next(this._cartservice.cart);
         this._cartservice.removeItemFromCart();
+        this._cartservice.removeFromCart(product);
       return this.groupedProducts[index].cart.splice(productindex,1)
       // this.groupedProducts[index].cart[productindex];
       

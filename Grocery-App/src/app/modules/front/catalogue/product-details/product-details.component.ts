@@ -262,7 +262,7 @@ Showcart(){
     this._cartservice.cartSubject.next(this._cartservice.cart);
     this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   
-    // this._cartservice.addToCart(item);
+    this._cartservice.addToCart(this.ProductAddobj);
     
   }else if(this.existing_Product){
     this.QuantityErrMsg="Product Is Existing"
@@ -277,5 +277,8 @@ Showcart(){
   else{
     this.QuantityErrMsg="Please Enter Valid Quantity"
   }
+  this.Showcart()
   }
+
+
 }

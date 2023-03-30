@@ -15,13 +15,16 @@ export class HeaderComponent {
     filterValue:any
     Registered_User:boolean=false
     Login_Logout_msg:string="Login"
-    cartItemCount = 0;
+    cartItemCount :number
     subTotal = 0;
     constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
   
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
       })
+      this._cartService.cartItems$.subscribe(cartItems => {
+        this.cartItemCount = cartItems.length;
+      });
     }
     RegisterData:any
     User:any

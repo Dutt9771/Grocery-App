@@ -9,7 +9,9 @@ import { environment } from 'src/environments/environment';
 })
 export class CartService {
 
-  constructor(private http:HttpClient) { }
+  constructor(private http:HttpClient) { 
+   
+  }
 baseurl=environment.baseurl;
 resname=environment.resname
   addcart=[]
@@ -115,18 +117,24 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
 
 
-  // cart counter
-  // private readonly cartItems = new BehaviorSubject([]);
-  // cartItems$ = this.cartItems.asObservable();
 
 
-  // getCartItems(): Array<any> {
-  //   return this.cartItems.getValue();
-  // }
+  private cartItemsSubject = new BehaviorSubject([]);
+  public cartItems$ = this.cartItemsSubject.asObservable();
 
-  // addToCart(item: any): void {
-  //   const currentItems = this.getCartItems();
-  //   currentItems.push(item);
-  //   this.cartItems.next(currentItems);
-  // }
+
+  public addToCart(item: any) {
+    const cartItems = this.cartItemsSubject.value;
+    this.AddCart(item).subscribe((res)=>{
+      
+    })
+    cartItems.push(item);
+    this.cartItemsSubject.next(cartItems);
+  }
+
+  public removeFromCart(item: any) {
+    let cartItems = this.cartItemsSubject.value;
+    cartItems = cartItems.filter(i => i.id !== item.id);
+    this.cartItemsSubject.next(cartItems);
+  }
 }
