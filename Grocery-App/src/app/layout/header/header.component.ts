@@ -17,8 +17,9 @@ export class HeaderComponent {
     Login_Logout_msg:string="Login"
     cartItemCount :number
     subTotal = 0;
+    User_name="Guest"
     constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
-  
+      
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
       })
@@ -40,9 +41,10 @@ export class HeaderComponent {
       //   this.cartItemsCount = cart.length;
       // });
 
-
-      this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
-      // this.subTotal = this.Subtotal.Subtotal();
+console.log("Register_user",this.Register_User)
+console.log("Login_user",this.Login_User)
+this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
+// this.subTotal = this.Subtotal.Subtotal();
       console.log("Subtotal",this.subtotal)
       // this.subTotal = this._cartService.subtotal;
  
@@ -69,36 +71,36 @@ export class HeaderComponent {
      
     }
     cart:any=[]
+    Login_User:any;
+    Register_User:any
     ngDoCheck(){
     //   this._cartservice.ShowCart().subscribe((res)=>{
     //     this.cart=res
     //     this.cartItemCount=this.cart.length
     //     console.log("cart length",this.cart.length)
     // })
-      this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
-      this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-      if(this.RegisterData){
+
+
+
+    // console.log("Register_user",this.Register_User)
+    // console.log("Login_user",this.Login_User)
+    // this.Login_User= sessionStorage.getItem('Login_User')
+    this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
+      // this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
+      // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
+      this.Register_User= sessionStorage.getItem('Register_User');
+      this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
+      if(this.Register_User){
         this.Registered_User=false
       }else{
         this.Registered_User=true
       }
-      this.User= JSON.parse(sessionStorage.getItem('User'));
-      if(this.LoginData || this.User){
+      // this.User= JSON.parse(sessionStorage.getItem('User'));
+      if(this.Login_User){
+        this.Registered_User=false
         this.Login_Logout_msg="Logout"
+        this.User_name=this.Login_User.username
       }
-    // }
-    // ngDoChanges(){
-    //   this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
-    //   this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-    //   if(this.RegisterData){
-    //     this.Registered_User=false
-    //   }else{
-    //     this.Registered_User=true
-    //   }
-    //   this.User= JSON.parse(sessionStorage.getItem('User'));
-    //   if(this.LoginData || this.User){
-    //     this.Login_Logout_msg="Logout"
-    //   }
     }
     title = 'Grocery-App';
     login_logout:boolean |undefined;
@@ -112,9 +114,10 @@ export class HeaderComponent {
       sessionStorage.removeItem('User');
       sessionStorage.removeItem('Login_User');
       sessionStorage.removeItem('Register_User')
-      this.router.navigate(['front/user/registration'])
+      this.router.navigate(['front/user/login'])
       // console.log(this.email)
       this.Login_Logout_msg="Login"
+      this.User_name="Guest"
     }
   
   

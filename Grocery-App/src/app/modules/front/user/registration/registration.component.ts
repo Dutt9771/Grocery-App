@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
 
@@ -10,7 +11,7 @@ import { RegisterService } from 'src/app/shared/services/register/register.servi
 })
 export class RegistrationComponent {
 
-  constructor(private _RegisterService:RegisterService,private _authservice:AuthService){}
+  constructor(private _RegisterService:RegisterService,private _authservice:AuthService,private router:Router){}
   
   ngDoCheck(){
     sessionStorage.getItem('User_Login_Token')
@@ -271,9 +272,11 @@ export class RegistrationComponent {
     Save_User_Register() {
       if (this.User_Register.valid) {
         console.log(this.User_Register.value);
+        sessionStorage.setItem("Register_User",JSON.stringify(this.User_Register.value))
         this._authservice.User_Register(this.User_Register.value).subscribe((User_Register_res)=>{
           console.log("User_Register_res",User_Register_res)
           this.errorMessage=""
+          this.router.navigate(['/front/user/login'])
         }
         ,(Register_error)=>{ 
           console.log("Register_error.status",Register_error.status)
