@@ -58,7 +58,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this._cartService.cartMsg.subscribe(cart => {
         this.cartMessage = cart
         console.log(this.cartMessage)
-        this._snackBar.open(this.cartMessage+" Added Succesfully in Cart", "Ok");
+        this._snackBar.open(this.cartMessage+" Added in Cart", "Ok");
       });
   
       // end cartcounter
