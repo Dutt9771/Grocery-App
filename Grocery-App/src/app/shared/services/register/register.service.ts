@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { User_Login_Model } from '../../interface/user_login_model';
-import { User_Register_Model } from '../../interface/user_register_model';
+import { User_Login_Model } from '../../Models/user_login_model';
+import { User_Register_Model } from '../../Models/user_register_model';
 
 
 @Injectable({

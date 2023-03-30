@@ -64,7 +64,7 @@ Save_User_Login(){
       console.log("User_Login_res",User_Login_res)
       this.User_Login_Token=User_Login_res
       console.log("User_Login_Token",this.User_Login_Token.data)
-      sessionStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
+      localStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
     }
   },error:(Login_error)=>{ 
     console.log("Register_error.status",Login_error.status)

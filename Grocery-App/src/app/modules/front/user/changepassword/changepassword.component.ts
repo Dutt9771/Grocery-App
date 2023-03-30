@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
 @Component({
   selector: 'app-changepassword',
@@ -7,6 +8,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
   styleUrls: ['./changepassword.component.css']
 })
 export class ChangepasswordComponent {
+  constructor(private _editUser:EdituserService){}
   @Input() Chnage_Password :any =new FormGroup({
     currentpassword: new FormControl('', [
        Validators.required,
@@ -27,9 +29,26 @@ export class ChangepasswordComponent {
       return this.Chnage_Password.controls
     }
 
-    Chnage_Password_Click(){
-      if(this.Chnage_Password.valid){
+    currentpassword:any
+    newpassword:any
+    User_login_Token:any
 
+    Change_Password_Obj:any
+    Chnage_Password_Click(){
+      let userData = this.Chnage_Password.value
+      console.log("user data:",userData);
+      
+      this.Change_Password_Obj=this.Chnage_Password.getRawValue()
+      let Change_Password_body={
+        oldpassword:userData.currentpassword,
+        newpassword:userData.newpassword
+      }
+      console.log("Change Password",Change_Password_body)
+      if(this.Chnage_Password.valid){
+        this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
+        this._editUser.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
+            console.log("Change_pass_res",Change_pass_res)
+        }})
         console.log(this.Chnage_Password.value)
       }
   

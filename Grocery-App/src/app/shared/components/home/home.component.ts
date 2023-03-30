@@ -1,7 +1,7 @@
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 import { Component, OnInit,Renderer2, ElementRef, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Item } from 'src/app/shared/interface/item';
+import { Item } from 'src/app/shared/Models/item';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
 @Component({
