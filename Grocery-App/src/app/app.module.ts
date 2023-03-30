@@ -7,7 +7,7 @@ import { AdminModule } from './modules/admin/admin.module';
 import { ErrorPageComponent } from './error-page/error-page.component';
 import { FacebookLoginProvider, GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule } from '@abacritt/angularx-social-login';
 import { AuthUserGuard } from './auth-user.guard';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IvyCarouselModule } from 'angular-responsive-carousel';
@@ -20,6 +20,7 @@ import { FrontModule } from './modules/front/front.module';
 import { HomeComponent } from './shared/components/home/home.component';
 import { CatalogueModule } from "./modules/front/catalogue/catalogue.module";
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
+import { TokenInterceptor } from './shared/Interceptor/token.interceptor';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,12 @@ import { ContactUsComponent } from './shared/components/contact-us/contact-us.co
                 }
             } as SocialAuthServiceConfig,
         }, AuthUserGuard,
-        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } }
+        { provide: MAT_SNACK_BAR_DEFAULT_OPTIONS, useValue: { duration: 2500 } },
+        {
+            provide:HTTP_INTERCEPTORS,
+            useClass:TokenInterceptor,
+            multi:true,
+        }
     ],
     bootstrap: [AppComponent],
     schemas: [],

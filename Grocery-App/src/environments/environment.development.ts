@@ -3,7 +3,7 @@ export const environment = {
     user_register:"customer/register",
     user_login:"customer/login",
     all_category:"category/get-all-categories",
-    change_password:"/customer/changePassword",
+    change_password:"customer/changePassword",
     baseurl:"http://localhost:3000/",
     resname:"cart",
     // register:"Register"

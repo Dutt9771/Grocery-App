@@ -37,7 +37,7 @@ export class ChangepasswordComponent {
     Chnage_Password_Click(){
       let userData = this.Chnage_Password.value
       console.log("user data:",userData);
-      
+
       this.Change_Password_Obj=this.Chnage_Password.getRawValue()
       let Change_Password_body={
         oldpassword:userData.currentpassword,
