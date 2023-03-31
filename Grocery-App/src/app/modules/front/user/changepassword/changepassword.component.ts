@@ -9,23 +9,30 @@ import { EdituserService } from 'src/app/shared/services/edituser/edituser.servi
   styleUrls: ['./changepassword.component.css']
 })
 export class ChangepasswordComponent {
+  Change_Password:any
   constructor(private _editUser:EdituserService){}
-  @Input() Change_Password :any =new FormGroup({
-    currentpassword: new FormControl('', [
-       Validators.required,
-       Validators.minLength(8)
-     ]),
-     newpassword: new FormControl('', [
-       Validators.required,
-       Validators.minLength(8)
-     ]),
-     confirm_new_password: new FormControl('', [
-       Validators.required,
-       Validators.minLength(8),
-       this.matchPasswordValidator()
-     ]),
+  ngOnInit(){
+    this.Change_Password_Form()
+  }
+  Change_Password_Form(){
+    
+    this.Change_Password =new FormGroup({
+      currentpassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      newpassword: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8)
+      ]),
+      confirm_new_password: new FormControl('', [
+        Validators.required,
+        Validators.minLength(8),
+        this.matchPasswordValidator()
+      ]),
     })
-
+  }
+    
     get get_Change_password(){
       return this.Change_Password.controls
     }
@@ -49,7 +56,8 @@ export class ChangepasswordComponent {
         this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
         this._editUser.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
             console.log("Change_pass_res",Change_pass_res)
-            this.errorMessage=""
+            const success=Change_pass_res
+            this.errorMessage="Change Password Successfully"
         },
         error:(Change_Password_error)=>{ 
           console.log("Change_Password status",Change_Password_error.status)

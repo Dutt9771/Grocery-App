@@ -10,8 +10,10 @@ import { RegisterService } from 'src/app/shared/services/register/register.servi
   styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent {
-
-  constructor(private _RegisterService:RegisterService,private _authservice:AuthService,private router:Router){}
+  User_Register:any
+  constructor(private _RegisterService:RegisterService,private _authservice:AuthService,private router:Router){
+    this.User_Register_Form()
+  }
   
   ngDoCheck(){
     sessionStorage.getItem('User_Login_Token')
@@ -238,8 +240,8 @@ export class RegistrationComponent {
 //       };
 //     }
 
-
-    @Input() User_Register: any = new FormGroup({
+User_Register_Form(){
+    this.User_Register = new FormGroup({
       first_name: new FormControl('', [
         Validators.required,
         Validators.minLength(3),
@@ -263,7 +265,7 @@ export class RegistrationComponent {
         Validators.minLength(8)
       ]),
     });
-  
+}
     get get_User_Register() {
       return this.User_Register.controls;
     }

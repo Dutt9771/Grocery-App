@@ -16,9 +16,12 @@ export class LoginComponent {
   loggedIn!:boolean;
  buttonval:any
   errorMessage: string;
+  user_login:any
   constructor(private authService: SocialAuthService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
   ngOnInit() {
+
+    this.User_Login_Form()
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
     this.authService.authState.subscribe((user) => {
       this.user = user;
@@ -43,16 +46,19 @@ export class LoginComponent {
  
 // Validation Form
   @Output() login_logout=new EventEmitter<any>()
-  @Input() user_login:any = new FormGroup({
-username:new FormControl('',
-[Validators.required])
-,
+  User_Login_Form(){
+
+    this.user_login = new FormGroup({
+      username:new FormControl('',
+      [Validators.required])
+      ,
   password : new FormControl('',[
     Validators.required,Validators.minLength(8)
   ])
 })
+}
 get get_user_login(){
-return this.user_login.controls
+  return this.user_login.controls
 }
 Login_Logout_msg:string
 invalid:string
