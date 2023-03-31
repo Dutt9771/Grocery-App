@@ -37,6 +37,17 @@ export class HeaderComponent {
     cartItemsCount:number
     ngOnInit(): void{
 
+      this.router.events.subscribe((res:any)=>{
+        if(res.url){
+          this.Check_User()
+        }
+      })
+
+
+        this._cartService.CartItemsLength.subscribe((res)=>{
+          this.cartItemslength=res.length
+          console.log(this.cartItemslength)
+        })
       // this._cartService.cartItems$.subscribe(cart => {
       //   this.cartItemsCount = cart.length;
       // });
@@ -70,7 +81,30 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       }
      
     }
-    
+    Check_User(){
+      
+    // console.log("Register_user",this.Register_User)
+    // console.log("Login_user",this.Login_User)
+    // this.Login_User= sessionStorage.getItem('Login_User')
+    this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
+    // this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
+    // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
+    this.Register_User= sessionStorage.getItem('Register_User');
+    this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
+    if(this.Register_User){
+      this.Registered_User=false
+    }else{
+      this.Registered_User=true
+    }
+    // this.User= JSON.parse(sessionStorage.getItem('User'));
+    if(this.Login_User){
+      this.Registered_User=false
+      this.Login_Logout_msg="Logout"
+      this.User_name=this.Login_User.username
+    }else{
+      this.User_name="Guest"
+    }
+    }
     cart:any=[]
     Login_User:any;
     Register_User:any
@@ -84,27 +118,6 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
 
 
 
-    // console.log("Register_user",this.Register_User)
-    // console.log("Login_user",this.Login_User)
-    // this.Login_User= sessionStorage.getItem('Login_User')
-    this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
-      // this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
-      // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-      this.Register_User= sessionStorage.getItem('Register_User');
-      this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
-      if(this.Register_User){
-        this.Registered_User=false
-      }else{
-        this.Registered_User=true
-      }
-      // this.User= JSON.parse(sessionStorage.getItem('User'));
-      if(this.Login_User){
-        this.Registered_User=false
-        this.Login_Logout_msg="Logout"
-        this.User_name=this.Login_User.username
-      }else{
-        this.User_name="Guest"
-      }
     }
     title = 'Grocery-App';
     login_logout:boolean |undefined;

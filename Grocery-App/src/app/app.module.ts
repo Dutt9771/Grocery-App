@@ -21,6 +21,7 @@ import { HomeComponent } from './shared/components/home/home.component';
 import { CatalogueModule } from "./modules/front/catalogue/catalogue.module";
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { TokenInterceptor } from './shared/Interceptor/token.interceptor';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     declarations: [
@@ -63,6 +64,11 @@ import { TokenInterceptor } from './shared/Interceptor/token.interceptor';
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            positionClass: 'toast-bottom-center',
+          }),
+        FrontModule, 
         AdminModule,
         FormsModule,
         ReactiveFormsModule,

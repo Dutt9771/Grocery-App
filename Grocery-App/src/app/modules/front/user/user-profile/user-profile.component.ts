@@ -7,6 +7,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { Edit_user_detail } from 'src/app/shared/Models/edituserdetail';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
@@ -21,7 +22,7 @@ export class UserProfileComponent implements OnInit {
   RegisterData: any;
   errorMessage: string;
   User_login_Token: any;
-  constructor(private route: ActivatedRoute,private _editUserservice:EdituserService) {}
+  constructor(private route: ActivatedRoute,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
     //  google profile code
     // this.user = sessionStorage.getItem('User');
@@ -86,7 +87,10 @@ export class UserProfileComponent implements OnInit {
       this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
       this._editUserservice.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
           console.log("Edit_User_res",Edit_User_res)
-          this.errorMessage="User Details Successfully Edited"
+          this.errorMessage="User Details Successfully Edited";
+          setTimeout(() => {
+            this._snackBar.open("User Details Successfully Edited", "OK");
+          }, 3000);
       },
       error:(Edit_User_error)=>{ 
         console.log("Edit_User_error status",Edit_User_error.status)

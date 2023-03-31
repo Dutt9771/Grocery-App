@@ -2,6 +2,7 @@ import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
 
@@ -17,10 +18,10 @@ export class LoginComponent {
  buttonval:any
   errorMessage: string;
   user_login:any
-  constructor(private authService: SocialAuthService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
+  constructor(private authService: SocialAuthService,private toastr:ToastrService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
   ngOnInit() {
-
+    // this.toastr.success('Login Successfully');
     this.User_Login_Form()
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
     this.authService.authState.subscribe((user) => {
@@ -72,6 +73,7 @@ Save_User_Login(){
       console.log("User_Login_Token",this.User_Login_Token.data)
       localStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
       sessionStorage.setItem("Login_User",JSON.stringify(this.user_login.value))
+      this.toastr.success('Login Successfully');
       this.router.navigate(['/home'])
 
     }

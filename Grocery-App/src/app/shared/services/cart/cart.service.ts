@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class CartService {
-
+CartItemsLength:EventEmitter<any>=new EventEmitter();
   constructor(private http:HttpClient) { 
    
   }
@@ -126,7 +126,7 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public addToCart(item: any) {
     const cartItems = this.cartItemsSubject.value;
     this.AddCart(item).subscribe((res)=>{
-      
+      // this.CartItemsLength.emit(res)
     })
     cartItems.push(item);
     this.cartItemsSubject.next(cartItems);
@@ -136,5 +136,8 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
     let cartItems = this.cartItemsSubject.value;
     cartItems = cartItems.filter(i => i.id !== item.id);
     this.cartItemsSubject.next(cartItems);
+    // this.AddCart(item).subscribe((res)=>{
+    //   this.CartItemsLength.emit(res)
+    // })
   }
 }

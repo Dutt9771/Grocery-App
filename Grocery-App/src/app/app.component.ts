@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from './shared/services/cart/cart.service';
 import { RegisterService } from './shared/services/register/register.service';
 
@@ -18,7 +18,7 @@ export class AppComponent {
   Registered_User:boolean=false
   Login_Logout_msg:string="Login"
   cartItemCount = 0;
-  constructor(private _cartservice:CartService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
+  constructor(private _cartservice:CartService,private toastr:ToastrService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService) {
 
     this._RegisterService.Login_Logout_msg.subscribe(res=>{
       this.Login_Logout_msg == res;
@@ -31,6 +31,9 @@ export class AppComponent {
   CountArr:any=[]
   ngOnInit(){
 
+      
+    
+   
     // cartcounter
 
     // this.CountArr=(localStorage.getItem('Products_Count'))

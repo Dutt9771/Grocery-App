@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from 'src/app/shared/Models/changepassword';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
@@ -10,8 +12,10 @@ import { EdituserService } from 'src/app/shared/services/edituser/edituser.servi
 })
 export class ChangepasswordComponent {
   Change_Password:any
-  constructor(private _editUser:EdituserService){}
+  constructor(private _editUser:EdituserService,private toastr: ToastrService,private _snackBar:MatSnackBar){}
   ngOnInit(){
+    // this.toastr.success('Change Password Successfully');
+
     this.Change_Password_Form()
   }
   Change_Password_Form(){
@@ -56,14 +60,20 @@ export class ChangepasswordComponent {
         this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
         this._editUser.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
             console.log("Change_pass_res",Change_pass_res)
-            const success=Change_pass_res
-            this.errorMessage="Change Password Successfully"
+            // const success=Change_pass_res
+            setTimeout(() => {
+              this._snackBar.open("Change Password Succesfully", "OK");
+            }, 3000);
         },
         error:(Change_Password_error)=>{ 
           console.log("Change_Password status",Change_Password_error.status)
           console.log("Change_Password_error",Change_Password_error)
           if(Change_Password_error.status){
+            setTimeout(() => {
+              this._snackBar.open(Change_Password_error.error.message, "OK");
+            }, 3000);
             this.errorMessage = Change_Password_error.error.message;
+            // this.toastr.error(Change_Password_error.error.message);
         console.log("Chnage_Password.value",this.Change_Password.value)
         }
       }

@@ -12,6 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { ChangepasswordComponent } from './changepassword/changepassword.component';
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
+import { AddaddressComponent } from './addaddress/addaddress.component';
 
 
 
@@ -24,7 +25,8 @@ import { HttpClientModule } from '@angular/common/http';
     ManageaddressComponent,
     OrdersComponent,
     ProfilenavComponent,
-    ChangepasswordComponent
+    ChangepasswordComponent,
+    AddaddressComponent
     
   ],
   imports: [

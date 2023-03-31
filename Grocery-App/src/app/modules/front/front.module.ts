@@ -7,6 +7,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { CartModule } from './cart/cart.module';
 import { CategoryComponent } from './catalogue/category/category.component';
 import { ProductsComponent } from './catalogue/products/products.component';
+import { UserModule } from './user/user.module';
 
 
 
@@ -18,6 +19,7 @@ import { ProductsComponent } from './catalogue/products/products.component';
         FrontRoutingModule,
         CartModule,
         FormsModule,
+        UserModule,
         ReactiveFormsModule,
         CatalogueModule,
         IvyCarouselModule

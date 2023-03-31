@@ -11,6 +11,7 @@ import { ManageaddressComponent } from './manageaddress/manageaddress.component'
 import { OrdersComponent } from './orders/orders.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { AddaddressComponent } from './addaddress/addaddress.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -23,6 +24,7 @@ const routes: Routes = [
   { path: 'orders', component: OrdersComponent ,canActivate:[AuthUserGuard]},
   { path: 'changepassword', component: ChangepasswordComponent ,canActivate:[AuthUserGuard]},
   { path: 'manageaddress', component: ManageaddressComponent ,canActivate:[AuthUserGuard]},
+  { path: 'addaddress', component: AddaddressComponent},
 
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },
