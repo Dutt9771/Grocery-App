@@ -31,25 +31,11 @@
         <app-profilenav></app-profilenav>
       <!-- </nav> -->
       <div class="mx-5 d-flex justify-content-center">
+        <div class="row g-1 m-lg-5 d-flex justify-content-center">
         
         <form class="row g-5 m-lg-5 d-flex justify-content-center" [formGroup]="Profile" (ngSubmit)="User_Profile_Edit()" novalidate>
-          <div class="row g-2 d-flex justify-content-end">
-          <div class="col-md-5">  
-            <button type="submit" [disabled]="!Profile.valid" class="btn btn-primary">Save</button>
-          </div>
-          </div>
           
-          <div class="row g-2 d-flex justify-content-end" *ngIf="!Profile.valid">
-          <div class="col-md-5">  
-            <span class="text-danger">Please Enter all Details</span>
-          </div>
-          </div>
-          <div class="row g-2 d-flex justify-content-end" *ngIf="!Profile.valid">
-          <div class="col-md-5">  
-            <span class="text-danger">{{errorMessage}}</span>
-          </div>
-          </div>
-          <div class="row g-2">
+          <div class="row g-2 justify-content-center">
           <div class="col-md-5">
           <label for="inputfirstname" class="form-label">First Name</label>
           <input type="text" formControlName="firstname"  class="form-control" id="inputfirstname" placeholder="Enter Name">
@@ -68,7 +54,7 @@
         </div>
 
 
-            <div class="row g-2">
+            <div class="row g-2 justify-content-center">
               <div class="col-md-5">
                 <label for="inputEmail" class="form-label">Secondary Contact Email</label>
                 <input type="email" formControlName="alternateemail" class="form-control" id="inputEmail" placeholder="Enter Alternate Contact Email">
@@ -87,7 +73,7 @@
             </div>
             </div>
 
-            <div class="row g-2">
+            <div class="row g-2 justify-content-center">
               <div class="col-md-5">
                 <label for="dob" class="form-label">Date Of Birth</label>
                 <input type="date" formControlName="dob" class="form-control" id="dob" placeholder="Enter Date Of Birth">
@@ -102,7 +88,24 @@
                   <div *ngIf="get_Profile.password.errors?.['minlength']" class="text-danger">Password Length must be 8</div></div>
               </div>
               </div>
+              <div class="row g-2 d-flex justify-content-center" *ngIf="!Profile.valid">
+              <div class="col-md-5 text-center">  
+                <span class="text-danger">{{errorMessage}}</span>
+              </div>
+              </div>
+              <div class="row g-2 d-flex justify-content-center" *ngIf="!Profile.valid">
+              <div class="col-md-5 text-center">  
+                <span class="text-danger">Please Enter all Details</span>
+              </div>
+              </div>
+              <div class="row g-2 d-flex justify-content-center">
+                <div class="col-md-5 text-center">  
+                  <button type="submit" [disabled]="!Profile.valid" class="btn btn-primary col-md-2 text-center">Save</button>
+                </div>
+                </div>
+                
         </form>
+        </div>
       </div>
   </div>
 

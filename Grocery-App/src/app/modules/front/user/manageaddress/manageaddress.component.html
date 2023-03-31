@@ -15,7 +15,7 @@
 <!-- 
     </nav> -->
     <div class="mx-5 d-flex justify-content-center">
-        <div class="g-1 m-lg-5 d-flex justify-content-center">
+        <!-- <div class="g-1 m-lg-5 d-flex justify-content-center">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <div class="col">
               <div class="card h-100">
@@ -61,5 +61,29 @@
               </div>
             </div>
           </div>
+</div>   -->
+</div>
+    <div class="mx-5 d-flex justify-content-center">
+        <div class="g-1 m-lg-5 d-flex justify-content-center">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col" *ngFor="let item of showAdd">
+              <div class="card h-100">
+                <div class="card-body">
+                  <h5 class="card-title fs-5"><span class="text-success">Address Tag :</span> {{item.tag}}</h5>
+                  <p class="card-text fs-6">{{item.address_line_1}}</p>
+                  <p class="card-text fs-6">{{item.address_line_2}}</p>
+                  <div class="text-center card-footer bg-transparent border-0">
+                    <button class="btn btn-outline-dark">DELIVER HERE</button>
+                    <button class="btn btn-outline-transparent"><img src="https://img.icons8.com/cute-clipart/32/null/delete-forever.png"/></button>
+                    <button class="btn btn-outline-transparent"><img src="https://img.icons8.com/cute-clipart/32/null/pencil.png"/></button>
+                  </div>
+                </div>
+                
+              </div>
+            </div>
+
+            
+          </div>
 </div>  
+</div>
 </div>

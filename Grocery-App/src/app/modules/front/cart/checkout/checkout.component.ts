@@ -9,17 +9,19 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
 })
 export class CheckoutComponent {
   constructor(private route:Router,private _cartService: CartService){}
-  address_user=[{
-    id:1,
-    address:"Odell J. Gabbert 1045 Kildeer DriveNorfolk, VA 23502"
-  },
-{
-  id:2,
-  address:"Thelma E. Rogers 3651 Burton AvenueMemphis, TN 38104"
-},{
-  id:3,
-address:"Kathleen G. Hogan 3516 Layman AvenueFayetteville, NC 28306"
-}]
+  address_user=[]
+  
+//   address_user=[{
+//     id:1,
+//     address:"Odell J. Gabbert 1045 Kildeer DriveNorfolk, VA 23502"
+//   },
+// {
+//   id:2,
+//   address:"Thelma E. Rogers 3651 Burton AvenueMemphis, TN 38104"
+// },{
+//   id:3,
+// address:"Kathleen G. Hogan 3516 Layman AvenueFayetteville, NC 28306"
+// }]
 address: any;
 
 Cancel_Checkout(){
@@ -31,6 +33,8 @@ Place_Order(){
 
 cartTotal: number;
   ngOnInit(): void {
+  this.address_user=JSON.parse(localStorage.getItem("User_address"))
+  console.log("address_user",this.address_user)
     this._cartService.cartTotal$.subscribe(total => {
       this.cartTotal = total;
     });

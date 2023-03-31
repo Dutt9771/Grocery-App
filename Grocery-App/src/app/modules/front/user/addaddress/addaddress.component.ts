@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { User_Address } from 'src/app/shared/Models/user_address';
+import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
 @Component({
   selector: 'app-addaddress',
@@ -7,7 +10,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./addaddress.component.css']
 })
 export class AddaddressComponent {
-
+constructor(private _edituserService:EdituserService,private _snackBar:MatSnackBar){}
     // For State and City
   selectedState: any;
   selectedCity: any;
@@ -157,6 +160,7 @@ export class AddaddressComponent {
     this.User_address_Form()
   }
   User_Address_Add:any
+  User_Address_Add_Arr=[]
   User_address_Form(){
 
     this.User_Address_Add =new FormGroup({
@@ -207,10 +211,32 @@ export class AddaddressComponent {
         get get_User_Address(){
           return this.User_Address_Add.controls
         }
-    
+        Arr:any
         User_Address_Add_click(){
           if(this.User_Address_Add.valid){
             console.log("this.User_Address_Add.value",this.User_Address_Add.value)
+            this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
+              (User_Address_Add_res)=>{
+console.log("User_Address_Add_res",User_Address_Add_res)
+setTimeout(() => {
+  this._snackBar.open("Add Address Succesfully", "OK");
+}, 3000);
+this.Arr = JSON.stringify([]);
+  if (!localStorage.getItem('User_address')) {
+    localStorage.setItem('User_address', this.Arr);
+    }
+                this._edituserService.set_User_addresses(this.User_Address_Add.value)
+                let Merge = JSON.parse(localStorage.getItem('User_address'));
+                Merge.push(this.User_Address_Add.value);
+                localStorage.setItem("User_address", JSON.stringify(Merge));
+            },
+          error:(User_Address_Add_error)=>{
+            console.log("User_Address_Add_error",User_Address_Add_error)
+            setTimeout(() => {
+              this._snackBar.open(User_Address_Add_error.error.message, "OK");
+            }, 3000);
+          }})
+
           }
       
         }

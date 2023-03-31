@@ -13,8 +13,8 @@
         <div class="card mt-4 ms-4">
           <div *ngFor="let address of address_user" class="ms-4">
             <div class="form-check mt-4">
-              <input type="radio" class="form-check-input" name="address" id="{{address.id}}">
-              <label class="form-check-label" for="{{address.id}}">{{address.address}}</label>
+              <input type="radio" class="form-check-input" name="address" id="{{address.id}}" selected>
+              <label class="form-check-label" for="{{address.id}}">{{address.tag}}</label>
             </div>
           </div>
           <div class="card-body ms-4">
