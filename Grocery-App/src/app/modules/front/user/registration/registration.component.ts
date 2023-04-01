@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, FormGroup,ValidationErrors,ValidatorFn,Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
 
@@ -11,7 +12,7 @@ import { RegisterService } from 'src/app/shared/services/register/register.servi
 })
 export class RegistrationComponent {
   User_Register:any
-  constructor(private _RegisterService:RegisterService,private _authservice:AuthService,private router:Router){
+  constructor(private _RegisterService:RegisterService,private toastr:ToastrService,private _authservice:AuthService,private router:Router){
     this.User_Register_Form()
   }
   
@@ -278,15 +279,19 @@ User_Register_Form(){
         this._authservice.User_Register(this.User_Register.value).subscribe((User_Register_res)=>{
           console.log("User_Register_res",User_Register_res)
           this.errorMessage=""
+      this.toastr.success('Login Successfully');
           this.router.navigate(['/front/user/login'])
         }
         ,(Register_error)=>{ 
           console.log("Register_error.status",Register_error.status)
           if(Register_error.status==400){
             this.errorMessage="User Already Exists"
+            this.toastr.error("User Already Exists");
+
           }else{
             this.errorMessage = Register_error.error.error.errors[0].message;
             this.loading = false;
+            this.toastr.error(Register_error.error.error.errors[0].message);
             console.log('error caught in component',Register_error.error.error.errors[0].message)
           }
         }

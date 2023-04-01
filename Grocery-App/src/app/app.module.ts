@@ -67,8 +67,12 @@ import {MatFormFieldModule} from '@angular/material/form-field'
         AppRoutingModule,
         BrowserAnimationsModule,
         ToastrModule.forRoot({
-            timeOut: 5000,
+            timeOut: 3000,
             positionClass: 'toast-bottom-center',
+            progressBar:true,
+            progressAnimation:'decreasing',
+            tapToDismiss:true,
+            
           }),
         FrontModule, 
         AdminModule,

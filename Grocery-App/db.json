@@ -1,3 +1,16 @@
 {
-  "cart": []
+  "cart": [
+    {
+      "id": 1,
+      "imageurl": "tatasault.png",
+      "category": "Food",
+      "name": "Tata Sault",
+      "weight": "500 grams",
+      "sellerName": "Organic Farms Inc.",
+      "moneyOfferPrice": 8,
+      "price": 12,
+      "money": "USD",
+      "quantity": 1
+    }
+  ]
 }
