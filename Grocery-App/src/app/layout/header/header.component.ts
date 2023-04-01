@@ -3,6 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { RegisterService } from '../../shared/services/register/register.service';
+import { ProductsService } from 'src/app/shared/services/products/products.service';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -15,10 +17,10 @@ export class HeaderComponent {
     filterValue:any
     Registered_User:boolean=false
     Login_Logout_msg:string="Login"
-    cartItemCount :number
+    cartItemCount :any
     subTotal = 0;
     User_name="Guest"
-    constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,public _cartService:CartService) {
+    constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService) {
       
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
@@ -32,13 +34,28 @@ export class HeaderComponent {
     LoginData:any
     cartMessage:any
     CountArr:any=[]
-    cartItemslength:number
+    cartItemslength:any
     subtotal:number=0
-    cartItemsCount:number
+    Cartlength:any
+    filteredItems:any=[]
+    myControl = new FormControl('');
+    // ngDoCheck(){
+    //   this._cartService.ShowCart().subscribe((res)=>{
+    //     // console.log("res",res) 
+    //     this.cartItemCount=res
+    //     this.Cartlength=this.cartItemCount.length
+    //   })
+    // }
     ngOnInit(): void{
-
+      
+      this.filteredItems=this._productsservice.getProducts()
       this.router.events.subscribe((res:any)=>{
         if(res.url){
+          this._cartService.ShowCart().subscribe((res)=>{
+            console.log("res",res) 
+            this.cartItemCount=res
+            this.Cartlength=this.cartItemCount.length
+          })
           this.Check_User()
         }
       })
@@ -108,17 +125,17 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
     cart:any=[]
     Login_User:any;
     Register_User:any
-    ngDoCheck(){
+    // ngDoCheck(){
       
-    //   this._cartservice.ShowCart().subscribe((res)=>{
-    //     this.cart=res
-    //     this.cartItemCount=this.cart.length
-    //     console.log("cart length",this.cart.length)
-    // })
+    // //   this._cartservice.ShowCart().subscribe((res)=>{
+    // //     this.cart=res
+    // //     this.cartItemCount=this.cart.length
+    // //     console.log("cart length",this.cart.length)
+    // // })
 
 
 
-    }
+    // }
     title = 'Grocery-App';
     login_logout:boolean |undefined;
     // logout(loggedInuser: boolean) {
@@ -143,6 +160,8 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
     
       this.router.navigate(['/front/cart'])
     }
+    
+
     
   }
   

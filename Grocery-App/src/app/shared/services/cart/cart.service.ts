@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Subject, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -91,20 +91,32 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public cartSubject = new Subject<any>();
   public cartMsg = new Subject<any>();
 
-
-
-  private itemCount = 0;
-
-  getItemCount() {
-    return this.itemCount;
+  myArray: any[] = [];
+  myArraySubject = new BehaviorSubject<any>([]);
+  ShowcartArr(): Observable<any> {
+    return this.ShowCart().pipe(
+      map(res => {
+        console.log("res", res);
+        this.myArraySubject.next(res);
+        return this.myArraySubject;
+      })
+    );
   }
 
+  getItemCount() {
+    console.log("ShowcarArr",this.ShowcartArr())
+    return this.ShowcartArr()
+
+  }
   addItemToCart() {
-    return this.itemCount+=1;
+    console.log("ShowcarArr",this.ShowcartArr())
+    return this.ShowcartArr()
   }
 
   removeItemFromCart() {
-    return this.itemCount-=1;
+    console.log("ShowcarArr",this.ShowcartArr())
+    return this.ShowcartArr()
+
   }
 
 

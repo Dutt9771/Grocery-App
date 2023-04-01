@@ -89,9 +89,9 @@
             <a  class="nav-link fs-5 position-relative">
               <a (click)="Add_cart_count()"><i class="fas fa-shopping-cart"></i></a>
               
-              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-primary" *ngIf="_cartService.getItemCount() > 0">
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill text-primary">
           
-                {{cartItemCount}}
+                {{Cartlength}}
                 <!-- {{cartItemslength}} -->
                 <span class="visually-hidden">unread messages</span>
               </span>

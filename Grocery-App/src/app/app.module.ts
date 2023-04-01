@@ -22,6 +22,8 @@ import { CatalogueModule } from "./modules/front/catalogue/catalogue.module";
 import { ContactUsComponent } from './shared/components/contact-us/contact-us.component';
 import { TokenInterceptor } from './shared/Interceptor/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatFormFieldModule} from '@angular/material/form-field'
 
 @NgModule({
     declarations: [
@@ -79,6 +81,8 @@ import { ToastrModule } from 'ngx-toastr';
         HttpClientModule,
         MatSnackBarModule,
         MatExpansionModule,
+        MatAutocompleteModule,
+        MatFormFieldModule,
         CatalogueModule,
     ]
 })
