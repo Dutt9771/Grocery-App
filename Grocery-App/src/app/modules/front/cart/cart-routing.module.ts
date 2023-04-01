@@ -4,18 +4,20 @@ import { ErrorPageComponent } from 'src/app/error-page/error-page.component';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
+import { AuthUserGuard } from 'src/app/shared/guard/auth-user.guard';
 
 const routes: Routes = [
   {path:'',redirectTo:'cart',pathMatch:'full'},
   {path:'cart',component:CartComponent},
-  {path:'checkout',component:CheckoutComponent},
-  {path:'success',component:SuccessComponent},
+  {path:'checkout',component:CheckoutComponent,canActivate:[AuthUserGuard]},
+  {path:'success',component:SuccessComponent,canActivate:[AuthUserGuard]},
   {path:'**',component:ErrorPageComponent}
 
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers:[AuthUserGuard]
 })
 export class CartRoutingModule { }
