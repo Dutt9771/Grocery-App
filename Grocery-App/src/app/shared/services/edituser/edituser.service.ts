@@ -16,6 +16,7 @@ baseUrl=environment.baseUrl;
 change_password=environment.change_password;
 edit_user_details=environment.edit_user;
 add_address=environment.add_address
+user_details=environment.user_details
 
   Change_Password(data:ChangePassword){
     try {
@@ -35,6 +36,13 @@ add_address=environment.add_address
   Add_User_Address(data:Add_User_Address){
     try {
       return this.http.post<Add_User_Address>(this.baseUrl+this.add_address,data)
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+  }
+  Get_User_Details(){
+    try {
+      return this.http.get<any>(this.baseUrl+this.user_details)
     } catch (error:any) {
       return throwError(() => new Error(error))
     }

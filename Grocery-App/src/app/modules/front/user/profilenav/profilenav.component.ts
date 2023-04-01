@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profilenav',
@@ -10,7 +11,7 @@ export class ProfilenavComponent {
   Login_User: any;
   Register_User: any;
 
-  constructor(private router:Router) {}
+  constructor(private router:Router,private toastr:ToastrService) {}
 
   ngOnInit(){
     this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
@@ -24,6 +25,9 @@ export class ProfilenavComponent {
     localStorage.removeItem('User_login_Token')
     this.router.navigate(['front/user/login'])
     // console.log(this.email)
+    this.toastr.success('Logout Successfully');
+
+    
   }
 }
 }

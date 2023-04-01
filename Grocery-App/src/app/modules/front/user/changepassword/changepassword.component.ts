@@ -12,7 +12,7 @@ import { EdituserService } from 'src/app/shared/services/edituser/edituser.servi
 })
 export class ChangepasswordComponent {
   Change_Password:any
-  constructor(private _editUser:EdituserService,private toastr: ToastrService,private _snackBar:MatSnackBar){}
+  constructor(private _editUser:EdituserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
   ngOnInit(){
     // this.toastr.success('Change Password Successfully');
 
@@ -61,19 +61,20 @@ export class ChangepasswordComponent {
         this._editUser.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
             console.log("Change_pass_res",Change_pass_res)
             // const success=Change_pass_res
-            setTimeout(() => {
-              this._snackBar.open("Change Password Succesfully", "OK");
-            }, 3000);
+            // setTimeout(() => {
+            //   this._snackBar.open("Change Password Succesfully", "OK");
+            // }, 3000);
+            this.toastr.success('Password Change Successfully');
         },
         error:(Change_Password_error)=>{ 
           console.log("Change_Password status",Change_Password_error.status)
           console.log("Change_Password_error",Change_Password_error)
           if(Change_Password_error.status){
-            setTimeout(() => {
-              this._snackBar.open(Change_Password_error.error.message, "OK");
-            }, 3000);
+            // setTimeout(() => {
+            //   this._snackBar.open(Change_Password_error.error.message, "OK");
+            // }, 3000);
             this.errorMessage = Change_Password_error.error.message;
-            // this.toastr.error(Change_Password_error.error.message);
+            this.toastr.error(Change_Password_error.error.message);
         console.log("Chnage_Password.value",this.Change_Password.value)
         }
       }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { User_Address } from 'src/app/shared/Models/user_address';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
@@ -10,7 +12,7 @@ import { EdituserService } from 'src/app/shared/services/edituser/edituser.servi
   styleUrls: ['./addaddress.component.css']
 })
 export class AddaddressComponent {
-constructor(private _edituserService:EdituserService,private _snackBar:MatSnackBar){}
+constructor(private _edituserService:EdituserService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService){}
     // For State and City
   selectedState: any;
   selectedCity: any;
@@ -212,23 +214,39 @@ constructor(private _edituserService:EdituserService,private _snackBar:MatSnackB
           return this.User_Address_Add.controls
         }
         Arr:any
+        User_details:any
+        User_address:any
         User_Address_Add_click(){
           if(this.User_Address_Add.valid){
             console.log("this.User_Address_Add.value",this.User_Address_Add.value)
             this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
               (User_Address_Add_res)=>{
-console.log("User_Address_Add_res",User_Address_Add_res)
-setTimeout(() => {
-  this._snackBar.open("Add Address Succesfully", "OK");
-}, 3000);
-this.Arr = JSON.stringify([]);
-  if (!localStorage.getItem('User_address')) {
-    localStorage.setItem('User_address', this.Arr);
-    }
+              console.log("User_Address_Add_res",User_Address_Add_res)
+              // setTimeout(() => {
+              //   this._snackBar.open("Add Address Succesfully", "OK");
+              // }, 3000);
+              this.Arr = JSON.stringify([]);
+                if (!localStorage.getItem('User_address')) {
+                  localStorage.setItem('User_address', this.Arr);
+                  }
                 this._edituserService.set_User_addresses(this.User_Address_Add.value)
                 let Merge = JSON.parse(localStorage.getItem('User_address'));
-                Merge.push(this.User_Address_Add.value);
+                // this._edituserService.Get_User_Details().subscribe((User_details)=>{
+                  
+                  this.User_details=JSON.parse(sessionStorage.getItem('Login_User'))
+                  console.log("User_details",this.User_details)
+                  this.User_address={
+                    username:this.User_details.username,
+                    Address:this.User_Address_Add.value
+                  }
+                // })
+                  console.log("User_address",this.User_address)
+                  this.toastr.success('Address Added Successfully');
+
+                  Merge.push(this.User_address);
+                  console.log("Merge",Merge)
                 localStorage.setItem("User_address", JSON.stringify(Merge));
+                this.route.navigate(['/front/user/manageaddress'])
             },
           error:(User_Address_Add_error)=>{
             console.log("User_Address_Add_error",User_Address_Add_error)

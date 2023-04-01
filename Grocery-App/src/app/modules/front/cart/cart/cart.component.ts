@@ -168,8 +168,9 @@ export class CartComponent {
               console.log("cartEmptyShow",this.cartEmptyShow)
             }
   }
-  cartItemCount:number=0
+  cartItemCount:any
   clickedItem:any=[]
+
   DelectProduct(id:any,index:any,productindex:any,product){
     
       
@@ -178,9 +179,14 @@ export class CartComponent {
       this._cartservice.DelectProduct(id).subscribe((res)=>{
         if (res) {
           console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
-          
+          this._cartservice.ShowCart().subscribe((res)=>{
+            console.log("res",res) 
+            this.cartItemCount=res
+            // this.Cartlength=this.cartItemCount.length
+            this._cartservice.cartItemCount$.next(this.cartItemCount.length);
+          })
         this._cartservice.cartSubject.next(this._cartservice.cart);
-        this._cartservice.removeItemFromCart();
+        // this._cartservice.removeItemFromCart();
         this._cartservice.removeFromCart(product);
       return this.groupedProducts[index].cart.splice(productindex,1)
       // this.groupedProducts[index].cart[productindex];

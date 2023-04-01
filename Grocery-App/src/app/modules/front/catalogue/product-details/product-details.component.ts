@@ -247,7 +247,7 @@ Showcart(){
     
 
       
-      this._cartservice.addItemToCart();
+      // this._cartservice.addItemToCart();
       // this.Product_Count_Obj.push(this.ProductAddobj)
       // localStorage.setItem('Products_Count',JSON.stringify(this.Product_Count_Obj))
 

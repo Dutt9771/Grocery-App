@@ -172,8 +172,9 @@ ngOnInit(){
         res
       )
     })
-    this._cartservice.addItemToCart();
+    // this._cartservice.addItemToCart();
     this._cartservice.cartmsg=this.filteredItems[i].name;
+    // this._cartservice.getItemCount()
 
     // this.rout.navigate(['/front/cart'])
     console.log(this.clickedItem)

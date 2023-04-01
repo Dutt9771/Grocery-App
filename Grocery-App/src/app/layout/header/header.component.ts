@@ -6,6 +6,7 @@ import { RegisterService } from '../../shared/services/register/register.service
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
@@ -47,8 +48,14 @@ export class HeaderComponent {
     //     this.Cartlength=this.cartItemCount.length
     //   })
     // }
+
+
     ngOnInit(): void{
-      
+      // console.log(this._cartService.getItemCount())
+      this._cartService.cartItemCount$.subscribe(count => {
+        console.log('New item count:', count);
+        this.cartItemCount = count;
+      });
       this.filteredItems=this._productsservice.getProducts()
       this.router.events.subscribe((res:any)=>{
         if(res.url){
@@ -56,6 +63,7 @@ export class HeaderComponent {
             console.log("res",res) 
             this.cartItemCount=res
             this.Cartlength=this.cartItemCount.length
+            this._cartService.cartItemCount$.next(this.cartItemCount.length);
           })
           this.Check_User()
         }
@@ -70,8 +78,8 @@ export class HeaderComponent {
       //   this.cartItemsCount = cart.length;
       // });
 
-console.log("Register_user",this.Register_User)
-console.log("Login_user",this.Login_User)
+// console.log("Register_user",this.Register_User)
+// console.log("Login_user",this.Login_User)
 this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
 // this.subTotal = this.Subtotal.Subtotal();
       console.log("Subtotal",this.subtotal)
@@ -121,6 +129,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this.User_name=this.Login_User.username
     }else{
       this.User_name="Login/Signup"
+      this.Login_Logout_msg="Login"
     }
     }
     cart:any=[]
@@ -146,6 +155,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       userData:any = sessionStorage.getItem('User');
       email:any = this.userData
     logout(){
+      if(this.Login_User){
       sessionStorage.removeItem('User');
       sessionStorage.removeItem('Login_User');
       sessionStorage.removeItem('Register_User')
@@ -154,7 +164,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this.Login_Logout_msg="Login"
       this.User_name="Login/Signup"
       this.toastr.success('Logout Successfully');
-
+      }
     }
   
   

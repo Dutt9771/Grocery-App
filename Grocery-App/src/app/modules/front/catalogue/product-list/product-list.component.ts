@@ -183,7 +183,7 @@ if(category==='all'){
     })
     this._cartservice.cart.push(this.filteredItems);
 
-    this._cartservice.addItemToCart();
+    // this._cartservice.addItemToCart();
     // this._cartservice.cartmsg=this.filteredItems[i].name;
     this._cartservice.addToCart(this.ProductAddobj);
     // this.rout.navigate(['/front/cart'])

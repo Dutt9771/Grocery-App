@@ -23,12 +23,15 @@ export class CheckoutComponent {
 // address:"Kathleen G. Hogan 3516 Layman AvenueFayetteville, NC 28306"
 // }]
 address: any;
-
+Login_User:any
 Cancel_Checkout(){
 this.route.navigate(['/home'])
 }
 Place_Order(){
+  this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
+if(this.Login_User){
   this.route.navigate(['/front/cart/success'])
+}
 }
 
 cartTotal: number;

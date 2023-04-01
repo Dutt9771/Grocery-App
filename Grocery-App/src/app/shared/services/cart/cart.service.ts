@@ -90,37 +90,44 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public cartmsg=''
   public cartSubject = new Subject<any>();
   public cartMsg = new Subject<any>();
+  cartItemCount$ = new BehaviorSubject<any>(0);
+  // myArray: any[] = [];
+  // myArraySubject = new BehaviorSubject<any>([]);
+  // ShowcartArr(): Observable<any> {
+  //   let Cartlength:any
+  //   return this.ShowCart().pipe(
+  //     map(res => {
+  //       console.log("res", res);
+  //       Cartlength = this.myArraySubject.next(res);
+  //       return Cartlength.length;
+  //     })
+  //   );
+  // }
 
-  myArray: any[] = [];
-  myArraySubject = new BehaviorSubject<any>([]);
-  ShowcartArr(): Observable<any> {
-    return this.ShowCart().pipe(
-      map(res => {
-        console.log("res", res);
-        this.myArraySubject.next(res);
-        return this.myArraySubject;
-      })
-    );
-  }
+  // getItemCount() {
+  //   let cart
+  //   // console.log("ShowcarArr",this.ShowcartArr())
+  //   this.ShowCart().subscribe((res)=>{
+  //     cart=res
+  //     // cart.length=this.cartItemCount$
+  //     this.cartItemCount$.next(cart.length);
+  //     console.log("cartItemCount",this.cartItemCount$)
+  //   })
+  // }   
+  // }
+  // addItemToCart() {
+  //   console.log("ShowcarArr",this.ShowcartArr())
+  //   return this.ShowcartArr()
+  // }
 
-  getItemCount() {
-    console.log("ShowcarArr",this.ShowcartArr())
-    return this.ShowcartArr()
+  // removeItemFromCart() {
+  //   console.log("ShowcarArr",this.ShowcartArr())
+  //   return this.ShowcartArr()
 
-  }
-  addItemToCart() {
-    console.log("ShowcarArr",this.ShowcartArr())
-    return this.ShowcartArr()
-  }
-
-  removeItemFromCart() {
-    console.log("ShowcarArr",this.ShowcartArr())
-    return this.ShowcartArr()
-
-  }
+  // }
 
 
-  private subtotalSource = new BehaviorSubject<number>(0);
+  public subtotalSource = new BehaviorSubject<number>(0);
   currentSubtotal = this.subtotalSource.asObservable();
 
   updateSubtotal(subtotal: number) {
