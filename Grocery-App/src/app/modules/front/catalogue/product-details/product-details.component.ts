@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -139,7 +140,7 @@ export class ProductDetailsComponent {
   filteredItems:any
   category_path:any
   product_name:any
-constructor(private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router){
+constructor(private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
   this.router.paramMap.subscribe(params=>{
     this.product_name=params.get('product_name')
   })
@@ -260,7 +261,9 @@ Showcart(){
 
     // emit updated cart data to subscribers
     this._cartservice.cartSubject.next(this._cartservice.cart);
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    this.toastr.success(' Added to cart',product.name);
+
   
     this._cartservice.addToCart(this.ProductAddobj);
     
@@ -269,6 +272,8 @@ Showcart(){
 
     this.existing_Product.quantity=this.existing_Product.quantity+1;
     this.product_quantity.quantity=this.existing_Product.quantity
+    this.toastr.info('Already Added Please Go to Cart',product.name);
+
     this._cartservice.EditCart(this.existing_Product).subscribe((cart)=>{
       console.log("Edit Card Product",cart)
       }
@@ -276,6 +281,7 @@ Showcart(){
   
   else{
     this.QuantityErrMsg="Please Enter Valid Quantity"
+    this.toastr.error('Please Enter Valid Quantity');
   }
   this.Showcart()
   }

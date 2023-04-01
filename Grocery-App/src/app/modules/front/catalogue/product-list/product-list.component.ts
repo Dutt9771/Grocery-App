@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, Input, OnChanges, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductListService } from 'src/app/shared/services/product-list/product-list.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -13,7 +14,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class ProductListComponent implements OnInit {
   defaultCategory='all';
   selectedCategory:string;
-  constructor(private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router) {
+  constructor(private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router,private toastr:ToastrService) {
     this.selectedCategory = this.defaultCategory;
   }
 category:any
@@ -183,19 +184,21 @@ if(category==='all'){
     this._cartservice.cart.push(this.filteredItems);
 
     this._cartservice.addItemToCart();
-    this._cartservice.cartmsg=this.filteredItems[i].name;
+    // this._cartservice.cartmsg=this.filteredItems[i].name;
     this._cartservice.addToCart(this.ProductAddobj);
     // this.rout.navigate(['/front/cart'])
     // console.log("clickedItem",this.clickedItem)
     // this._cartservice.cart.push(this.clickedItem);
-
+    this.toastr.success('Added to cart',product.name);
     // emit updated cart data to subscribers
     this._cartservice.cartSubject.next(this._cartservice.cart);
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
   }else{
-    this._cartservice.cartmsg="Item Already";
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    // this._cartservice.cartmsg="Item Already";
+    this.toastr.info('Already Added Please Go to Cart',product.name);
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+
   }
   this.Showcart()
 

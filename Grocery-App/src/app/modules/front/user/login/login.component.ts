@@ -83,6 +83,7 @@ Save_User_Login(){
     if(Login_error.status){
       this.errorMessage = Login_error.error.message;
       // this.errorMessage="Incorrect Password"
+      this.toastr.error(Login_error.error.message);
       // this.errorMessage = Login_error.error.error.errors[0].message;
       // console.log('error caught in component',Login_error.error.error.errors[0].message)
     }

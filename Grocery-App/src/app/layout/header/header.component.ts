@@ -5,6 +5,7 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { RegisterService } from '../../shared/services/register/register.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 import { FormControl } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -19,8 +20,8 @@ export class HeaderComponent {
     Login_Logout_msg:string="Login"
     cartItemCount :any
     subTotal = 0;
-    User_name="Guest"
-    constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService) {
+    User_name="Login/Signup"
+    constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
       
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
@@ -119,7 +120,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this.Login_Logout_msg="Logout"
       this.User_name=this.Login_User.username
     }else{
-      this.User_name="Guest"
+      this.User_name="Login/Signup"
     }
     }
     cart:any=[]
@@ -151,7 +152,9 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       this.router.navigate(['front/user/login'])
       // console.log(this.email)
       this.Login_Logout_msg="Login"
-      this.User_name="Guest"
+      this.User_name="Login/Signup"
+      this.toastr.success('Logout Successfully');
+
     }
   
   

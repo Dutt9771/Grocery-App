@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
@@ -9,7 +10,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-constructor(private _cartservice:CartService,private productservice:ProductsService){}
+constructor(private _cartservice:CartService,private productservice:ProductsService,private toastr:ToastrService){}
 filteredItems:any=[]
 ngOnInit(){
   this.filteredItems=this.productservice.getProducts()
@@ -177,14 +178,16 @@ ngOnInit(){
     // this.rout.navigate(['/front/cart'])
     console.log(this.clickedItem)
     this._cartservice.cart.push(this.clickedItem);
-
+    this.toastr.success('Added to cart',product.name);
     // emit updated cart data to subscribers
     this._cartservice.cartSubject.next(this._cartservice.cart);
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
   }else{
     this._cartservice.cartmsg="Item Already";
-    this._cartservice.cartMsg.next(this._cartservice.cartmsg);
+    this.toastr.info('Already Added Please Go to Cart',product.name);
+
+    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   }
   this.Showcart()
 }
