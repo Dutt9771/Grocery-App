@@ -37,8 +37,8 @@ filteredItems:any=[]
     }});
   }
   encryption_data:string
-  encryption(){
-    this._encryptionservice.Encryption('1').subscribe({next:(encryption_res)=>{
+  encryption(id){
+    this._encryptionservice.Encryption(id).subscribe({next:(encryption_res)=>{
       console.log("encryption_res",encryption_res)
       this.encryption_data=encryption_res.data
        console.log("encryption_data",this.encryption_data)
@@ -48,13 +48,17 @@ filteredItems:any=[]
     }})
   }
   ngOnInit() {
-    this.encryption()
-    console.log("encryption_data",JSON.stringify(this.encryption_data))
     
+    this.route.paramMap.subscribe(params => {
+      this.category_path= params.get('id');
+      console.log(this.filteredItems)
+    })
+    this.encryption(this.category_path)
+    console.log("encryption_data",JSON.stringify(this.encryption_data))
     
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()
-
+    
     this.categories = this.productArray.reduce((acc, curr) => {
       if (!acc.includes(curr.category)) {
         acc.push(curr.category);
@@ -62,24 +66,20 @@ filteredItems:any=[]
       return acc;
     }, []);
     this.categories.unshift('all')
-     // categories = Array.from(new Set(this.productArray.map(product => product.category)));
-  
-    this.route.paramMap.subscribe(params => {
-      this.category_path= params.get('category');
-      console.log(this.filteredItems)
-    })
-if(this.category_path){
+    // categories = Array.from(new Set(this.productArray.map(product => product.category)));
+    
+    if(this.category_path){
 
   this.route.paramMap.subscribe(params => {
-    const categories = params.get('category');
-    console.log(categories)
+    const categories = params.get('id');
+    console.log("categories",categories)
     if (categories=='all') {
 
       this.filteredItems
         console.log("filteredItems",this.filteredItems)
         this.category='Fruits And Vegetables'
       }else{
-        this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.category === categories);
+        this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems[0].category_id === categories);
         this.category=categories
       }
       

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from 'src/app/shared/services/cart/cart.service';
+import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
 
@@ -137,20 +138,48 @@ export class ProductDetailsComponent {
   ]
 
   product_item:any
-  filteredItems:any
+  filteredItems:any=[]
   category_path:any
   product_name:any
-constructor(private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
+  product_id:any
+constructor(private _encryptionservice:EncryptionService,private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
   this.router.paramMap.subscribe(params=>{
-    this.product_name=params.get('product_name')
+    this.product_id=params.get('id')
+    this.product_name=params.get('slug')
+
+    console.log("params.get('id')",params.get('id'))
+    console.log("params.get('slug')",params.get('slug'))
   })
   // console.log("product_name",this.product_name)
 }
 ShowcartArr:any=[]
 quantity=1;
+GetProductByProductId(encryption){
+  this._productsservice.getProductByProductId(encryption).subscribe({next:(Product_Res:any) => {
+    this.filteredItems.push(Product_Res.data)
+    console.log("Product_Res",this.filteredItems)
+  },error:(Product_error)=>{
+      console.log("Product_error",Product_error)
+  }});
+}
+encryption_data:string
+encryption(id){
+  this._encryptionservice.Encryption(id).subscribe({next:(encryption_res)=>{
+    console.log("encryption_res",encryption_res)
+    this.encryption_data=encryption_res.data
+     console.log("encryption_data",this.encryption_data)
+     this.GetProductByProductId(this.encryption_data)
+  },error:(encryption_error)=>{
+    console.log("encryption_error",encryption_error)
+  }})
+}
   ngOnInit() {
     this.Showcart()
-    this.filteredItems=this._productsservice.getProducts()
+    this.encryption(this.product_id)
+        console.log("Product_item",this.filteredItems)
+        console.log("Product_item",this.filteredItems.title)
+
+    // this.filteredItems=this._productsservice.getProducts()
     // this._cartservice.ShowCart().subscribe((res)=>{
     //   this.ShowcartArr=res
     // })
@@ -162,14 +191,14 @@ quantity=1;
   
   // if(this.category_path){
 
-    this.router.paramMap.subscribe(params => {
-      const product = params.get('product_name');
-      // console.log(product)    
-          this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems.name.toLowerCase() === product);
-          this.product_item=product
+    // this.router.paramMap.subscribe(params => {
+    //   const product = params.get('slug'); 
+    //   // console.log(product)    
+    //       this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems[0].product_id === this.product_id);
+    //       this.product_item=product
 
-        console.log("Product_item",this.filteredItems)
-      });
+    //     console.log("Product_item",this.filteredItems)
+    //   });
     // }else{
     //   this.Filter_Category(this.selectedCategory);
     // }

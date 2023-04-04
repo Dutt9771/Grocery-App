@@ -236,6 +236,7 @@ export class ProductsService {
   baseUrl=environment.baseUrl;
   all_category=environment.category_routes.all_category;
   get_product_by_category_id=environment.products_routes.get_product_by_category_id;
+  get_product_by_id=environment.products_routes.get_product_by_id;
   getAllCategory():Observable<Category>{
     try {
       return this.http.get<Category>(this.baseUrl+this.all_category,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})
@@ -247,6 +248,14 @@ export class ProductsService {
   getProductByCategoryId(encryption:any):Observable<any>{
     try {
       return this.http.get<any>(this.baseUrl+this.get_product_by_category_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','category_id':encryption})})
+    } catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+
+  }
+  getProductByProductId(encryption:any):Observable<any>{
+    try {
+      return this.http.get<any>(this.baseUrl+this.get_product_by_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','product_id':encryption})})
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

@@ -8,8 +8,8 @@ import { ProductListComponent } from './product-list/product-list.component';
 import { ProductsComponent } from './products/products.component';
 
 const routes: Routes = [
-  {path:'product-details/:product_name',component:ProductDetailsComponent},
-  {path:'products-list/:category',component:ProductListComponent},
+  {path:'product-details/:id/:slug',component:ProductDetailsComponent},
+  {path:'products-list/:id',component:ProductListComponent},
   {path:'products',component:ProductsComponent},
   {path:'category',component:CategoryComponent},
   {path:'**',component:ErrorPageComponent}

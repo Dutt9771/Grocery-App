@@ -41,7 +41,7 @@
                         class="rounded mx-auto d-block"
                         src="{{product.product.avatar_image}}"
                         alt=""
-                        [routerLink]="['/front/catalogue/product-details', product.product.slug]"
+                        [routerLink]="['/front/catalogue/product-details/',product.product.id, product.product.slug]"
                         width="120"
                         height="120"/>
                   <div class="card-body">
