@@ -244,9 +244,9 @@ export class ProductsService {
     }
 
   }
-  getProductByCategoryId():Observable<any>{
+  getProductByCategoryId(encryption:any):Observable<any>{
     try {
-      return this.http.get<any>(this.baseUrl+this.get_product_by_category_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})
+      return this.http.get<any>(this.baseUrl+this.get_product_by_category_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','category_id':encryption})})
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

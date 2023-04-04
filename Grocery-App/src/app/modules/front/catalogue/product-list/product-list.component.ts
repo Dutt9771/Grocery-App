@@ -28,21 +28,30 @@ filteredItems:any=[]
   Product_Arr:any=[]
   category_path
   categories:any
-  GetProductByCategory(){
-    this.productservice.getProductByCategoryId().subscribe({next:(Product_Res:any) => {
+  GetProductByCategory(encryption){
+    this.productservice.getProductByCategoryId(encryption).subscribe({next:(Product_Res:any) => {
       console.log("Product_Res",Product_Res.data)
       this.filteredItems=Product_Res.data
     },error:(Product_error)=>{
         console.log("Product_error",Product_error)
     }});
   }
-  ngOnInit() {
-    this.GetProductByCategory()
-    this._encryptionservice.Encryption(2).subscribe({next:(encryption_res)=>{
+  encryption_data:string
+  encryption(){
+    this._encryptionservice.Encryption('1').subscribe({next:(encryption_res)=>{
       console.log("encryption_res",encryption_res)
+      this.encryption_data=encryption_res.data
+       console.log("encryption_data",this.encryption_data)
+       this.GetProductByCategory(this.encryption_data)
     },error:(encryption_error)=>{
       console.log("encryption_error",encryption_error)
     }})
+  }
+  ngOnInit() {
+    this.encryption()
+    console.log("encryption_data",JSON.stringify(this.encryption_data))
+    
+    
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()
 

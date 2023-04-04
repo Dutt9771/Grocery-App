@@ -14,7 +14,7 @@ export class EncryptionService {
  
   Encryption(id:any){
     try {
-      return this.http.get<any>(this.baseUrl+this.encryption,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'}).set('id',id)})
+      return this.http.get<any>(this.baseUrl+this.encryption,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','id':id})})
     } catch (error:any) {
       return throwError(() => new Error(error))
     }
