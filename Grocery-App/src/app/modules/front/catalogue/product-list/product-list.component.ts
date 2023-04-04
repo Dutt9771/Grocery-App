@@ -27,10 +27,18 @@ filteredItems:any=[]
   Product_Arr:any=[]
   category_path
   categories:any
+  GetProductByCategory(){
+    this.productservice.getProductByCategoryId().subscribe({next:(Product_Res:any) => {
+      console.log("Product_Res",Product_Res.data)
+      this.filteredItems=Product_Res.data
+    },error:(Product_error)=>{
+        console.log("Product_error",Product_error)
+    }});
+  }
   ngOnInit() {
-    
-    this.filteredItems=this.productservice.getProducts()
-    this.productArray=this.productservice.getProducts()
+    this.GetProductByCategory()
+    // this.filteredItems=this.productservice.getProducts()
+    // this.productArray=this.productservice.getProducts()
 
     this.categories = this.productArray.reduce((acc, curr) => {
       if (!acc.includes(curr.category)) {

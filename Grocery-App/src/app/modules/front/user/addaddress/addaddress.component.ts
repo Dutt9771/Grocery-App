@@ -164,15 +164,12 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
   //   const state = this.states.find(s => s.name === this.selectedState);
   //   return state ? state.cities : [];
   // } 
-
+  
 
   cities: string[] = [];
   ngOnInit(){
     this.User_address_Form()
     
-    this._edituserService.Get_User_Details().subscribe((User_details)=>{
-      console.log("User_Details",User_details)
-    })
       this.country.valueChanges.subscribe((country) => {
 
       if (country) {

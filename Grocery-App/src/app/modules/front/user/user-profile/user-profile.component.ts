@@ -25,6 +25,8 @@ export class UserProfileComponent implements OnInit {
   User_login_Token: any;
   constructor(private route: ActivatedRoute,private toastr:ToastrService,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
+    this.Edit_Profile()
+    this.Get_User_Details()
     //  google profile code
     // this.user = sessionStorage.getItem('User');
     // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
@@ -37,8 +39,10 @@ export class UserProfileComponent implements OnInit {
     //   }
     // }
   }
-
-  @Input() Profile: any = new FormGroup({
+  Profile:any
+  User_Profile_Obj:any
+Edit_Profile(){
+  this.Profile = new FormGroup({
     firstname: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -59,6 +63,18 @@ export class UserProfileComponent implements OnInit {
     ]),
     dob: new FormControl('', [Validators.required]),
   });
+ this.Profile.setValue('new value');
+}
+  Get_User_Details(){
+    this._editUserservice.Get_User_Details().subscribe({next:(User_details_res)=>{
+      console.log("User_Details",User_details_res.data)
+      this.User_Profile_Obj=User_details_res.data
+    },error:(User_details_error)=>{
+      console.log("Getuserdetail_error",User_details_error)
+    }})
+  }
+
+  
 
   get get_Profile() {
     return this.Profile.controls;

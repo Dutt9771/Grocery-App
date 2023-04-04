@@ -43,11 +43,11 @@ product.category.toLowerCase()]" -->
     <div class="carousel-cell" *ngFor="let product of grocery_items">
         <div
             class="card bg-transparent p-3 m-2"
-            (click)="Category_Products(product.category)">
+            (click)="Category_Products(product.title)">
             <img src="{{product.image}}" alt="" width="120" height="120"/>
             <div class="card-body text-center">
-                <h4>{{product.category }}</h4>
-                <small>{{product.quantity}}</small>
+                <h4>{{product.title }}</h4>
+                <small>{{product.parent_id}}</small>
             </div>
         </div>
     </div>
