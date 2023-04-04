@@ -242,6 +242,7 @@ Showcart(){
       console.log(
         res
         )
+        this._cartservice.getItemCount()
       })
 
     
@@ -260,12 +261,10 @@ Showcart(){
     
 
     // emit updated cart data to subscribers
-    this._cartservice.cartSubject.next(this._cartservice.cart);
+
     // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
     this.toastr.success(' Added to cart',product.name);
 
-  
-    this._cartservice.addToCart(this.ProductAddobj);
     
   }else if(this.existing_Product){
     this.QuantityErrMsg="Product Is Existing"

@@ -171,6 +171,8 @@ ngOnInit(){
       console.log(
         res
       )
+      this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
     })
     // this._cartservice.addItemToCart();
     this._cartservice.cartmsg=this.filteredItems[i].name;
@@ -182,8 +184,9 @@ ngOnInit(){
     this.toastr.success('Added to cart',product.name);
     // emit updated cart data to subscribers
     this._cartservice.cartSubject.next(this._cartservice.cart);
-    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
+
+    
   }else{
     this._cartservice.cartmsg="Item Already";
     this.toastr.info('Already Added Please Go to Cart',product.name);

@@ -5,6 +5,7 @@ import { CartRoutingModule } from './cart-routing.module';
 import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -15,7 +16,15 @@ import { SuccessComponent } from './success/success.component';
   ],
   imports: [
     CommonModule,
-    CartRoutingModule
+    CartRoutingModule,
+    ToastrModule.forRoot({
+      timeOut: 3000,
+      positionClass: 'toast-bottom-center',
+      progressBar:true,
+      progressAnimation:'decreasing',
+      tapToDismiss:true,
+      
+    }),
   ]
 })
 export class CartModule { }

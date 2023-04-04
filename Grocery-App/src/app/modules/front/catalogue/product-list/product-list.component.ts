@@ -172,27 +172,14 @@ if(category==='all'){
     console.log("id",i)
     console.log("Filtered Item Arr",this.filteredItems[i])
     this.ProductAddobj= this.filteredItems[i]
-    // for(let i=0;i<this.filteredItems.length;i++){
-    //   this.ProductAddobj=this.filteredItems[i]
-    //   // console.log("OBJ",this.ProductAddobj)
-    // }
+
     this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res
       )
+      this.toastr.success('Added to cart',product.name);
+      this._cartservice.getItemCount()
     })
-    this._cartservice.cart.push(this.filteredItems);
-
-    // this._cartservice.addItemToCart();
-    // this._cartservice.cartmsg=this.filteredItems[i].name;
-    this._cartservice.addToCart(this.ProductAddobj);
-    // this.rout.navigate(['/front/cart'])
-    // console.log("clickedItem",this.clickedItem)
-    // this._cartservice.cart.push(this.clickedItem);
-    this.toastr.success('Added to cart',product.name);
-    // emit updated cart data to subscribers
-    this._cartservice.cartSubject.next(this._cartservice.cart);
-    // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
   }else{
     // this._cartservice.cartmsg="Item Already";

@@ -234,7 +234,7 @@ export class ProductsService {
   
   // }
   baseUrl=environment.baseUrl;
-  all_category=environment.all_category;
+  all_category=environment.category_routes.all_category;
   getAllCategory():Observable<Category>{
     try {
       return this.http.get<Category>(this.baseUrl+this.all_category)

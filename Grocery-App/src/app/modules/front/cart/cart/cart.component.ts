@@ -1,6 +1,7 @@
 import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
@@ -12,10 +13,8 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 })
 export class CartComponent {
   cartItems:any[]=[]
-  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router){
-    this._cartservice.cartItems$.subscribe(cartItems => {
-      this.cartItems = cartItems;
-    });
+  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
+   
   }
   cart:any=[]
   // cartItems;
@@ -175,7 +174,7 @@ export class CartComponent {
     
       
       this.clickedItem= this.filteredItems[id]
-      // if(this.groupedProducts[index].cart[productindex].quantity
+
       this._cartservice.DelectProduct(id).subscribe((res)=>{
         if (res) {
           console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
@@ -185,30 +184,15 @@ export class CartComponent {
             // this.Cartlength=this.cartItemCount.length
             this._cartservice.cartItemCount$.next(this.cartItemCount.length);
           })
-        this._cartservice.cartSubject.next(this._cartservice.cart);
-        // this._cartservice.removeItemFromCart();
-        this._cartservice.removeFromCart(product);
+          this._cartservice.getItemCount()
+        this.toastr.success('Remove to cart',product.name);
+
       return this.groupedProducts[index].cart.splice(productindex,1)
-      // this.groupedProducts[index].cart[productindex];
-      
-        // this.cart.splice(id-1, 1);
-        // console.log("Res",res)
-        // this._cartservice.cart.splice(this.clickedItem,1);
-        // console.log("Deleted Arr in the ClikkedItem Arr",this._cartservice.cart.splice(this.clickedItem,1))
-        // console.log("cart",this.cart);
-        // console.log("cart by Id",this.cart[id]);
-        
+
         
       }
       this.Subtotal()
-      // this.CartEmptyShow_Data()
-
-    //   if(res && this.groupedProducts.length==1){
-    //     console.log('REs')
-    //     this.route.navigate(['/home'])
-  
-    // }
-    // console.log("groupedProducts.length",this.groupedProducts.length)
+ 
     })
     
    

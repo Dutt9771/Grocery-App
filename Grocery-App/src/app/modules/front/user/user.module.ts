@@ -13,6 +13,7 @@ import { ChangepasswordComponent } from './changepassword/changepassword.compone
 import { GoogleLoginProvider, SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { HttpClientModule } from '@angular/common/http';
 import { AddaddressComponent } from './addaddress/addaddress.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -35,7 +36,8 @@ import { AddaddressComponent } from './addaddress/addaddress.component';
     FormsModule,
     ReactiveFormsModule,
     MatExpansionModule,
-    HttpClientModule
+    HttpClientModule,
+  
     
   ],
   providers:[{

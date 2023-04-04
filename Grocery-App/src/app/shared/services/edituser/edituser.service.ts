@@ -13,10 +13,10 @@ export class EdituserService {
 
   constructor(private http:HttpClient) { }
 baseUrl=environment.baseUrl;
-change_password=environment.change_password;
-edit_user_details=environment.edit_user;
-add_address=environment.add_address
-user_details=environment.user_details
+change_password=environment.customers_routes.change_password;
+edit_user_details=environment.customers_routes.edit_user;
+add_address=environment.customers_routes.add_address
+user_details=environment.customers_routes.user_details
 
   Change_Password(data:ChangePassword){
     try {

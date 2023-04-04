@@ -7,6 +7,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -20,16 +21,18 @@ export class HeaderComponent {
     Registered_User:boolean=false
     Login_Logout_msg:string="Login"
     cartItemCount :any
-    subTotal = 0;
+    // subTotal:any = 0;
     User_name="Login/Signup"
-    constructor(private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
+    
+    constructor(private cookieService: CookieService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
       
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         this.Login_Logout_msg == res;
+        
       })
-      this._cartService.cartItems$.subscribe(cartItems => {
-        this.cartItemCount = cartItems.length;
-      });
+      // this._cartService.cartItems$.subscribe(cartItems => {
+      //   this.cartItemCount = cartItems.length;
+      // });
     }
     RegisterData:any
     User:any
@@ -37,7 +40,7 @@ export class HeaderComponent {
     cartMessage:any
     CountArr:any=[]
     cartItemslength:any
-    subtotal:number=0
+    subtotal:any=0
     Cartlength:any
     filteredItems:any=[]
     myControl = new FormControl('');
@@ -50,53 +53,44 @@ export class HeaderComponent {
     // }
 
 
-    ngOnInit(): void{
-      // console.log(this._cartService.getItemCount())
-      this._cartService.cartItemCount$.subscribe(count => {
-        console.log('New item count:', count);
-        this.cartItemCount = count;
+    ngOnInit(){
+      this._cartService.currentSubtotal.subscribe((res)=>{
+        this.subtotal=res
+        console.log("res",res)
+      })
+      console.log("this._cartService.Subtotal()",this._cartService.Subtotal())
+      
+      this.cartItemCount=this._cartService.getItemCount()
+      this._cartService.cartLength$.subscribe((length) => {
+        this.cartItemCount = length;
       });
+      console.log("this._cartService.getItemCount()",this._cartService.getItemCount())
       this.filteredItems=this._productsservice.getProducts()
       this.router.events.subscribe((res:any)=>{
         if(res.url){
-          this._cartService.ShowCart().subscribe((res)=>{
-            console.log("res",res) 
-            this.cartItemCount=res
-            this.Cartlength=this.cartItemCount.length
-            this._cartService.cartItemCount$.next(this.cartItemCount.length);
-          })
           this.Check_User()
         }
       })
 
 
-        this._cartService.CartItemsLength.subscribe((res)=>{
-          this.cartItemslength=res.length
-          console.log(this.cartItemslength)
-        })
-      // this._cartService.cartItems$.subscribe(cart => {
-      //   this.cartItemsCount = cart.length;
-      // });
+        // this._cartService.CartItemsLength.subscribe((res)=>{
+        //   this.cartItemslength=res.length
+        //   console.log(this.cartItemslength)
+        // })
 
-// console.log("Register_user",this.Register_User)
-// console.log("Login_user",this.Login_User)
-this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
-// this.subTotal = this.Subtotal.Subtotal();
-      console.log("Subtotal",this.subtotal)
-      // this.subTotal = this._cartService.subtotal;
- 
-      // this.CountArr=(localStorage.getItem('Products_Count'))
-      // console.log("CountArr",JSON.parse(this.CountArr).length)
-      // this.cartItemCount=JSON.parse(this.CountArr).length
-      this._cartService.cartSubject.subscribe(cart => {
-        console.log("cart",cart)
-        this.cartItemCount = cart.length;
-      });
-      this._cartService.cartMsg.subscribe(cart => {
-        this.cartMessage = cart
-        console.log(this.cartMessage)
-        this._snackBar.open(this.cartMessage+" Added in Cart", "Ok");
-      });
+// this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
+
+//       console.log("Subtotal",this.subtotal)
+
+      // this._cartService.cartSubject.subscribe(cart => {
+      //   console.log("cart",cart)
+      //   this.cartItemCount = cart.length;
+      // });
+      // this._cartService.cartMsg.subscribe(cart => {
+      //   this.cartMessage = cart
+      //   console.log(this.cartMessage)
+      //   this._snackBar.open(this.cartMessage+" Added in Cart", "Ok");
+      // });
   
       // end cartcounter
       this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
@@ -159,6 +153,7 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       sessionStorage.removeItem('User');
       sessionStorage.removeItem('Login_User');
       sessionStorage.removeItem('Register_User')
+      this.cookieService.delete('User_Login_Token');
       this.router.navigate(['front/user/login'])
       // console.log(this.email)
       this.Login_Logout_msg="Login"

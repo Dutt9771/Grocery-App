@@ -16,6 +16,9 @@ baseurl=environment.baseurl;
 resname=environment.resname
   addcart=[]
 
+  private cartItemsSubject = new BehaviorSubject([]);
+  private cartCount = new BehaviorSubject(0);
+
   AddCart(data:any){
     try {
       return this.http.post(this.baseurl+this.resname,data)
@@ -47,20 +50,6 @@ resname=environment.resname
   }
 
 
-// private cartItems = new BehaviorSubject<any>([]);
-
-//   constructor() { }
-
-//   getCartItems() {
-//     return this.cartItems.asObservable();
-//   }
-
-//   addToCart(item) {
-//     const currentItems = this.cartItems.getValue();
-//     const updatedItems = [...currentItems, item];
-//     this.cartItems.next(updatedItems);
-//     console.log(updatedItems)
-//   }
 
 public cartTotal$: BehaviorSubject<number> = new BehaviorSubject<number>(0);
 public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
@@ -91,41 +80,6 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   public cartSubject = new Subject<any>();
   public cartMsg = new Subject<any>();
   cartItemCount$ = new BehaviorSubject<any>(0);
-  // myArray: any[] = [];
-  // myArraySubject = new BehaviorSubject<any>([]);
-  // ShowcartArr(): Observable<any> {
-  //   let Cartlength:any
-  //   return this.ShowCart().pipe(
-  //     map(res => {
-  //       console.log("res", res);
-  //       Cartlength = this.myArraySubject.next(res);
-  //       return Cartlength.length;
-  //     })
-  //   );
-  // }
-
-  // getItemCount() {
-  //   let cart
-  //   // console.log("ShowcarArr",this.ShowcartArr())
-  //   this.ShowCart().subscribe((res)=>{
-  //     cart=res
-  //     // cart.length=this.cartItemCount$
-  //     this.cartItemCount$.next(cart.length);
-  //     console.log("cartItemCount",this.cartItemCount$)
-  //   })
-  // }   
-  // }
-  // addItemToCart() {
-  //   console.log("ShowcarArr",this.ShowcartArr())
-  //   return this.ShowcartArr()
-  // }
-
-  // removeItemFromCart() {
-  //   console.log("ShowcarArr",this.ShowcartArr())
-  //   return this.ShowcartArr()
-
-  // }
-
 
   public subtotalSource = new BehaviorSubject<number>(0);
   currentSubtotal = this.subtotalSource.asObservable();
@@ -133,30 +87,50 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   updateSubtotal(subtotal: number) {
     this.subtotalSource.next(subtotal);
   }
+Subtotal(){
+  
+  this.ShowCart().subscribe((res)=>{
+    this.cartc=res
 
+    const cartLength = this.cartc.length;
+    // this.subtotalSource.next
+    let cartsubtotal:number=0
+    for(let i=0;i<this.cartc.length;i++){
+      cartsubtotal+=this.cartc[i].quantity*this.cartc[i].moneyOfferPrice
+      // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].moneyOfferPrice)
+      // console.log("this.cartsubtotal",this.cartc[i].moneyOfferPrice)
+      // console.log("this.cartsubtotal",this.cartc[i].quantity)
+      // console.log("this.cartsubtotal",this.cartc[i])
+      // console.log("this.cartsubtotal",this.cartc)
+      // console.log("this.cartsubtotal",cartsubtotal)
+    }
+    this.subtotalSource.next(cartsubtotal);
 
+  })
+}
 
+cartc:any
 
+cartcount=new BehaviorSubject<any>(0);
+public cartLengthSubject = new BehaviorSubject<number>(0);
+public cartLength$ = this.cartLengthSubject.asObservable();
 
-  private cartItemsSubject = new BehaviorSubject([]);
-  public cartItems$ = this.cartItemsSubject.asObservable();
+// When the cart updates, emit a new value for the cart length subject
+updateCart(cart: any[]): void {
+  // Update the logic for updating the cart array here
+  const cartLength = cart.length;
+  this.cartLengthSubject.next(cartLength);
+}
+getItemCount(){
 
-
-  public addToCart(item: any) {
-    const cartItems = this.cartItemsSubject.value;
-    this.AddCart(item).subscribe((res)=>{
-      // this.CartItemsLength.emit(res)
-    })
-    cartItems.push(item);
-    this.cartItemsSubject.next(cartItems);
-  }
-
-  public removeFromCart(item: any) {
-    let cartItems = this.cartItemsSubject.value;
-    cartItems = cartItems.filter(i => i.id !== item.id);
-    this.cartItemsSubject.next(cartItems);
-    // this.AddCart(item).subscribe((res)=>{
-    //   this.CartItemsLength.emit(res)
-    // })
-  }
+  this.ShowCart().subscribe((res)=>{
+    this.cartc=res
+    console.log("cartc",this.cartc.length)
+    // this.cartcount.next(this.cartc.length);
+    console.log("cartcount",this.cartcount)
+    const cartLength = this.cartc.length;
+  this.cartLengthSubject.next(cartLength);
+  })
+}
+  
 }

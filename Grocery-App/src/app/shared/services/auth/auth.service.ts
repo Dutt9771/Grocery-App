@@ -13,8 +13,8 @@ export class AuthService {
 
   constructor(private http:HttpClient,private router:Router) { }
 baseUrl=environment.baseUrl
-user_register=environment.user_register
-user_login=environment.user_login
+user_register=environment.customers_routes.user_register
+user_login=environment.customers_routes.user_login
 
   User_Login(data:User_Login_Model){
     try {

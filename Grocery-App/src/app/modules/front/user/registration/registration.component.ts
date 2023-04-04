@@ -276,17 +276,17 @@ User_Register_Form(){
       if (this.User_Register.valid) {
         console.log(this.User_Register.value);
         sessionStorage.setItem("Register_User",JSON.stringify(this.User_Register.value))
-        this._authservice.User_Register(this.User_Register.value).subscribe((User_Register_res)=>{
+        this._authservice.User_Register(this.User_Register.value).subscribe({next:(User_Register_res)=>{
           console.log("User_Register_res",User_Register_res)
           this.errorMessage=""
       this.toastr.success('Login Successfully');
           this.router.navigate(['/front/user/login'])
         }
-        ,(Register_error)=>{ 
+        ,error:(Register_error)=>{ 
           console.log("Register_error.status",Register_error.status)
           if(Register_error.status==400){
             this.errorMessage="User Already Exists"
-            this.toastr.error("User Already Exists");
+            this.toastr.error('User Already Exists','',{positionClass:'toast-bottom-center'});
 
           }else{
             this.errorMessage = Register_error.error.error.errors[0].message;
@@ -295,7 +295,7 @@ User_Register_Form(){
             console.log('error caught in component',Register_error.error.error.errors[0].message)
           }
         }
-        )
+      })
       }
     }
   }

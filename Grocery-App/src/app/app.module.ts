@@ -24,6 +24,8 @@ import { TokenInterceptor } from './shared/Interceptor/token.interceptor';
 import { ToastrModule } from 'ngx-toastr';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatFormFieldModule} from '@angular/material/form-field'
+import { CookieService } from 'ngx-cookie-service';
+import { FocusformDirective } from './shared/directives/focusform.directive';
 
 @NgModule({
     declarations: [
@@ -32,7 +34,8 @@ import {MatFormFieldModule} from '@angular/material/form-field'
         ErrorPageComponent,
         HeaderComponent,
         FooterComponent,
-        ContactUsComponent
+        ContactUsComponent,
+        FocusformDirective
     ],
     providers: [{
             provide: 'SocialAuthServiceConfig',
@@ -58,7 +61,8 @@ import {MatFormFieldModule} from '@angular/material/form-field'
             provide:HTTP_INTERCEPTORS,
             useClass:TokenInterceptor,
             multi:true,
-        }
+        },
+        [CookieService]
     ],
     bootstrap: [AppComponent],
     schemas: [],
@@ -88,6 +92,7 @@ import {MatFormFieldModule} from '@angular/material/form-field'
         MatAutocompleteModule,
         MatFormFieldModule,
         CatalogueModule,
+        
     ]
 })
 export class AppModule { }

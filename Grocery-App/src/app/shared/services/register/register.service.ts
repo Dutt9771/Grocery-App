@@ -14,8 +14,8 @@ export class RegisterService {
 
   constructor(private http:HttpClient,private router:Router) { }
 baseUrl=environment.baseUrl
-user_register=environment.user_register
-user_login=environment.user_login
+user_register=environment.customers_routes.user_register
+user_login=environment.customers_routes.user_login
 
   // get_Register_data(data:any){
   //   try {

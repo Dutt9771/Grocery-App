@@ -37,18 +37,22 @@
     </div>
     
   <div class="row g-2 justify-content-center">
-    <div class="col-md-4">
-      <label for="area" class="form-label">Area</label>
-      <input type="text" formControlName="area" class="form-control" id="area" placeholder="Enter Area">
-      <div *ngIf="get_User_Address.area.touched && get_User_Address.area.invalid" class="text-danger">
-        <div *ngIf="get_User_Address.area.errors?.['required']" class="text-danger">Area Must Required</div></div>
+   
+      <div class="col-md-4">
+        <label for="country" class="form-label">Country</label>
+        <select formControlName="country" class="form-select" id="country" placeholder="Enter Country"  >
+        <option value="" disabled selected>Select City</option>
+          <option *ngFor="let country of countries" [value]="country.shortName">{{ country.name }}</option>
+        </select>
+        <div *ngIf="get_User_Address.country.touched && get_User_Address.country.invalid" class="text-danger">
+          <div *ngIf="get_User_Address.country.errors?.['required']" class="text-danger">Country Must Required</div>
+        </div>
       </div>
-      
       <div class="col-md-3">
         <label for="inputState" class="form-label" >State</label>
-        <select id="inputState" formControlName="state" class="form-select" name="inputState" [(ngModel)]="selectedState" >
-          <option disabled selected>Select State</option>
-          <option *ngFor="let state of states" [value]="state.name" >{{ state.name }}</option>
+        <select id="inputState" formControlName="state" class="form-select" name="inputState" >
+          <option value="" disabled selected>Select State</option>
+          <option *ngFor="let state of states" [value]="state">{{ state }}</option>
         </select>
         <div *ngIf="get_User_Address.state.touched && get_User_Address.state.invalid" class="text-danger">
           <div *ngIf="get_User_Address.state.errors?.['required']" class="text-danger">State Must Required</div></div>
@@ -56,9 +60,9 @@
       
       <div class="col-md-3">
         <label for="inputCity" class="form-label">City</label>
-        <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
-          <option disabled selected>Select City</option>
-          <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
+        <select formControlName="city" class="form-select" id="inputCity">
+          <option value="" disabled selected>Select City</option>
+          <option  *ngFor="let city of City" [value]="city">{{ city }}</option>
         </select>
         <div *ngIf="get_User_Address.city.touched && get_User_Address.city.invalid" class="text-danger">
          <div *ngIf="get_User_Address.city.errors?.['required']" class="text-danger">City Must Required</div>
@@ -69,17 +73,17 @@
     <div class="row g-2 justify-content-center">
       
       <div class="col-md-3">
-          <label for="country" class="form-label">Country</label>
-          <input type="text" formControlName="country" class="form-control" id="country" placeholder="Enter Country">
-          <div *ngIf="get_User_Address.country.touched && get_User_Address.country.invalid" class="text-danger">
-            <div *ngIf="get_User_Address.country.errors?.['required']" class="text-danger">Country Must Required</div>
-          </div>
+        <label for="area" class="form-label">Area</label>
+        <input type="text" formControlName="area" class="form-control" id="area" placeholder="Enter Area">
+        <div *ngIf="get_User_Address.area.touched && get_User_Address.area.invalid" class="text-danger">
+          <div *ngIf="get_User_Address.area.errors?.['required']" class="text-danger">Area Must Required</div></div>
         </div>
           <div class="col-md-2">
               <label for="postal_code" class="form-label">postal_code</label>
             <input type="text" formControlName="postal_code" class="form-control" id="postal_code" placeholder="Enter Postalcode">
             <div *ngIf="get_User_Address.postal_code.touched && get_User_Address.postal_code.invalid" class="text-danger">
               <div *ngIf="get_User_Address.postal_code.errors?.['required']" class="text-danger">postal_code Must Required</div>
+              <div *ngIf="get_User_Address.postal_code.errors?.['maxlength']" class="text-danger">postal_code Must have 6 digits</div>
             </div>
           </div>
           <div class="col-md-2">

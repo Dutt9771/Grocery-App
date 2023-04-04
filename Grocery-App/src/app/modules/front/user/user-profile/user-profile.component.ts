@@ -9,6 +9,7 @@ import {
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Edit_user_detail } from 'src/app/shared/Models/edituserdetail';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
@@ -22,7 +23,7 @@ export class UserProfileComponent implements OnInit {
   RegisterData: any;
   errorMessage: string;
   User_login_Token: any;
-  constructor(private route: ActivatedRoute,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
+  constructor(private route: ActivatedRoute,private toastr:ToastrService,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
     //  google profile code
     // this.user = sessionStorage.getItem('User');
@@ -88,17 +89,22 @@ export class UserProfileComponent implements OnInit {
       this._editUserservice.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
           console.log("Edit_User_res",Edit_User_res)
           this.errorMessage="User Details Successfully Edited";
-          setTimeout(() => {
-            this._snackBar.open("User Details Successfully Edited", "OK");
-          }, 3000);
+          this.toastr.success('Edit Profile Successfully');
       },
       error:(Edit_User_error)=>{ 
         console.log("Edit_User_error status",Edit_User_error.status)
         console.log("Edit_User_error",Edit_User_error)
         if(Edit_User_error.status){
-          this.errorMessage = Edit_User_error.error.message;
-      console.log("Profile value",this.Profile.value)
+          
+          if(Edit_User_error.error.message=="Internal server error"){
+            
+            this.toastr.error(Edit_User_error.error.error.errors[0].message);
+      }else{
+        this.toastr.error(Edit_User_error.error.message);
+        this.errorMessage = Edit_User_error.error.message;
+        console.log("Profile value",this.Profile.value)
       }
+        }
     }
     })
     }

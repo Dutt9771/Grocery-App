@@ -15,8 +15,8 @@ export class CategoryComponent {
 constructor(private router:Router,private productservice:ProductsService){}
 Product_Arr:any
 ngOnInit(){
-  this.productservice.getAllCategory().subscribe(arg => {
-    console.log("arg",arg)
+  this.productservice.getAllCategory().subscribe((arg:any) => {
+    console.log("arg",arg.data)
     // arg=this.grocery_items
   });
   
