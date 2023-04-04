@@ -125,9 +125,9 @@ getItemCount(){
 
   this.ShowCart().subscribe((res)=>{
     this.cartc=res
-    console.log("cartc",this.cartc.length)
+    // console.log("cartc",this.cartc.length)
     // this.cartcount.next(this.cartc.length);
-    console.log("cartcount",this.cartcount)
+    // console.log("cartcount",this.cartcount)
     const cartLength = this.cartc.length;
   this.cartLengthSubject.next(cartLength);
   })

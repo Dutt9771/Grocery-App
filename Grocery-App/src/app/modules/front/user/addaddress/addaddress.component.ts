@@ -170,7 +170,9 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
   ngOnInit(){
     this.User_address_Form()
     
-
+    this._edituserService.Get_User_Details().subscribe((User_details)=>{
+      console.log("User_Details",User_details)
+    })
       this.country.valueChanges.subscribe((country) => {
 
       if (country) {
@@ -253,15 +255,13 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
                   }
                 this._edituserService.set_User_addresses(this.User_Address_Add.value)
                 let Merge = JSON.parse(localStorage.getItem('User_address'));
-                // this._edituserService.Get_User_Details().subscribe((User_details)=>{
-                  
+                
                   this.User_details=JSON.parse(sessionStorage.getItem('Login_User'))
                   console.log("User_details",this.User_details)
                   this.User_address={
                     username:this.User_details.username,
                     Address:this.User_Address_Add.value
                   }
-                // })
                   console.log("User_address",this.User_address)
                   this.toastr.success('Address Added Successfully');
 

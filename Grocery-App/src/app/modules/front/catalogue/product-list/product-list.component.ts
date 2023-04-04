@@ -179,6 +179,7 @@ if(category==='all'){
       )
       this.toastr.success('Added to cart',product.name);
       this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
     })
 
   }else{

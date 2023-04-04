@@ -243,6 +243,7 @@ Showcart(){
         res
         )
         this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
       })
 
     
