@@ -29,6 +29,7 @@ export const environment = {
 
         payment_status:"payment-status/get-master-data"
 
-    }
+    },
+    encryption:"encryption"
     
 };

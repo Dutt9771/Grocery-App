@@ -2,6 +2,7 @@ import { AfterContentInit, Component, Input, OnChanges, OnInit } from '@angular/
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
+import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { ProductListService } from 'src/app/shared/services/product-list/product-list.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 
@@ -14,7 +15,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class ProductListComponent implements OnInit {
   defaultCategory='all';
   selectedCategory:string;
-  constructor(private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router,private toastr:ToastrService) {
+  constructor(private _encryptionservice:EncryptionService,private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router,private toastr:ToastrService) {
     this.selectedCategory = this.defaultCategory;
   }
 category:any
@@ -37,6 +38,11 @@ filteredItems:any=[]
   }
   ngOnInit() {
     this.GetProductByCategory()
+    this._encryptionservice.Encryption(2).subscribe({next:(encryption_res)=>{
+      console.log("encryption_res",encryption_res)
+    },error:(encryption_error)=>{
+      console.log("encryption_error",encryption_error)
+    }})
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()
 
