@@ -97,12 +97,14 @@
     </div> -->
     <div class="container mt-3">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 justify-content-center">
-        <div class="col" *ngFor="let item of filteredUsers">
+        <div class="col" *ngFor="let item of User_details_Obj_addresses">
           <div class="card shadow-sm" >
             <div class="card-body">
-              <h5 class="card-title fs-5"><span class="text-success">Address Tag :</span> {{item.Address.tag}}</h5>
-              <p class="card-text fs-6">{{item.Address.address_line_1}}</p>
-              <p class="card-text fs-6">{{item.Address.address_line_2}}</p>
+              <h5 class="card-title fs-5"><span class="text-success">Address Tag :</span> {{item.tag}}</h5>
+              <p class="card-text fs-6">{{item.address_line_1}}</p>
+              <p class="card-text fs-6">{{item.address_line_2}}</p>
+              <p class="card-text fs-6">{{item.address_line_2}}</p>
+              <p class="card-text fs-6">{{item.address_line_2}}</p>
               <div class="text-center card-footer bg-transparent border-0">
                 <button class="btn btn-outline-dark">DELIVER HERE</button>
                 <button class="btn btn-outline-transparent"><img src="https://img.icons8.com/cute-clipart/32/null/delete-forever.png"/></button>

@@ -10,97 +10,7 @@
      </div>
    </div>
  </div>
-<!-- <form class="row g-3 m-lg-5 d-flex justify-content-center" [formGroup]="Register"  (ngSubmit)="Reg_click()" novalidate>
-        <div class="col-md-10">
-        <label for="inputAddress" class="form-label">Name</label>
-        <input type="text" formControlName="name"  class="form-control" id="inputname" placeholder="Enter Name">
-    </div>
-    <div *ngIf="get_Register.name.touched && get_Register.name.invalid" class="text-danger text-center">
-    <div *ngIf="get_Register.name.errors?.['required']" class="text-danger">Name Must Required</div>
-    <div *ngIf="get_Register.name.errors?.['minlength']" class="text-danger">Name MustShould be 5 Character</div></div>
-    <div class="col-md-10">
-      <label for="inputEmail4" class="form-label">Email</label>
-      <input type="email" formControlName="email" class="form-control" id="inputEmail4" placeholder="Enter Email">
-    </div>
-    <div *ngIf="get_Register.email.touched && get_Register.email.invalid" class="text-danger text-center">
-        <div *ngIf="get_Register.email.errors?.['required']" class="text-danger">Email Must Required</div>
-        <div *ngIf="get_Register.email.errors?.['email']" class="text-danger">Please Enter Valid Email</div></div>
-    <div class="col-md-5">
-      <label for="inputPassword4" class="form-label">Password</label>
-      <input type="password" formControlName="password" class="form-control" id="inputPassword4" placeholder="Enter Password">
-    </div>
-    <div class="col-md-5">
-      <label for="inputPassword4" class="form-label">Confirm Password</label>
-      <input type="password" formControlName="confirm_password" class="form-control" id="inputPassword4" placeholder="Enter Confirm Password">
-    </div>
-    <div *ngIf="get_Register.password.touched && get_Register.password.invalid" class="text-danger text-center">
-        <div *ngIf="get_Register.password.errors?.['required']" class="text-danger">Password Must Required</div>
-        <div *ngIf="get_Register.password.errors?.['minlength']" class="text-danger">Password MustShould be 8 Character</div></div>
-    <div *ngIf="get_Register.confirm_password.touched && get_Register.confirm_password.invalid" class="text-danger text-center">
-        <div *ngIf="get_Register.confirm_password.errors?.['required']" class="text-danger">Confirm Password Must Required</div>
-        <div *ngIf="get_Register.confirm_password.errors?.['minlength']" class="text-danger">Confirm Password MustShould be 8 Character</div>
-        <div *ngIf="get_Register.confirm_password.errors?.matchPassword">Confirm Password does not match Password.</div></div> -->
-    <!-- <div class="col-md-10">
-        <label for="inputAddress" class="form-label">Address</label>
-        <input type="text" formControlName="address" class="form-control" id="inputAddress" placeholder="Apartment Block,House Number">
-    </div>
-    <div *ngIf="get_Register.address.touched && get_Register.address.invalid" class="text-danger text-center">
-        <div *ngIf="get_Register.address.errors?.['required']" class="text-danger">Address Must Required</div>
-        </div>
-    <div class="col-md-10">
-        <label for="inputAddress2" class="form-label">Address 2</label>
-      <input type="text" formControlName="address_2" class="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor">
-    </div>
-    <div *ngIf="get_Register.address_2.touched && get_Register.address_2.invalid" class="text-danger text-center">
-        <div *ngIf="get_Register.address_2.errors?.['required']" class="text-danger">Address 2 Must Required</div>
-        </div>
-        <div class="col-md-3">
-          <label for="inputState" class="form-label" >State</label>
-          <select id="inputState" formControlName="state" class="form-select" name="inputState" [(ngModel)]="selectedState" >
-            <option disabled selected>Select State</option>
-            <option *ngFor="let state of states" [value]="state.name" >{{ state.name }}</option>
-          </select>
-        </div>
 
-          <div class="col-md-5">
-            <label for="inputCity" class="form-label">City</label>
-            <select [(ngModel)]="selectedCity" formControlName="city" class="form-select" id="inputCity">
-              <option disabled selected>Select City</option>
-              <option *ngFor="let city of getCities()" [value]="city">{{ city }}</option>
-            </select>
-          </div>
-        <div class="col-md-2">
-          
-          <label for="inputZip" class="form-label">Zip Code</label>
-          <input type="text" formControlName="zip" class="form-control" id="inputZip" placeholder="Enter Zip Code">
-        </div>
-        <div *ngIf="get_Register.state.touched && get_Register.state.invalid" class="text-danger text-center">
-          <div *ngIf="get_Register.state.errors?.['required']" class="text-danger">State Must Required</div></div>
-      
-    <div *ngIf="get_Register.city.touched && get_Register.city.invalid" class="text-danger text-center">
-      <div *ngIf="get_Register.city.errors?.['required']" class="text-danger">City Must Required</div>
-      </div>
-        <div *ngIf="get_Register.zip.touched && get_Register.zip.invalid" class="text-danger text-center">
-          <div *ngIf="get_Register.zip.errors?.['required']" class="text-danger">Zip Code Must Required</div>
-      <div *ngIf="get_Register.zip.errors?.['maxlength']" class="text-danger">Zip Code Should be 6 Character</div>
-      <div *ngIf="get_Register.zip.errors?.['minlength']" class="text-danger">Zip Code Should be 6 Character</div>
-      <div *ngIf="get_Register.zip.errors?.['pattern']">
-        Zip code must be in Number
-      </div></div>
-    
-    <div class="col-10">
-      
-    </div> 
-  <div class="d-grid gap-2 col-10 d-md-block">
-    <button type="submit" [disabled]="!Register.valid" class="btn btn-primary">Sign in</button>
-</div>
-
-<div class="d-grid gap-2 col-10 d-md-block" *ngIf="!Register.valid">
-  <span class="text-danger">Please Enter all Details</span>
-</div> 
-
-</form>
--->
 
   <!-- <div class="d-flex justify-content-center"> -->
         
@@ -111,7 +21,7 @@
       <input type="text" formControlName="first_name"  class="form-control" id="first_name" placeholder="Enter Name">
       <div *ngIf="get_User_Register.first_name.touched && get_User_Register.first_name.invalid" class="text-danger col-md-5 mt-1">
       <div *ngIf="get_User_Register.first_name.errors?.['required']" class="text-danger">First Name Must Required</div>
-      <div *ngIf="get_User_Register.first_name.errors?.['minlength']" class="text-danger">First Name MustShould be 3 Character</div></div>
+      <div *ngIf="get_User_Register.first_name.errors?.['minlength']" class="text-danger">First Name MustShould be 2 Character</div></div>
   </div>
   
   <div class="col-md-5">
@@ -119,7 +29,7 @@
     <input type="text" formControlName="last_name"  class="form-control" id="last_name" placeholder="Enter Name">
     <div *ngIf="get_User_Register.last_name.touched && get_User_Register.last_name.invalid" class="text-danger col-md-5 mt-1">
       <div *ngIf="get_User_Register.last_name.errors?.['required']" class="text-danger">Last Name Must Required</div>
-      <div *ngIf="get_User_Register.last_name.errors?.['minlength']" class="text-danger">Last Name MustShould be 3 Character</div></div>
+      <div *ngIf="get_User_Register.last_name.errors?.['minlength']" class="text-danger">Last Name MustShould be 2 Character</div></div>
     </div>
   </div>
       

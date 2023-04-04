@@ -25,8 +25,9 @@ export class UserProfileComponent implements OnInit {
   User_login_Token: any;
   constructor(private route: ActivatedRoute,private toastr:ToastrService,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
-    this.Edit_Profile()
     this.Get_User_Details()
+    this.Edit_Profile()
+
     //  google profile code
     // this.user = sessionStorage.getItem('User');
     // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
@@ -45,11 +46,11 @@ Edit_Profile(){
   this.Profile = new FormGroup({
     firstname: new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(2),
     ]),
     lastname: new FormControl('', [
       Validators.required,
-      Validators.minLength(3),
+      Validators.minLength(2),
     ]),
     alternateemail: new FormControl('', [
       //  Validators.required,
@@ -63,15 +64,23 @@ Edit_Profile(){
     ]),
     dob: new FormControl('', [Validators.required]),
   });
- this.Profile.setValue('new value');
+
+
 }
   Get_User_Details(){
     this._editUserservice.Get_User_Details().subscribe({next:(User_details_res)=>{
       console.log("User_Details",User_details_res.data)
       this.User_Profile_Obj=User_details_res.data
+      console.log("User_Profile_Obj",this.User_Profile_Obj)
+
+      this.Profile.patchValue({"firstname": this.User_Profile_Obj.first_name,"lastname":this.User_Profile_Obj.last_name});
+
+      // this.Profile.get('firstName').setValue("this.User_Profile_Obj.first_name");
+    // this.Profile.get('lastName').setValue(this.User_Profile_Obj.last_name);
     },error:(User_details_error)=>{
       console.log("Getuserdetail_error",User_details_error)
     }})
+
   }
 
   

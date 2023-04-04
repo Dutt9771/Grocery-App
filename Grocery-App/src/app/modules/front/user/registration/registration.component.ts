@@ -245,11 +245,11 @@ User_Register_Form(){
     this.User_Register = new FormGroup({
       first_name: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
       ]),
       last_name: new FormControl('', [
         Validators.required,
-        Validators.minLength(3),
+        Validators.minLength(2),
       ]),
       primary_mobile_number: new FormControl('', [
         Validators.required,

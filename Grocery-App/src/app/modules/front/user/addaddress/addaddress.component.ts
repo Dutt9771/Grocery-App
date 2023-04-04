@@ -243,28 +243,26 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
             this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
               (User_Address_Add_res)=>{
               console.log("User_Address_Add_res",User_Address_Add_res)
-              // setTimeout(() => {
-              //   this._snackBar.open("Add Address Succesfully", "OK");
-              // }, 3000);
-              this.Arr = JSON.stringify([]);
-                if (!localStorage.getItem('User_address')) {
-                  localStorage.setItem('User_address', this.Arr);
-                  }
+              
+              // this.Arr = JSON.stringify([]);
+              //   if (!localStorage.getItem('User_address')) {
+              //     localStorage.setItem('User_address', this.Arr);
+              //     }
                 this._edituserService.set_User_addresses(this.User_Address_Add.value)
-                let Merge = JSON.parse(localStorage.getItem('User_address'));
+                // let Merge = JSON.parse(localStorage.getItem('User_address'));
                 
                   this.User_details=JSON.parse(sessionStorage.getItem('Login_User'))
-                  console.log("User_details",this.User_details)
+                  // console.log("User_details",this.User_details)
                   this.User_address={
                     username:this.User_details.username,
                     Address:this.User_Address_Add.value
                   }
-                  console.log("User_address",this.User_address)
+                  // console.log("User_address",this.User_address)
                   this.toastr.success('Address Added Successfully');
 
-                  Merge.push(this.User_address);
-                  console.log("Merge",Merge)
-                localStorage.setItem("User_address", JSON.stringify(Merge));
+                  // Merge.push(this.User_address);
+                  // console.log("Merge",Merge)
+                // localStorage.setItem("User_address", JSON.stringify(Merge));
                 this.route.navigate(['/front/user/manageaddress'])
             },
           error:(User_Address_Add_error)=>{
