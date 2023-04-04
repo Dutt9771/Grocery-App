@@ -174,7 +174,7 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
 
       if (country) {
         this.states = this._countryservice.getStatesByCountry(country);
-        console.log("states",this.states)
+        // console.log("states",this.states)
       }
     });
 
@@ -182,7 +182,7 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
 
       if (state) {
         this.City = this._countryservice.getCitiesByState(this.country.value, state);
-        console.log("City",this.City)
+        // console.log("City",this.City)
 
       }
     });
@@ -248,7 +248,7 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
               //   if (!localStorage.getItem('User_address')) {
               //     localStorage.setItem('User_address', this.Arr);
               //     }
-                this._edituserService.set_User_addresses(this.User_Address_Add.value)
+                // this._edituserService.set_User_addresses(this.User_Address_Add.value)
                 // let Merge = JSON.parse(localStorage.getItem('User_address'));
                 
                   this.User_details=JSON.parse(sessionStorage.getItem('Login_User'))

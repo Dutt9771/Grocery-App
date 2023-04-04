@@ -50,16 +50,16 @@ user_details=environment.customers_routes.user_details
 
   // ADDRESS
 
-  private User_addresses: any;
+  // private User_addresses: any;
 
 
-  public get_User_addresses(): any {
-    return this.User_addresses;
-  }
+  // public get_User_addresses(): any {
+  //   return this.User_addresses;
+  // }
 
-  public set_User_addresses(countries:any): void {
-    this.User_addresses = countries;
-  }
+  // public set_User_addresses(countries:any): void {
+  //   this.User_addresses = countries;
+  // }
 }
 
 
