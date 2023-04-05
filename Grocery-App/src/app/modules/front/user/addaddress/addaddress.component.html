@@ -95,7 +95,12 @@
           </div>
           <div class="col-md-3">
               <label for="tag" class="form-label">Tag</label>
-            <input type="text" formControlName="tag" class="form-control" id="tag" placeholder="Enter Tag">
+            <select formControlName="tag" class="form-select" id="tag" placeholder="Enter Tag">
+              <option value="" disabled selected>Select Tag</option>
+              <option value="HOME">HOME</option>
+              <option value="OFFICE">OFFICE</option>
+              <option value="OTHER">OTHER</option>
+            </select>
             <div *ngIf="get_User_Address.tag.touched && get_User_Address.tag.invalid" class="text-danger">
               <div *ngIf="get_User_Address.tag.errors?.['required']" class="text-danger">tag Must Required</div>
             </div>
