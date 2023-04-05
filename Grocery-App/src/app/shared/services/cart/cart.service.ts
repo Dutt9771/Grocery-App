@@ -15,7 +15,8 @@ CartItemsLength:EventEmitter<any>=new EventEmitter();
 baseurl=environment.baseurl;
 baseUrl=environment.baseUrl;
 resname=environment.resname;
-add_order=environment.orders_routes.add_order
+add_order=environment.orders_routes.add_order;
+get_order_by_id=environment.orders_routes.get_order_by_id
   addcart=[]
 
   private cartItemsSubject = new BehaviorSubject([]);
@@ -138,6 +139,13 @@ getItemCount(){
 Add_Order(data:any,delivery_address_id:any,billing_address_id:any,payment_status:any,order_status:any){
   try {
     return this.http.post<any>(this.baseUrl+this.add_order,data,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"billing_address_id":billing_address_id,"delivery_address_id":delivery_address_id,"payment_status":payment_status,"order_status":order_status})})
+  } catch (error:any) {
+    return throwError(() => new Error(error))
+  }
+}
+Get_Order_Detail_By_Id(order_id:any){
+  try {
+    return this.http.post<any>(this.baseUrl+this.get_order_by_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"order_id":order_id})})
   } catch (error:any) {
     return throwError(() => new Error(error))
   }

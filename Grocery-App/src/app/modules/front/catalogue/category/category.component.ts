@@ -107,23 +107,7 @@ ngOnInit(){
   // ];
   // Using a Set to remove duplicates
 
-Grocery_all = Array.from(new Set(this.grocery_items.map(product => product.category)));
+Grocery_all = Array.from(new Set(this.grocery_items.map(product => product.title)));
 Grocery_names = this.Grocery_all.unshift('All')
-
-Category_Products(Category){
-  console.log("Products",this.Product_Arr)
-  let filtered_Products=this.Product_Arr.filter(item => item.category === Category);
-  console.log(filtered_Products)
-  // return filtered_Products
-
-}
-
-Clicked_category:any
-Category_Show(category:any){
-  this.Clicked_category=category
-  console.log(category)
-}
-
-
 
 }

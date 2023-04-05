@@ -6,6 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 import { User_Address } from 'src/app/shared/Models/user_address';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 import { CountryService } from 'src/app/shared/services/country/country.service';
+import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 
 @Component({
   selector: 'app-addaddress',
@@ -16,7 +17,7 @@ export class AddaddressComponent {
   countries:any;
   // state:any;
   // city:any;
-constructor(private router:ActivatedRoute,private _edituserService:EdituserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService){
+constructor(private router:ActivatedRoute,private _edituserService:EdituserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService,private _encryptionservice:EncryptionService){
   this.countries = this._countryservice.getCountries();
   
 }
@@ -267,8 +268,18 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
         Arr:any
         User_details:any
         User_address:any
+        encryption_data:string
+        Edit_Address(encryption_data:any){
+          this._edituserService.Edit_User_Address(this.User_Address_Add.value,encryption_data).subscribe({next:(Edit_address_res)=>{
+            console.log("Edit_address_res",Edit_address_res)
+            this.Address_btn="ADD Address"
+            this.route.navigate(["/front/user/user-profile/manageaddress"])
+          },error:(Edit_address_error)=>{
+            console.error("Edit_address_error",Edit_address_error)
+          }})
+        }
+        
         User_Address_Add_click(){
-
 
           if(this.Address_btn=="ADD Address"){
 
@@ -306,13 +317,17 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
           }
               }
               else{
-                this._edituserService.Edit_User_Address(this.User_Address_Add.value).subscribe({next:(Edit_address_res)=>{
-                  console.log("Edit_address_res",Edit_address_res)
-                  this.Address_btn="ADD Address"
-                  this.route.navigate(["/front/user/user-profile/manageaddress"])
-                },error:(Edit_address_error)=>{
-                  console.error("Edit_address_error",Edit_address_error)
-                }})
-              }
+                
+
+  this._encryptionservice.Encryption(this.address_id).subscribe({next:(encryption_res)=>{
+    console.log("encryption_res",encryption_res)
+    this.encryption_data=encryption_res.data
+     console.log("encryption_data",this.encryption_data)
+     this.Edit_Address(this.encryption_data)
+  },error:(encryption_error)=>{
+    console.log("encryption_error",encryption_error)
+  }})
+}
+                
         }
 }

@@ -42,9 +42,9 @@ user_details=environment.customers_routes.user_details
       return throwError(() => new Error(error))
     }
   }
-  Edit_User_Address(data:Add_User_Address){
+  Edit_User_Address(data:Add_User_Address,id:any){
     try {
-      return this.http.post<Add_User_Address>(this.baseUrl+this.edit_address,data)
+      return this.http.put<Add_User_Address>(this.baseUrl+this.edit_address,data,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','address_id':id})})
     } catch (error:any) {
       return throwError(() => new Error(error))
     }

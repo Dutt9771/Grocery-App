@@ -41,6 +41,16 @@ filteredItems:any=[]
         console.log("Product_error",Product_error)
     }});
   }
+  allProducts:any=[]
+  GetProducts(){
+    this.productservice.getALLProducts().subscribe({next:(get_all_products_res)=>{
+      console.log("get_all_products_res",get_all_products_res)
+      this.allProducts=get_all_products_res.data
+      console.log("allProducts",this.allProducts)
+    },error:(get_all_products_error)=>{
+      console.log("get_all_products_error",get_all_products_error)
+    }})
+  }
   encryption_data:string
   encryption(id){
     this._encryptionservice.Encryption(id).subscribe({next:(encryption_res)=>{
@@ -52,11 +62,12 @@ filteredItems:any=[]
       console.log("encryption_error",encryption_error)
     }})
   }
+  categories_Path:any
   ngOnInit() {
-    
+    this.GetProducts()
     this.route.paramMap.subscribe(params => {
       this.category_path= params.get('id');
-      console.log(this.filteredItems)
+      console.log("Category path",this.category_path)
     })
     this.encryption(this.category_path)
     console.log("encryption_data",JSON.stringify(this.encryption_data))
@@ -75,23 +86,21 @@ filteredItems:any=[]
     
     if(this.category_path){
 
-  this.route.paramMap.subscribe(params => {
-    const categories = params.get('id');
-    console.log("categories",categories)
-    if (categories=='all') {
 
-      this.filteredItems
+    if (this.category_path=='all') {
+
+      this.filteredItems=this.allProducts
         console.log("filteredItems",this.filteredItems)
         this.category='Fruits And Vegetables'
       }else{
-        this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems[0].category_id === categories);
-        this.category=categories
+        this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems[0].category_id === this.category_path);
+        this.category=this.category_path
       }
       
       
       console.log("Categories",this.categories)
       console.log("productArray",this.productArray)
-    });
+    
   }else{
     this.Filter_Category(this.selectedCategory);
   }
@@ -115,7 +124,7 @@ filteredItems:any=[]
   //   // console.log("Data",tempArr)
   //   return tempArr
 if(category==='all'){
-  this.filteredItems=this.productArray
+  this.allProducts
 }else{
   this.filteredItems = this.productArray.filter(item => item.category === category);
   console.log(this.filteredItems)

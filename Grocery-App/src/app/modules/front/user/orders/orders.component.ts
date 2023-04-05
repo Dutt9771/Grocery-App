@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 
 @Component({
   selector: 'app-orders',
@@ -7,7 +8,7 @@ import { Component } from '@angular/core';
 })
 export class OrdersComponent {
   panelOpenState = false;
-
+constructor(private _cartservice:CartService){}
   PastOrderArr=[
     {
       day:"12 March,Sun",
@@ -52,4 +53,7 @@ export class OrdersComponent {
       product_details:"I'm visible because I am open"
     },
   ]
+  ngOnInit(){
+    // this._cartservice.Get_Order_Detail_By_Id()
+  }
 }

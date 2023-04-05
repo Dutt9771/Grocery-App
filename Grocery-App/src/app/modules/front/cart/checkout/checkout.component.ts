@@ -31,13 +31,22 @@ payment_status:any="W4YV_pkH7OAkvZO4P1gbzA==";
 order_status:any="Nn9l9xhHYQsvNB503C4EAQ==";
 delivery_address_id:any="AlqnPx8sIaCpUTRiDOiSgQ=="
 billing_address_id:any="AlqnPx8sIaCpUTRiDOiSgQ=="
-
+Add_Order_Response_Data:any
 Place_Order(){
   this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
 if(this.Login_User){
   this.route.navigate(['/front/cart/success'])
-    this._cartService.Add_Order(this.data,this.delivery_address_id,this.billing_address_id,this.payment_status,this.order_status).subscribe({next:(Add_address_res)=>{
-      console.log("Add_address_res",Add_address_res)
+    this._cartService.Add_Order(this.data,this.delivery_address_id,this.billing_address_id,this.payment_status,this.order_status).subscribe({next:(Add_Order_res)=>{
+      console.log("Add_address_res",Add_Order_res)
+      this.Add_Order_Response_Data=Add_Order_res.data.id
+      console.log("Add_Order_Response_Data",this.Add_Order_Response_Data)
+      this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
+console.log("Get_OrderById_res",Get_OrderById_res)
+      },error:(Get_Order_error)=>{
+        console.log("Get_Order_error",Get_Order_error)
+      }})
+    },error:(Add_Order_error)=>{
+      console.log("Add_Order_error",Add_Order_error)
     }})
 }
 }
