@@ -71,9 +71,9 @@ Save_User_Login(){
     if(User_Login_res){
       console.log("User_Login_res",User_Login_res)
       this.User_Login_Token=User_Login_res
-      console.log("User_Login_Token",this.User_Login_Token.data)
+      console.log("User_Login_Token",this.User_Login_Token.data.token)
       // localStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
-      this.cookieService.set('User_Login_Token', this.User_Login_Token.data,{ expires: 1, sameSite: 'Lax'});
+      this.cookieService.set('User_Login_Token', this.User_Login_Token.data.token,{ expires: 1, sameSite: 'Lax'});
       sessionStorage.setItem("Login_User",JSON.stringify(this.user_login.value))
       this.toastr.success('Login Successfully');
       this.router.navigate(['/home'])

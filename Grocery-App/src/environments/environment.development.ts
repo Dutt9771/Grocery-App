@@ -1,5 +1,5 @@
 export const environment = {
-        // baseUrl:"https://e099-117-217-127-105.in.ngrok.io/api/v1/",
+       // baseUrl:"https://e099-117-217-127-105.in.ngrok.io/api/v1/",
     baseUrl:"https://a521-117-217-127-105.in.ngrok.io/api/v1/",
     baseurl:"http://localhost:3000/",
     resname:"cart",
@@ -10,10 +10,11 @@ export const environment = {
         add_address:"customer/add-customer-address",
         user_details:"customer/customer-details",
         change_password:"customer/changePassword",
-        
+        update_address:"customer/update-customer-address",
+        delete_address:"customer/delete-customer-address"
     },
     products_routes:{
-        
+        get_all_products:"product/get-all-products",
         get_product_by_id:"product/get-product-by-id",
         get_product_by_category_id:"product/get-product-by-category-id",
     },
@@ -31,4 +32,5 @@ export const environment = {
 
     },
     encryption:"encryption"
+    
 };

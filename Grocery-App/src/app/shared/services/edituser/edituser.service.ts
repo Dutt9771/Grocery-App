@@ -16,6 +16,8 @@ baseUrl=environment.baseUrl;
 change_password=environment.customers_routes.change_password;
 edit_user_details=environment.customers_routes.edit_user;
 add_address=environment.customers_routes.add_address
+edit_address=environment.customers_routes.update_address
+delete_address=environment.customers_routes.delete_address
 user_details=environment.customers_routes.user_details
 
   Change_Password(data:ChangePassword){
@@ -40,6 +42,21 @@ user_details=environment.customers_routes.user_details
       return throwError(() => new Error(error))
     }
   }
+  Edit_User_Address(data:Add_User_Address){
+    try {
+      return this.http.post<Add_User_Address>(this.baseUrl+this.edit_address,data)
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+  }
+  Delete_User_Address(id:any){
+    try {
+      return this.http.delete<any>(this.baseUrl+this.delete_address+"/"+id)
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+  }
+
   Get_User_Details(){
     try {
       return this.http.get<any>(this.baseUrl+this.user_details,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})

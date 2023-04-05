@@ -12,19 +12,25 @@ import { OrdersComponent } from './orders/orders.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddaddressComponent } from './addaddress/addaddress.component';
+import { ProfilenavComponent } from './profilenav/profilenav.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'registration', component: RegistrationComponent },
   {
     path: 'user-profile',
-    component: UserProfileComponent,
-    canActivate:[AuthUserGuard]
+    component:ProfilenavComponent,
+    canActivate:[AuthUserGuard],
+    children:[
+      {path:'user-profile',component: UserProfileComponent},
+      { path: 'orders', component: OrdersComponent ,canActivate:[AuthUserGuard]},
+      { path: 'changepassword', component: ChangepasswordComponent ,canActivate:[AuthUserGuard]},
+      { path: 'manageaddress', component: ManageaddressComponent ,canActivate:[AuthUserGuard]},
+      { path: 'addaddress', component: AddaddressComponent},
+      { path: 'editaddress/:id', component: AddaddressComponent},
+
+    ]
   },
-  { path: 'orders', component: OrdersComponent ,canActivate:[AuthUserGuard]},
-  { path: 'changepassword', component: ChangepasswordComponent ,canActivate:[AuthUserGuard]},
-  { path: 'manageaddress', component: ManageaddressComponent ,canActivate:[AuthUserGuard]},
-  { path: 'addaddress', component: AddaddressComponent},
 
   { path: 'login', component: LoginComponent },
   { path: 'home', component: HomeComponent },

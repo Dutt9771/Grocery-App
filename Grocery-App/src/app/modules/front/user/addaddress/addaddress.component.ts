@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User_Address } from 'src/app/shared/Models/user_address';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
@@ -16,7 +16,7 @@ export class AddaddressComponent {
   countries:any;
   // state:any;
   // city:any;
-constructor(private _edituserService:EdituserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService){
+constructor(private router:ActivatedRoute,private _edituserService:EdituserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService){
   this.countries = this._countryservice.getCountries();
   
 }
@@ -167,9 +167,16 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
   
 
   cities: string[] = [];
+  address_id:any
+  Address_btn:any="ADD Address"
   ngOnInit(){
+    this.router.paramMap.subscribe(params=>{
+      this.address_id=params.get('id')
+      if(this.address_id){
+        this.Address_btn="EDIT Address"
+      }
+    })
     this.User_address_Form()
-    
       this.country.valueChanges.subscribe((country) => {
 
       if (country) {
@@ -230,7 +237,6 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
           })
   }
 
-    
         get get_User_Address(){
           return this.User_Address_Add.controls
         }
@@ -238,16 +244,20 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
         User_details:any
         User_address:any
         User_Address_Add_click(){
-          if(this.User_Address_Add.valid){
-            console.log("this.User_Address_Add.value",this.User_Address_Add.value)
-            this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
-              (User_Address_Add_res)=>{
-              console.log("User_Address_Add_res",User_Address_Add_res)
-              
+
+
+          if(this.Address_btn=="ADD Address"){
+
+            if(this.User_Address_Add.valid){
+              console.log("this.User_Address_Add.value",this.User_Address_Add.value)
+              this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
+                (User_Address_Add_res)=>{
+                  console.log("User_Address_Add_res",User_Address_Add_res)
+                  
               // this.Arr = JSON.stringify([]);
               //   if (!localStorage.getItem('User_address')) {
-              //     localStorage.setItem('User_address', this.Arr);
-              //     }
+                //     localStorage.setItem('User_address', this.Arr);
+                //     }
                 // this._edituserService.set_User_addresses(this.User_Address_Add.value)
                 // let Merge = JSON.parse(localStorage.getItem('User_address'));
                 
@@ -274,5 +284,9 @@ constructor(private _edituserService:EdituserService,private _countryservice:Cou
 
           }
       
+              }
+              else{
+                
+              }
         }
 }
