@@ -99,9 +99,9 @@ Subtotal(){
     // this.subtotalSource.next
     let cartsubtotal:number=0
     for(let i=0;i<this.cartc.length;i++){
-      cartsubtotal+=this.cartc[i].quantity*this.cartc[i].moneyOfferPrice
-      // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].moneyOfferPrice)
-      // console.log("this.cartsubtotal",this.cartc[i].moneyOfferPrice)
+      cartsubtotal+=this.cartc[i].quantity*this.cartc[i].amount
+      // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].amount)
+      // console.log("this.cartsubtotal",this.cartc[i].amount)
       // console.log("this.cartsubtotal",this.cartc[i].quantity)
       // console.log("this.cartsubtotal",this.cartc[i])
       // console.log("this.cartsubtotal",this.cartc)

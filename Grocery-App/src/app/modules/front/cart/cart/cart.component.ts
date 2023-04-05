@@ -54,7 +54,7 @@ console.log("dateFormat",JSON.stringify(dateFormat));
         }
         return acc;
       }, []);
-      console.log(this.groupedProducts,"CartLength")
+      console.log(this.groupedProducts,"groupedProducts")
       
      })
     
@@ -94,14 +94,15 @@ console.log("dateFormat",JSON.stringify(dateFormat));
   Subtotal_Per_Prod:any
   quantitymin(index,productindex){
     // console.log("Quantity",this.groupedProducts[index].cart[productindex].quantity);
-    //   console.log(this.cart[index].moneyOfferPrice)
+    console.log(this.cart[productindex].amount)
+
     if(this.groupedProducts[index].cart[productindex].quantity>1){
       this.groupedProducts[index].cart[productindex].quantity-=1  
       this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-      console.log("cart",this.cart)
-      this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
-        console.log("cart in Service",cart)
-        console.log("Product Index",productindex)
+      // console.log("cart",this.cart)
+      this._cartservice.EditCart(this.cart[index]).subscribe((cart)=>{
+        // console.log("cart in Service",cart)
+        // console.log("Product Index",productindex)
         console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
       })
       
@@ -111,11 +112,11 @@ console.log("dateFormat",JSON.stringify(dateFormat));
   }
   quantitymax(index,productindex){
    
-      // console.log(this.cart[index].moneyOfferPrice)
+      console.log(this.cart[productindex].amount)
       this.groupedProducts[index].cart[productindex].quantity+=1
       this._cartservice.ShowCart().subscribe((cart)=>{
         this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-        console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
+        // console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
         this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
           console.log("cart in Service",cart)})
         })
@@ -136,8 +137,8 @@ console.log("dateFormat",JSON.stringify(dateFormat));
       for (let i = 0; i < this.groupedProducts.length; i++) {
         for(let j=0;j<this.groupedProducts[i].cart.length;j++){
           // console.log("Cart in Subtottal",this.cart[i])
-          subtotal += this.groupedProducts[i].cart[j].amount;
-          // subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].moneyOfferPrice;
+          // subtotal += this.groupedProducts[i].cart[j].amount;
+          subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].amount;
         }
     }
     this.GST=subtotal*0.18;
