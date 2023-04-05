@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
+import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
 
 @Component({
   selector: 'app-checkout',
@@ -8,7 +9,7 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-  constructor(private route:Router,private _cartService: CartService){}
+  constructor(private route:Router,private _cartService: CartService,private _edituserService:EdituserService){}
   address_user=[]
   
 //   address_user=[{
@@ -26,6 +27,17 @@ address: any;
 Login_User:any
 Cancel_Checkout(){
 this.route.navigate(['/home'])
+}
+User_details_Obj:any
+User_details_Obj_addresses:any=[]
+Get_User_Details(){
+  this._edituserService.Get_User_Details().subscribe({next:(User_details_res)=>{
+    console.log("User_Details",User_details_res.data)
+    this.User_details_Obj=User_details_res.data
+    this.User_details_Obj_addresses=this.User_details_Obj.addresses
+  },error:(User_details_error)=>{
+    console.log("Getuserdetail_error",User_details_error)
+  }})
 }
 payment_status:any="W4YV_pkH7OAkvZO4P1gbzA==";
 order_status:any="Nn9l9xhHYQsvNB503C4EAQ==";
@@ -54,6 +66,7 @@ console.log("Get_OrderById_res",Get_OrderById_res)
 cartTotal: number;
 data:any
   ngOnInit(): void {
+    this.Get_User_Details()
     this.data=this._cartService.Cartdata
   this.address_user=JSON.parse(localStorage.getItem("User_address"))
   console.log("address_user",this.address_user)

@@ -13,6 +13,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 })
 export class CartComponent {
   cartItems:any[]=[]
+  loading:boolean=true
   constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
    
   }
@@ -26,18 +27,23 @@ export class CartComponent {
   cartlength:any
   cartEmptyShow=true
   data:any
+  dateFormat:any
   
   ngOnInit(){
+    
     let date = new Date()
     var getYear = date.toLocaleString("default", { year: "numeric" });
     var getMonth = date.toLocaleString("default", { month: "2-digit" });
 var getDay = date.toLocaleString("default", { day: "2-digit" });
-var dateFormat = getYear + "-" + getMonth + "-" + getDay;
-console.log("dateFormat",JSON.stringify(dateFormat));
+    this.dateFormat = getYear + "-" + getMonth + "-" + getDay;
+console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
     this._cartservice.ShowCart().subscribe((res)=>{
       this.cart=res
+      setTimeout(() => {
+        this.loading=false
+      }, 500);
       console.log("cart",this.cart)
       // this._cartservice.cartSubject.subscribe(cart => {
       //   this.cartItemCount = cart.length;
@@ -215,10 +221,10 @@ for(let i=0;i<this.cart.length;i++){
   this.product=[{
     "product_id":  this.cart[0].id,
     "product_name": this.cart[0].title,
-    "qty": 2,
-    "product_amount": 100,
-    "discount_type": 2,
-    "discount_amount": 10
+    "qty": this.cart[0].quantity,
+    "product_amount": this.cart[0].amount,
+    "discount_type": 1,
+    "discount_amount": 0
 }]
 }
 console.log("product",this.product)
@@ -228,14 +234,14 @@ return this.product
   Checkout(){
     this.get_cart_data()
     this.data={
-      "order_date": "2023-03-13",
+      "order_date": this.dateFormat,
       "special_note": "its special",
       "estimate_delivery_date": "2023-03-15",
-      "sub_total": 260,
-      "tax_amount": 20,
-      "discount_amount": 10,
-      "total_amount": 270,
-      "paid_amount": 270,
+      "sub_total": this.Subtotal(),
+      "tax_amount": this.GST,
+      "discount_amount": 0,
+      "total_amount": this.Total,
+      "paid_amount": this.Total,
       "payment_type": 2,
       "order_products":this.get_cart_data(),
   }
