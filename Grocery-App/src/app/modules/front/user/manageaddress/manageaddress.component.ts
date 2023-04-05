@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 
 @Component({
   selector: 'app-manageaddress',
@@ -9,7 +12,7 @@ import { EdituserService } from 'src/app/shared/services/edituser/edituser.servi
 export class ManageaddressComponent {
   showAdd:any=[]
   User_details_Obj_addresses=[]
-constructor(private _edituserService:EdituserService){}
+constructor(private _edituserService:EdituserService,private _encryptionservice:EncryptionService,private route:Router,private toastr:ToastrService){}
 User_details_Obj:any
 ngOnInit(){
   this.Show_Address()
@@ -50,5 +53,30 @@ Show_Address(){
 // }
 // console.log("filteredUsers Address",this.filteredUsers);
 }
+encryption_data:any
+Delete_Address(i,id){
+  this.encryption(i,JSON.stringify(id))
 
+}
+
+Delete_Encryption(encryption:any,i:any){
+  this._edituserService.Delete_User_Address(encryption).subscribe({next:(Edit_address_res)=>{
+    console.log("Edit_address_res",Edit_address_res)
+    this.User_details_Obj_addresses.splice(i,1)
+    this.toastr.success('Address Successfully Deleted');
+  },error:(Edit_address_error)=>{
+    console.error("Edit_address_error",Edit_address_error)
+  }})
+}
+
+encryption(i,id){
+  this._encryptionservice.Encryption(id).subscribe({next:(encryption_res)=>{
+    console.log("encryption_res",encryption_res)
+    this.encryption_data=encryption_res.data
+    console.log("encryption_data",this.encryption_data)
+    this.Delete_Encryption(this.encryption_data,i)
+  },error:(encryption_error)=>{
+    console.log("encryption_error",encryption_error)
+  }})
+}
 }

@@ -169,30 +169,54 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
   cities: string[] = [];
   address_id:any
   Address_btn:any="ADD Address"
+  Edit_address_body:any
+  User_address_data:any
   ngOnInit(){
-    this.router.paramMap.subscribe(params=>{
-      this.address_id=params.get('id')
-      if(this.address_id){
-        this.Address_btn="EDIT Address"
-      }
-    })
     this.User_address_Form()
       this.country.valueChanges.subscribe((country) => {
-
+  
       if (country) {
         this.states = this._countryservice.getStatesByCountry(country);
         // console.log("states",this.states)
       }
     });
-
+  
     this.state.valueChanges.subscribe((state) => {
-
+  
       if (state) {
         this.City = this._countryservice.getCitiesByState(this.country.value, state);
         // console.log("City",this.City)
-
+  
       }
     });
+    this.router.paramMap.subscribe(params=>{
+      this.address_id=params.get('id')
+      if(this.address_id){
+        this._edituserService.Get_User_Details().subscribe({next:(User_details_res)=>{
+          this.User_address_data=User_details_res.data.addresses
+          console.log("User_Details",User_details_res.data)
+          console.log("User_Details",User_details_res.data.addresses)
+          this.User_address_data = this.User_address_data.filter(User_address_data => User_address_data.id == this.address_id);
+          console.log("User_Details",this.User_address_data)
+          console.log("this.User_address_data.address_line_1",this.User_address_data[0].address_line_1)
+          this.User_Address_Add.patchValue({"address_line_1": this.User_address_data[0].address_line_1,
+          "address_line_2": this.User_address_data[0].address_line_2,
+          "area": this.User_address_data[0].area,
+          "country": this.User_address_data[0].country,
+          "state": this.User_address_data[0].state,
+          "city": this.User_address_data[0].city,
+          "postal_code": this.User_address_data[0].postal_code,
+          "landmark": this.User_address_data[0].landmark,
+          "tag": this.User_address_data[0].tag});
+          // this.Profile.get('firstName').setValue("this.User_Profile_Obj.first_name");
+        // this.Profile.get('lastName').setValue(this.User_Profile_Obj.last_name);
+        },error:(User_details_error)=>{
+          console.log("Getuserdetail_error",User_details_error)
+        }})
+    
+        this.Address_btn="EDIT Address"
+      }
+    })
 
   }
   country = new FormControl ("",[
@@ -273,20 +297,22 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
                   // Merge.push(this.User_address);
                   // console.log("Merge",Merge)
                 // localStorage.setItem("User_address", JSON.stringify(Merge));
-                this.route.navigate(['/front/user/manageaddress'])
+                this.route.navigate(['/front/user/user-profile/manageaddress'])
             },
           error:(User_Address_Add_error)=>{
             console.log("User_Address_Add_error",User_Address_Add_error)
-            setTimeout(() => {
-              this._snackBar.open(User_Address_Add_error.error.message, "OK");
-            }, 3000);
+            this.toastr.error(User_Address_Add_error.error.message);
           }})
-
           }
-      
               }
               else{
-                
+                this._edituserService.Edit_User_Address(this.User_Address_Add.value).subscribe({next:(Edit_address_res)=>{
+                  console.log("Edit_address_res",Edit_address_res)
+                  this.Address_btn="ADD Address"
+                  this.route.navigate(["/front/user/user-profile/manageaddress"])
+                },error:(Edit_address_error)=>{
+                  console.error("Edit_address_error",Edit_address_error)
+                }})
               }
         }
 }

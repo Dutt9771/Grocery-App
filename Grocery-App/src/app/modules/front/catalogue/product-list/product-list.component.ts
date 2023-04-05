@@ -15,7 +15,12 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class ProductListComponent implements OnInit {
   defaultCategory='all';
   selectedCategory:string;
-  constructor(private _encryptionservice:EncryptionService,private route: ActivatedRoute,private productservice:ProductsService,private _cartservice:CartService,private rout:Router,private toastr:ToastrService) {
+  constructor(private _encryptionservice:EncryptionService,
+    private route: ActivatedRoute,
+    private productservice:ProductsService,
+    private _cartservice:CartService,
+    private rout:Router,
+    private toastr:ToastrService) {
     this.selectedCategory = this.defaultCategory;
   }
 category:any

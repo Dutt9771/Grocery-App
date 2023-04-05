@@ -25,8 +25,15 @@ export class CartComponent {
   groupedProducts: any[] = [];
   cartlength:any
   cartEmptyShow=true
+  data:any
+  
   ngOnInit(){
-   
+    let date = new Date()
+    var getYear = date.toLocaleString("default", { year: "numeric" });
+    var getMonth = date.toLocaleString("default", { month: "2-digit" });
+var getDay = date.toLocaleString("default", { day: "2-digit" });
+var dateFormat = getYear + "-" + getMonth + "-" + getDay;
+console.log("dateFormat",JSON.stringify(dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
     this._cartservice.ShowCart().subscribe((res)=>{
@@ -48,6 +55,7 @@ export class CartComponent {
         return acc;
       }, []);
       console.log(this.groupedProducts,"CartLength")
+      
      })
     
   
@@ -74,7 +82,7 @@ export class CartComponent {
   });
     })
     console.log("Subtotal From Cart",this.Subtotal())
-  }
+   }
   //Badge
   
   // update the cart badge count
@@ -128,7 +136,8 @@ export class CartComponent {
       for (let i = 0; i < this.groupedProducts.length; i++) {
         for(let j=0;j<this.groupedProducts[i].cart.length;j++){
           // console.log("Cart in Subtottal",this.cart[i])
-          subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].moneyOfferPrice;
+          subtotal += this.groupedProducts[i].cart[j].amount;
+          // subtotal += this.groupedProducts[i].cart[j].quantity * this.groupedProducts[i].cart[j].moneyOfferPrice;
         }
     }
     this.GST=subtotal*0.18;
@@ -151,7 +160,7 @@ export class CartComponent {
   let subtotal=0;
       // console.log("group",group.cart)
       for (let i=0;i<group.cart.length;i++) {
-        let itemTotal = group.cart[i].moneyOfferPrice * group.cart[i].quantity;
+        let itemTotal = group.cart[i].amount
         subtotal += itemTotal;
       }
       // console.log(`Subtotal for ${cart.category}: ${subtotal} ${cart.cart[0].moneyOfferPrice}`);
@@ -197,10 +206,44 @@ export class CartComponent {
     
    
   }
-  
-  
+  product:any=[]
+  get_cart_data(){
+for(let i=0;i<this.cart.length;i++){
+
+ 
+  this.product=[{
+    "product_id":  this.cart[0].id,
+    "product_name": this.cart[0].title,
+    "qty": 2,
+    "product_amount": 100,
+    "discount_type": 2,
+    "discount_amount": 10
+}]
+}
+console.log("product",this.product)
+return this.product
+  }
+
   Checkout(){
+    this.get_cart_data()
+    this.data={
+      "order_date": "2023-03-13",
+      "special_note": "its special",
+      "estimate_delivery_date": "2023-03-15",
+      "sub_total": 260,
+      "tax_amount": 20,
+      "discount_amount": 10,
+      "total_amount": 270,
+      "paid_amount": 270,
+      "payment_type": 2,
+      "order_products":this.get_cart_data(),
+  }
+    console.log("cart",this.cart)
     this._cartservice.setCartTotal(this.Total);
+  this._cartservice.Cartdata=this.data
+  console.log("this._cartservice.Cartdata",this._cartservice.Cartdata)
+  
+  
     this.route.navigate(['/front/cart/checkout'])
   }
   

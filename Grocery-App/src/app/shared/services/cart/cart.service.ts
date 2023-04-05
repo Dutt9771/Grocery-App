@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -13,7 +13,9 @@ CartItemsLength:EventEmitter<any>=new EventEmitter();
    
   }
 baseurl=environment.baseurl;
-resname=environment.resname
+baseUrl=environment.baseUrl;
+resname=environment.resname;
+add_order=environment.orders_routes.add_order
   addcart=[]
 
   private cartItemsSubject = new BehaviorSubject([]);
@@ -110,7 +112,7 @@ Subtotal(){
 }
 
 cartc:any
-
+Cartdata:any
 cartcount=new BehaviorSubject<any>(0);
 public cartLengthSubject = new BehaviorSubject<number>(0);
 public cartLength$ = this.cartLengthSubject.asObservable();
@@ -133,6 +135,12 @@ getItemCount(){
   })
 }
   
-
+Add_Order(data:any,delivery_address_id:any,billing_address_id:any,payment_status:any,order_status:any){
+  try {
+    return this.http.post<any>(this.baseUrl+this.add_order,data,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"billing_address_id":billing_address_id,"delivery_address_id":delivery_address_id,"payment_status":payment_status,"order_status":order_status})})
+  } catch (error:any) {
+    return throwError(() => new Error(error))
+  }
+}
 
 }

@@ -51,7 +51,7 @@ user_details=environment.customers_routes.user_details
   }
   Delete_User_Address(id:any){
     try {
-      return this.http.delete<any>(this.baseUrl+this.delete_address+"/"+id)
+      return this.http.delete<any>(this.baseUrl+this.delete_address,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*','address_id':id})})
     } catch (error:any) {
       return throwError(() => new Error(error))
     }

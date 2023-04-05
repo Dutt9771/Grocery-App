@@ -22,7 +22,8 @@ const routes: Routes = [
     component:ProfilenavComponent,
     canActivate:[AuthUserGuard],
     children:[
-      {path:'user-profile',component: UserProfileComponent},
+      {path:'',redirectTo:'edit-profile',pathMatch:'full'},
+      {path:'edit-profile',component: UserProfileComponent},
       { path: 'orders', component: OrdersComponent ,canActivate:[AuthUserGuard]},
       { path: 'changepassword', component: ChangepasswordComponent ,canActivate:[AuthUserGuard]},
       { path: 'manageaddress', component: ManageaddressComponent ,canActivate:[AuthUserGuard]},

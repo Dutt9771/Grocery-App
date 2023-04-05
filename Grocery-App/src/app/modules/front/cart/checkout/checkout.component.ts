@@ -27,19 +27,30 @@ Login_User:any
 Cancel_Checkout(){
 this.route.navigate(['/home'])
 }
+payment_status:any="W4YV_pkH7OAkvZO4P1gbzA==";
+order_status:any="Nn9l9xhHYQsvNB503C4EAQ==";
+delivery_address_id:any="AlqnPx8sIaCpUTRiDOiSgQ=="
+billing_address_id:any="AlqnPx8sIaCpUTRiDOiSgQ=="
+
 Place_Order(){
   this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
 if(this.Login_User){
   this.route.navigate(['/front/cart/success'])
+    this._cartService.Add_Order(this.data,this.delivery_address_id,this.billing_address_id,this.payment_status,this.order_status).subscribe({next:(Add_address_res)=>{
+      console.log("Add_address_res",Add_address_res)
+    }})
 }
 }
 
 cartTotal: number;
+data:any
   ngOnInit(): void {
+    this.data=this._cartService.Cartdata
   this.address_user=JSON.parse(localStorage.getItem("User_address"))
   console.log("address_user",this.address_user)
     this._cartService.cartTotal$.subscribe(total => {
       this.cartTotal = total;
     });
+    console.log("data",this.data)
 }
 }
