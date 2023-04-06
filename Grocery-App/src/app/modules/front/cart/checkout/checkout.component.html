@@ -13,8 +13,9 @@
         <div class="card mt-4 ms-4">
           <div *ngFor="let address of User_details_Obj_addresses" class="ms-4">
             <div class="form-check mt-4">
-              <input type="radio" class="form-check-input" name="address" id="{{address.id}}" value="{{address.id}}" selected #addressSelect (change)="selectAdd(addressSelect.value)">
-              <label class="form-check-label" for="{{address.id}}"><div>
+              
+              <input type="radio" class="form-check-input border-1 border-success" name="address" id="{{address.id}}" value="{{address.id}}"  #addressSelect (change)="selectAdd(addressSelect.value)">
+              <label class="form-check-label" for="address"><div>
                 <h5>Tag: {{address.tag}}</h5>
                 <h5>Address_line_1: {{address.address_line_1}}</h5>
                 <h5>Address_line_2: {{address.address_line_2}}</h5>
@@ -23,6 +24,7 @@
                 <h5>State: {{address.state}}</h5>
                 <h5>City: {{address.city}}</h5>
               </div></label>
+           
             </div>
           </div>
           <div class="card-body ms-4">

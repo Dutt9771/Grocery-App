@@ -69,13 +69,14 @@ filteredItems:any=[]
       this.category_path= params.get('id');
       console.log("Category path",this.category_path)
     })
-    this.encryption(this.category_path)
-    console.log("encryption_data",JSON.stringify(this.encryption_data))
+    if(!(this.category_path=="all")){
+      this.encryption(this.category_path)
+    }
     
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()
     
-    this.categories = this.productArray.reduce((acc, curr) => {
+    this.categories = this.allProducts.reduce((acc, curr) => {
       if (!acc.includes(curr.category)) {
         acc.push(curr.category);
       }
@@ -126,7 +127,7 @@ filteredItems:any=[]
 if(category==='all'){
   this.allProducts
 }else{
-  this.filteredItems = this.productArray.filter(item => item.category === category);
+  this.filteredItems = this.allProducts.filter(item => item.category === category);
   console.log(this.filteredItems)
 }
 }

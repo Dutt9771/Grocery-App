@@ -57,31 +57,6 @@ encryption(id){
     this.encryption(this.product_id)
         console.log("Product_item",this.filteredItems)
         console.log("Product_item",this.filteredItems.title)
-
-    // this.filteredItems=this._productsservice.getProducts()
-    // this._cartservice.ShowCart().subscribe((res)=>{
-    //   this.ShowcartArr=res
-    // })
-    
-    // this.route.paramMap.subscribe(params => {
-    //   this.product_path= params.get('product');
-    // })
-    // console.log(this.category_path)
-  
-  // if(this.category_path){
-
-    // this.router.paramMap.subscribe(params => {
-    //   const product = params.get('slug'); 
-    //   // console.log(product)    
-    //       this.filteredItems = this.filteredItems.filter(filteredItems => filteredItems[0].product_id === this.product_id);
-    //       this.product_item=product
-
-    //     console.log("Product_item",this.filteredItems)
-    //   });
-    // }else{
-    //   this.Filter_Category(this.selectedCategory);
-    // }
-  // }
     
   }
 

@@ -43,7 +43,7 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       this.cart=res
       setTimeout(() => {
         this.loading=false
-      }, 500);
+      }, 1500);
       console.log("cart",this.cart)
       // this._cartservice.cartSubject.subscribe(cart => {
       //   this.cartItemCount = cart.length;

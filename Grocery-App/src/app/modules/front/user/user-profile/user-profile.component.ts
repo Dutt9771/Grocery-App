@@ -8,7 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Edit_user_detail } from 'src/app/shared/Models/edituserdetail';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -23,7 +23,7 @@ export class UserProfileComponent implements OnInit {
   RegisterData: any;
   errorMessage: string;
   User_login_Token: any;
-  constructor(private route: ActivatedRoute,private toastr:ToastrService,private _userService:UserService,private _snackBar:MatSnackBar) {}
+  constructor(private router: ActivatedRoute,private route:Router,private toastr:ToastrService,private _userService:UserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
     this.Get_User_Details()
     this.Edit_Profile()
@@ -114,6 +114,7 @@ Edit_Profile(){
       this._userService.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
           console.log("Edit_User_res",Edit_User_res)
           this.errorMessage="User Details Successfully Edited";
+          this.route.navigate(['/home'])
           this.toastr.success('Edit Profile Successfully');
       },
       error:(Edit_User_error)=>{ 

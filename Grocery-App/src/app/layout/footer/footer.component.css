@@ -2,7 +2,9 @@
 /*
     Social Media Button
 */
-
+i:hover {
+  color: #007bff;
+}
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 /* * {

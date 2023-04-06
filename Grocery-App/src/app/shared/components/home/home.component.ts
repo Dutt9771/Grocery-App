@@ -20,12 +20,15 @@ export class HomeComponent {
     private renderer:Renderer2
   ) {  
   }
-
+  loading=true;
   topsells:any
   toprated:Item[]
   trendingItems:Item[]
   recentlyAdded:any
   ngOnInit() {
+    setTimeout(() => {
+      this.loading=false
+    }, 1500);
     this.topsells=this._ProductsService.Top_Sells()
     this.toprated=this._ProductsService.Top_Rated()
     this.recentlyAdded=this._ProductsService.Recently_Added()

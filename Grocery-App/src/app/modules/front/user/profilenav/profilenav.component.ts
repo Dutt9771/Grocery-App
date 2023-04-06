@@ -10,10 +10,34 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ProfilenavComponent {
   Login_User: any;
+  Title:string="Edit Profile"
   Register_User: any;
-
-  constructor(private router:Router,private toastr:ToastrService,private cookieService: CookieService) {}
-
+  currentPath:any
+  constructor(private router:Router,private toastr:ToastrService,private cookieService: CookieService) {
+    // this.currentPath = this.router.url;
+    this.CheckPath()
+  }
+  
+  CheckPath(){
+    this.router.events.subscribe((res:any)=>{
+      if(res.url){
+        console.log("Res URL",res.url)
+        this.currentPath=res.url
+        if(this.currentPath=="/front/user/user-profile/manageaddress"){
+          this.Title="Manage Address"
+        }else if(this.currentPath=="/front/user/user-profile/orders"){
+          this.Title="Orders"
+        }
+        else if(this.currentPath=="/front/user/user-profile/changepassword"){
+          this.Title="Change Password"
+        
+        }else if(this.currentPath=="/front/user/user-profile/addaddress"){
+          this.Title="Add Address"
+        }else{
+          this.Title="Edit Profile"
+        }
+      }})
+  }
   ngOnInit(){
     this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
     this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));

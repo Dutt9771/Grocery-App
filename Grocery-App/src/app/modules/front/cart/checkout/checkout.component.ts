@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-checkout',
@@ -17,6 +18,7 @@ export class CheckoutComponent {
   cartTotal: number;
   data:any
     ngOnInit(): void {
+      this.Radio_Address_Form()
       this.Get_User_Details()
       this.data=this._cartService.Cartdata
     this.address_user=JSON.parse(localStorage.getItem("User_address"))
@@ -60,7 +62,9 @@ delivery_address_id:any
 billing_address_id:any
 Add_Order_Response_Data:any
 Encryptdata:any
+// selected:any
 selectAdd(addressSelect){
+  // selected=true
   console.log("addressSelect",addressSelect)
   this._encryptionservice.Encryption(addressSelect).subscribe({next:(encryption_res)=>{
     console.log("encryption_res",encryption_res.data)
@@ -79,11 +83,19 @@ selectAdd(addressSelect){
 status="2"
 
 
-
-
+Address:any
+Radio_Address_Form(){
+  this.Address=new FormGroup({
+    address_radio:new FormControl('',[Validators.required])
+  })
+}
+get get_Address_Form(){
+  return this.Address.controls
+}
 
 Place_Order(){
   // this.payment_status=this.encryption(this.status)
+  if(this.billing_address_id){
 
 
   console.log("order_status",this.order_status)
@@ -122,6 +134,10 @@ if(this.Login_User){
       console.log("Add_Order_error",Add_Order_error)
             this.toastr.error(Add_Order_error.error.message);
     }})
+}
+}
+else{
+  this.toastr.error("Please Select Address");
 }
 }
 

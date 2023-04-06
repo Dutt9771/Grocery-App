@@ -1,6 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from 'src/app/shared/Models/changepassword';
 import { UserService } from 'src/app/shared/services/user/user.service';
@@ -12,7 +13,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 })
 export class ChangepasswordComponent {
   Change_Password:any
-  constructor(private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
+  constructor(private route:Router,private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
   ngOnInit(){
     // this.toastr.success('Change Password Successfully');
 
@@ -64,6 +65,7 @@ export class ChangepasswordComponent {
             // setTimeout(() => {
             //   this._snackBar.open("Change Password Succesfully", "OK");
             // }, 3000);
+            this.route.navigate(['/home'])
             this.toastr.success('Password Change Successfully');
         },
         error:(Change_Password_error)=>{ 

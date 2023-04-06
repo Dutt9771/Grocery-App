@@ -24,7 +24,13 @@
               <span>{{arr.item}} Item</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <p>{{arr.product_details}}</p>
+          <div *ngFor="let Order of Order_data">
+            <div *ngFor="let item of Order.order_items">
+
+              <!-- {{item.product_name}} -->
+              {{item.order_id}}
+            </div>
+          </div>
         </mat-expansion-panel>
               </mat-accordion>
 

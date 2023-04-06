@@ -54,6 +54,7 @@ export class HeaderComponent {
 
 
     ngOnInit(){
+      
       this._cartService.currentSubtotal.subscribe((res)=>{
         this.subtotal=res
         console.log("res",res)
