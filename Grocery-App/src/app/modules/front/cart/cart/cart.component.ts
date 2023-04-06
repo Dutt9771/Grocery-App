@@ -106,7 +106,7 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       this.groupedProducts[index].cart[productindex].quantity-=1  
       this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
       // console.log("cart",this.cart)
-      this._cartservice.EditCart(this.cart[index]).subscribe((cart)=>{
+      this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
         // console.log("cart in Service",cart)
         // console.log("Product Index",productindex)
         console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)

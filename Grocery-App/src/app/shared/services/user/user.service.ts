@@ -9,16 +9,17 @@ import { Edit_user_detail } from '../../Models/edituserdetail';
 @Injectable({
   providedIn: 'root'
 })
-export class EdituserService {
+export class UserService {
 
   constructor(private http:HttpClient) { }
 baseUrl=environment.baseUrl;
 change_password=environment.customers_routes.change_password;
 edit_user_details=environment.customers_routes.edit_user;
-add_address=environment.customers_routes.add_address
-edit_address=environment.customers_routes.update_address
-delete_address=environment.customers_routes.delete_address
-user_details=environment.customers_routes.user_details
+add_address=environment.customers_routes.add_address;
+edit_address=environment.customers_routes.update_address;
+delete_address=environment.customers_routes.delete_address;
+user_details=environment.customers_routes.user_details;
+get_customer_all_orders=environment.customers_routes.get_customer_all_orders;
 
   Change_Password(data:ChangePassword){
     try {
@@ -60,6 +61,13 @@ user_details=environment.customers_routes.user_details
   Get_User_Details(){
     try {
       return this.http.get<any>(this.baseUrl+this.user_details,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+  }
+  Get_Customer_All_Orders(){
+    try {
+      return this.http.get<any>(this.baseUrl+this.get_customer_all_orders)
     } catch (error:any) {
       return throwError(() => new Error(error))
     }

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
-import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 
 @Component({
@@ -10,7 +11,7 @@ import { EncryptionService } from 'src/app/shared/services/encryption/encryption
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-  constructor(private route:Router,private _cartService: CartService,private _edituserService:EdituserService,private _encryptionservice:EncryptionService){}
+  constructor(private route:Router,private _cartService: CartService,private _userService:UserService,private _encryptionservice:EncryptionService,private toastr:ToastrService){}
   address_user=[]
   
   cartTotal: number;
@@ -34,7 +35,7 @@ this.route.navigate(['/home'])
 User_details_Obj:any
 User_details_Obj_addresses:any=[]
 Get_User_Details(){
-  this._edituserService.Get_User_Details().subscribe({next:(User_details_res)=>{
+  this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
     console.log("User_Details",User_details_res.data)
     this.User_details_Obj=User_details_res.data
     this.User_details_Obj_addresses=this.User_details_Obj.addresses
@@ -111,12 +112,15 @@ if(this.Login_User){
         this.route.navigate(['/front/cart/success'])
         },error:(Get_Order_error)=>{
           console.log("Get_Order_error",Get_Order_error)
+          this.toastr.error(Get_Order_error.error.message);
         }})
     },error:(encryption_error)=>{
       console.log("encryption_error",encryption_error)
+            this.toastr.error(encryption_error.error.message);
     }})
     },error:(Add_Order_error)=>{
       console.log("Add_Order_error",Add_Order_error)
+            this.toastr.error(Add_Order_error.error.message);
     }})
 }
 }

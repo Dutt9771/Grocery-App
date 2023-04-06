@@ -11,7 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { Edit_user_detail } from 'src/app/shared/Models/edituserdetail';
-import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -23,7 +23,7 @@ export class UserProfileComponent implements OnInit {
   RegisterData: any;
   errorMessage: string;
   User_login_Token: any;
-  constructor(private route: ActivatedRoute,private toastr:ToastrService,private _editUserservice:EdituserService,private _snackBar:MatSnackBar) {}
+  constructor(private route: ActivatedRoute,private toastr:ToastrService,private _userService:UserService,private _snackBar:MatSnackBar) {}
   ngOnInit(): void {
     this.Get_User_Details()
     this.Edit_Profile()
@@ -57,7 +57,7 @@ Edit_Profile(){
       //  Validators.email,
       //  Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$")
     ]),
-    password:new FormControl('',[Validators.required,Validators.minLength(8)]),
+    // password:new FormControl('',[Validators.required,Validators.minLength(8)]),
     alternatecontact: new FormControl('', [
       // Validators.required,
       // Validators.pattern('[- +()0-9]{13}'),
@@ -68,7 +68,7 @@ Edit_Profile(){
 
 }
   Get_User_Details(){
-    this._editUserservice.Get_User_Details().subscribe({next:(User_details_res)=>{
+    this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
       console.log("User_Details",User_details_res.data)
       this.User_Profile_Obj=User_details_res.data
       console.log("User_Profile_Obj",this.User_Profile_Obj)
@@ -111,7 +111,7 @@ Edit_Profile(){
     console.log("Edit User Details body",Edit_User_Details_body)
     if(this.Profile.valid){
       this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
-      this._editUserservice.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
+      this._userService.Edit_user_details(Edit_User_Details_body).subscribe({next:(Edit_User_res)=>{
           console.log("Edit_User_res",Edit_User_res)
           this.errorMessage="User Details Successfully Edited";
           this.toastr.success('Edit Profile Successfully');

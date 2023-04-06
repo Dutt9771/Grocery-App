@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { EncryptionService } from 'src/app/shared/services/encryption/encryption
 export class ManageaddressComponent {
   showAdd:any=[]
   User_details_Obj_addresses=[]
-constructor(private _edituserService:EdituserService,private _encryptionservice:EncryptionService,private route:Router,private toastr:ToastrService){}
+constructor(private _userService:UserService,private _encryptionservice:EncryptionService,private route:Router,private toastr:ToastrService){}
 User_details_Obj:any
 ngOnInit(){
   this.Show_Address()
@@ -24,7 +24,7 @@ ngOnInit(){
   // }})
 }
 Get_User_Details(){
-    this._edituserService.Get_User_Details().subscribe({next:(User_details_res)=>{
+    this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
       console.log("User_Details",User_details_res.data)
       this.User_details_Obj=User_details_res.data
       this.User_details_Obj_addresses=this.User_details_Obj.addresses
@@ -60,7 +60,7 @@ Delete_Address(i,id){
 }
 
 Delete_Encryption(encryption:any,i:any){
-  this._edituserService.Delete_User_Address(encryption).subscribe({next:(Edit_address_res)=>{
+  this._userService.Delete_User_Address(encryption).subscribe({next:(Edit_address_res)=>{
     console.log("Edit_address_res",Edit_address_res)
     this.User_details_Obj_addresses.splice(i,1)
     this.toastr.success('Address Successfully Deleted');

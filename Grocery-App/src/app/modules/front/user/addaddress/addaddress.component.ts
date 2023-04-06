@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User_Address } from 'src/app/shared/Models/user_address';
-import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { EdituserService } from 'src/app/shared/services/user/user.service';
 import { CountryService } from 'src/app/shared/services/country/country.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 

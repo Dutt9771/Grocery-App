@@ -193,23 +193,40 @@ if(category==='all'){
     console.log("ShowcartArr",this.ShowcartArr)
     return this.ShowcartArr
   }
-
-
+  quantity=1;
+  product_quantity={
+    quantity:this.quantity,
+  }
   Add_cart(i,product){
-
 
 
     console.log("ShowCartArr",this.ShowcartArr)
     console.log("Product",product)
     this.existing_Product = this.ShowcartArr.find((Item:any) => {
-      return Item.name.toLowerCase() === product.name.toLowerCase();
+      return Item.title === product.title;
     });
     console.log("Existing Product",this.existing_Product)
     if(!this.existing_Product){
+      if(this.category_path=='all'){
+      console.log("All Products",this.allProducts)
+      console.log("id",i)
+   
+      console.log("Filtered Item Arr",this.allProducts[i])
+      this.ProductAddobj= this.allProducts[i]
+      this.ProductAddobj=Object.assign(this.ProductAddobj,this.product_quantity)
+      this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+        console.log(
+          res
+        )
+        // this.toastr.success('Added to cart',product.name);
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
+      })
+      }else{
     console.log("id",i)
     console.log("Filtered Item Arr",this.filteredItems[i])
-    this.ProductAddobj= this.filteredItems[i]
-
+    this.ProductAddobj= this.filteredItems[i].product
+    this.ProductAddobj=Object.assign(this.ProductAddobj,this.product_quantity)
     this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res
@@ -218,14 +235,14 @@ if(category==='all'){
       this._cartservice.getItemCount()
       this._cartservice.Subtotal()
     })
-
+  }
   }else{
     // this._cartservice.cartmsg="Item Already";
     this.toastr.info('Already Added Please Go to Cart',product.name);
     // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
 
-  }
+}
   this.Showcart()
-
+  
 }
 }

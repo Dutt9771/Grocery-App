@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from 'src/app/shared/Models/changepassword';
-import { EdituserService } from 'src/app/shared/services/edituser/edituser.service';
+import { EdituserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-changepassword',

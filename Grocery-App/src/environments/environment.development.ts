@@ -11,7 +11,8 @@ export const environment = {
         user_details:"customer/customer-details",
         change_password:"customer/changePassword",
         update_address:"customer/update-customer-address",
-        delete_address:"customer/delete-customer-address"
+        delete_address:"customer/delete-customer-address",
+        get_customer_all_orders:"customer/get-customer-all-orders"
     },
     products_routes:{
         get_all_products:"product/get-all-products",

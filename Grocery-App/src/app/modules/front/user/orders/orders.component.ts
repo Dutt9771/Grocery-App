@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { CartService } from 'src/app/shared/services/cart/cart.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
+
 
 @Component({
   selector: 'app-orders',
@@ -8,7 +9,7 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
 })
 export class OrdersComponent {
   panelOpenState = false;
-constructor(private _cartservice:CartService){}
+constructor(private _userService:UserService){}
   PastOrderArr=[
     {
       day:"12 March,Sun",
@@ -54,6 +55,11 @@ constructor(private _cartservice:CartService){}
     },
   ]
   ngOnInit(){
-    // this._cartservice.Get_Order_Detail_By_Id()
+    this._userService.Get_Customer_All_Orders().subscribe({next:(User_all_Order_res)=>{
+      console.log("User_all_Order_res",User_all_Order_res)
+      // this.PastOrderArr=User_all_Order_res
+    },error:(User_all_Order_error)=>{
+      console.log("User_all_Order_error",User_all_Order_error)
+    }})
   }
 }

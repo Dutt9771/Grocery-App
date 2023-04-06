@@ -14,7 +14,7 @@ constructor(private _cartservice:CartService,private productservice:ProductsServ
 filteredItems:any=[]
 ngOnInit(){
   this.GetProducts()
-  this.filteredItems=this.productservice.getProducts()
+  // this.filteredItems=this.productservice.getProducts()
 }
   productArray:any[] = []
   ProductAddobj:any;
@@ -37,42 +37,51 @@ ngOnInit(){
       console.log("get_all_products_error",get_all_products_error)
     }})
   }
-
+  quantity=1;
+  product_quantity={
+    quantity:this.quantity,
+  }
   Add_cart(i,product){
-
 
 
     console.log("ShowCartArr",this.ShowcartArr)
     console.log("Product",product)
     this.existing_Product = this.ShowcartArr.find((Item:any) => {
-      return Item.name.toLowerCase() == product.name.toLowerCase();
+      return Item.title === product.title;
     });
     console.log("Existing Product",this.existing_Product)
     if(!this.existing_Product){
-   this.clickedItem= this.filteredItems[i]
-    // for(let i=0;i<this.filteredItems.length;i++){
-    //   this.ProductAddobj=this.filteredItems[i]
-    //   console.log("OBJ",this.ProductAddobj)
-    // }
-    console.log("Cart Add Product",this.filteredItems[i])
-    this._cartservice.AddCart(this.filteredItems[i]).subscribe(res=>{
+    console.log("id",i)
+    console.log("Filtered Item Arr",this.filteredItems[i])
+    this.ProductAddobj= this.filteredItems[i]
+    this.ProductAddobj=Object.assign(this.filteredItems[i],this.product_quantity)
+
+     // for(let i=0;i<this.filteredItems.length;i++){
+     //   this.ProductAddobj=this.filteredItems[i]
+     //   console.log("OBJ",this.ProductAddobj)
+     // }
+     console.log("Cart Add Product",this.filteredItems[i])
+
+
+     this._cartservice.cartmsg=this.filteredItems[i].name;
+
+ 
+     // this.rout.navigate(['/front/cart'])
+
+     this._cartservice.cart.push(this.ProductAddobj);
+     // emit updated cart data to subscribers
+     this._cartservice.cartSubject.next(this._cartservice.cart);
+
+    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res
-      )
+      )  
+      this.toastr.success('Added to cart',product.name);
       this._cartservice.getItemCount()
       this._cartservice.Subtotal()
-    })
-    // this._cartservice.addItemToCart();
-    this._cartservice.cartmsg=this.filteredItems[i].name;
-    // this._cartservice.getItemCount()
+    })  
 
-    // this.rout.navigate(['/front/cart'])
-    console.log(this.clickedItem)
-    this._cartservice.cart.push(this.clickedItem);
-    this.toastr.success('Added to cart',product.name);
-    // emit updated cart data to subscribers
-    this._cartservice.cartSubject.next(this._cartservice.cart);
-
+ 
 
     
   }else{

@@ -103,7 +103,7 @@ Subtotal(){
       // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].amount)
       // console.log("this.cartsubtotal",this.cartc[i].amount)
       // console.log("this.cartsubtotal",this.cartc[i].quantity)
-      // console.log("this.cartsubtotal",this.cartc[i])
+      // console.log("this.cartcartsubtotalsubtotal",this.cartc[i])
       // console.log("this.cartsubtotal",this.cartc)
       // console.log("this.cartsubtotal",cartsubtotal)
     }
