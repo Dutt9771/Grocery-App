@@ -3,7 +3,7 @@ import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn,
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from 'src/app/shared/Models/changepassword';
-import { EdituserService } from 'src/app/shared/services/user/user.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-changepassword',
@@ -12,7 +12,7 @@ import { EdituserService } from 'src/app/shared/services/user/user.service';
 })
 export class ChangepasswordComponent {
   Change_Password:any
-  constructor(private _editUser:EdituserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
+  constructor(private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
   ngOnInit(){
     // this.toastr.success('Change Password Successfully');
 
@@ -58,7 +58,7 @@ export class ChangepasswordComponent {
       console.log("Change Password",Change_Password_body)
       if(this.Change_Password.valid){
         this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
-        this._editUser.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
+        this._userService.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
             console.log("Change_pass_res",Change_pass_res)
             // const success=Change_pass_res
             // setTimeout(() => {

@@ -4,7 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { User_Address } from 'src/app/shared/Models/user_address';
-import { EdituserService } from 'src/app/shared/services/user/user.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 import { CountryService } from 'src/app/shared/services/country/country.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 
@@ -17,7 +17,7 @@ export class AddaddressComponent {
   countries:any;
   // state:any;
   // city:any;
-constructor(private router:ActivatedRoute,private _edituserService:EdituserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService,private _encryptionservice:EncryptionService){
+constructor(private router:ActivatedRoute,private _userService:UserService,private _countryservice:CountryService,private _snackBar:MatSnackBar,private route:Router,private toastr:ToastrService,private _encryptionservice:EncryptionService){
   this.countries = this._countryservice.getCountries();
   
 }
@@ -193,7 +193,7 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
     this.router.paramMap.subscribe(params=>{
       this.address_id=params.get('id')
       if(this.address_id){
-        this._edituserService.Get_User_Details().subscribe({next:(User_details_res)=>{
+        this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
           this.User_address_data=User_details_res.data.addresses
           console.log("User_Details",User_details_res.data)
           console.log("User_Details",User_details_res.data.addresses)
@@ -270,7 +270,7 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
         User_address:any
         encryption_data:string
         Edit_Address(encryption_data:any){
-          this._edituserService.Edit_User_Address(this.User_Address_Add.value,encryption_data).subscribe({next:(Edit_address_res)=>{
+          this._userService.Edit_User_Address(this.User_Address_Add.value,encryption_data).subscribe({next:(Edit_address_res)=>{
             console.log("Edit_address_res",Edit_address_res)
             this.Address_btn="ADD Address"
             this.route.navigate(["/front/user/user-profile/manageaddress"])
@@ -285,7 +285,7 @@ constructor(private router:ActivatedRoute,private _edituserService:EdituserServi
 
             if(this.User_Address_Add.valid){
               console.log("this.User_Address_Add.value",this.User_Address_Add.value)
-              this._edituserService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
+              this._userService.Add_User_Address(this.User_Address_Add.value).subscribe({next:
                 (User_Address_Add_res)=>{
                   console.log("User_Address_Add_res",User_Address_Add_res)
                   

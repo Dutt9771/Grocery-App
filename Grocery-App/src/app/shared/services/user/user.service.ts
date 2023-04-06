@@ -67,7 +67,7 @@ get_customer_all_orders=environment.customers_routes.get_customer_all_orders;
   }
   Get_Customer_All_Orders(){
     try {
-      return this.http.get<any>(this.baseUrl+this.get_customer_all_orders)
+      return this.http.get<any>(this.baseUrl+this.get_customer_all_orders,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})
     } catch (error:any) {
       return throwError(() => new Error(error))
     }
