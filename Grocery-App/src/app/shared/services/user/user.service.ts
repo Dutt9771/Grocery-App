@@ -20,7 +20,7 @@ edit_address=environment.customers_routes.update_address;
 delete_address=environment.customers_routes.delete_address;
 user_details=environment.customers_routes.user_details;
 get_customer_all_orders=environment.customers_routes.get_customer_all_orders;
-
+get_order_by_id=environment.orders_routes.get_order_by_id;
   Change_Password(data:ChangePassword){
     try {
       return this.http.put<ChangePassword>(this.baseUrl+this.change_password,data)
@@ -68,6 +68,13 @@ get_customer_all_orders=environment.customers_routes.get_customer_all_orders;
   Get_Customer_All_Orders(){
     try {
       return this.http.get<any>(this.baseUrl+this.get_customer_all_orders,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*'})})
+    } catch (error:any) {
+      return throwError(() => new Error(error))
+    }
+  }
+  Get_Order_Detail_By_Id(order_id:any){
+    try {
+      return this.http.get<any>(this.baseUrl+this.get_order_by_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"order_id":order_id})})
     } catch (error:any) {
       return throwError(() => new Error(error))
     }
