@@ -224,7 +224,7 @@ for(let i=0;i<this.cart.length;i++){
     "qty": this.cart[0].quantity,
     "product_amount": this.cart[0].amount,
     "discount_type": 1,
-    "discount_amount": 0
+    "discount_amount": 10
 }]
 }
 console.log("product",this.product)
@@ -234,12 +234,12 @@ return this.product
   Checkout(){
     this.get_cart_data()
     this.data={
-      "order_date": this.dateFormat,
+      "order_date": "2023-04-06",
       "special_note": "its special",
-      "estimate_delivery_date": "2023-03-15",
+      "estimate_delivery_date": "2023-04-15",
       "sub_total": this.Subtotal(),
-      "tax_amount": this.GST,
-      "discount_amount": 0,
+      "tax_amount": this.GST.toFixed(2),
+      "discount_amount": 10,
       "total_amount": this.Total,
       "paid_amount": this.Total,
       "payment_type": 2,

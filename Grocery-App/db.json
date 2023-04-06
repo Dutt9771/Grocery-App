@@ -1,23 +1,6 @@
 {
   "cart": [
     {
-      "id": 1,
-      "title": "product-1",
-      "amount": 60,
-      "discount_type": 1,
-      "discount_amount": 0,
-      "avatar_image": "1680602125915-male.jpg",
-      "images": null,
-      "short_description": "short description 1",
-      "description": "description 1",
-      "slug": "product-1",
-      "is_active": true,
-      "deleted_at": null,
-      "createdAt": "2023-04-04T09:55:25.000Z",
-      "updatedAt": "2023-04-04T09:55:25.000Z",
-      "quantity": 6
-    },
-    {
       "id": 3,
       "title": "product-3",
       "amount": 70,
@@ -32,7 +15,7 @@
       "deleted_at": null,
       "createdAt": "2023-04-04T09:57:14.000Z",
       "updatedAt": "2023-04-04T09:57:14.000Z",
-      "quantity": 1
+      "quantity": 6
     }
   ]
 }

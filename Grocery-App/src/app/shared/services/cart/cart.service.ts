@@ -145,7 +145,7 @@ Add_Order(data:any,delivery_address_id:any,billing_address_id:any,payment_status
 }
 Get_Order_Detail_By_Id(order_id:any){
   try {
-    return this.http.post<any>(this.baseUrl+this.get_order_by_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"order_id":order_id})})
+    return this.http.get<any>(this.baseUrl+this.get_order_by_id,{headers: new HttpHeaders({'ngrok-skip-browser-warning': 'skip-browser-warning', 'Access-Control-Allow-Origin': '*',"order_id":order_id})})
   } catch (error:any) {
     return throwError(() => new Error(error))
   }
