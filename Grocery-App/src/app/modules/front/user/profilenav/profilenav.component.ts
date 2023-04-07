@@ -49,6 +49,8 @@ export class ProfilenavComponent {
     sessionStorage.removeItem('User');
     sessionStorage.removeItem('Login_User');
     sessionStorage.removeItem('Register_User')
+    sessionStorage.removeItem('User_Details')
+    
     // localStorage.removeItem('User_login_Token')
     this.cookieService.delete('User_Login_Token');  
     this.router.navigate(['front/user/login'])

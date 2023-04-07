@@ -29,8 +29,12 @@ export class CartComponent {
   data:any
   dateFormat:any
   
-  ngOnInit(){
-    
+  Customer_Id:number
+User_Details:any
+  ngOnInit() {
+    this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+    this.Customer_Id=this.User_Details.id
+    console.log("Customer_Id",this.Customer_Id)
     let date = new Date()
     var getYear = date.toLocaleString("default", { year: "numeric" });
     var getMonth = date.toLocaleString("default", { month: "2-digit" });
@@ -73,12 +77,20 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
     //   console.log(this.cartItems)
     // });
   }
- 
+  Find_Customer_Cart:any
+  Customer_Cart:any=[]
   ngAfterViewInit(){
     this.CartEmptyShow_Data()
     this._cartservice.ShowCart().subscribe((res)=>{
       this.cart=res
       console.log("cart",this.cart)
+      //       for(let i=0;i<this.cart.length;i++) {
+      //   console.log("cart[i]",this.cart[i])
+      // }
+      this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+      console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+      this.Customer_Cart=this.Find_Customer_Cart.items
+      console.log("Customer_Cart",this.Customer_Cart)
     this._cartservice.cartSubject.subscribe(res => {
       
       

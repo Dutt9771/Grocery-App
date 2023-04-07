@@ -6,6 +6,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
+import { UserService } from 'src/app/shared/services/user/user.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginComponent {
  buttonval:any
   errorMessage: string;
   user_login:any
-  constructor(private cookieService: CookieService,private authService: SocialAuthService,private toastr:ToastrService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
+  constructor(private _userService:UserService,private cookieService: CookieService,private authService: SocialAuthService,private toastr:ToastrService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
   ngOnInit() {
     // this.toastr.success('Login Successfully');
@@ -45,7 +46,15 @@ export class LoginComponent {
     });
 
   }
- 
+  Get_User_Details(){
+    this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
+      console.log("User_Details",User_details_res.data)
+      sessionStorage.setItem('User_Details',JSON.stringify(User_details_res.data))
+    },error:(User_details_error)=>{
+      console.log("Getuserdetail_error",User_details_error)
+    }})
+
+  }
 // Validation Form
   @Output() login_logout=new EventEmitter<any>()
   User_Login_Form(){
@@ -76,6 +85,7 @@ Save_User_Login(){
       this.cookieService.set('User_Login_Token', this.User_Login_Token.data.token,{ expires: 1, sameSite: 'Lax'});
       sessionStorage.setItem("Login_User",JSON.stringify(this.user_login.value))
       this.toastr.success('Login Successfully');
+      this.Get_User_Details()
       this.router.navigate(['/home'])
 
     }

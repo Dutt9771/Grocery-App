@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject, map, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, map, mergeMap, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 
@@ -32,6 +32,30 @@ get_order_by_id=environment.orders_routes.get_order_by_id
   EditCart(data:any){
     try {
       return this.http.put(this.baseurl+this.resname+'/'+data.id,data)
+    } catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+  }
+  url:any
+  items:any
+
+  AddCartUserWise(customerId: number,data:any){
+    try {
+      return this.http.get(this.baseurl+this.resname+"/"+customerId).pipe(
+        mergeMap((customer: any) => {
+          const currentItemArray = customer.items;
+          currentItemArray.push(data);
+    
+          return this.http.patch(this.baseurl+this.resname+"/"+customerId, {
+            items: currentItemArray
+          });
+        })
+      );
+
+      // this.url= `${this.baseurl}${customerId}/items`;
+      // return this.http.patch(`this.baseurl${customerId}`,{
+      //   items: [...data]
+      // })
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

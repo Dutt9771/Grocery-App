@@ -52,9 +52,15 @@ encryption(id){
     console.log("encryption_error",encryption_error)
   }})
 }
+Customer_Id:number
+User_Details:any
   ngOnInit() {
+    this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+    this.Customer_Id=this.User_Details.id
+    console.log("Customer_Id",this.Customer_Id)
     this.Showcart()
     this.encryption(this.product_id)
+    // console.log("User_Details",this.User_Details)
         console.log("Product_item",this.filteredItems)
         console.log("Product_item",this.filteredItems.title)
     
@@ -108,6 +114,7 @@ Showcart(){
     console.log("ShowCartArr",this.ShowcartArr)
     console.log("Product",product)
     this.existing_Product = this.ShowcartArr.find((Item:any) => {
+      console.log("Item",Item)
       return Item.title === product.title;
     });
     console.log("Existing Product",this.existing_Product)
@@ -122,11 +129,22 @@ Showcart(){
       this.ProductAddobj=Object.assign(this.ProductObj,this.product_quantity)
       console.log("OBJ",this.ProductAddobj)
     }
-    // let Obj_Cart={
-    //   customerId: 1,
-    //   items:[this.ProductAddobj]
+
+
+    
+    // const sampleData = {
+    //   customer_id: this.Customer_Id,
+    //   items: [
+    //   ]
     // }
-    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
+    // this._cartservice.AddCart(sampleData).subscribe(res=>{
+    //   console.log(
+    //     res
+    //     )
+    //     this._cartservice.getItemCount()
+    //     this._cartservice.Subtotal()
+    //   })
+    this._cartservice.AddCartUserWise(this.Customer_Id,this.ProductAddobj).subscribe(res=>{
       console.log(
         res
         )

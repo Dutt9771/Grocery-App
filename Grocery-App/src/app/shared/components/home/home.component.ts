@@ -3,6 +3,7 @@ import { Component, OnInit,Renderer2, ElementRef, ViewChild } from '@angular/cor
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from 'src/app/shared/Models/item';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
+import { CartService } from '../../services/cart/cart.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,8 @@ export class HomeComponent {
     private formBuilder: FormBuilder,
     private socialAuthService: SocialAuthService,
     private _ProductsService:ProductsService,
-    private renderer:Renderer2
+    private renderer:Renderer2,
+    private _cartservice:CartService
   ) {  
   }
   // loading=true;
@@ -25,10 +27,16 @@ export class HomeComponent {
   toprated:Item[]
   trendingItems:Item[]
   recentlyAdded:any
+  Customer_Id:number
+User_Details:any
   ngOnInit() {
+    this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+    this.Customer_Id=this.User_Details.id
+    console.log("Customer_Id",this.Customer_Id)
     // setTimeout(() => {
     //   this.loading=false
     // }, 1500);
+    this.Showcart()
     this.topsells=this._ProductsService.Top_Sells()
     this.toprated=this._ProductsService.Top_Rated()
     this.recentlyAdded=this._ProductsService.Recently_Added()
@@ -46,6 +54,40 @@ export class HomeComponent {
   // loginWithFacebook(): void {
   //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   // }
+
+  ShowcartArr:any=[]
+  Showcart(){
+    const sampleData = {
+      id: this.Customer_Id,
+      items: [
+      ]
+    }
+    this._cartservice.ShowCart().subscribe((res)=>{
+      this.ShowcartArr=res
+      console.log("ShowcartArr",this.ShowcartArr)
+      let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
+      console.log("FindCustomer",FindCustomer)
+      if(!FindCustomer){
+// console.log("NOt User")
+        this._cartservice.AddCart(sampleData).subscribe(res=>{
+          console.log(
+            res
+            )
+            this._cartservice.getItemCount()
+            this._cartservice.Subtotal()
+          })
+        }
+     
+     
+     
+      // for(let i=0;i<this.ShowcartArr.length;i++) {
+        
+      //   console.log("ShowcartArr[i]",this.ShowcartArr[i].customer_id)
+  
+      // }
+    })
+    // return this.ShowcartArr
+  }
   signOut(): void {
     this.socialAuthService.signOut();
   }

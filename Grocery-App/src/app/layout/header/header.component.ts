@@ -153,7 +153,8 @@ export class HeaderComponent {
       if(this.Login_User){
       sessionStorage.removeItem('User');
       sessionStorage.removeItem('Login_User');
-      sessionStorage.removeItem('Register_User')
+      sessionStorage.removeItem('Register_User');
+      sessionStorage.removeItem('User_Details')
       this.cookieService.delete('User_Login_Token');
       this.router.navigate(['front/user/login'])
       // console.log(this.email)
