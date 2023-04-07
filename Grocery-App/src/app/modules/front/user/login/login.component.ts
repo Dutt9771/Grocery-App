@@ -51,14 +51,16 @@ User_Details:any
     });
 
   }
-Get_Customer_Id(){
-  this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
-  this.Customer_Id=this.User_Details.id
-  console.log("Customer_Id",this.Customer_Id)
-  this.Showcart()
-}
+// Get_Customer_Id(){
+  
+  
+
+// }
   ShowcartArr:any=[]
   Showcart(){
+    this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+  this.Customer_Id=this.User_Details.id
+  console.log("Customer_Id",this.Customer_Id)
     const sampleData = {
       id: this.Customer_Id,
       items: [
@@ -90,16 +92,34 @@ Get_Customer_Id(){
     })
     // return this.ShowcartArr
   }
-  Get_User_Details(){
-    this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
-      console.log("User_Details",User_details_res.data)
-      sessionStorage.setItem('User_Details',JSON.stringify(User_details_res.data))
-   
-    },error:(User_details_error)=>{
-      console.log("Getuserdetail_error",User_details_error)
-    }})
+  // Get_User_Details(){
+  //     this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
+  //     console.log("User_Details",User_details_res.data)
+  //     sessionStorage.setItem('User_Details',JSON.stringify(User_details_res.data))
+  //     this.Showcart()
+  //   },error:(User_details_error)=>{
+  //     console.log("Getuserdetail_error",User_details_error)
+  //   }})
 
+  // }
+
+  Get_User_Details() {
+    return new Promise((resolve, reject) => {
+      this._userService.Get_User_Details().subscribe({
+        next: (User_details_res) => {
+          console.log("User_Details", User_details_res.data);
+          sessionStorage.setItem('User_Details', JSON.stringify(User_details_res.data));
+          this.Showcart();
+          resolve(User_details_res);
+        },
+        error: (User_details_error) => {
+          console.log("Getuserdetail_error", User_details_error);
+          reject(User_details_error);
+        }
+      });
+    });
   }
+  
 // Validation Form
   @Output() login_logout=new EventEmitter<any>()
   User_Login_Form(){
@@ -132,7 +152,7 @@ Save_User_Login(){
       sessionStorage.setItem("Login_User",JSON.stringify(this.user_login.value))
       this.toastr.success('Login Successfully');
       this.router.navigate(['/home'])
-      this.Get_Customer_Id()
+      // this.Get_Customer_Id()
 
     }
   },error:(Login_error)=>{ 

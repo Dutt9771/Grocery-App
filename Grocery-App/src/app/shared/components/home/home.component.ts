@@ -29,14 +29,13 @@ export class HomeComponent {
   recentlyAdded:any
   Customer_Id:number
 User_Details:any
-     ngOnInit(){ window.scrollTo(0,0)
-    this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
-    this.Customer_Id=this.User_Details.id
-    console.log("Customer_Id",this.Customer_Id)
+     ngOnInit(){ 
+    window.scrollTo(0,0)
+
     // setTimeout(() => {
     //   this.loading=false
     // }, 1500);
-    this.Showcart()
+
     this.topsells=this._ProductsService.Top_Sells()
     this.toprated=this._ProductsService.Top_Rated()
     this.recentlyAdded=this._ProductsService.Recently_Added()
@@ -54,7 +53,15 @@ User_Details:any
   // loginWithFacebook(): void {
   //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
   // }
-
+ngAfterViewInit(){
+  this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+    this.Customer_Id=this.User_Details.id
+    console.log("Customer_Id",this.Customer_Id)
+    // setTimeout(() => {
+    //   this.loading=false
+    // }, 1500);
+    this.Showcart()
+}
   ShowcartArr:any=[]
   Showcart(){
     const sampleData = {
@@ -71,7 +78,7 @@ User_Details:any
 // console.log("NOt User")
         this._cartservice.AddCart(sampleData).subscribe(res=>{
           console.log(
-            res
+            "sampleData Of Cart",sampleData
             )
             this._cartservice.getItemCount()
             this._cartservice.Subtotal()
