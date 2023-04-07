@@ -5,6 +5,7 @@ import { NavigationExtras, Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/shared/services/auth/auth.service';
+import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { RegisterService } from 'src/app/shared/services/register/register.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 
@@ -20,9 +21,13 @@ export class LoginComponent {
  buttonval:any
   errorMessage: string;
   user_login:any
-  constructor(private _userService:UserService,private cookieService: CookieService,private authService: SocialAuthService,private toastr:ToastrService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
+  constructor(private _cartservice:CartService,private _userService:UserService,private cookieService: CookieService,private authService: SocialAuthService,private toastr:ToastrService,private router:Router,private _RegisterService:RegisterService,private _authservice:AuthService) { }
   RegisterData:any
-  ngOnInit() {
+  Customer_Id:number
+User_Details:any
+    ngOnInit(){ 
+      window.scrollTo(0,0)
+   
     // this.toastr.success('Login Successfully');
     this.User_Login_Form()
     this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
@@ -46,10 +51,50 @@ export class LoginComponent {
     });
 
   }
+Get_Customer_Id(){
+  this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+  this.Customer_Id=this.User_Details.id
+  console.log("Customer_Id",this.Customer_Id)
+  this.Showcart()
+}
+  ShowcartArr:any=[]
+  Showcart(){
+    const sampleData = {
+      id: this.Customer_Id,
+      items: [
+      ]
+    }
+    this._cartservice.ShowCart().subscribe((res)=>{
+      this.ShowcartArr=res
+      console.log("ShowcartArr",this.ShowcartArr)
+      let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
+      console.log("FindCustomer",FindCustomer)
+      if(!FindCustomer){
+// console.log("NOt User")
+        this._cartservice.AddCart(sampleData).subscribe(res=>{
+          console.log(
+            res
+            )
+            this._cartservice.getItemCount()
+            this._cartservice.Subtotal()
+          })
+        }
+     
+     
+     
+      // for(let i=0;i<this.ShowcartArr.length;i++) {
+        
+      //   console.log("ShowcartArr[i]",this.ShowcartArr[i].customer_id)
+  
+      // }
+    })
+    // return this.ShowcartArr
+  }
   Get_User_Details(){
     this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
       console.log("User_Details",User_details_res.data)
       sessionStorage.setItem('User_Details',JSON.stringify(User_details_res.data))
+   
     },error:(User_details_error)=>{
       console.log("Getuserdetail_error",User_details_error)
     }})
@@ -83,10 +128,11 @@ Save_User_Login(){
       console.log("User_Login_Token",this.User_Login_Token.data.token)
       // localStorage.setItem("User_login_Token",JSON.stringify(this.User_Login_Token.data))
       this.cookieService.set('User_Login_Token', this.User_Login_Token.data.token,{ expires: 1, sameSite: 'Lax'});
+      this.Get_User_Details()
       sessionStorage.setItem("Login_User",JSON.stringify(this.user_login.value))
       this.toastr.success('Login Successfully');
-      this.Get_User_Details()
       this.router.navigate(['/home'])
+      this.Get_Customer_Id()
 
     }
   },error:(Login_error)=>{ 

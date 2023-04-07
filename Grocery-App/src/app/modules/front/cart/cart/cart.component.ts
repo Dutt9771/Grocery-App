@@ -31,7 +31,8 @@ export class CartComponent {
   
   Customer_Id:number
 User_Details:any
-  ngOnInit() {
+    ngOnInit(){ 
+      window.scrollTo(0,0)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
@@ -53,18 +54,7 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       //   this.cartItemCount = cart.length;
       // });
       
-      this.groupedProducts = this.cart.reduce((acc, product) => {
-        
-        const existingCategory = acc.find(group => group.category === product.category);
-        if (existingCategory) {
-          existingCategory.cart.push(product);
-          // this.groupedProducts=this.cartlength
-        } else {
-          acc.push({ category: product.category, cart: [product] });
-        }
-        return acc;
-      }, []);
-      console.log(this.groupedProducts,"groupedProducts")
+      
       
      })
     
@@ -91,6 +81,23 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       console.log("Find_Customer_Cart",this.Find_Customer_Cart)
       this.Customer_Cart=this.Find_Customer_Cart.items
       console.log("Customer_Cart",this.Customer_Cart)
+
+      // Category Wise
+      
+      this.groupedProducts = this.Customer_Cart.reduce((acc, product) => {
+        
+        const existingCategory = acc.find(group => group.category === product.category);
+        if (existingCategory) {
+          existingCategory.cart.push(product);
+          // this.groupedProducts=this.cartlength
+        } else {
+          acc.push({ category: product.category, cart: [product] });
+        }
+        return acc;
+      }, []);
+      console.log(this.groupedProducts,"groupedProducts")
+
+      // Category wise 
     this._cartservice.cartSubject.subscribe(res => {
       
       
@@ -106,7 +113,7 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   // update the cart badge count
   
   
-  
+  Customer_Index:number
   quantity=1
   Obj:any
   Subtotal_Per_Prod:any
@@ -116,13 +123,32 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
 
     if(this.groupedProducts[index].cart[productindex].quantity>1){
       this.groupedProducts[index].cart[productindex].quantity-=1  
-      this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-      // console.log("cart",this.cart)
-      this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
-        // console.log("cart in Service",cart)
-        // console.log("Product Index",productindex)
-        console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
-      })
+      
+      this._cartservice.ShowCart().subscribe((res)=>{
+        this.cart=res
+        console.log("cart",this.cart)
+        //       for(let i=0;i<this.cart.length;i++) {
+        //   console.log("cart[i]",this.cart[i])
+        // }
+        this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+        
+        this.Customer_Cart=this.Find_Customer_Cart.items
+        console.log("Customer_Cart",this.Customer_Cart)
+        
+        this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
+        console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
+        console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
+        
+        this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+        console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
+        console.log("Customer_Cart",this.Customer_Cart)
+        // this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index].items[productindex]).subscribe((cart)=>{
+        //   // console.log("cart in Service",cart)
+        //   // console.log("Product Index",productindex)
+        //   console.log("RES",res)
+        // })
+        })
       
       // console.log("Subtotal From Cart",this.Subtotal())
   
@@ -132,12 +158,31 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
    
       console.log(this.cart[productindex].amount)
       this.groupedProducts[index].cart[productindex].quantity+=1
-      this._cartservice.ShowCart().subscribe((cart)=>{
-        this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-        // console.log("cart[productindex].quantity",this.groupedProducts[index].cart[productindex].quantity)
-        this._cartservice.EditCart(this.cart[productindex]).subscribe((cart)=>{
-          console.log("cart in Service",cart)})
-        })
+      this._cartservice.ShowCart().subscribe((res)=>{
+          this.cart=res
+          console.log("cart",this.cart)
+          //       for(let i=0;i<this.cart.length;i++) {
+          //   console.log("cart[i]",this.cart[i])
+          // }
+          this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+          console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+          
+          this.Customer_Cart=this.Find_Customer_Cart.items
+          console.log("Customer_Cart",this.Customer_Cart)
+          
+          this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
+          console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
+          console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
+          
+          this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+          console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
+          
+          this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index].items[productindex]).subscribe((cart)=>{
+            // console.log("cart in Service",cart)
+            // console.log("Product Index",productindex)
+            console.log("RES",res)
+          })
+          })
         
         // this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
   
@@ -179,7 +224,8 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   let subtotal=0;
       // console.log("group",group.cart)
       for (let i=0;i<group.cart.length;i++) {
-        let itemTotal = group.cart[i].amount
+        let itemTotal = group.cart[i].amount * group.cart[i].quantity
+        // console.log("group.cart[i].amount * group.cart[i].quantity",group.cart[i].amount * group.cart[i].quantity)
         subtotal += itemTotal;
       }
       // console.log(`Subtotal for ${cart.category}: ${subtotal} ${cart.cart[0].moneyOfferPrice}`);

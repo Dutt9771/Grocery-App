@@ -54,7 +54,7 @@ encryption(id){
 }
 Customer_Id:number
 User_Details:any
-  ngOnInit() {
+     ngOnInit(){ window.scrollTo(0,0)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
@@ -180,11 +180,14 @@ Showcart(){
     this.product_quantity.quantity=this.existing_Product.quantity
     this.toastr.info('Already Added Please Go to Cart',product.name);
 
-    this._cartservice.EditCart(this.existing_Product).subscribe((cart)=>{
-      console.log("Edit Card Product",cart)
-      }
-      )}
-  
+
+      this._cartservice.EditCart(this.Customer_Id,this.existing_Product).subscribe((cart)=>{
+        // console.log("cart in Service",cart)
+        // console.log("Product Index",productindex)
+        console.log("cart",cart)
+      })
+   
+    }
   else{
     this.QuantityErrMsg="Please Enter Valid Quantity"
     this.toastr.error('Please Enter Valid Quantity');

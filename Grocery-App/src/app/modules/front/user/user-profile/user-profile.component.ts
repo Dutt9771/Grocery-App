@@ -24,7 +24,8 @@ export class UserProfileComponent implements OnInit {
   errorMessage: string;
   User_login_Token: any;
   constructor(private router: ActivatedRoute,private route:Router,private toastr:ToastrService,private _userService:UserService,private _snackBar:MatSnackBar) {}
-  ngOnInit(): void {
+    ngOnInit(){ 
+      window.scrollTo(0,0) 
     this.Get_User_Details()
     this.Edit_Profile()
 

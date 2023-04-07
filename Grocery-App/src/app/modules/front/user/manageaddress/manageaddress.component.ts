@@ -14,7 +14,8 @@ export class ManageaddressComponent {
   User_details_Obj_addresses=[]
 constructor(private _userService:UserService,private _encryptionservice:EncryptionService,private route:Router,private toastr:ToastrService){}
 User_details_Obj:any
-ngOnInit(){
+  ngOnInit(){ 
+    window.scrollTo(0,0) 
   this.Show_Address()
   this.Get_User_Details()
 

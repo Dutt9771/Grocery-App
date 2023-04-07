@@ -172,7 +172,8 @@ constructor(private router:ActivatedRoute,private _userService:UserService,priva
   Address_btn:any="ADD Address"
   Edit_address_body:any
   User_address_data:any
-  ngOnInit(){
+    ngOnInit(){ 
+      window.scrollTo(0,0)
     this.User_address_Form()
       this.country.valueChanges.subscribe((country) => {
   

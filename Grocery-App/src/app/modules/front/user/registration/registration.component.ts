@@ -169,7 +169,7 @@ export class RegistrationComponent {
 // // for Validation
 
 
-//   // ngOnInit() {
+//   //    ngOnInit(){ window.scrollTo(0,0)
 //   //   this.Register = this.fb.group({
 //   //     password: ['', [Validators.required]],
 //   //     confirm_password: ['', [Validators.required]]

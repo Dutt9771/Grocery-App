@@ -12,7 +12,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class ProductsComponent {
 constructor(private _cartservice:CartService,private productservice:ProductsService,private toastr:ToastrService){}
 filteredItems:any=[]
-ngOnInit(){
+   ngOnInit(){ window.scrollTo(0,0)
   this.GetProducts()
   // this.filteredItems=this.productservice.getProducts()
 }

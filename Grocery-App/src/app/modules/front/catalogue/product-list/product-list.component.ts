@@ -63,7 +63,7 @@ filteredItems:any=[]
     }})
   }
   categories_Path:any
-  ngOnInit() {
+     ngOnInit(){ window.scrollTo(0,0)
     this.GetProducts()
     this.route.paramMap.subscribe(params => {
       this.category_path= params.get('id');

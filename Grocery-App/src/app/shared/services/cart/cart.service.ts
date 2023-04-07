@@ -29,9 +29,9 @@ get_order_by_id=environment.orders_routes.get_order_by_id
       return throwError(()=>new Error(error))
     }
   }
-  EditCart(data:any){
+  EditCart(customer_id,data:any){
     try {
-      return this.http.put(this.baseurl+this.resname+'/'+data.id,data)
+      return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

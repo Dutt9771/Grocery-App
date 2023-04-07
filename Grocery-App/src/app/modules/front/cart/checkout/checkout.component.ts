@@ -17,7 +17,7 @@ export class CheckoutComponent {
   
   cartTotal: number;
   data:any
-    ngOnInit(): void {
+       ngOnInit(){ window.scrollTo(0,0)
       
       this.Radio_Address_Form()
       this.Get_User_Details()

@@ -59,7 +59,8 @@ constructor(private _userService:UserService,private _encryptionservice:Encrypti
   ]
   id:any
   encryption_order_id:any
-  ngOnInit(){
+    ngOnInit(){ 
+      window.scrollTo(0,0)
     this._userService.Get_Customer_All_Orders().subscribe({next:(User_all_Order_res)=>{
       console.log("User_all_Order_res",User_all_Order_res.data.orders)
       this.PastOrderArr=User_all_Order_res.data.orders

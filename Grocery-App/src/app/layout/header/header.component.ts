@@ -53,8 +53,8 @@ export class HeaderComponent {
     // }
 
 
-    ngOnInit(){
-      
+      ngOnInit(){ 
+        window.scrollTo(0,0) 
       this._cartService.currentSubtotal.subscribe((res)=>{
         this.subtotal=res
         console.log("res",res)

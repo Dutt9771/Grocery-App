@@ -40,7 +40,9 @@ export class ProfilenavComponent {
         }
       }})
   }
-  ngOnInit(){
+    ngOnInit(){ 
+      window.scrollTo(0,0) 
+      
     this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
     this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
   }

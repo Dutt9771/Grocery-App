@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class SuccessComponent {
   
   constructor(private route:Router){}
-  ngOnInit(){
+     ngOnInit(){ window.scrollTo(0,0)
     setTimeout(()=>{
       this.route.navigate(['/home'])
     },6000);

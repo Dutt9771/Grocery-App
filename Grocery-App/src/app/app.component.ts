@@ -29,7 +29,7 @@ export class AppComponent {
   LoginData:any
   cartMessage:any
   CountArr:any=[]
-  ngOnInit(){
+     ngOnInit(){ window.scrollTo(0,0)
 
       
     

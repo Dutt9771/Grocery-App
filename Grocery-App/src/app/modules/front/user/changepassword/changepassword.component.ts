@@ -14,7 +14,8 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 export class ChangepasswordComponent {
   Change_Password:any
   constructor(private route:Router,private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
-  ngOnInit(){
+    ngOnInit(){ 
+      window.scrollTo(0,0) 
     // this.toastr.success('Change Password Successfully');
 
     this.Change_Password_Form()

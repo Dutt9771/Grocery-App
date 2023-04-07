@@ -29,7 +29,7 @@ export class HomeComponent {
   recentlyAdded:any
   Customer_Id:number
 User_Details:any
-  ngOnInit() {
+     ngOnInit(){ window.scrollTo(0,0)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
