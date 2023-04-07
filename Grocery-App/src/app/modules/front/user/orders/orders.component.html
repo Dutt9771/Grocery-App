@@ -24,17 +24,24 @@
               <span>{{arr.item}} Item</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <!-- <div *ngFor="let Order of Order_data[i]">
-            <div *ngFor="let item of Order.order_items  ">
-
-              {{item.product_name}}
-              {{item.id}}
-            </div>
-          </div> -->
-          <div *ngFor="let item of arr.order_items">
+          <table >
+            <tr>
+              <th>No.</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Product Amount</th>
+              <th>Discount Amount</th>
+            </tr>
+            <tr *ngFor="let item of arr.order_items;let i=index">
+              <td>{{i}}</td>
+              <td>{{item.product_name}}</td>
+              <td>{{item.qty}}</td>
+              <td>{{item.product_amount}}</td>
+              <td>{{item.discount_amount}}</td>
+            </tr>
+          </table>
+          <div >
             
-              {{item.product_name}}
-              {{item.id}}
             
           </div>
 

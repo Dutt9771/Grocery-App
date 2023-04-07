@@ -102,6 +102,7 @@ DelectProduct(){
    
      this._cartService.DelectProduct(this.cart[i].id).subscribe((res)=>{
        console.log("Deleted Items",res)
+       this._cartService.getItemCount()
    })
     }
     console.log("Cart Items",this.cart)
@@ -140,7 +141,7 @@ if(this.Login_User){
       this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
         console.log("Get_OrderById_res",Get_OrderById_res)
         this.DelectProduct()
-        this._cartService.getItemCount()
+
         this.route.navigate(['/front/cart/success'])
         },error:(Get_Order_error)=>{
           console.log("Get_Order_error",Get_Order_error)

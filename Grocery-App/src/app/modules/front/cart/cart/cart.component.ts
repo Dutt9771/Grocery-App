@@ -213,26 +213,28 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
     
    
   }
-  product:any=[]
+  product:any
+  ProductArr=[]
   get_cart_data(){
-for(let i=0;i<this.cart.length;i++){
-
- 
-  this.product=[{
+    for(let i=0;i<this.cart.length;i++){
+      console.log("Cart Length",this.cart.length)
+ console.log("this.cart.length")
+  this.product={
     "product_id":  this.cart[i].id,
     "product_name": this.cart[i].title,
     "qty": this.cart[i].quantity,
     "product_amount": this.cart[i].amount,
     "discount_type": 1,
     "discount_amount": 10
-}]
 }
-console.log("product",this.product)
-return this.product
+  this.ProductArr.push(this.product)
+}
+
+console.log("ProductArr",this.ProductArr)
+return this.ProductArr
   }
 
   Checkout(){
-    this.get_cart_data()
     this.data={
       "order_date": "2023-04-06",
       "special_note": "its special",
