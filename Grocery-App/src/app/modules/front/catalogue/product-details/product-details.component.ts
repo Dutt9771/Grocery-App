@@ -87,6 +87,7 @@ encryption(id){
         }
     }
     product_quantity={
+      customer_id:3,
       quantity:this.quantity,
     }
     
@@ -121,6 +122,10 @@ Showcart(){
       this.ProductAddobj=Object.assign(this.ProductObj,this.product_quantity)
       console.log("OBJ",this.ProductAddobj)
     }
+    // let Obj_Cart={
+    //   customerId: 1,
+    //   items:[this.ProductAddobj]
+    // }
     this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
       console.log(
         res

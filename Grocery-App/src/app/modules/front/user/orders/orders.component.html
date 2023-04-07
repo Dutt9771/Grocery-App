@@ -33,16 +33,14 @@
               <th>Discount Amount</th>
             </tr>
             <tr *ngFor="let item of arr.order_items;let i=index">
-              <td>{{i}}</td>
+              <td>{{i+1}}</td>
               <td>{{item.product_name}}</td>
               <td>{{item.qty}}</td>
               <td>{{item.product_amount}}</td>
               <td>{{item.discount_amount}}</td>
             </tr>
           </table>
-          <div >
-            
-            
+          <div>
           </div>
 
         </mat-expansion-panel>
