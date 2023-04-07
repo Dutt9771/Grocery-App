@@ -18,6 +18,7 @@ export class CheckoutComponent {
   cartTotal: number;
   data:any
     ngOnInit(): void {
+      
       this.Radio_Address_Form()
       this.Get_User_Details()
       this.data=this._cartService.Cartdata
@@ -92,6 +93,23 @@ Radio_Address_Form(){
 get get_Address_Form(){
   return this.Address.controls
 }
+cart:any
+DelectProduct(){
+  this._cartService.ShowCart().subscribe((res)=>{
+    this.cart=res
+    for(let i=0;i<this.cart.length;i++){
+     console.log("this.cart[i].id",this.cart[i].id)
+   
+     this._cartService.DelectProduct(this.cart[i].id).subscribe((res)=>{
+       console.log("Deleted Items",res)
+   })
+    }
+    console.log("Cart Items",this.cart)
+  })
+      
+
+
+}
 
 Place_Order(){
   // this.payment_status=this.encryption(this.status)
@@ -121,6 +139,8 @@ if(this.Login_User){
      
       this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
         console.log("Get_OrderById_res",Get_OrderById_res)
+        this.DelectProduct()
+        this._cartService.getItemCount()
         this.route.navigate(['/front/cart/success'])
         },error:(Get_Order_error)=>{
           console.log("Get_Order_error",Get_Order_error)

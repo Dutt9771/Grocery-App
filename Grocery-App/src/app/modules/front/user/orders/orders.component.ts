@@ -10,7 +10,8 @@ import { UserService } from 'src/app/shared/services/user/user.service';
   styleUrls: ['./orders.component.css']
 })
 export class OrdersComponent {
-  panelOpenState = false;
+  panelOpenState = false
+loading=true
 constructor(private _userService:UserService,private _encryptionservice:EncryptionService,private toastr:ToastrService){}
   PastOrderArr=[
     // {
@@ -65,7 +66,8 @@ constructor(private _userService:UserService,private _encryptionservice:Encrypti
       // console.log("this.PastOrderArr[0].id",this.PastOrderArr[0].id)
       // this.id=this.PastOrderArr[18].id
       // encryption(id)
-      for(let i=0;i<=this.PastOrderArr.length;i++){
+     
+      for(let i=0;i<this.PastOrderArr.length;i++){
         this.encryption(this.PastOrderArr[i].id)
       }
     },error:(User_all_Order_error)=>{
@@ -73,6 +75,10 @@ constructor(private _userService:UserService,private _encryptionservice:Encrypti
     }})
     // JSON.stringify(this.Add_Order_Response_Data)
     
+  }
+
+  Open_Panel(id:any){
+    console.log("Clickecd ",id)
   }
   Order_data:any=[]
   filter_Order:any

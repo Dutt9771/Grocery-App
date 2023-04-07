@@ -219,10 +219,10 @@ for(let i=0;i<this.cart.length;i++){
 
  
   this.product=[{
-    "product_id":  this.cart[0].id,
-    "product_name": this.cart[0].title,
-    "qty": this.cart[0].quantity,
-    "product_amount": this.cart[0].amount,
+    "product_id":  this.cart[i].id,
+    "product_name": this.cart[i].title,
+    "qty": this.cart[i].quantity,
+    "product_amount": this.cart[i].amount,
     "discount_type": 1,
     "discount_amount": 10
 }]

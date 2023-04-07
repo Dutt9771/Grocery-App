@@ -13,9 +13,11 @@ export class ProfilenavComponent {
   Title:string="Edit Profile"
   Register_User: any;
   currentPath:any
+
   constructor(private router:Router,private toastr:ToastrService,private cookieService: CookieService) {
     // this.currentPath = this.router.url;
     this.CheckPath()
+
   }
   
   CheckPath(){
