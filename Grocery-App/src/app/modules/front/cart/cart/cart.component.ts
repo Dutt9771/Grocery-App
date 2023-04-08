@@ -119,9 +119,9 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   quantity=1
   Obj:any
   Subtotal_Per_Prod:any
-  quantitymin(index,productindex){
+  quantitymin(index:any,productindex:any){
     // console.log("Quantity",this.groupedProducts[index].cart[productindex].quantity);
-    console.log(this.cart[productindex].amount)
+    // console.log(this.cart[productindex].amount)
 
     if(this.groupedProducts[index].cart[productindex].quantity>1){
       this.groupedProducts[index].cart[productindex].quantity-=1  

@@ -17,7 +17,13 @@ export class CheckoutComponent {
   
   cartTotal: number;
   data:any
-       ngOnInit(){ window.scrollTo(0,0)
+  Customer_Id:number
+  User_Details:any
+      ngOnInit(){ 
+        window.scrollTo(0,0)
+      this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+      this.Customer_Id=this.User_Details.id
+      console.log("Customer_Id",this.Customer_Id)
       
       this.Radio_Address_Form()
       this.Get_User_Details()
@@ -28,6 +34,8 @@ export class CheckoutComponent {
         this.cartTotal = total;
       });
       console.log("data",this.data)
+      
+      
   }
 
 address: any;
@@ -94,23 +102,65 @@ get get_Address_Form(){
   return this.Address.controls
 }
 cart:any
+Find_Customer_Cart:any
+Showcart(){
+  const sampleData = {
+    id: this.Customer_Id,
+    items: [
+    ]
+  }
+     
+      let FindCustomer=this.cart.find((item)=>item.id=== this.Customer_Id)
+      // console.log("FindCustomer",FindCustomer)
+        if(!FindCustomer){
+  // console.log("NOt User")
+          this._cartService.AddCart(sampleData).subscribe(res=>{
+            console.log(
+              "sampleData Of Cart",sampleData
+              )
+              this._cartService.getItemCount()
+              this._cartService.Subtotal()
+            })
+          }
+}
 DelectProduct(){
+
   this._cartService.ShowCart().subscribe((res)=>{
     this.cart=res
-    for(let i=0;i<this.cart.length;i++){
-     console.log("this.cart[i].id",this.cart[i].id)
-   
-     this._cartService.DelectProduct(this.cart[i].id).subscribe((res)=>{
-       console.log("Deleted Items",res)
-       this._cartService.getItemCount()
-   })
+    console.log("cart",this.cart)
+
+  this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+      let Empty_Cart=[]
+      this._cartService.DelectProduct(this.Customer_Id).subscribe((res)=>{
+        //        console.log("Deleted Items",res)
+        //        this._cartService.getItemCount()
+        
+           })
+      // }
+      this.Showcart()
+          })
     }
-    console.log("Cart Items",this.cart)
-  })
+
+// DelectProduct(){
+//   this._cartService.ShowCart().subscribe((res)=>{
+//     this.cart=res
+
+
+//     for(let i=0;i<this.cart.length;i++){
+//      console.log("this.cart[i].id",this.cart[i].id)
+   
+//      this._cartService.DelectProduct(this.cart[i].id).subscribe((res)=>{
+//        console.log("Deleted Items",res)
+//        this._cartService.getItemCount()
+//    })
+//     }
+//     console.log("Cart Items",this.cart)
+//   })
       
 
 
-}
+// }
 
 Place_Order(){
   // this.payment_status=this.encryption(this.status)

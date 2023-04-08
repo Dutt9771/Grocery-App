@@ -78,7 +78,7 @@ get_order_by_id=environment.orders_routes.get_order_by_id
 
   DelectProduct(id:any){
     try {
-      return this.http.delete(`http://localhost:3000/cart/34/items/7`)
+      return this.http.delete(this.baseurl+this.resname+'/'+id)
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

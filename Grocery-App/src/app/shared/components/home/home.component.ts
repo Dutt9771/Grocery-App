@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Item } from 'src/app/shared/Models/item';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 import { CartService } from '../../services/cart/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,6 +20,7 @@ export class HomeComponent {
     private socialAuthService: SocialAuthService,
     private _ProductsService:ProductsService,
     private renderer:Renderer2,
+    private router:Router,
     private _cartservice:CartService
   ) {  
   }
@@ -72,28 +74,34 @@ ngAfterViewInit(){
     this._cartservice.ShowCart().subscribe((res)=>{
       this.ShowcartArr=res
       console.log("ShowcartArr",this.ShowcartArr)
-      let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
-      console.log("FindCustomer",FindCustomer)
-      if(!FindCustomer){
-// console.log("NOt User")
-        this._cartservice.AddCart(sampleData).subscribe(res=>{
-          console.log(
-            "sampleData Of Cart",sampleData
-            )
-            this._cartservice.getItemCount()
-            this._cartservice.Subtotal()
-          })
-        }
-     
-     
-     
-      // for(let i=0;i<this.ShowcartArr.length;i++) {
-        
-      //   console.log("ShowcartArr[i]",this.ShowcartArr[i].customer_id)
-  
-      // }
+      
     })
-    // return this.ShowcartArr
+    this.router.events.subscribe((res:any)=>{
+      if(res.url){
+        
+        let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
+        // console.log("FindCustomer",FindCustomer)
+          if(!FindCustomer){
+    // console.log("NOt User")
+            this._cartservice.AddCart(sampleData).subscribe(res=>{
+              console.log(
+                "sampleData Of Cart",sampleData
+                )
+                this._cartservice.getItemCount()
+                this._cartservice.Subtotal()
+              })
+            }
+         
+         
+         
+          // for(let i=0;i<this.ShowcartArr.length;i++) {
+            
+          //   console.log("ShowcartArr[i]",this.ShowcartArr[i].customer_id)
+      
+          // }
+        }
+      })
+      // return this.ShowcartArr
   }
   signOut(): void {
     this.socialAuthService.signOut();
