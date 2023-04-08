@@ -157,8 +157,9 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   }
   }
   quantitymax(index,productindex){
-   
-      console.log(this.cart[productindex].amount)
+    
+    console.log("index==>",index,"  product index==>",productindex)
+      // console.log(this.cart[productindex].amount)
       this.groupedProducts[index].cart[productindex].quantity+=1
       this._cartservice.ShowCart().subscribe((res)=>{
           this.cart=res
@@ -178,6 +179,8 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
           
           this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
           console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
+          console.log("cart[productindex]",this.cart[this.Customer_Index])
+          console.log("cart[productindex]",this.cart[this.Customer_Index])
           
           this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
             // console.log("cart in Service",cart)
@@ -248,42 +251,51 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
 
   DelectProduct(id:any,index:any,productindex:any,product){
     
-      
-      this.clickedItem= this.filteredItems[id]
+//       this.clickedItem= this.filteredItems[id]
+// console.log("ID",id)
+// console.log("this.filteredItems[id]",this.filteredItems[id])
+//       this._cartservice.DelectProduct(id).subscribe((res)=>{
+//         if (res) {
+//           console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
+//           this._cartservice.ShowCart().subscribe((res)=>{
+//             console.log("res",res) 
+//             this.cartItemCount=res
+//             // this.Cartlength=this.cartItemCount.length
+//             this._cartservice.cartItemCount$.next(this.cartItemCount.length);
+//           })
+//           this._cartservice.getItemCount()
+//         this.toastr.success('Remove to cart',product.name);
 
-      this._cartservice.DelectProduct(id).subscribe((res)=>{
-        if (res) {
-          console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
-          this._cartservice.ShowCart().subscribe((res)=>{
-            console.log("res",res) 
-            this.cartItemCount=res
-            // this.Cartlength=this.cartItemCount.length
-            this._cartservice.cartItemCount$.next(this.cartItemCount.length);
-          })
-          this._cartservice.getItemCount()
-        this.toastr.success('Remove to cart',product.name);
-
-      return this.groupedProducts[index].cart.splice(productindex,1)
+//       return this.groupedProducts[index].cart.splice(productindex,1)
 
         
-      }
-      this.Subtotal()
+      // }
+      // console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
+      // this.Find_Customer_Cart.items.splice(productindex,1)
+      this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
+        // console.log("cart in Service",cart)
+        // console.log("Product Index",productindex)
+        console.log("cart",cart)
+        this.Subtotal()
+        // return this.groupedProducts
+      })
+      return this.groupedProducts[index].cart.splice(productindex,1)
  
-    })
+    // })
     
    
   }
   product:any
   ProductArr=[]
   get_cart_data(){
-    for(let i=0;i<this.cart.length;i++){
-      console.log("Cart Length",this.cart.length)
- console.log("this.cart.length")
+    for(let i=0;i<this.Find_Customer_Cart.items.length;i++){
+      console.log("Cart Length",this.Find_Customer_Cart.items.length)
+//  console.log("this.cart.length")
   this.product={
-    "product_id":  this.cart[i].id,
-    "product_name": this.cart[i].title,
-    "qty": this.cart[i].quantity,
-    "product_amount": this.cart[i].amount,
+    "product_id":  this.Find_Customer_Cart.items[i].id,
+    "product_name": this.Find_Customer_Cart.items[i].title,
+    "qty": this.Find_Customer_Cart.items[i].quantity,
+    "product_amount": this.Find_Customer_Cart.items[i].amount,
     "discount_type": 1,
     "discount_amount": 10
 }

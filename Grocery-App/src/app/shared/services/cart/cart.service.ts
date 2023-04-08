@@ -36,6 +36,14 @@ get_order_by_id=environment.orders_routes.get_order_by_id
       return throwError(()=>new Error(error))
     }
   }
+  DeletCart_Using_Put(customer_id,data:any,index){
+    try {
+      data.items.splice(index,1)
+      return this.http.put(this.baseurl+this.resname+'/'+customer_id,data)
+    } catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+  }
   url:any
   items:any
 
@@ -70,7 +78,7 @@ get_order_by_id=environment.orders_routes.get_order_by_id
 
   DelectProduct(id:any){
     try {
-      return this.http.delete(this.baseurl+this.resname+'/'+id)
+      return this.http.delete(`http://localhost:3000/cart/34/items/7`)
     } catch (error:any) {
       return throwError(()=>new Error(error))
     }

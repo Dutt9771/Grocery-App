@@ -12,7 +12,14 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class ProductsComponent {
 constructor(private _cartservice:CartService,private productservice:ProductsService,private toastr:ToastrService){}
 filteredItems:any=[]
-   ngOnInit(){ window.scrollTo(0,0)
+Customer_Id: number;
+User_Details: any;
+categories_Path: any;
+ngOnInit() {
+  window.scrollTo(0, 0);
+  this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
+  this.Customer_Id = this.User_Details.id;
+  console.log('Customer_Id', this.Customer_Id);
   this.GetProducts()
   // this.filteredItems=this.productservice.getProducts()
 }
@@ -21,9 +28,15 @@ filteredItems:any=[]
   clickedItem:any=[]
   ShowcartArr:any=[]
   existing_Product:any
-  Showcart(){
+  Find_Customer_Cart:any
+  Find_Customer_Cart_Arr:any=[]
+  Showcart() {
     this._cartservice.ShowCart().subscribe((res)=>{
       this.ShowcartArr=res
+      this.Find_Customer_Cart=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
+      console.log("Find Customer",this.Find_Customer_Cart)
+      this.Find_Customer_Cart_Arr=this.Find_Customer_Cart.items
+      console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
     })
     console.log("ShowcartArr",this.ShowcartArr)
     return this.ShowcartArr
@@ -46,9 +59,9 @@ filteredItems:any=[]
 
     console.log("ShowCartArr",this.ShowcartArr)
     console.log("Product",product)
-    this.existing_Product = this.ShowcartArr.find((Item:any) => {
-      return Item.title === product.title;
-    });
+    this.existing_Product=this.Find_Customer_Cart_Arr.find((item)=>item.title.toLowerCase()===product.title.toLowerCase())
+    console.log("Existing Product",this.existing_Product)
+    
     console.log("Existing Product",this.existing_Product)
     if(!this.existing_Product){
     console.log("id",i)
@@ -72,21 +85,22 @@ filteredItems:any=[]
      // emit updated cart data to subscribers
      this._cartservice.cartSubject.next(this._cartservice.cart);
 
-    this._cartservice.AddCart(this.ProductAddobj).subscribe(res=>{
-      console.log(
-        res
-      )  
-      this.toastr.success('Added to cart',product.name);
-      this._cartservice.getItemCount()
-      this._cartservice.Subtotal()
-    })  
+     this._cartservice
+     .AddCartUserWise(this.Customer_Id, this.ProductAddobj)
+     .subscribe((res) => {
+       console.log(res);
+       this.toastr.success('Added to cart', product.title);
+       this.Showcart();
+       this._cartservice.getItemCount();
+       this._cartservice.Subtotal();
+     });  
 
  
 
     
   }else{
     this._cartservice.cartmsg="Item Already";
-    this.toastr.info('Already Added Please Go to Cart',product.name);
+    this.toastr.info('Already Added Please Go to Cart',product.title);
 
     // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
   }

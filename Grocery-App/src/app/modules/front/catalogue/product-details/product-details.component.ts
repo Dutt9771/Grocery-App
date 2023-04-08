@@ -1,3 +1,4 @@
+import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
@@ -21,7 +22,7 @@ export class ProductDetailsComponent {
   category_path:any
   product_name:any
   product_id:any
-constructor(private _encryptionservice:EncryptionService,private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
+    constructor(private _encryptionservice:EncryptionService,private router:ActivatedRoute,private _productsservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
   this.router.paramMap.subscribe(params=>{
     this.product_id=params.get('id')
     this.product_name=params.get('slug')
@@ -54,7 +55,12 @@ encryption(id){
 }
 Customer_Id:number
 User_Details:any
-     ngOnInit(){ window.scrollTo(0,0)
+ngOnInit() {
+  this.route.events.subscribe((res:any)=>{
+  if(res.url){
+    window.scrollTo(0, 0);
+  }
+})
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
@@ -62,36 +68,36 @@ User_Details:any
     this.encryption(this.product_id)
     // console.log("User_Details",this.User_Details)
         console.log("Product_item",this.filteredItems)
-        console.log("Product_item",this.filteredItems.title)
-    
+        console.log("Product_item",this.filteredItems)
+     
   }
 
   value:any
   x:any
-  quantitymax(){
-      this.product_quantity.quantity+=1
+  // quantitymax(){
+  //     this.product_quantity.quantity+=1
      
 
-      this.filteredItems[0].amount=this.value
-      console.log(this.filteredItems[0].amount)
+  //     this.filteredItems[0].amount=this.value
+  //     console.log(this.filteredItems[0].amount)
       
     
-    this.x= this.value* this.product_quantity.quantity;
+  //   this.x= this.value* this.product_quantity.quantity;
   
-    }
-    quantitymin(){
-      if(this.product_quantity.quantity>1){
-        // console.log(this.product_quantity.quantity)
-        this.product_quantity.quantity-=1
-        this.value/=this.product_quantity.quantity;
-          for(let i=0;i<this.filteredItems.length;i++){
+  //   }
+  //   quantitymin(){
+  //     if(this.product_quantity.quantity>1){
+  //       // console.log(this.product_quantity.quantity)
+  //       this.product_quantity.quantity-=1
+  //       this.value=this.product_quantity.quantity;
+  //         for(let i=0;i<this.filteredItems.length;i++){
     
-            this.filteredItems[i].amount=this.filteredItems[i].amount/(this.product_quantity.quantity)
-            this.ProductObj=this.filteredItems[i]
+  //           this.filteredItems[i].amount=this.filteredItems[i].amount/(this.product_quantity.quantity)
+  //           this.ProductObj=this.filteredItems[i]
             
-          }
-        }
-    }
+  //         }
+  //       }
+  //   }
     product_quantity={
       customer_id:3,
       quantity:this.quantity,
@@ -102,22 +108,40 @@ ProductAddobj:any;
 Product_Count_Obj:any=[]
 QuantityErrMsg:string=''
 existing_Product:any=[]
+Find_Customer_Cart_Arr:any
 Showcart(){
   this._cartservice.ShowCart().subscribe((res)=>{
     this.ShowcartArr=res
+    this.Find_Customer_Cart=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
+    console.log("Find Customer",this.Find_Customer_Cart)
+    this.Find_Customer_Cart_Arr=this.Find_Customer_Cart.items
+    console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
   })
   console.log("ShowcartArr",this.ShowcartArr)
   return this.ShowcartArr
 }
-  Add_cart(product){
+product_Existing:any
+Find_Customer_Cart:any
+
+  Add_cart(product:any){
+  
+      console.log("ShowCartArr",this.ShowcartArr)
+      console.log("Product",product)
     
-    console.log("ShowCartArr",this.ShowcartArr)
-    console.log("Product",product)
-    this.existing_Product = this.ShowcartArr.find((Item:any) => {
-      console.log("Item",Item)
-      return Item.title === product.title;
-    });
-    console.log("Existing Product",this.existing_Product)
+      this.existing_Product=this.Find_Customer_Cart_Arr.find((item)=>item.title.toLowerCase()===product.title.toLowerCase())
+      console.log("Existing Product",this.existing_Product)
+    
+// for(let i=0;i<this.Find_Customer_Cart_Arr.length;i++){
+//   if(this.Find_Customer_Cart_Arr[i].id==product.id){
+//     this.existing_Product=this.Find_Customer_Cart.items[i]
+//     console.log("this.Find_Customer_Cart.items[i]",this.Find_Customer_Cart.items[i].id)
+//     console.log("this.Find_Customer_Cart.items[i]",this.Find_Customer_Cart.items[i])
+//     console.log("this.existing_Product",this.existing_Product)
+//   }
+// }
+
+
+    
     if(this.product_quantity.quantity>0 && !this.existing_Product){
       console.log("Show Cart Arr",this.ShowcartArr)
       
@@ -130,7 +154,15 @@ Showcart(){
       console.log("OBJ",this.ProductAddobj)
     }
 
-
+    this._cartservice.AddCartUserWise(this.Customer_Id,this.ProductAddobj).subscribe(res=>{
+      console.log(
+        res
+        )
+    this.Showcart()
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
+      })
+    
     
     // const sampleData = {
     //   customer_id: this.Customer_Id,
@@ -144,13 +176,6 @@ Showcart(){
     //     this._cartservice.getItemCount()
     //     this._cartservice.Subtotal()
     //   })
-    this._cartservice.AddCartUserWise(this.Customer_Id,this.ProductAddobj).subscribe(res=>{
-      console.log(
-        res
-        )
-        this._cartservice.getItemCount()
-        this._cartservice.Subtotal()
-      })
 
     
 
@@ -168,20 +193,31 @@ Showcart(){
     
 
     // emit updated cart data to subscribers
-
     // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
-    this.toastr.success(' Added to cart',product.name);
+    this.toastr.success(' Added to cart',product.title);
 
     
   }else if(this.existing_Product){
     this.QuantityErrMsg="Product Is Existing"
+for(let i=0;i<this.Find_Customer_Cart.items.length;i++){
+  this.Find_Customer_Cart.items[i]
+  if(this.Find_Customer_Cart.items[i]==product){
+    this.Find_Customer_Cart.items[i].quantity=this.Find_Customer_Cart.items[i].quantity+1
+    this.product_quantity.quantity=this.Find_Customer_Cart.items[i].quantity
+
+    console.log("this.Find_Customer_Cart.items[i]",product)
+    console.log("this.Find_Customer_Cart.items[i].quantity",this.Find_Customer_Cart.items[i].quantity)
+    console.log("this.product_quantity.quantity",this.product_quantity.quantity)
+  }
+}    
+console.log("Find_Customer_Cart",this.Find_Customer_Cart)
 
     this.existing_Product.quantity=this.existing_Product.quantity+1;
     this.product_quantity.quantity=this.existing_Product.quantity
-    this.toastr.info('Already Added Please Go to Cart',product.name);
+    this.toastr.info('Already Added Please Go to Cart',product.title);
 
 
-      this._cartservice.EditCart(this.Customer_Id,this.existing_Product).subscribe((cart)=>{
+      this._cartservice.EditCart(this.Customer_Id,this.Find_Customer_Cart).subscribe((cart)=>{
         // console.log("cart in Service",cart)
         // console.log("Product Index",productindex)
         console.log("cart",cart)

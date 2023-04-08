@@ -205,3 +205,34 @@ export class AppComponent {
 In this example, the `AppComponent` injects the `CartService`. When the "Add to Cart" button is clicked, the `addToCart()` method is called and adds a sample item to the cart for the customer with ID `1`.
 
 Note: For simplicity, this example assumes that there is only one customer in the `cart` array. In practice, you would need to modify the `addItemToCart()` and `getCartByCustomerId()` methods to handle multiple customers appropriately.
+
+
+
+
+{
+  "cart": [
+    {
+      "customer_id":1,
+      "items":[{
+      "id": 1,
+      "name": "Item 1",
+      "price": 10.99
+    },
+    {
+      "id": 2,
+      "name": "Item 2",
+      "price": 19.99
+    },
+    {
+      "id": 3,
+      "name": "Item 3",
+      "price": 8.49
+    },
+    {
+      "id": 4,
+      "name": "Item 4",
+      "price": 15.00
+    }]
+    }
+  ]
+}
