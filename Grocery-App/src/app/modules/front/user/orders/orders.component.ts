@@ -13,57 +13,16 @@ export class OrdersComponent {
   panelOpenState = false
 loading=true
 constructor(private _userService:UserService,private _encryptionservice:EncryptionService,private toastr:ToastrService){}
-  PastOrderArr=[
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:"I'm visible because I am open"
-    // },
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:"I'm visible because I am open"
-    // },
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:"I'm visible because I am open"
-    // },
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:"I'm visible because I am open"
-    // },
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:""
-    // },
-    // {
-    //   day:"12 March,Sun",
-    //   time:"8:30 AM - 12:30 PM",
-    //   order_amount:162,
-    //   item:2,
-    //   product_details:"I'm visible because I am open"
-    // },
-  ]
+  PastOrderArr=[]
   id:any
   encryption_order_id:any
+  username:any
     ngOnInit(){ 
       window.scrollTo(0,0)
     this._userService.Get_Customer_All_Orders().subscribe({next:(User_all_Order_res)=>{
       console.log("User_all_Order_res",User_all_Order_res.data.orders)
       this.PastOrderArr=User_all_Order_res.data.orders
+      this.username=User_all_Order_res.data.username
       // console.log("this.PastOrderArr[0].id",this.PastOrderArr[0].id)
       // this.id=this.PastOrderArr[18].id
       // encryption(id)

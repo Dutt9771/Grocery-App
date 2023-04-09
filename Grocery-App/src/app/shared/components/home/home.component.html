@@ -81,14 +81,20 @@
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="name-container">{{ item.name }}</div>
-                  <span [innerHTML]="getStar(item.rating)" (click)="setRating(i, 5)"></span>
-                  <div class="star-rating">
+                  <!-- <div class="star-rating">
                     <i (click)="rate(1)" [class]="rating >= 1 ? 'fas fa-star' : 'far fa-star'"></i>
                     <i (click)="rate(2)" [class]="rating >= 2 ? 'fas fa-star' : 'far fa-star'"></i>
                     <i (click)="rate(3)" [class]="rating >= 3 ? 'fas fa-star' : 'far fa-star'"></i>
                     <i (click)="rate(4)" [class]="rating >= 4 ? 'fas fa-star' : 'far fa-star'"></i>
                     <i (click)="rate(5)" [class]="rating >= 5 ? 'fas fa-star' : 'far fa-star'"></i>
-                  </div>
+                  </div> -->
+                  <ul class="card-body rating" data-mdb-toggle="rating">
+                    <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                    <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                    <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                    <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                    <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                    </ul>
                 <div class="details">{{ item.price | currency}}</div>
               </div>
             </div>
@@ -116,7 +122,7 @@
                     <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
                     <i class="fas fa-star fa-sm text-primary" title="OK"></i>
                     <i class="fas fa-star fa-sm text-primary" title="Good"></i>
-                    <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                    <i class="fas fa-star fa-sm text-primary" title="Excellent"></i>
                     </ul>
                 <div class="details">{{ item.price | currency}}</div>
               </div>
@@ -140,13 +146,13 @@
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="name-container">{{ item.name }}</div>
-                <div class="star-rating">
-                  <i (click)="rate(1)" [class]="rating >= 1 ? 'fas fa-star' : 'far fa-star'"></i>
-                  <i (click)="rate(2)" [class]="rating >= 2 ? 'fas fa-star' : 'far fa-star'"></i>
-                  <i (click)="rate(3)" [class]="rating >= 3 ? 'fas fa-star' : 'far fa-star'"></i>
-                  <i (click)="rate(4)" [class]="rating >= 4 ? 'fas fa-star' : 'far fa-star'"></i>
-                  <i (click)="rate(5)" [class]="rating >= 5 ? 'fas fa-star' : 'far fa-star'"></i>
-                </div>
+                <ul class="card-body rating" data-mdb-toggle="rating">
+                  <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                  <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                  </ul>
                 <div class="details">{{ item.price | currency}}</div>
               </div>
             </div>
@@ -169,13 +175,13 @@
               </div>
               <div class="flex-grow-1 ms-3">
                 <div class="name-container">{{ item.name }}</div>
-                <ul #cardBody class="card-body rating" (click)="changeProductRating($event, item.productId)">
-                  <i class="fas fa-star fa-sm" [ngClass]="{'text-primary': selectedProductRating[item.productId]==='Bad'}" title="Bad"></i>
-                  <i class="fas fa-star fa-sm" [ngClass]="{'text-primary': selectedProductRating[item.productId]==='Poor'}" title="Poor"></i>
-                  <i class="fas fa-star fa-sm" [ngClass]="{'text-primary': selectedProductRating[item.productId]==='OK'}" title="OK"></i>
-                  <i class="fas fa-star fa-sm" [ngClass]="{'text-primary': selectedProductRating[item.productId]==='Good'}" title="Good"></i>
-                  <i class="far fa-star fa-sm" [ngClass]="{'text-primary': selectedProductRating[item.productId]==='Excellent'}" title="Excellent"></i>
-                </ul>
+                <ul class="card-body rating" data-mdb-toggle="rating">
+                  <i class="fas fa-star fa-sm text-primary" title="Bad"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="Poor"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="OK"></i>
+                  <i class="fas fa-star fa-sm text-primary" title="Good"></i>
+                  <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
+                  </ul>
                 <div class="details">{{ item.price | currency}}</div>
               </div>
             </div>

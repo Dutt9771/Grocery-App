@@ -5,12 +5,13 @@ import { CartComponent } from './cart/cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { SuccessComponent } from './success/success.component';
 import { AuthUserGuard } from 'src/app/shared/guard/auth-user.guard';
+import { AuthCheckoutGuard } from 'src/app/shared/guard/auth-checkout.guard';
 
 const routes: Routes = [
   {path:'',redirectTo:'cart',pathMatch:'full'},
   {path:'cart',component:CartComponent},
-  {path:'checkout',component:CheckoutComponent,canActivate:[AuthUserGuard]},
-  {path:'success',component:SuccessComponent,canActivate:[AuthUserGuard]},
+  {path:'checkout',component:CheckoutComponent,canActivate:[AuthUserGuard,AuthCheckoutGuard]},
+  {path:'success',component:SuccessComponent,canActivate:[AuthUserGuard,AuthCheckoutGuard]},
   {path:'**',component:ErrorPageComponent}
 
 ];
@@ -18,6 +19,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[AuthUserGuard]
+  providers:[AuthUserGuard,AuthCheckoutGuard]
 })
 export class CartRoutingModule { }

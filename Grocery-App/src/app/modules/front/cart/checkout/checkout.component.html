@@ -27,6 +27,9 @@
            
             </div>
           </div>
+          <ng-container *ngIf="User_details_Obj_addresses.length==0" >
+            <h5 class="text-danger text-center fw-bolder">{{username}},Please Add Address </h5>
+          </ng-container>
           <div class="card-body ms-4">
             <h5 class="card-title">Review Order</h5>
             <h6 class="card-subtitle mb-2 text-muted">By placing an order you agree to our Terms And Conditions</h6>

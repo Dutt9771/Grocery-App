@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -10,13 +11,17 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-constructor(private _cartservice:CartService,private productservice:ProductsService,private toastr:ToastrService){}
+constructor(private _cartservice:CartService,private productservice:ProductsService,private toastr:ToastrService,private route:Router){}
 filteredItems:any=[]
 Customer_Id: number;
 User_Details: any;
 categories_Path: any;
 ngOnInit() {
-  window.scrollTo(0, 0);
+  this.route.events.subscribe((res:any)=>{
+  if(res.url){
+    window.scrollTo(0, 0);
+  }
+})
   this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
   this.Customer_Id = this.User_Details.id;
   console.log('Customer_Id', this.Customer_Id);

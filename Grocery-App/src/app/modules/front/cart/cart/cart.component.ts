@@ -31,9 +31,11 @@ export class CartComponent {
   
   Customer_Id:number
 User_Details:any
+username:string
     ngOnInit(){ 
       window.scrollTo(0,0)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+    this.username=this.User_Details.username
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
     let date = new Date()
@@ -263,19 +265,19 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
 //             // this.Cartlength=this.cartItemCount.length
 //             this._cartservice.cartItemCount$.next(this.cartItemCount.length);
 //           })
-//           this._cartservice.getItemCount()
 //         this.toastr.success('Remove to cart',product.name);
 
 //       return this.groupedProducts[index].cart.splice(productindex,1)
 
-        
-      // }
-      // console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
-      // this.Find_Customer_Cart.items.splice(productindex,1)
-      this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
-        // console.log("cart in Service",cart)
-        // console.log("Product Index",productindex)
-        console.log("cart",cart)
+
+// }
+// console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
+// this.Find_Customer_Cart.items.splice(productindex,1)
+this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
+  // console.log("cart in Service",cart)
+  // console.log("Product Index",productindex)
+  console.log("cart",cart)
+  this._cartservice.getItemCount()
         this.Subtotal()
         // return this.groupedProducts
       })

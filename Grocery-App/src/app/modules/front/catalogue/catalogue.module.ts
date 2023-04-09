@@ -8,6 +8,7 @@ import { IvyCarouselModule } from 'angular-responsive-carousel';
 import { FormsModule } from '@angular/forms';
 import { ProductsComponent } from './products/products.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AllCategoryComponent } from './all-category/all-category.component';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { HttpClientModule } from '@angular/common/http';
     ProductListComponent,
     ProductDetailsComponent,
     ProductsComponent,
+    AllCategoryComponent,
     
   ],
   imports: [

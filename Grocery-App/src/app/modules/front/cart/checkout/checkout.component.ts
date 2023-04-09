@@ -17,11 +17,13 @@ export class CheckoutComponent {
   
   cartTotal: number;
   data:any
+  username:any
   Customer_Id:number
   User_Details:any
       ngOnInit(){ 
         window.scrollTo(0,0)
       this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+      this.username=this.User_Details.username
       this.Customer_Id=this.User_Details.id
       console.log("Customer_Id",this.Customer_Id)
       
@@ -41,7 +43,7 @@ export class CheckoutComponent {
 address: any;
 Login_User:any
 Cancel_Checkout(){
-this.route.navigate(['/home'])
+this.route.navigate(['/front/cart/cart'])
 }
 User_details_Obj:any
 User_details_Obj_addresses:any=[]
@@ -50,6 +52,13 @@ Get_User_Details(){
     console.log("User_Details",User_details_res.data)
     this.User_details_Obj=User_details_res.data
     this.User_details_Obj_addresses=this.User_details_Obj.addresses
+    if(this.User_details_Obj.addresses.length==0){
+      this.toastr.error(this.username+","+"Please Add Address")
+      setTimeout(() => {
+        this.route.navigate(['/front/user/user-profile/addaddress'])
+      }, 2500);
+
+    }
   },error:(User_details_error)=>{
     console.log("Getuserdetail_error",User_details_error)
   }})
@@ -138,6 +147,7 @@ DelectProduct(){
         
            })
       // }
+  this._cartService.getItemCount()
       this.Showcart()
           })
     }
