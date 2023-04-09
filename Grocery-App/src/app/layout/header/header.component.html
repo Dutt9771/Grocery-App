@@ -80,10 +80,19 @@
           
           
         </ul>
-        <form class="d-flex justify-content-center col-md-6 col-lg-4 ms-5">
+        <!-- <form class="d-flex justify-content-center col-md-6 col-lg-4 ms-5">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
+        <form class="d-flex justify-content-center col-md-5 col-lg-4 ms-5" (ngSubmit)="onSubmit(searchTerm.value)">
+          
+          <Select class="form-select">
+            <option value="Browse Category" selected disabled>Browse Category</option>
+            <option value="category" *ngFor="let category of categories" (click)="Select_Category(category)">{{category}}</option>
+          </Select>
+          <input type="text" name="searchTerm" class="form-control me-2" #searchTerm>
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>        
         <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
         
             <a  class="nav-link fs-5 position-relative">

@@ -4,9 +4,9 @@
     <img src="/assets/grocery_background.jpg" alt="" class="card-img w-100 h-auto opacity-25" height="100" >
     <div class="card-img-overlay text-center my-3 d-flex justify-content-center align-items-center">
 <div>
-  <p id="product_list_text"class="card-title fs-1 fw-bolder" *ngIf="category;else not_category">{{ category }}</p>
+  <p id="product_list_text"class="card-title fs-1 fw-bolder" *ngIf="Selected_Category;else not_category">{{ Selected_Category=="all"?"All Products":Selected_Category }}</p>
   <ng-template #not_category>
-    <p id="product_list_text"class="card-title fs-1 fw-bolder">Grocery Products</p>
+    <p id="product_list_text"class="card-title fs-1 fw-bolder">{{ category}}</p>
   </ng-template>
       </div>
     </div>
@@ -19,7 +19,7 @@
           </button>
          <form >
           <ul class="dropdown-menu">
-            <li *ngFor="let category of categories" ><button class="dropdown-item" type="button" name="category" [value]="category" (click)="Filter_Category(category)">{{category}}</button></li>
+            <li *ngFor="let category of categories_Arr" ><button class="dropdown-item" type="button" name="category" [value]="category" (click)="Filter_Category(category)">{{category}}</button></li>
           </ul>
         </form>
         </div>

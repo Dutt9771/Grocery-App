@@ -83,22 +83,31 @@ export class ProductListComponent implements OnInit {
   }
   grocery_items=[]
   Category_Id:any
+  categories_Arr=[]
+
   GetAllCategory(){
-    if (this.category_path!="all") {
+    // if (this.category_path!="all") {
     this.productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
       console.log("Category_Res",Category_Res.data)
       this.grocery_items=Category_Res.data
+      if (this.category_path!="all") {
       this.product_Obj=this.grocery_items.find((item)=>item.slug===this.category_path)
       this.Category_Id=this.product_Obj.id
+      }
       console.log("product_Obj",this.product_Obj)
       console.log("Category_Id",this.Category_Id)
+      for(let i=0;i<this.grocery_items.length;i++){
+        this.categories_Arr.push(this.grocery_items[i].title)
+        // console.log("Categories",this.categories)
+      }
+      this.categories_Arr.unshift("all")
       if (!(this.category_path == 'all')) {
         this.encryption((this.Category_Id).toString());
       }
     },error:(Category_error)=>{
         console.log("Category_Error",Category_error)
     }});
-  }
+  // }
   }
   Customer_Id: number;
   User_Details: any;
@@ -138,7 +147,7 @@ export class ProductListComponent implements OnInit {
       if (this.category_path == 'all') {
         this.filteredItems = this.allProducts;
         console.log('filteredItems', this.filteredItems);
-        this.category = 'Fruits And Vegetables';
+        this.category = 'All Products';
       } else {
         this.filteredItems = this.filteredItems.filter(
           (filteredItems) => filteredItems[0].category_id === this.Category_Id
@@ -152,28 +161,49 @@ export class ProductListComponent implements OnInit {
       this.Filter_Category(this.selectedCategory);
     }
   }
-
+  Selected_Category:any
   Filter_Category(category: any) {
-    this.selectedCategory = 'all';
-    //   let tempArr: any[]=[]
-    //   // console.log("Temp",category_value)
-    //   console.log(this.productArray.length)
-    //   for(let i=0;i<this.productArray.length;i++){
-    //     if(this.productArray[i].category===this.categories[i]){
-    //       let temp = tempArr.push(this.productArray[i])
-    //     }
-    //   }
-    //   // console.log("Data",tempArr)
-    //   return tempArr
-    if (category === 'all') {
-      return this.allProducts;
-    } else {
-      this.filteredItems = this.allProducts.filter(
-        (item) => item.category === category
-      );
-      console.log(this.filteredItems);
+    this.Selected_Category= category
+    if(this.category_path=="all"){
+
+      this.selectedCategory = 'all';
+      if (category === 'all') {
+        this.GetProducts()
+        // return this.allProducts;
+        this.filteredItems=[]
+      } else {
+        let Filter_Category_Obj=this.grocery_items.find((item)=>item.slug===category)
+        this.Category_Id=Filter_Category_Obj.id
+          // this.encryption((this.Category_Id).toString())
+        console.log("filteredItems",this.filteredItems);
+        console.log("allProducts",this.allProducts);
+        console.log("Customer_Id",this.Customer_Id);
+        this.encryption((this.Category_Id).toString())
+        this.allProducts=[]
+      // return this.filteredItems
+    }
+  }else{
+    // this.selectedCategory = 'all';
+      if (category === 'all') {
+        this.filteredItems=[]
+        for(let i=0;i<this.allProducts.length;i++){
+
+          let Obj={
+            category:"all",
+            product:this.allProducts[i]
+          }
+          this.filteredItems.push(Obj)
+          // console.log("Filter Items",this.filteredItems)
+        }
+        return this.filteredItems;
+      } else {
+        this.product_Obj=this.grocery_items.find((item)=>item.slug===category)
+      this.Category_Id=this.product_Obj.id
+        this.encryption((this.Category_Id).toString())
+        console.log(this.filteredItems);
       return this.filteredItems
     }
+  }
   }
 
   checkCategory() {
