@@ -22,10 +22,14 @@ ngOnInit() {
   console.log(this.Product_Arr)
 }
   food: any;
+  loading=true
   GetAllCategory(){
     this.productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
       console.log("Category_Res",Category_Res.data)
       this.grocery_items=Category_Res.data
+      setTimeout(() => {
+        this.loading=false
+      }, 1000);
     },error:(Category_error)=>{
         console.log("Category_Error",Category_error)
     }});

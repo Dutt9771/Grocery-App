@@ -23,6 +23,9 @@ constructor(private _userService:UserService,private _encryptionservice:Encrypti
       console.log("User_all_Order_res",User_all_Order_res.data.orders)
       this.PastOrderArr=User_all_Order_res.data.orders
       this.username=User_all_Order_res.data.username
+      setTimeout(() => {
+        this.loading=false
+      }, 1000);
       // console.log("this.PastOrderArr[0].id",this.PastOrderArr[0].id)
       // this.id=this.PastOrderArr[18].id
       // encryption(id)

@@ -10,8 +10,8 @@ import { AuthCheckoutGuard } from 'src/app/shared/guard/auth-checkout.guard';
 const routes: Routes = [
   {path:'',redirectTo:'cart',pathMatch:'full'},
   {path:'cart',component:CartComponent},
-  {path:'checkout',component:CheckoutComponent,canActivate:[AuthUserGuard,AuthCheckoutGuard]},
-  {path:'success',component:SuccessComponent,canActivate:[AuthUserGuard,AuthCheckoutGuard]},
+  {path:'checkout',component:CheckoutComponent,canActivate:[AuthUserGuard]},
+  {path:'success',component:SuccessComponent,canActivate:[AuthUserGuard]},
   {path:'**',component:ErrorPageComponent}
 
 ];

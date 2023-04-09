@@ -59,7 +59,7 @@ export class ProductListComponent implements OnInit {
         this.allProducts = get_all_products_res.data;
         setTimeout(() => {
           this.loading=false
-        }, 1500);
+        }, 1000);
         console.log('allProducts', this.allProducts);
       },
       error: (get_all_products_error) => {
@@ -131,8 +131,8 @@ export class ProductListComponent implements OnInit {
       }
       return acc;
     }, []);
+    this.categories = Array.from(new Set(this.productArray.map(product => product.category)));
     this.categories.unshift('all');
-    // categories = Array.from(new Set(this.productArray.map(product => product.category)));
 
     if (this.category_path) {
       if (this.category_path == 'all') {
@@ -141,7 +141,7 @@ export class ProductListComponent implements OnInit {
         this.category = 'Fruits And Vegetables';
       } else {
         this.filteredItems = this.filteredItems.filter(
-          (filteredItems) => filteredItems[0].category_id === this.category_path
+          (filteredItems) => filteredItems[0].category_id === this.Category_Id
         );
         this.category = this.category_path;
       }
@@ -166,12 +166,13 @@ export class ProductListComponent implements OnInit {
     //   // console.log("Data",tempArr)
     //   return tempArr
     if (category === 'all') {
-      this.allProducts;
+      return this.allProducts;
     } else {
       this.filteredItems = this.allProducts.filter(
         (item) => item.category === category
       );
       console.log(this.filteredItems);
+      return this.filteredItems
     }
   }
 

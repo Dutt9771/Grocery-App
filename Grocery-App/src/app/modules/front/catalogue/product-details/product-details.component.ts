@@ -40,7 +40,7 @@ GetProductByProductId(encryption){
     this.filteredItems.push(Product_Res.data)
     setTimeout(() => {
       this.loading=false
-    }, 1500);
+    }, 1000);
     console.log("Product_Res",this.filteredItems)
   },error:(Product_error)=>{
       console.log("Product_error",Product_error)
