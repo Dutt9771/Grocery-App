@@ -50,12 +50,16 @@ export class ProductListComponent implements OnInit {
       },
     });
   }
+  loading=true
   allProducts: any = [];
   GetProducts() {
     this.productservice.getALLProducts().subscribe({
       next: (get_all_products_res) => {
         console.log('get_all_products_res', get_all_products_res);
         this.allProducts = get_all_products_res.data;
+        setTimeout(() => {
+          this.loading=false
+        }, 1500);
         console.log('allProducts', this.allProducts);
       },
       error: (get_all_products_error) => {
@@ -77,26 +81,46 @@ export class ProductListComponent implements OnInit {
       },
     });
   }
+  grocery_items=[]
+  Category_Id:any
+  GetAllCategory(){
+    if (this.category_path!="all") {
+    this.productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
+      console.log("Category_Res",Category_Res.data)
+      this.grocery_items=Category_Res.data
+      this.product_Obj=this.grocery_items.find((item)=>item.slug===this.category_path)
+      this.Category_Id=this.product_Obj.id
+      console.log("product_Obj",this.product_Obj)
+      console.log("Category_Id",this.Category_Id)
+      if (!(this.category_path == 'all')) {
+        this.encryption((this.Category_Id).toString());
+      }
+    },error:(Category_error)=>{
+        console.log("Category_Error",Category_error)
+    }});
+  }
+  }
   Customer_Id: number;
   User_Details: any;
   categories_Path: any;
+  product_Obj:any
   ngOnInit() {
     this.router.events.subscribe((res:any)=>{
-    if(res.url){
-      window.scrollTo(0, 0);
-    }
-  })
-    this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-    this.Customer_Id = this.User_Details.id;
-    console.log('Customer_Id', this.Customer_Id);
-    this.GetProducts();
+      if(res.url){
+        window.scrollTo(0, 0);
+      }
+    })
     this.route.paramMap.subscribe((params) => {
       this.category_path = params.get('id');
       console.log('Category path', this.category_path);
-    });
-    if (!(this.category_path == 'all')) {
-      this.encryption(this.category_path);
-    }
+      this.GetAllCategory()
+      });
+  this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
+  this.Customer_Id = this.User_Details.id;
+  console.log('Customer_Id', this.Customer_Id);
+  this.GetProducts();
+
+    
 
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()

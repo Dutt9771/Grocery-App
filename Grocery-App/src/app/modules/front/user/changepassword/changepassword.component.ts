@@ -49,8 +49,10 @@ export class ChangepasswordComponent {
     errorMessage:any
     Change_Password_Obj:any
     Change_Password_Click(){
-      let userData = this.Change_Password.value
-      console.log("user data:",userData);
+      if(this.Change_Password.valid){
+
+        let userData = this.Change_Password.value
+        console.log("user data:",userData);
 
       this.Change_Password_Obj=this.Change_Password.getRawValue()
       let Change_Password_body:ChangePassword={
@@ -78,13 +80,16 @@ export class ChangepasswordComponent {
             // }, 3000);
             this.errorMessage = Change_Password_error.error.message;
             this.toastr.error(Change_Password_error.error.message);
-        console.log("Chnage_Password.value",this.Change_Password.value)
+            console.log("Chnage_Password.value",this.Change_Password.value)
+          }
         }
-      }
       })
-      }
-  
     }
+  }else{
+    this.toastr.error("All Fields Required");
+  }
+    
+  }
     // matchPasswordValidator(): ValidatorFn {
     // return (control: AbstractControl): {[key: string]: any} | null => {
     //   const password = this.Register.value['password'];

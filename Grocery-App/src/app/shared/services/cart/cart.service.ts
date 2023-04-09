@@ -163,8 +163,10 @@ Customer_Id:number
 User_Details:any
 getItemCount(){
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
-  this.Customer_Id=this.User_Details.id
-  console.log("Customer_Id",this.Customer_Id)
+  if(this.User_Details){
+
+    this.Customer_Id=this.User_Details.id
+    console.log("Customer_Id",this.Customer_Id)
   this.ShowCart().subscribe((res)=>{
     this.cartc=res
     // console.log("cartc",this.cartc.length)
@@ -177,6 +179,7 @@ getItemCount(){
     const cartLength = this.Customer_Cart.length;
   this.cartLengthSubject.next(cartLength);
   })
+}
 }
   
 Add_Order(data:any,delivery_address_id:any,billing_address_id:any,payment_status:any,order_status:any){

@@ -32,11 +32,15 @@ export class ProductDetailsComponent {
   })
   // console.log("product_name",this.product_name)
 }
+loading=true
 ShowcartArr:any=[]
 quantity=1;
 GetProductByProductId(encryption){
   this._productsservice.getProductByProductId(encryption).subscribe({next:(Product_Res:any) => {
     this.filteredItems.push(Product_Res.data)
+    setTimeout(() => {
+      this.loading=false
+    }, 1500);
     console.log("Product_Res",this.filteredItems)
   },error:(Product_error)=>{
       console.log("Product_error",Product_error)
@@ -130,15 +134,6 @@ Find_Customer_Cart:any
     
       this.existing_Product=this.Find_Customer_Cart_Arr.find((item)=>item.title.toLowerCase()===product.title.toLowerCase())
       console.log("Existing Product",this.existing_Product)
-    
-// for(let i=0;i<this.Find_Customer_Cart_Arr.length;i++){
-//   if(this.Find_Customer_Cart_Arr[i].id==product.id){
-//     this.existing_Product=this.Find_Customer_Cart.items[i]
-//     console.log("this.Find_Customer_Cart.items[i]",this.Find_Customer_Cart.items[i].id)
-//     console.log("this.Find_Customer_Cart.items[i]",this.Find_Customer_Cart.items[i])
-//     console.log("this.existing_Product",this.existing_Product)
-//   }
-// }
 
 
     

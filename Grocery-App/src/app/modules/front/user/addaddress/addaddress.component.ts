@@ -26,145 +26,6 @@ constructor(private router:ActivatedRoute,private _userService:UserService,priva
   selectedCity: any;
   states:any=[]
   City:any=[]
-  // states = [  
-  //   {     name: 'Andaman and Nicobar Islands',     cities: ['Port Blair'] 
-  // },
-  // { 
-  //   name: 'Andhra Pradesh', 
-  //   cities: [
-  //     'Adoni', 'Amaravati', 'Anantapur', 'Chandragiri', 'Chittoor', 
-  //     'Dowlaiswaram', 'Eluru', 'Guntur', 'Kadapa', 'Kakinada', 
-  //     'Kurnool', 'Machilipatnam', 'Nagarjunakoṇḍa', 'Rajahmundry', 
-  //     'Srikakulam', 'Tirupati', 'Vijayawada', 'Visakhapatnam', 
-  //     'Vizianagaram', 'Yemmiganur'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Arunachal Pradesh', 
-  //   cities: [
-  //     'Itanagar'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Assam', 
-  //   cities: [
-  //     'Dhuburi', 'Dibrugarh', 'Dispur', 'Guwahati', 'Jorhat', 
-  //     'Nagaon', 'Sibsagar', 'Silchar', 'Tezpur', 'Tinsukia'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Bihar', 
-  //   cities: [
-  //     'Ara', 'Baruni', 'Begusarai', 'Bettiah', 'Bhagalpur', 
-  //     'Bihar Sharif', 'Bodh Gaya', 'Buxar', 'Chapra', 'Darbhanga', 
-  //     'Dehri', 'Dinapur Nizamat', 'Gaya', 'Hajipur', 'Jamalpur', 
-  //     'Katihar', 'Madhubani', 'Motihari', 'Munger', 'Muzaffarpur', 
-  //     'Patna', 'Purnia', 'Pusa', 'Saharsa', 'Samastipur', 'Sasaram', 
-  //     'Sitamarhi', 'Siwan'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Chandigarh', 
-  //   cities: [
-  //     'Chandigarh'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Chhattisgarh', 
-  //   cities: [
-  //     'Ambikapur', 'Bhilai', 'Bilaspur', 'Dhamtari', 'Durg', 
-  //     'Jagdalpur', 'Raipur', 'Rajnandgaon'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Dadra and Nagar Haveli and Daman and Diu', 
-  //   cities: [
-  //     'Daman', 'Diu'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Delhi', 
-  //   cities: [
-  //     'Delhi', 'New Delhi'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Goa', 
-  //   cities: [
-  //     'Mormugao', 'Panaji'
-  //   ] 
-  // },
-  // { 
-  //   name: 'Gujarat', 
-  //   cities: [
-  //     'Ahmedabad', 'Amreli', 'Bharuch', 'Bhavnagar', 'Bhuj', 
-  //     'Dwarka', 'Gandhinagar', 'Godhra', 'Jamnagar', 'Junagadh', 
-  //     'Kandla', 'Khambhat', 'Kheda', 'Mahesana', 'Morvi', 'Nadiad', 'Navsari', 'Okha', 'Palanpur',
-  //     'Patan', 'Porbandar', 'Rajkot', 'Surat', 'Surendranagar',
-  //     'Valsad', 'Veraval', 'Vadodara'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Haryana',
-  //     cities: [
-  //     'Ambala', 'Bhiwani', 'Chandigarh', 'Faridabad', 'Fatehabad',
-  //     'Gurgaon', 'Hisar', 'Jhajjar', 'Jind', 'Kaithal', 'Karnal',
-  //     'Kurukshetra', 'Mahendragarh', 'Narnaul', 'Narwana', 'Palwal',
-  //     'Panchkula', 'Panipat', 'Rewari', 'Rohtak', 'Sirsa', 'Sonipat',
-  //     'Tohana', 'Yamunanagar'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Himachal Pradesh',
-  //     cities: [
-  //     'Bilaspur', 'Chamba', 'Dalhousie', 'Dharamsala', 'Hamirpur',
-  //     'Kangra', 'Kullu', 'Mandi', 'Nahan', 'Shimla', 'Una'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Jammu and Kashmir',
-  //     cities: [
-  //     'Anantnag', 'Baramula', 'Doda', 'Gulmarg', 'Jammu', 'Kathua',
-  //     'Leh', 'Punch', 'Rajauri', 'Srinagar', 'Udhampur'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Jharkhand',
-  //     cities: [
-  //     'Bokaro', 'Chaibasa', 'Deoghar', 'Dhanbad', 'Dumka', 'Giridih',
-  //     'Hazaribag', 'Jamshedpur', 'Jharia', 'Rajmahal', 'Ranchi',
-  //     'Saraikela'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Karnataka',
-  //     cities: [
-  //     'Badami', 'Ballari', 'Bangalore', 'Belgavi', 'Bhadravati',
-  //     'Bidar', 'Chikkamagaluru', 'Chitradurga', 'Davangere',
-  //     'Halebidu', 'Hassan', 'Hubballi-Dharwad', 'Kalaburagi',
-  //     'Kolar', 'Madikeri', 'Mandya', 'Mangaluru', 'Mysuru',
-  //     'Raichur', 'Shivamogga', 'Shravanabelagola', 'Tumkuru', 'Udupi'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Kerala',
-  //     cities: [
-  //     'Alappuzha', 'Badagara', 'Idukki', 'Kannur', 'Kochi', 'Kollam',
-  //     'Kottayam', 'Kozhikode', 'Mattancherry', 'Palakkad', 'Thalassery',
-  //     'Thiruvananthapuram', 'Thrissur'
-  //     ]
-  //     },
-  //     {
-  //     name: 'Ladakh',
-  //     cities: [
-  //     'Kargil', 'Leh'
-  //     ]
-  //     }]
-
-  // getCities(): string[] {
-  //   const state = this.states.find(s => s.name === this.selectedState);
-  //   return state ? state.cities : [];
-  // } 
   
 
   cities: string[] = [];
@@ -180,17 +41,17 @@ constructor(private router:ActivatedRoute,private _userService:UserService,priva
       if (country) {
         this.states = this._countryservice.getStatesByCountry(country);
         // console.log("states",this.states)
+        this.state.valueChanges.subscribe((state) => {
+      
+          if (state) {
+            this.City = this._countryservice.getCitiesByState(this.country.value, state);
+            // console.log("City",this.City)
+      
+          }
+        });
       }
     });
   
-    this.state.valueChanges.subscribe((state) => {
-  
-      if (state) {
-        this.City = this._countryservice.getCitiesByState(this.country.value, state);
-        // console.log("City",this.City)
-  
-      }
-    });
     this.router.paramMap.subscribe(params=>{
       this.address_id=params.get('id')
       if(this.address_id){

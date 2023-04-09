@@ -140,7 +140,9 @@ Login_Logout_msg:string
 invalid:string
 User_Login_Token:any
 Save_User_Login(){
-  // console.log("user_login Value",this.user_login.value)
+  if(this.user_login.valid){
+    
+    // console.log("user_login Value",this.user_login.value)
   this._authservice.User_Login(this.user_login.value).subscribe({next:(User_Login_res)=>{
     if(User_Login_res){
       console.log("User_Login_res",User_Login_res)
@@ -153,7 +155,6 @@ Save_User_Login(){
       this.toastr.success('Login Successfully');
       this.router.navigate(['/home'])
       // this.Get_Customer_Id()
-
     }
   },error:(Login_error)=>{ 
     console.log("Register_error.status",Login_error.status)
@@ -167,34 +168,11 @@ Save_User_Login(){
     }
   }})
 
- 
-//   console.log("Login Data",this.login.value)
-//   // this.router.navigate(['front/user/registration']);
-//   // localStorage.setItem('User', JSON.stringify(this.login.value));
-//   console.log("Register data",this.RegisterData)
-//   if(this.RegisterData){
-
- 
-//   if((this.RegisterData.email==this.login.value.email) && (this.RegisterData.password==this.login.value.password)){
-//     this._RegisterService.get_Login_data(this.login.value)
-//     this.router.navigate(['/front/home']);  
-//     // this._RegisterService.Change_btn(this.Login_Logout_msg)
-//     // let btn=this._RegisterService.Change_btn(this.Login_Logout_msg)
-//     let btn=this._RegisterService.Login_Logout_msg.next("Logout")
-//     console.log(btn)
-//   }else{
-//     this.invalid = "Invalid Credential Please Register"
-//   }
-// }else{
-//   alert("Please register")
-//   this.router.navigate(['/front/user/registration']);  
-// }
+}else{
+  this.toastr.error("All Fields Required");
+}
 }
 
-logout(){
-  sessionStorage.removeItem('User')
-  this.router.navigate(['front/user/registration'])
-}
 };
 
 

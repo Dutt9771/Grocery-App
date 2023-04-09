@@ -23,8 +23,11 @@ ngOnInit() {
   }
 })
   this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-  this.Customer_Id = this.User_Details.id;
-  console.log('Customer_Id', this.Customer_Id);
+  if(this.User_Details){
+
+    this.Customer_Id = this.User_Details.id;
+    console.log('Customer_Id', this.Customer_Id);
+  }
   this.GetProducts()
   // this.filteredItems=this.productservice.getProducts()
 }

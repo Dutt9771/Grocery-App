@@ -5,6 +5,12 @@
 i:hover {
   color: #007bff;
 }
+a{
+  color:black;
+}
+a:hover {
+  color: blue;
+}
 @import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
 
 /* * {

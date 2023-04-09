@@ -112,17 +112,18 @@ export class HeaderComponent {
     // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
     this.Register_User= sessionStorage.getItem('Register_User');
     this.Register_User= JSON.parse(sessionStorage.getItem('Register_User'));
-    if(this.Register_User){
-      this.Registered_User=false
-    }else{
-      this.Registered_User=true
-    }
+    // if(this.Register_User){
+    //   this.Registered_User=false
+    // }else{
+    //   this.Registered_User=true
+    // }
     // this.User= JSON.parse(sessionStorage.getItem('User'));
     if(this.Login_User){
       this.Registered_User=false
       this.Login_Logout_msg="Logout"
       this.User_name=this.Login_User.username
     }else{
+      this.Registered_User=true
       this.User_name="Login/Signup"
       this.Login_Logout_msg="Login"
     }

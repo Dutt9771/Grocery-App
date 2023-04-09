@@ -279,7 +279,7 @@ User_Register_Form(){
           console.log("User_Register_res",User_Register_res)
           this.errorMessage=""
           sessionStorage.setItem("Register_User",JSON.stringify(this.User_Register.value))
-      this.toastr.success('Login Successfully');
+          this.toastr.success('Register Successfully');
           this.router.navigate(['/front/user/login'])
         }
         ,error:(Register_error)=>{ 
@@ -296,6 +296,8 @@ User_Register_Form(){
           }
         }
       })
+      }else{
+    this.toastr.error("All Fields Required");
       }
     }
   }

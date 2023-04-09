@@ -76,7 +76,6 @@ import { FocusformDirective } from './shared/directives/focusform.directive';
             progressBar:true,
             progressAnimation:'decreasing',
             tapToDismiss:true,
-            
           }),
         FrontModule, 
         AdminModule,

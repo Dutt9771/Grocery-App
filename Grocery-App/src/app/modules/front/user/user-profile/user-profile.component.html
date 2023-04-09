@@ -75,19 +75,10 @@
                   <div *ngIf="get_Profile.password.errors?.['minlength']" class="text-danger">Password Length must be 8</div></div>
               </div> -->
               </div>
-              <div class="row g-2 d-flex justify-content-center" *ngIf="!Profile.valid">
-              <div class="col-md-5 text-center">  
-                <span class="text-danger">{{errorMessage}}</span>
-              </div>
-              </div>
-              <div class="row g-2 d-flex justify-content-center" *ngIf="!Profile.valid">
-              <div class="col-md-5 text-center">  
-                <span class="text-danger">Please Enter all Details</span>
-              </div>
-              </div>
+                            
               <div class="row g-2 d-flex justify-content-center">
                 <div class="col-md-5 text-center">  
-                  <button type="submit" [disabled]="!Profile.valid" class="btn btn-primary col-md-4 text-center">Edit Profile</button>
+                  <button type="submit" class="btn btn-primary col-md-4 text-center">Edit Profile</button>
                 </div>
                 </div>
                 

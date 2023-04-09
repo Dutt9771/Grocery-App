@@ -41,7 +41,7 @@
       <div class="col-md-4">
         <label for="country" class="form-label">Country</label>
         <select formControlName="country" class="form-select" id="country" placeholder="Enter Country"  >
-        <option value="" disabled selected>Select City</option>
+        <option value="" disabled selected>Select Country</option>
           <option *ngFor="let country of countries" [value]="country.shortName">{{ country.name }}</option>
         </select>
         <div *ngIf="get_User_Address.country.touched && get_User_Address.country.invalid" class="text-danger">

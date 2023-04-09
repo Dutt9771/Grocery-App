@@ -26,6 +26,7 @@ ngOnInit() {
   console.log(this.Product_Arr)
 }
   food: any;
+  grocery_items=[]
   GetAllCategory(){
     this.productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
       console.log("Category_Res",Category_Res.data)
@@ -34,5 +35,4 @@ ngOnInit() {
         console.log("Category_Error",Category_error)
     }});
   }
-  grocery_items=[]
 }
