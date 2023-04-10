@@ -63,13 +63,16 @@ export class ChangepasswordComponent {
       if(this.Change_Password.valid){
         this.User_login_Token=JSON.parse(localStorage.getItem("User_login_Token"))
         this._userService.Change_Password(Change_Password_body).subscribe({next:(Change_pass_res)=>{
+          if(Change_pass_res){
+
             console.log("Change_pass_res",Change_pass_res)
             // const success=Change_pass_res
             // setTimeout(() => {
-            //   this._snackBar.open("Change Password Succesfully", "OK");
-            // }, 3000);
-            this.route.navigate(['/home'])
-            this.toastr.success('Password Change Successfully');
+              //   this._snackBar.open("Change Password Succesfully", "OK");
+              // }, 3000);
+              this.route.navigate(['/home'])
+              this.toastr.success('Password Change Successfully');
+            }
         },
         error:(Change_Password_error)=>{ 
           console.log("Change_Password status",Change_Password_error.status)
@@ -90,12 +93,6 @@ export class ChangepasswordComponent {
   }
     
   }
-    // matchPasswordValidator(): ValidatorFn {
-    // return (control: AbstractControl): {[key: string]: any} | null => {
-    //   const password = this.Register.value['password'];
-    //   const confirm_password = control.value;
-    //   return password === confirm_password ? null : {matchPassword: {value: control.value}};
-    // };
     matchPasswordValidator(): ValidatorFn {
       return (control: AbstractControl): ValidationErrors | null => {
         const newpassword = control.root.get('newpassword')?.value;

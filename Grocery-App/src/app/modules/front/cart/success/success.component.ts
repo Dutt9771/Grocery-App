@@ -30,8 +30,11 @@ export class SuccessComponent {
       ]
     }
     this._cartservice.ShowCart().subscribe((res)=>{
-      this.ShowcartArr=res
-      console.log("ShowcartArr",this.ShowcartArr)
+      if(res){
+
+        this.ShowcartArr=res
+        console.log("ShowcartArr",this.ShowcartArr)
+      }
       
     })
     this.route.events.subscribe((res:any)=>{
@@ -42,11 +45,14 @@ export class SuccessComponent {
           if(!FindCustomer){
     console.log("NOt User")
             this._cartservice.AddCart(sampleData).subscribe(res=>{
-              console.log(
-                "sampleData Of Cart",sampleData
-                )
-                this._cartservice.getItemCount()
-                this._cartservice.Subtotal()
+              if(res){
+
+                console.log(
+                  "sampleData Of Cart",sampleData
+                  )
+                  this._cartservice.getItemCount()
+                  this._cartservice.Subtotal()
+                }
               })
             }
         }

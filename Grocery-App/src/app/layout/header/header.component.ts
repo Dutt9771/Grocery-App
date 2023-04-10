@@ -27,7 +27,10 @@ export class HeaderComponent {
     constructor(private _productservice:ProductsService,private cookieService: CookieService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
       
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
-        this.Login_Logout_msg == res;
+        if(res){
+
+          this.Login_Logout_msg == res;
+        }
         
       })
     }
@@ -48,11 +51,17 @@ export class HeaderComponent {
         this._cartService.Subtotal()
         this.cartItemCount=this._cartService.getItemCount()
         this._cartService.cartLength$.subscribe((length) => {
-          this.cartItemCount = length;
-          this._cartService.currentSubtotal.subscribe((res)=>{
-            this.subtotal=res
-            // console.log("res",res)
-          })
+          if(length){
+
+            this.cartItemCount = length;
+            this._cartService.currentSubtotal.subscribe((res)=>{
+              if(res){
+
+                this.subtotal=res
+                // console.log("res",res)
+              }
+            })
+          }
       });
       // console.log("this._cartService.getItemCount()",this._cartService.getItemCount())
       this.filteredItems=this._productsservice.getProducts()
@@ -130,12 +139,15 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
     grocery_items=[]
   GetAllCategory(){
     this._productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
-      // console.log("Category_Res",Category_Res.data)
-      this.grocery_items=Category_Res.data
-      for(let i=0;i<this.grocery_items.length;i++){
+      if(Category_Res){
+
+        // console.log("Category_Res",Category_Res.data)
+        this.grocery_items=Category_Res.data
+        for(let i=0;i<this.grocery_items.length;i++){
         this.categories.push(this.grocery_items[i].title)
         // console.log("Categories",this.categories)
       }
+    }
     },error:(Category_error)=>{
         console.log("Category_Error",Category_error)
     }});

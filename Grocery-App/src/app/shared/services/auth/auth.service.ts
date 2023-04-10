@@ -37,19 +37,4 @@ User_Register(data:User_Register_Model){
     return throwError(() => new Error(error))
   }
 }
-
-// private handleError(error: HttpErrorResponse) {
-//   let errorMessage = '';
-
-//   if (error.error instanceof ErrorEvent) {
-//     // Client-side error
-//     errorMessage = `Error: ${error.error.message}`;
-//   } else {
-//     // Server-side error
-//     errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
-//   }
-
-//   window.alert(errorMessage);
-//   return throwError(errorMessage);
-// }
 }

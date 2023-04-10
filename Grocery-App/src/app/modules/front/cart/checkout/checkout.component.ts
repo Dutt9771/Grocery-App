@@ -52,12 +52,14 @@ User_details_Obj:any
 User_details_Obj_addresses:any=[]
 Get_User_Details(){
   this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
-    console.log("User_Details",User_details_res.data)
-    this.User_details_Obj=User_details_res.data
-    this.User_details_Obj_addresses=this.User_details_Obj.addresses
+    if(User_details_res){
 
-console.log("USER_DEtails",this.User_details_Obj)
-console.log("USER_DEtails",this.User_details_Obj_addresses)
+      console.log("User_Details",User_details_res.data)
+      this.User_details_Obj=User_details_res.data
+      this.User_details_Obj_addresses=this.User_details_Obj.addresses
+      
+      console.log("USER_DEtails",this.User_details_Obj)
+      console.log("USER_DEtails",this.User_details_Obj_addresses)
       if(this.User_details_Obj.addresses.length==0){
         this.toastr.error(this.username+","+"Please Add Address")
         setTimeout(() => {
@@ -65,17 +67,20 @@ console.log("USER_DEtails",this.User_details_Obj_addresses)
         }, 2500);
         
       } 
-
-  },error:(User_details_error)=>{
-    console.log("Getuserdetail_error",User_details_error)
+      
+    }
+    },error:(User_details_error)=>{
+      console.log("Getuserdetail_error",User_details_error)
   }})
 }
 Encyption_Data
 encryption(id){
   this._encryptionservice.Encryption(id).subscribe({next:(encryption_res)=>{
-    console.log("encryption_res",encryption_res.data)
-    this.Encyption_Data=encryption_res.data
-    return this.Encyption_Data
+    if(encryption_res){
+      console.log("encryption_res",encryption_res.data)
+      this.Encyption_Data=encryption_res.data
+      return this.Encyption_Data
+    }
   },error:(encryption_error)=>{
     console.log("encryption_error",encryption_error)
   }})
@@ -92,12 +97,15 @@ selectAdd(addressSelect){
   // selected=true
   console.log("addressSelect",addressSelect)
   this._encryptionservice.Encryption(addressSelect).subscribe({next:(encryption_res)=>{
-    console.log("encryption_res",encryption_res.data)
-    this.delivery_address_id=encryption_res.data
-    this.billing_address_id=encryption_res.data
-    console.log("delivery_address_id",this.delivery_address_id)
-    console.log("billing_address_id",this.billing_address_id)
-    // return this.Encyption_Data
+    if(encryption_res){
+
+      console.log("encryption_res",encryption_res.data)
+      this.delivery_address_id=encryption_res.data
+      this.billing_address_id=encryption_res.data
+      console.log("delivery_address_id",this.delivery_address_id)
+      console.log("billing_address_id",this.billing_address_id)
+      // return this.Encyption_Data
+    }
   },error:(encryption_error)=>{
     console.log("encryption_error",encryption_error)
   }})
@@ -131,35 +139,42 @@ Showcart(){
         if(!FindCustomer){
   // console.log("NOt User")
           this._cartService.AddCart(sampleData).subscribe(res=>{
-            console.log(
-              "sampleData Of Cart",sampleData
-              )
-              this._cartService.getItemCount()
-              this._cartService.Subtotal()
+            if(res){
+
+              console.log(
+                "sampleData Of Cart",sampleData
+                )
+                this._cartService.getItemCount()
+                this._cartService.Subtotal()
+              }
             })
           }
 }
 DelectProduct(){
 
   this._cartService.ShowCart().subscribe((res)=>{
-    this.cart=res
-    console.log("cart",this.cart)
+    if(res){
 
-  this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+      this.cart=res
+      console.log("cart",this.cart)
+      
+      this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+      console.log("Find_Customer_Cart",this.Find_Customer_Cart)
       let Empty_Cart=[]
       debugger
       this._cartService.DelectUserCart(this.Customer_Id).subscribe((res)=>{
-               console.log("Deleted Items",res)
-               this._cartService.getItemCount()
-               this._cartService.Subtotal()
-
+        if(res){
+        console.log("Deleted Items",res)
+        this._cartService.getItemCount()
+        this._cartService.Subtotal()
         
-           })
+      }
+      })
       // }
-          })
     }
-
+    })
+  }
+  
 // DelectProduct(){
 //   this._cartService.ShowCart().subscribe((res)=>{
 //     this.cart=res
@@ -197,28 +212,37 @@ console.log("delivery_address_id",this.delivery_address_id)
   this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
 if(this.Login_User){
   this._cartService.Add_Order(this.data,this.delivery_address_id,this.billing_address_id,this.payment_status,this.order_status).subscribe({next:(Add_Order_res)=>{
-    console.log("Add_address_res",Add_Order_res)
-    this.Add_Order_Response_Data=Add_Order_res.data.id
+    if(Add_Order_res){
+
+      console.log("Add_address_res",Add_Order_res)
+      this.Add_Order_Response_Data=Add_Order_res.data.id
     console.log("Add_Order_Response_Data",this.Add_Order_Response_Data)
 
 
     this._encryptionservice.Encryption(JSON.stringify(this.Add_Order_Response_Data)).subscribe({next:(encryption_res)=>{
-      console.log("encryption_res",encryption_res.data)
-      this.Add_Order_Response_Data=encryption_res.data
-     
-      this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
-        console.log("Get_OrderById_res",Get_OrderById_res)
-        this.DelectProduct()
+      if(encryption_res){
 
-        this.route.navigate(['/front/cart/success'])
+        console.log("encryption_res",encryption_res.data)
+        this.Add_Order_Response_Data=encryption_res.data
+        
+        this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
+          if(Get_OrderById_res){
+
+            console.log("Get_OrderById_res",Get_OrderById_res)
+            this.DelectProduct()
+            
+            this.route.navigate(['/front/cart/success'])
+          }
         },error:(Get_Order_error)=>{
           console.log("Get_Order_error",Get_Order_error)
           this.toastr.error(Get_Order_error.error.message);
         }})
+      }
     },error:(encryption_error)=>{
       console.log("encryption_error",encryption_error)
             this.toastr.error(encryption_error.error.message);
     }})
+    }
     },error:(Add_Order_error)=>{
       console.log("Add_Order_error",Add_Order_error)
             this.toastr.error(Add_Order_error.error.message);

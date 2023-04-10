@@ -47,10 +47,13 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
     this._cartservice.ShowCart().subscribe((res)=>{
-      this.cart=res
+      if(res){
+
+        this.cart=res
       setTimeout(() => {
         this.loading=false
       }, 1500);
+    }
 
       this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
       console.log("Find_Customer_Cart",this.Find_Customer_Cart)
@@ -94,21 +97,21 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   ngAfterViewInit(){
     this.CartEmptyShow_Data()
     this._cartservice.ShowCart().subscribe((res)=>{
-      this.cart=res
-      console.log("cart",this.cart)
-      //       for(let i=0;i<this.cart.length;i++) {
-      //   console.log("cart[i]",this.cart[i])
-      // }
-      
-
+      if(res){
+        this.cart=res
+        console.log("cart",this.cart)
+        //       for(let i=0;i<this.cart.length;i++) {
+          //   console.log("cart[i]",this.cart[i])
+          // }
       // Category wise 
-    this._cartservice.cartSubject.subscribe(res => {
-      
-      
-      console.log("Before Cart",res)
-      this.cart.splice(1,1);
-      console.log("After Cart",this.cart)
-  });
+      this._cartservice.cartSubject.subscribe(res => {
+        if(res){
+          console.log("Before Cart",res)
+          this.cart.splice(1,1);
+          console.log("After Cart",this.cart)
+        }
+      });
+    }
     })
     console.log("Subtotal From Cart",this.Subtotal())
    }
@@ -129,30 +132,35 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       this.groupedProducts[index].cart[productindex].quantity-=1  
       
       this._cartservice.ShowCart().subscribe((res)=>{
-        this.cart=res
-        console.log("cart",this.cart)
-        //       for(let i=0;i<this.cart.length;i++) {
-        //   console.log("cart[i]",this.cart[i])
-        // }
-        this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-        
-        this.Customer_Cart=this.Find_Customer_Cart.items
-        console.log("Customer_Cart",this.Customer_Cart)
-        
-        this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
-        console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
-        console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
-        
-        this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-        console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
-        console.log("Customer_Cart",this.Customer_Cart)
-        this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-          // console.log("cart in Service",cart)
-          // console.log("Product Index",productindex)
-          console.log("RES",res)
-        })
-        })
+        if(res){
+
+          this.cart=res
+          console.log("cart",this.cart)
+          //       for(let i=0;i<this.cart.length;i++) {
+            //   console.log("cart[i]",this.cart[i])
+            // }
+            this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
+            console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+            
+            this.Customer_Cart=this.Find_Customer_Cart.items
+            console.log("Customer_Cart",this.Customer_Cart)
+            
+            this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
+            console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
+            console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
+            
+            this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
+            console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
+            console.log("Customer_Cart",this.Customer_Cart)
+            this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
+              if(cart){
+              // console.log("cart in Service",cart)
+              // console.log("Product Index",productindex)
+              console.log("RES",res)
+            }
+            })
+          }
+          })
       
       // console.log("Subtotal From Cart",this.Subtotal())
   
@@ -164,6 +172,8 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
       // console.log(this.cart[productindex].amount)
       this.groupedProducts[index].cart[productindex].quantity+=1
       this._cartservice.ShowCart().subscribe((res)=>{
+        if(res){
+
           this.cart=res
           console.log("cart",this.cart)
           //       for(let i=0;i<this.cart.length;i++) {
@@ -185,10 +195,14 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
           console.log("cart[productindex]",this.cart[this.Customer_Index])
           
           this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-            // console.log("cart in Service",cart)
+            if(cart){
+
+              // console.log("cart in Service",cart)
             // console.log("Product Index",productindex)
             console.log("RES",res)
+          }
           })
+        }
           })
         
         // this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
@@ -274,16 +288,20 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
 // console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
 // this.Find_Customer_Cart.items.splice(productindex,1)
 this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
-  // console.log("cart in Service",cart)
-  // console.log("Product Index",productindex)
-  console.log("cart",cart)
-  this._cartservice.getItemCount()
-        this.Subtotal()
-        // return this.groupedProducts
-      })
-      return this.groupedProducts[index].cart.splice(productindex,1)
+  if(cart){
+
+    // console.log("cart in Service",cart)
+    
+    // console.log("Product Index",productindex)
+    console.log("cart",cart)
+    this._cartservice.getItemCount()
+    this.Subtotal()
+    // return this.groupedProducts
+  }
+  })
+  return this.groupedProducts[index].cart.splice(productindex,1)
  
-    // })
+  // })
     
    
   }

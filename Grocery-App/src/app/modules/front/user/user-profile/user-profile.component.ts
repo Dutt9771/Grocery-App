@@ -34,18 +34,6 @@ export class UserProfileComponent implements OnInit {
     window.scrollTo(0, 0);
     this.Get_User_Details();
     this.Edit_Profile();
-
-    //  google profile code
-    // this.user = sessionStorage.getItem('User');
-    // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
-    // if (this.user || this.RegisterData) {
-    //   try {
-    //     this.user = JSON.parse(this.user);
-    //   } catch (e) {
-    //     console.error('Error parsing user data from local storage:', e);
-    //     sessionStorage.removeItem('User'); // optionally, remove the invalid user data from local storage
-    //   }
-    // }
   }
   Profile: any;
   User_Profile_Obj: any;
@@ -74,21 +62,25 @@ export class UserProfileComponent implements OnInit {
   }
   Get_User_Details() {
     this._userService.Get_User_Details().subscribe({
-      next: (User_details_res) => {
-        console.log('User_Details', User_details_res.data);
-        this.User_Profile_Obj = User_details_res.data;
-        console.log('User_Profile_Obj', this.User_Profile_Obj);
+      next: (User_details_res: any) => {
+        if (User_details_res) {
+          if (User_details_res.data) {
+            console.log('User_Details', User_details_res.data);
+            this.User_Profile_Obj = User_details_res.data;
+            console.log('User_Profile_Obj', this.User_Profile_Obj);
 
-        this.Profile.patchValue({
-          firstname: this.User_Profile_Obj.first_name,
-          lastname: this.User_Profile_Obj.last_name,
-          alternateemail:this.User_Profile_Obj.secondary_email,
-          alternatecontact:this.User_Profile_Obj.secondary_mobile_number,
-          dob:this.User_Profile_Obj.date_of_birth
-        });
+            this.Profile.patchValue({
+              firstname: this.User_Profile_Obj.first_name,
+              lastname: this.User_Profile_Obj.last_name,
+              alternateemail: this.User_Profile_Obj.secondary_email,
+              alternatecontact: this.User_Profile_Obj.secondary_mobile_number,
+              dob: this.User_Profile_Obj.date_of_birth,
+            });
 
-        // this.Profile.get('firstName').setValue("this.User_Profile_Obj.first_name");
-        // this.Profile.get('lastName').setValue(this.User_Profile_Obj.last_name);
+            // this.Profile.get('firstName').setValue("this.User_Profile_Obj.first_name");
+            // this.Profile.get('lastName').setValue(this.User_Profile_Obj.last_name);
+          }
+        }
       },
       error: (User_details_error) => {
         console.log('Getuserdetail_error', User_details_error);
@@ -125,11 +117,13 @@ export class UserProfileComponent implements OnInit {
           localStorage.getItem('User_login_Token')
         );
         this._userService.Edit_user_details(Edit_User_Details_body).subscribe({
-          next: (Edit_User_res) => {
-            console.log('Edit_User_res', Edit_User_res);
-            this.errorMessage = 'User Details Successfully Edited';
-            this.route.navigate(['/home']);
-            this.toastr.success('Edit Profile Successfully');
+          next: (Edit_User_res: any) => {
+            if (Edit_User_res) {
+              console.log('Edit_User_res', Edit_User_res);
+              this.errorMessage = 'User Details Successfully Edited';
+              this.route.navigate(['/home']);
+              this.toastr.success('Edit Profile Successfully');
+            }
           },
           error: (Edit_User_error) => {
             console.log('Edit_User_error status', Edit_User_error.status);
