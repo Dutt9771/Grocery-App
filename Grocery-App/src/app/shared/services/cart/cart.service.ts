@@ -124,14 +124,21 @@ public cartmsg$: BehaviorSubject<string> = new BehaviorSubject<string>('');
   }
 Subtotal(){
   
+  this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
+  if(this.User_Details){
+    this.Customer_Id=this.User_Details.id
+    // console.log("Customer_Id",this.Customer_Id)
   this.ShowCart().subscribe((res)=>{
     this.cartc=res
-
+    this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
+    // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+    this.Customer_Cart=this.Find_Customer_Cart.items
+    // console.log("Customer_Cart",this.Customer_Cart)
     const cartLength = this.cartc.length;
     // this.subtotalSource.next
     let cartsubtotal:number=0
-    for(let i=0;i<this.cartc.length;i++){
-      cartsubtotal+=this.cartc[i].quantity*this.cartc[i].amount
+    for(let i=0;i<this.Customer_Cart.length;i++){
+      cartsubtotal+=this.Customer_Cart[i].quantity*this.Customer_Cart[i].amount
       // console.log("this.cartsubtotal",this.cartc[i].quantity*this.cartc[i].amount)
       // console.log("this.cartsubtotal",this.cartc[i].amount)
       // console.log("this.cartsubtotal",this.cartc[i].quantity)
@@ -142,6 +149,7 @@ Subtotal(){
     this.subtotalSource.next(cartsubtotal);
 
   })
+}
 }
 
 cartc:any
@@ -166,16 +174,16 @@ getItemCount(){
   if(this.User_Details){
 
     this.Customer_Id=this.User_Details.id
-    console.log("Customer_Id",this.Customer_Id)
+    // console.log("Customer_Id",this.Customer_Id)
   this.ShowCart().subscribe((res)=>{
     this.cartc=res
     // console.log("cartc",this.cartc.length)
     // this.cartcount.next(this.cartc.length);
     // console.log("cartcount",this.cartcount)
     this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
-    console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+    // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
     this.Customer_Cart=this.Find_Customer_Cart.items
-    console.log("Customer_Cart",this.Customer_Cart)
+    // console.log("Customer_Cart",this.Customer_Cart)
     const cartLength = this.Customer_Cart.length;
   this.cartLengthSubject.next(cartLength);
   })

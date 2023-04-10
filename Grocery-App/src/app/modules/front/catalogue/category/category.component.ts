@@ -23,7 +23,7 @@ ngOnInit() {
   this.GetAllCategory()
   
   this.Product_Arr=this.productservice.getProducts()
-  console.log(this.Product_Arr)
+  // console.log(this.Product_Arr)
 }
   food: any;
   grocery_items=[]

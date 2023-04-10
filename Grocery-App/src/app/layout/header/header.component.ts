@@ -30,9 +30,6 @@ export class HeaderComponent {
         this.Login_Logout_msg == res;
         
       })
-      // this._cartService.cartItems$.subscribe(cartItems => {
-      //   this.cartItemCount = cartItems.length;
-      // });
     }
     RegisterData:any
     User:any
@@ -44,27 +41,18 @@ export class HeaderComponent {
     Cartlength:any
     filteredItems:any=[]
     myControl = new FormControl('');
-    // ngDoCheck(){
-    //   this._cartService.ShowCart().subscribe((res)=>{
-    //     // console.log("res",res) 
-    //     this.cartItemCount=res
-    //     this.Cartlength=this.cartItemCount.length
-    //   })
-    // }
-
-
       ngOnInit(){ 
         window.scrollTo(0,0) 
-      this._cartService.currentSubtotal.subscribe((res)=>{
-        this.subtotal=res
-        console.log("res",res)
-      })
-      this.GetAllCategory()
-      console.log("this._cartService.Subtotal()",this._cartService.Subtotal())
-      
-      this.cartItemCount=this._cartService.getItemCount()
-      this._cartService.cartLength$.subscribe((length) => {
-        this.cartItemCount = length;
+        this.GetAllCategory()
+        // console.log("this._cartService.Subtotal()",this._cartService.Subtotal())
+        this._cartService.Subtotal()
+        this.cartItemCount=this._cartService.getItemCount()
+        this._cartService.cartLength$.subscribe((length) => {
+          this.cartItemCount = length;
+          this._cartService.currentSubtotal.subscribe((res)=>{
+            this.subtotal=res
+            // console.log("res",res)
+          })
       });
       // console.log("this._cartService.getItemCount()",this._cartService.getItemCount())
       this.filteredItems=this._productsservice.getProducts()
@@ -75,26 +63,12 @@ export class HeaderComponent {
       })
 
 
-        // this._cartService.CartItemsLength.subscribe((res)=>{
-        //   this.cartItemslength=res.length
-        //   console.log(this.cartItemslength)
-        // })
+        
 
-// this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
+this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal);
 
-//       console.log("Subtotal",this.subtotal)
+      // console.log("Subtotal",this.subtotal)
 
-      // this._cartService.cartSubject.subscribe(cart => {
-      //   console.log("cart",cart)
-      //   this.cartItemCount = cart.length;
-      // });
-      // this._cartService.cartMsg.subscribe(cart => {
-      //   this.cartMessage = cart
-      //   console.log(this.cartMessage)
-      //   this._snackBar.open(this.cartMessage+" Added in Cart", "Ok");
-      // });
-  
-      // end cartcounter
       this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
       this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
       this.User= JSON.parse(sessionStorage.getItem('User'));
@@ -107,7 +81,6 @@ export class HeaderComponent {
       
     // console.log("Register_user",this.Register_User)
     // console.log("Login_user",this.Login_User)
-    // this.Login_User= sessionStorage.getItem('Login_User')
     this.Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
     // this.LoginData= JSON.parse(sessionStorage.getItem('Login_User'));
     // this.RegisterData= JSON.parse(sessionStorage.getItem('Register_User'));
@@ -132,23 +105,10 @@ export class HeaderComponent {
     cart:any=[]
     Login_User:any;
     Register_User:any
-    // ngDoCheck(){
-      
-    // //   this._cartservice.ShowCart().subscribe((res)=>{
-    // //     this.cart=res
-    // //     this.cartItemCount=this.cart.length
-    // //     console.log("cart length",this.cart.length)
-    // // })
 
 
-
-    // }
     title = 'Grocery-App';
     login_logout:boolean |undefined;
-    // logout(loggedInuser: boolean) {
-      //   this.LoginService.log_out(loggedInuser)    
-      //   }
-     
       userData:any = sessionStorage.getItem('User');
       email:any = this.userData
     logout(){
@@ -170,7 +130,7 @@ export class HeaderComponent {
     grocery_items=[]
   GetAllCategory(){
     this._productservice.getAllCategory().subscribe({next:(Category_Res:any) => {
-      console.log("Category_Res",Category_Res.data)
+      // console.log("Category_Res",Category_Res.data)
       this.grocery_items=Category_Res.data
       for(let i=0;i<this.grocery_items.length;i++){
         this.categories.push(this.grocery_items[i].title)

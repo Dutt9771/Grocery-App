@@ -26,7 +26,7 @@ ngOnInit() {
   if(this.User_Details){
 
     this.Customer_Id = this.User_Details.id;
-    console.log('Customer_Id', this.Customer_Id);
+    // console.log('Customer_Id', this.Customer_Id);
   }
   this.GetProducts()
   // this.filteredItems=this.productservice.getProducts()
@@ -42,18 +42,18 @@ ngOnInit() {
     this._cartservice.ShowCart().subscribe((res)=>{
       this.ShowcartArr=res
       this.Find_Customer_Cart=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
-      console.log("Find Customer",this.Find_Customer_Cart)
+      // console.log("Find Customer",this.Find_Customer_Cart)
       this.Find_Customer_Cart_Arr=this.Find_Customer_Cart.items
-      console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
+      // console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
     })
-    console.log("ShowcartArr",this.ShowcartArr)
+    // console.log("ShowcartArr",this.ShowcartArr)
     return this.ShowcartArr
   }
   GetProducts(){
     this.productservice.getALLProducts().subscribe({next:(get_all_products_res)=>{
-      console.log("get_all_products_res",get_all_products_res)
+      console.log("get_all_products_res",get_all_products_res.data)
       this.filteredItems=get_all_products_res.data
-      console.log("allProducts",this.filteredItems)
+      // console.log("allProducts",this.filteredItems)
     },error:(get_all_products_error)=>{
       console.log("get_all_products_error",get_all_products_error)
     }})
@@ -65,15 +65,15 @@ ngOnInit() {
   Add_cart(i,product){
 
 
-    console.log("ShowCartArr",this.ShowcartArr)
-    console.log("Product",product)
+    // console.log("ShowCartArr",this.ShowcartArr)
+    // console.log("Product",product)
     this.existing_Product=this.Find_Customer_Cart_Arr.find((item)=>item.title.toLowerCase()===product.title.toLowerCase())
-    console.log("Existing Product",this.existing_Product)
+    // console.log("Existing Product",this.existing_Product)
     
-    console.log("Existing Product",this.existing_Product)
+    // console.log("Existing Product",this.existing_Product)
     if(!this.existing_Product){
     console.log("id",i)
-    console.log("Filtered Item Arr",this.filteredItems[i])
+    // console.log("Filtered Item Arr",this.filteredItems[i])
     this.ProductAddobj= this.filteredItems[i]
     this.ProductAddobj=Object.assign(this.filteredItems[i],this.product_quantity)
 

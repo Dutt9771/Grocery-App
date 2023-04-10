@@ -124,25 +124,7 @@
     },
     {
       "id": 63,
-      "items": [
-        {
-          "id": 4,
-          "title": "product-4",
-          "amount": 150,
-          "discount_type": 1,
-          "discount_amount": 0,
-          "avatar_image": "1680602333863-male.jpg",
-          "images": null,
-          "short_description": "short description 4",
-          "description": "description 4",
-          "slug": "product-4",
-          "is_active": true,
-          "deleted_at": null,
-          "createdAt": "2023-04-04T09:58:53.000Z",
-          "updatedAt": "2023-04-04T09:58:53.000Z",
-          "quantity": 1
-        }
-      ]
+      "items": []
     }
   ]
 }

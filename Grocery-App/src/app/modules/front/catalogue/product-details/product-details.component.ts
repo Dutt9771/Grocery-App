@@ -158,29 +158,7 @@ Find_Customer_Cart:any
         this._cartservice.Subtotal()
       })
     
-    
-    // const sampleData = {
-    //   customer_id: this.Customer_Id,
-    //   items: [
-    //   ]
-    // }
-    // this._cartservice.AddCart(sampleData).subscribe(res=>{
-    //   console.log(
-    //     res
-    //     )
-    //     this._cartservice.getItemCount()
-    //     this._cartservice.Subtotal()
-    //   })
-
-    
-
-      
-      // this._cartservice.addItemToCart();
-      // this.Product_Count_Obj.push(this.ProductAddobj)
-      // localStorage.setItem('Products_Count',JSON.stringify(this.Product_Count_Obj))
-
-
-      this._cartservice.cartmsg=this.filteredItems[0].name;
+        this._cartservice.cartmsg=this.filteredItems[0].name;
     // this.route.navigate(['/front/cart'])
     console.log("Filtered Item",this.filteredItems)
     this._cartservice.cart.push(this.filteredItems);

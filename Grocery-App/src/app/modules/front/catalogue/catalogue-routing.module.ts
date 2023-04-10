@@ -10,6 +10,7 @@ import { AllCategoryComponent } from './all-category/all-category.component';
 
 const routes: Routes = [
   {path:'product-details/:id/:slug',component:ProductDetailsComponent},
+  {path:'product-details/:slug',component:ProductDetailsComponent},
   {path:'products-list/:id',component:ProductListComponent},
   {path:'products',component:ProductsComponent},
   {path:'category',component:CategoryComponent},

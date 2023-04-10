@@ -94,8 +94,8 @@ export class ProductListComponent implements OnInit {
       this.product_Obj=this.grocery_items.find((item)=>item.slug===this.category_path)
       this.Category_Id=this.product_Obj.id
       }
-      console.log("product_Obj",this.product_Obj)
-      console.log("Category_Id",this.Category_Id)
+      // console.log("product_Obj",this.product_Obj)
+      // console.log("Category_Id",this.Category_Id)
       for(let i=0;i<this.grocery_items.length;i++){
         this.categories_Arr.push(this.grocery_items[i].title)
         // console.log("Categories",this.categories)
@@ -168,10 +168,11 @@ export class ProductListComponent implements OnInit {
 
       this.selectedCategory = 'all';
       if (category === 'all') {
+        this.filteredItems=[]
         this.GetProducts()
         // return this.allProducts;
-        this.filteredItems=[]
       } else {
+        this.allProducts=[]
         let Filter_Category_Obj=this.grocery_items.find((item)=>item.slug===category)
         this.Category_Id=Filter_Category_Obj.id
           // this.encryption((this.Category_Id).toString())
@@ -179,7 +180,6 @@ export class ProductListComponent implements OnInit {
         console.log("allProducts",this.allProducts);
         console.log("Customer_Id",this.Customer_Id);
         this.encryption((this.Category_Id).toString())
-        this.allProducts=[]
       // return this.filteredItems
     }
   }else{
