@@ -52,17 +52,13 @@ User_Details:any
       this.isLoggedin = user != null;
     });
   }
-  // loginWithFacebook(): void {
-  //   this.socialAuthService.signIn(FacebookLoginProvider.PROVIDER_ID);
-  // }
+
 ngAfterViewInit(){
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     this.Customer_Id=this.User_Details.id
     console.log("Customer_Id",this.Customer_Id)
-    // setTimeout(() => {
-    //   this.loading=false
-    // }, 1500);
-    this.Showcart()
+
+    // this.Showcart()
 }
   ShowcartArr:any=[]
   Showcart(){
@@ -80,7 +76,7 @@ ngAfterViewInit(){
       if(res.url){
         
         let FindCustomer=this.ShowcartArr.find((item)=>item.id=== this.Customer_Id)
-        // console.log("FindCustomer",FindCustomer)
+        console.log("FindCustomer",FindCustomer)
           if(!FindCustomer){
     // console.log("NOt User")
             this._cartservice.AddCart(sampleData).subscribe(res=>{
@@ -91,14 +87,6 @@ ngAfterViewInit(){
                 this._cartservice.Subtotal()
               })
             }
-         
-         
-         
-          // for(let i=0;i<this.ShowcartArr.length;i++) {
-            
-          //   console.log("ShowcartArr[i]",this.ShowcartArr[i].customer_id)
-      
-          // }
         }
       })
       // return this.ShowcartArr

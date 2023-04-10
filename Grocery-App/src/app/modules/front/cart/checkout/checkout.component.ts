@@ -12,7 +12,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent {
-  constructor(private route:Router,private _cartService: CartService,private _userService:UserService,private _encryptionservice:EncryptionService,private toastr:ToastrService){}
+  constructor(private route:Router,private _cartService: CartService,private _userService:UserService,private _encryptionservice:EncryptionService,private toastr:ToastrService){
+  this.Radio_Address_Form()
+}
   address_user=[]
   
   cartTotal: number;
@@ -27,14 +29,15 @@ export class CheckoutComponent {
       this.Customer_Id=this.User_Details.id
       console.log("Customer_Id",this.Customer_Id)
       
-      this.Radio_Address_Form()
       this.Get_User_Details()
-      this.data=this._cartService.Cartdata
-    this.address_user=JSON.parse(localStorage.getItem("User_address"))
-    console.log("address_user",this.address_user)
-      this._cartService.cartTotal$.subscribe(total => {
-        this.cartTotal = total;
-      });
+      
+      // this.data=this._cartService.Cartdata
+      this.data=JSON.parse(localStorage.getItem('Cart_Data'))
+    this.cartTotal = this.data.total_amount;
+    // console.log("address_user",this.address_user)
+    //   this._cartService.cartTotal$.subscribe(total => {
+    //     this.cartTotal = total;
+    //   });
       console.log("data",this.data)
       
       
@@ -52,13 +55,17 @@ Get_User_Details(){
     console.log("User_Details",User_details_res.data)
     this.User_details_Obj=User_details_res.data
     this.User_details_Obj_addresses=this.User_details_Obj.addresses
-    if(this.User_details_Obj.addresses.length==0){
-      this.toastr.error(this.username+","+"Please Add Address")
-      setTimeout(() => {
-        this.route.navigate(['/front/user/user-profile/addaddress'])
-      }, 2500);
 
-    }
+console.log("USER_DEtails",this.User_details_Obj)
+console.log("USER_DEtails",this.User_details_Obj_addresses)
+      if(this.User_details_Obj.addresses.length==0){
+        this.toastr.error(this.username+","+"Please Add Address")
+        setTimeout(() => {
+          this.route.navigate(['/front/user/user-profile/addaddress'])
+        }, 2500);
+        
+      } 
+
   },error:(User_details_error)=>{
     console.log("Getuserdetail_error",User_details_error)
   }})
@@ -141,14 +148,15 @@ DelectProduct(){
   this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
         console.log("Find_Customer_Cart",this.Find_Customer_Cart)
       let Empty_Cart=[]
-      this._cartService.DelectProduct(this.Customer_Id).subscribe((res)=>{
-        //        console.log("Deleted Items",res)
-        //        this._cartService.getItemCount()
+      debugger
+      this._cartService.DelectUserCart(this.Customer_Id).subscribe((res)=>{
+               console.log("Deleted Items",res)
+               this._cartService.getItemCount()
+               this._cartService.Subtotal()
+
         
            })
       // }
-  this._cartService.getItemCount()
-      this.Showcart()
           })
     }
 

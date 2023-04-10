@@ -83,6 +83,19 @@ get_order_by_id=environment.orders_routes.get_order_by_id
       return throwError(()=>new Error(error))
     }
   }
+  DelectUserCart(customerId:any){
+    try {return this.http.get(this.baseurl+this.resname+"/"+customerId).pipe(
+      mergeMap((customer: any) => {
+        const currentItemArray = []
+  
+        return this.http.patch(this.baseurl+this.resname+"/"+customerId, {
+          items: currentItemArray
+        });
+      })
+    );} catch (error:any) {
+      return throwError(()=>new Error(error))
+    }
+  }
 
 
 
@@ -131,6 +144,8 @@ Subtotal(){
   this.ShowCart().subscribe((res)=>{
     this.cartc=res
     this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
+    if(this.Find_Customer_Cart){
+
     // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
     this.Customer_Cart=this.Find_Customer_Cart.items
     // console.log("Customer_Cart",this.Customer_Cart)
@@ -147,7 +162,7 @@ Subtotal(){
       // console.log("this.cartsubtotal",cartsubtotal)
     }
     this.subtotalSource.next(cartsubtotal);
-
+  }
   })
 }
 }
@@ -172,20 +187,21 @@ User_Details:any
 getItemCount(){
   this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
   if(this.User_Details){
-
     this.Customer_Id=this.User_Details.id
     // console.log("Customer_Id",this.Customer_Id)
-  this.ShowCart().subscribe((res)=>{
-    this.cartc=res
-    // console.log("cartc",this.cartc.length)
-    // this.cartcount.next(this.cartc.length);
-    // console.log("cartcount",this.cartcount)
-    this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
-    // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+    this.ShowCart().subscribe((res)=>{
+      this.cartc=res
+      // console.log("cartc",this.cartc.length)
+      // this.cartcount.next(this.cartc.length);
+      // console.log("cartcount",this.cartcount)
+      this.Find_Customer_Cart=this.cartc.find((item)=>item.id=== this.Customer_Id)
+      // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+      if(this.Find_Customer_Cart){
     this.Customer_Cart=this.Find_Customer_Cart.items
     // console.log("Customer_Cart",this.Customer_Cart)
     const cartLength = this.Customer_Cart.length;
   this.cartLengthSubject.next(cartLength);
+}
   })
 }
 }

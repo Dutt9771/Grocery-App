@@ -22,28 +22,33 @@
               <div class="vl"></div>
               <small>Order Amount: RS {{arr.paid_amount}}</small>
               <div class="vl"></div>
-              <span>{{arr.item}} Item</span>
+              <span>{{arr.order_items.length}} Item</span>
             </mat-panel-description>
           </mat-expansion-panel-header>
-          <table >
-            <tr>
-              <th>No.</th>
-              <th>Product Name</th>
-              <th>Quantity</th>
-              <th>Product Amount</th>
-              <th>Discount Amount</th>
-            </tr>
-            <tr *ngFor="let item of arr.order_items;let i=index">
-              <td>{{i+1}}</td>
-              <td>{{item.product_name}}</td>
+          <table class="table">
+            <thead>
+              
+              <tr>
+                <th scope="col">No.</th>
+                <th scope="col">Product Name</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Product Amount</th>
+                <th scope="col">Discount Amount</th>
+              </tr>
+            </thead>
+            <tbody class="table-group-divider">
+              <tr *ngFor="let item of arr.order_items;let i=index">
+                <th scope="row">{{i+1}}</th>
+                <td>{{item.product_name}}</td>
               <td>{{item.qty}}</td>
               <td>{{item.product_amount}}</td>
               <td>{{item.discount_amount}}</td>
             </tr>
+          </tbody>
           </table>
           <div>
           </div>
-
+          
         </mat-expansion-panel>
               </mat-accordion>
               <ng-container *ngIf="!PastOrderArr.length">

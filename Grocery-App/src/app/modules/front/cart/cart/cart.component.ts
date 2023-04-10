@@ -312,7 +312,7 @@ return this.ProductArr
     this.data={
       "order_date": "2023-04-06",
       "special_note": "its special",
-      "estimate_delivery_date": "2023-04-15",
+      "estimate_delivery_date": "2023-04-20",
       "sub_total": this.Subtotal(),
       "tax_amount": this.GST.toFixed(2),
       "discount_amount": 10,
@@ -323,7 +323,8 @@ return this.ProductArr
   }
     console.log("cart",this.cart)
     this._cartservice.setCartTotal(this.Total);
-  this._cartservice.Cartdata=this.data
+    localStorage.setItem('Cart_Data', JSON.stringify(this.data)); // To set the value
+  // this._cartservice.Cartdata=this.data
   console.log("this._cartservice.Cartdata",this._cartservice.Cartdata)
   
   
