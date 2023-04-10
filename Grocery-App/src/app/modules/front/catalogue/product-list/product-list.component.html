@@ -68,7 +68,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src="https://a521-117-217-127-105.in.ngrok.io/api/v1/product-images/{{
+          src="https://1f85-117-217-127-105.ngrok-free.app/api/v1/product-images/{{
             product.product.avatar_image
           }}"
           alt=""
@@ -127,8 +127,10 @@
   </div>
 </div>
 
-<div class="container" *ngIf="category_path == 'all'">
-  <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+<ng-container *ngIf="!Search;else Search_Here">
+
+  <div class="container" *ngIf="(category_path == 'all')">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
     <div class="col" *ngFor="let product of allProducts; let i = index">
       <div class="card bg-white p-2 m-2">
         <img
@@ -144,7 +146,7 @@
           ]"
           width="120"
           height="120"
-        />
+          />
         <div class="card-body">
           <small>{{ product.title ? product.title : "Product Title" }}</small>
           <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
@@ -181,3 +183,60 @@
     </div>
   </div>
 </div>
+</ng-container>
+<ng-template #Search_Here>
+  <div class="container" *ngIf="(category_path == 'all')">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-3">
+    <div class="col" *ngFor="let product of Search_Arr; let i = index">
+      <div class="card bg-white p-2 m-2">
+        <img
+          class="rounded mx-auto d-block"
+          src="https://a521-117-217-127-105.in.ngrok.io/api/v1/product-images/{{
+            product.avatar_image
+          }}"
+          alt=""
+          [routerLink]="[
+            '/front/catalogue/product-details/',
+            product.id,
+            product.slug
+          ]"
+          width="120"
+          height="120"
+          />
+        <div class="card-body">
+          <small>{{ product.title ? product.title : "Product Title" }}</small>
+          <h4>{{ product.weight ? product.weight : "Product Weight" }}</h4>
+          <!-- <ul class="card-body rating" data-mdb-toggle="rating"> <i class="fas
+                    fa-star fa-sm text-primary" title="Bad"></i> <i class="fas fa-star fa-sm
+                    text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
+                    title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
+                    class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
+          <p>
+            {{
+              product.description ? product.description : "Product Description"
+            }}
+          </p>
+          <p>
+            {{
+              product.short_description
+                ? product.short_description
+                : "Product Description"
+            }}
+          </p>
+          <div class="text-center">
+            <i class="m-2 fw-bolder">{{ product.amount | currency : "INR" }}</i>
+            <!-- <i class="text-decoration-line-through m-4">{{product.price |
+                        currency}}</i> -->
+            <button
+              class="btn btn-outline-light"
+              (click)="Add_cart(i, product)"
+            >
+              <img src="/assets/Cart-btn.png" alt="" />
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</ng-template>

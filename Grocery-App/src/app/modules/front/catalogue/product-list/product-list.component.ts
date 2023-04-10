@@ -11,6 +11,7 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { ProductListService } from 'src/app/shared/services/product-list/product-list.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
+import { SearchService } from 'src/app/shared/services/search/search.service';
 
 @Component({
   selector: 'app-product-list',
@@ -26,7 +27,8 @@ export class ProductListComponent implements OnInit {
     private productservice: ProductsService,
     private _cartservice: CartService,
     private router: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private searchService:SearchService
   ) {
     this.selectedCategory = this.defaultCategory;
   }
@@ -134,7 +136,37 @@ export class ProductListComponent implements OnInit {
   User_Details: any;
   categories_Path: any;
   product_Obj: any;
-  ngOnInit() {
+  message:string;
+  Search_Arr:any
+  Search:any
+  Search_In_All_Product(){
+    this.searchService.getSearchQuery().subscribe((query) => {
+      console.log("Query",query)
+      this.Search=query
+      if(query){
+
+        if (this.category_path) {
+          if (this.category_path == 'all') {
+            console.log("ALl products",this.allProducts)
+            this.Search_Arr=this.allProducts.filter((product) =>
+            // product.id.includes(query)
+            product.title.toLowerCase().includes(query.toLowerCase()) ||
+            product.description.toLowerCase().includes(query.toLowerCase()) ||
+            product.short_description.toLowerCase().includes(query.toLowerCase()) ||
+            product.slug.toLowerCase().includes(query.toLowerCase())
+            
+            );
+            console.log("ALl products",this.Search_Arr)
+            
+          }
+        }
+      }else{
+        this.GetProducts();
+      }
+      })
+  }
+  ngOnInit() {  
+    this.Search_In_All_Product()
     this.router.events.subscribe((res: any) => {
       if (res.url) {
         window.scrollTo(0, 0);

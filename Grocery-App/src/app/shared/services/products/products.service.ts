@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Category } from '../../Models/category';
 
@@ -269,5 +269,13 @@ export class ProductsService {
       return throwError(()=>new Error(error))
     }
 
+  }
+
+
+  private messageSource = new BehaviorSubject('hii');
+  currentMessage = this.messageSource.asObservable();
+
+  changeMessage(message: string) {
+    this.messageSource.next(message)
   }
 }

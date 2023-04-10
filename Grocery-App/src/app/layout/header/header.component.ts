@@ -8,6 +8,7 @@ import { FormControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { CookieService } from 'ngx-cookie-service';
+import { SearchService } from 'src/app/shared/services/search/search.service';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class HeaderComponent {
     // subTotal:any = 0;
     User_name="Login/Signup"
     
-    constructor(private _productservice:ProductsService,private cookieService: CookieService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
+    constructor(private searchService: SearchService,private _productservice:ProductsService,private cookieService: CookieService,private _snackBar: MatSnackBar,private router:Router,private _RegisterService:RegisterService,private _cartService:CartService,private _productsservice:ProductsService,private toastr:ToastrService) {
       
       this._RegisterService.Login_Logout_msg.subscribe(res=>{
         if(res){
@@ -85,7 +86,29 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
         this.Login_Logout_msg="Logout"
       }
      
+      this._productservice.currentMessage.subscribe(message => this.message = message)
     }
+
+    message:string;
+
+    query: string = '';
+  
+    onSearchClick(): void {
+      this.searchService.setSearchQuery(this.query);
+    }
+
+  //   Category_Select:any
+  //   Select_Category(Category){
+  //     this.Category_Select=Category
+  //     console.log("Category",Category)
+  //         }
+
+  //   onSubmit(search) {
+  //     console.log("Seach",search)
+  //   this._productservice.changeMessage(search)
+  //   // this.router.navigate(['/front/catalogue/products-list',this.Category_Select])
+  // }
+
     Check_User(){
       
     // console.log("Register_user",this.Register_User)
@@ -163,16 +186,14 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
       { title: 'The Catcher in the Rye', author: 'J.D. Salinger' }
     ];
 
-    Select_Category(Category){
-console.log("Category",Category)
-    }
-    onSubmit(searchTerm: string) {
-      const filteredBooks = this.books.filter(book =>
-        book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        book.author.toLowerCase().includes(searchTerm.toLowerCase())
-      );
-      console.log(filteredBooks);
-    }
+   
+    // onSubmit(searchTerm: string) {
+    //   const filteredBooks = this.books.filter(book =>
+    //     book.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //     book.author.toLowerCase().includes(searchTerm.toLowerCase())
+    //   );
+    //   console.log(filteredBooks);
+    // }
     
   }
   
