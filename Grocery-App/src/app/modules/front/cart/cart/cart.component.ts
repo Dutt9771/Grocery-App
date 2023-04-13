@@ -1,6 +1,7 @@
 import { group } from '@angular/animations';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -14,7 +15,7 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class CartComponent {
   cartItems:any[]=[]
   loading:boolean=true
-  constructor(private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
+  constructor( private spinner: NgxSpinnerService,private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
    
   }
   cart:any=[]
@@ -28,92 +29,93 @@ export class CartComponent {
   cartEmptyShow=true
   data:any
   dateFormat:any
-  
   Customer_Id:number
 User_Details:any
+Guest_Cart:any=[]
 username:string
     ngOnInit(){ 
       window.scrollTo(0,0)
+      this.Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
+      // console.log("Guesut Cart",this.Guest_Cart)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
-    this.username=this.User_Details.username
-    this.Customer_Id=this.User_Details.id
-    console.log("Customer_Id",this.Customer_Id)
-    let date = new Date()
-    var getYear = date.toLocaleString("default", { year: "numeric" });
-    var getMonth = date.toLocaleString("default", { month: "2-digit" });
-var getDay = date.toLocaleString("default", { day: "2-digit" });
-    this.dateFormat = getYear + "-" + getMonth + "-" + getDay;
-console.log("dateFormat",JSON.stringify(this.dateFormat));
+    if(this.User_Details){
+
+      this.username=this.User_Details.username
+      this.Customer_Id=this.User_Details.id
+      console.log("Customer_Id",this.Customer_Id)
+    }
+    // this.Date()
+// console.log("dateFormat",JSON.stringify(this.dateFormat));
     this.filteredItems=this._productservice.getProducts()
   
-    this._cartservice.ShowCart().subscribe((res)=>{
-      if(res){
+    this.spinner.show();
 
-        this.cart=res
-      setTimeout(() => {
-        this.loading=false
-      }, 1500);
-    }
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1500);
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    if(Merge && this.User_Details){
 
-      this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-      console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-      this.Customer_Cart=this.Find_Customer_Cart.items
-      console.log("Customer_Cart",this.Customer_Cart)
-
-      // Category Wise
-      
-      this.groupedProducts = this.Customer_Cart.reduce((acc, product) => {
+      this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+      if(this.Find_Customer_Cart){
+        this.Customer_Cart=this.Find_Customer_Cart.items
+        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+        console.log("Customer_Cart",this.Customer_Cart)
+        // this.Check_Guest_User()
         
-        const existingCategory = acc.find(group => group.category === product.category);
-        if (existingCategory) {
-          existingCategory.cart.push(product);
-          // this.groupedProducts=this.cartlength
-        } else {
-          acc.push({ category: product.category, cart: [product] });
-        }
-        return acc;
-      }, []);
-      console.log(this.groupedProducts,"groupedProducts")
-      console.log("cart",this.cart)
-      // this._cartservice.cartSubject.subscribe(cart => {
-      //   this.cartItemCount = cart.length;
-      // });
-      
-      
-      
-     })
-    
-  
-  
-  
-  
-    // this._cartservice.getCartItems().subscribe(items => {
-    //   this.cartItems = items;
-    //   console.log(this.cartItems)
-    // });
+        this.Category_wise_Filter(this.Customer_Cart)
+      }
+    }
+    else{
+        console.log("this.Guest_Cart[0].items",this.Guest_Cart[0].items)
+        this.Category_wise_Filter(this.Guest_Cart[0].items)
+        // this.Check_Guest_User()
+            }
+  }
+  // Guest_User:boolean=false
+  // Check_Guest_User(){
+  //   if(!this.Guest_Cart[0].items.length || !this.Customer_Cart.length){
+  //     this.Guest_User=true
+  //   }
+  // }
+  Date(Add_number:any){
+    let today_date = new Date()
+    today_date.toLocaleDateString()
+    let Deliver_date=new Date()
+
+//     var getYear = date.toLocaleString("default", { year: "numeric" });
+//     var getMonth = date.toLocaleString("default", { month: "2-digit" });
+// var getDay = date.toLocaleString("default", { day: "2-digit" });
+//     this.dateFormat = getYear + "-" + getMonth + "-" + getDay;
+    if(Add_number){
+      Deliver_date.setDate(today_date.getDate()+Add_number)
+      return Deliver_date
+    }else{
+      return today_date
+    }
+  }
+  Category_wise_Filter(Arr:any){
+    this.groupedProducts = Arr.reduce((acc, product) => {
+          
+      const existingCategory = acc.find(group => group.category === product.category);
+      if (existingCategory) {
+        existingCategory.cart.push(product);
+        // this.groupedProducts=this.cartlength
+      } else {
+        acc.push({ category: product.category, cart: [product] });
+      }
+      return acc;
+  }, []);
+  console.log(this.groupedProducts,"groupedProducts")
+  console.log("cart",this.cart)
   }
   Find_Customer_Cart:any
   Customer_Cart:any=[]
   ngAfterViewInit(){
     this.CartEmptyShow_Data()
-    this._cartservice.ShowCart().subscribe((res)=>{
-      if(res){
-        this.cart=res
-        console.log("cart",this.cart)
-        //       for(let i=0;i<this.cart.length;i++) {
-          //   console.log("cart[i]",this.cart[i])
-          // }
-      // Category wise 
-      this._cartservice.cartSubject.subscribe(res => {
-        if(res){
-          console.log("Before Cart",res)
-          this.cart.splice(1,1);
-          console.log("After Cart",this.cart)
-        }
-      });
-    }
-    })
-    console.log("Subtotal From Cart",this.Subtotal())
+   
+    // console.log("Subtotal From Cart",this.Subtotal())
    }
   //Badge
   
@@ -124,90 +126,16 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   quantity=1
   Obj:any
   Subtotal_Per_Prod:any
-  quantitymin(index:any,productindex:any){
-    // console.log("Quantity",this.groupedProducts[index].cart[productindex].quantity);
-    // console.log(this.cart[productindex].amount)
+  quantitymin(index:any,productindex:any,product:any){
 
     if(this.groupedProducts[index].cart[productindex].quantity>1){
-      this.groupedProducts[index].cart[productindex].quantity-=1  
-      
-      this._cartservice.ShowCart().subscribe((res)=>{
-        if(res){
-
-          this.cart=res
-          console.log("cart",this.cart)
-          //       for(let i=0;i<this.cart.length;i++) {
-            //   console.log("cart[i]",this.cart[i])
-            // }
-            this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-            console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-            
-            this.Customer_Cart=this.Find_Customer_Cart.items
-            console.log("Customer_Cart",this.Customer_Cart)
-            
-            this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
-            console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
-            console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
-            
-            this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-            console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
-            console.log("Customer_Cart",this.Customer_Cart)
-            this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-              if(cart){
-              // console.log("cart in Service",cart)
-              // console.log("Product Index",productindex)
-              console.log("RES",res)
-            }
-            })
-          }
-          })
-      
-      // console.log("Subtotal From Cart",this.Subtotal())
-  
+      this._cartservice.Quantity_Minus(this.User_Details.username,product)
+      this.groupedProducts[index].cart[productindex].quantity-=1    
   }
   }
-  quantitymax(index,productindex){
-    
-    console.log("index==>",index,"  product index==>",productindex)
-      // console.log(this.cart[productindex].amount)
-      this.groupedProducts[index].cart[productindex].quantity+=1
-      this._cartservice.ShowCart().subscribe((res)=>{
-        if(res){
-
-          this.cart=res
-          console.log("cart",this.cart)
-          //       for(let i=0;i<this.cart.length;i++) {
-          //   console.log("cart[i]",this.cart[i])
-          // }
-          this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-          console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-          
-          this.Customer_Cart=this.Find_Customer_Cart.items
-          console.log("Customer_Cart",this.Customer_Cart)
-          
-          this.Customer_Index=this.cart.indexOf(this.Find_Customer_Cart)
-          console.log("this.cart.indexOf(this.Find_Customer_Cart)",this.cart.indexOf(this.Find_Customer_Cart))
-          console.log("this.cart[this.Customer_Index].items[productindex]",this.cart[this.Customer_Index].items[productindex])
-          
-          this.cart[this.Customer_Index].items[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-          console.log("cart[productindex]",this.cart[this.Customer_Index].items[productindex])
-          console.log("cart[productindex]",this.cart[this.Customer_Index])
-          console.log("cart[productindex]",this.cart[this.Customer_Index])
-          
-          this._cartservice.EditCart(this.Customer_Id,this.cart[this.Customer_Index]).subscribe((cart)=>{
-            if(cart){
-
-              // console.log("cart in Service",cart)
-            // console.log("Product Index",productindex)
-            console.log("RES",res)
-          }
-          })
-        }
-          })
-        
-        // this.cart[productindex].quantity=this.groupedProducts[index].cart[productindex].quantity
-  
-  
+  quantitymax(index:any,productindex:any,product:any){
+    this._cartservice.Quantity_Plus(this.User_Details.username,product)
+      this.groupedProducts[index].cart[productindex].quantity+=1  
   }
   
   GST:any
@@ -264,53 +192,40 @@ console.log("dateFormat",JSON.stringify(this.dateFormat));
   }
   cartItemCount:any
   clickedItem:any=[]
-
+  txt:boolean
+  prompt_Fun(txt:any) {
+    if (confirm(txt)) {
+      this.txt =true
+    } else {
+      this.txt = false
+    }
+  }
   DelectProduct(id:any,index:any,productindex:any,product){
-    
-//       this.clickedItem= this.filteredItems[id]
-// console.log("ID",id)
-// console.log("this.filteredItems[id]",this.filteredItems[id])
-//       this._cartservice.DelectProduct(id).subscribe((res)=>{
-//         if (res) {
-//           console.log("Deleted Group Product Arr",this.groupedProducts[index].cart.filter((product)=>product.id != id))
-//           this._cartservice.ShowCart().subscribe((res)=>{
-//             console.log("res",res) 
-//             this.cartItemCount=res
-//             // this.Cartlength=this.cartItemCount.length
-//             this._cartservice.cartItemCount$.next(this.cartItemCount.length);
-//           })
-//         this.toastr.success('Remove to cart',product.name);
+    this.prompt_Fun("You Want to Delete "+product.title)
+    if(this.txt){
 
-//       return this.groupedProducts[index].cart.splice(productindex,1)
-
-
-// }
-// console.log("this.Find_Customer_Cart.items.splice(productindex,1)",this.Find_Customer_Cart.items.splice(productindex,1))
-// this.Find_Customer_Cart.items.splice(productindex,1)
-this._cartservice.DeletCart_Using_Put(this.Customer_Id,this.Find_Customer_Cart,productindex).subscribe((cart)=>{
-  if(cart){
-
-    // console.log("cart in Service",cart)
-    
-    // console.log("Product Index",productindex)
-    console.log("cart",cart)
-    this._cartservice.getItemCount()
-    this.Subtotal()
-    // return this.groupedProducts
-  }
-  })
-  return this.groupedProducts[index].cart.splice(productindex,1)
- 
-  // })
-    
-   
-  }
-  product:any
-  ProductArr=[]
-  get_cart_data(){
+      if(this.username){
+        
+        // this.Check_Guest_User()
+        this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
+        this.groupedProducts[index].cart.splice(productindex,1)
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
+      }else{
+        this._cartservice.Delete_Guest_cart()
+        this.groupedProducts[index].cart.splice(productindex,1)
+        this._cartservice.Subtotal()
+        // this.Check_Guest_User()
+        this._cartservice.getItemCount()
+      }
+    }
+    }
+    product:any
+    ProductArr=[]
+    get_cart_data(){
     for(let i=0;i<this.Find_Customer_Cart.items.length;i++){
       console.log("Cart Length",this.Find_Customer_Cart.items.length)
-//  console.log("this.cart.length")
+      //  console.log("this.cart.length")
   this.product={
     "product_id":  this.Find_Customer_Cart.items[i].id,
     "product_name": this.Find_Customer_Cart.items[i].title,
@@ -328,9 +243,9 @@ return this.ProductArr
 
   Checkout(){
     this.data={
-      "order_date": "2023-04-06",
+      "order_date": this.Date(0),
       "special_note": "its special",
-      "estimate_delivery_date": "2023-04-20",
+      "estimate_delivery_date": this.Date(3),
       "sub_total": this.Subtotal(),
       "tax_amount": this.GST.toFixed(2),
       "discount_amount": 10,

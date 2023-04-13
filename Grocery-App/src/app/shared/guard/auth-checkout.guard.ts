@@ -3,6 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTr
 import { Observable } from 'rxjs';
 import { CartService } from '../services/cart/cart.service';
 import { ToastrService } from 'ngx-toastr';
+import { CookieService } from 'ngx-cookie-service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthCheckoutGuard implements CanActivate {
   User_Details:any
   cartLength:number
   cartc:any
-  constructor(private _cartService:CartService,private toastr:ToastrService,private route:Router){
+  constructor(private cookieService: CookieService,private _cartService:CartService,private toastr:ToastrService,private route:Router){
     // this.route.events.subscribe((Res:any)=>{
     //   if(Res.url){
     //     this.Check_User_cart()
@@ -42,13 +43,26 @@ export class AuthCheckoutGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-  
-    if(this.cartLength){
+      // const token = this.cookieService.get('User_Login_Token');
+      const Login_User= JSON.parse(sessionStorage.getItem('Login_User'))
+    if(!Login_User){
       return true;
     }else{
-      this.toastr.error(this.User_Details.username+","+'Please Add Product in Cart');
+      this.toastr.error("Oops You Already Login");
       this.route.navigate(['/home'])
       return false;
     }
   } 
+  // canActivate(
+  //   route: ActivatedRouteSnapshot,
+  //   state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  
+  //   if(this.cartLength){
+  //     return true;
+  //   }else{
+  //     this.toastr.error(this.User_Details.username+","+'Please Add Product in Cart');
+  //     this.route.navigate(['/home'])
+  //     return false;
+  //   }
+  // } 
 }

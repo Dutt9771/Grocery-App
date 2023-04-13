@@ -6,6 +6,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
@@ -28,20 +29,22 @@ export class ProductListComponent implements OnInit {
     private _cartservice: CartService,
     private router: Router,
     private toastr: ToastrService,
-    private searchService:SearchService
+    private searchService:SearchService,
+    private spinner: NgxSpinnerService
   ) {
+    this.spinner.show();
     this.selectedCategory = this.defaultCategory;
   }
   category: any;
-
+  product_quantity:any
   filterValue: any;
   productArray: any = [];
 
   filteredItems: any = [];
   Product_Arr: any = [];
-  category_path;
+  category_path:any;
   categories: any;
-  GetProductByCategory(encryption) {
+  GetProductByCategory(encryption:any) {
     this.productservice.getProductByCategoryId(encryption).subscribe({
       next: (Product_Res: any) => {
         if (Product_Res) {
@@ -65,9 +68,12 @@ export class ProductListComponent implements OnInit {
           if (get_all_products_res.data) {
             console.log('get_all_products_res', get_all_products_res);
             this.allProducts = get_all_products_res.data;
-            setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+            
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1500);
             console.log('allProducts', this.allProducts);
           }
         }
@@ -165,6 +171,7 @@ export class ProductListComponent implements OnInit {
       }
       })
   }
+  quantity = 1;
   ngOnInit() {  
     this.Search_In_All_Product()
     this.router.events.subscribe((res: any) => {
@@ -176,13 +183,21 @@ export class ProductListComponent implements OnInit {
       if (params) {
         this.category_path = params.get('id');
         console.log('Category path', this.category_path);
+        
+          this.product_quantity = {
+            category:this.category_path,
+            quantity: this.quantity,
+          };
         this.GetAllCategory();
       }
     });
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-    this.Customer_Id = this.User_Details.id;
+    if(this.User_Details){
+
+      this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
     this.GetProducts();
+  }
 
     // this.filteredItems=this.productservice.getProducts()
     // this.productArray=this.productservice.getProducts()
@@ -320,34 +335,21 @@ export class ProductListComponent implements OnInit {
   Find_Customer_Cart: any;
   Find_Customer_Cart_Arr: any = [];
   Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('Find Customer', this.Find_Customer_Cart);
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        console.log('Find_Customer_Cart_Arr', this.Find_Customer_Cart_Arr);
-      }
-    });
-    console.log('ShowcartArr', this.ShowcartArr);
-    return this.ShowcartArr;
+  
   }
 
-  quantity = 1;
-  product_quantity = {
-    quantity: this.quantity,
-  };
+  
   Add_cart(i, product) {
     console.log('ShowCartArr', this.ShowcartArr);
     console.log('Product', product);
-    this.existing_Product = this.Find_Customer_Cart_Arr.find(
-      (item) => item.title.toLowerCase() === product.title.toLowerCase()
+    if(this.User_Details){
+
+      this.existing_Product = this.Find_Customer_Cart_Arr.find(
+        (item) => item.title.toLowerCase() === product.title.toLowerCase()
     );
     console.log('Existing Product', this.existing_Product);
     console.log('Existing Product', this.existing_Product);
-    if (!this.existing_Product) {
+   
       if (this.category_path == 'all') {
         console.log('All Products', this.allProducts);
         console.log('id', i);
@@ -358,17 +360,9 @@ export class ProductListComponent implements OnInit {
           this.ProductAddobj,
           this.product_quantity
         );
-        this._cartservice
-          .AddCartUserWise(this.Customer_Id, this.ProductAddobj)
-          .subscribe((res) => {
-            if (res) {
-              console.log(res);
-              this.toastr.success('Added to cart', product.title);
-              this.Showcart();
-              this._cartservice.getItemCount();
-              this._cartservice.Subtotal();
-            }
-          });
+        this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
+        this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
       } else {
         console.log('id', i);
         console.log('Filtered Item Arr', this.filteredItems[i]);
@@ -377,23 +371,23 @@ export class ProductListComponent implements OnInit {
           this.ProductAddobj,
           this.product_quantity
         );
-        this._cartservice
-          .AddCartUserWise(this.Customer_Id, this.ProductAddobj)
-          .subscribe((res) => {
-            if (res) {
-              console.log(res);
-              this.toastr.success('Added to cart', product.title);
-              this.Showcart();
-              this._cartservice.getItemCount();
-              this._cartservice.Subtotal();
-            }
-          });
+        this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
+        this._cartservice.getItemCount()
+        this._cartservice.Subtotal()
       }
-    } else {
-      // this._cartservice.cartmsg="Item Already";
-      this.toastr.info('Already Added Please Go to Cart', product.title);
-      // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
-    }
+
     this.Showcart();
+      }else{
+        this.ProductAddobj = this.allProducts[i];
+        this.ProductAddobj = Object.assign(
+          this.ProductAddobj,
+          this.product_quantity
+        );
+        if(!this.User_Details){
+        this._cartservice.Guest_User(this.ProductAddobj)
+        this._cartservice.getItemCount();
+        this._cartservice.Subtotal();
+        }
+      }
   }
 }

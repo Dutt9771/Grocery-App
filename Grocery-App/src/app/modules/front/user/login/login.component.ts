@@ -36,7 +36,7 @@ export class LoginComponent {
   User_Details: any;
   ngOnInit() {
     window.scrollTo(0, 0);
-
+    this._cartservice.Guest_cart_Generate()
     // this.toastr.success('Login Successfully');
     this.User_Login_Form();
     this.RegisterData = JSON.parse(sessionStorage.getItem('Register_User'));
@@ -68,28 +68,13 @@ export class LoginComponent {
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
-    const sampleData = {
-      id: this.Customer_Id,
-      items: [],
-    };
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        console.log('ShowcartArr', this.ShowcartArr);
-        let FindCustomer = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('FindCustomer', FindCustomer);
-        if (!FindCustomer) {
+   
           // console.log("NOt User")
-          this._cartservice.AddCart(sampleData).subscribe((res) => {
-            if (res) {
-              console.log(res);
+         
               this._cartservice.getItemCount();
               this._cartservice.Subtotal();
-            }
-          });
-        }
+           
+        
 
         // for(let i=0;i<this.ShowcartArr.length;i++) {
 
@@ -97,9 +82,7 @@ export class LoginComponent {
 
         // }
       }
-    });
-    // return this.ShowcartArr
-  }
+
   // Get_User_Details(){
   //     this._userService.Get_User_Details().subscribe({next:(User_details_res)=>{
   //     console.log("User_Details",User_details_res.data)
@@ -118,11 +101,19 @@ export class LoginComponent {
           if (User_details_res) {
             if (User_details_res.data) {
               console.log('User_Details', User_details_res.data);
+              this._cartservice.User_Add_Cart(User_details_res.data.username)
               sessionStorage.setItem(
                 'User_Details',
                 JSON.stringify(User_details_res.data)
               );
               this.Showcart();
+              let Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
+              // this._cartservice.Guest_User(Guest_Cart[0].items[0])
+              if(Guest_Cart[0].items.length){
+
+                this._cartservice.ADD_Cart_User_Wise_Quantity(User_details_res.data.username,Guest_Cart[0].items[0],Guest_Cart[0].items[0].id)
+                sessionStorage.removeItem("Guest_Cart")
+              }
               resolve(User_details_res);
             }
           }
@@ -173,6 +164,7 @@ export class LoginComponent {
                 'Login_User',
                 JSON.stringify(this.user_login.value)
               );
+              
               this.toastr.success('Login Successfully');
               this.router.navigate(['/home']);
               // this.Get_Customer_Id()

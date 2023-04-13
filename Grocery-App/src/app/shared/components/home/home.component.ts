@@ -11,6 +11,7 @@ import { Item } from 'src/app/shared/Models/item';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
 import { CartService } from '../../services/cart/cart.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,8 @@ export class HomeComponent {
     private _ProductsService: ProductsService,
     private renderer: Renderer2,
     private router: Router,
-    private _cartservice: CartService
+    private _cartservice: CartService,
+    private spinner: NgxSpinnerService
   ) {}
   // loading=true;
   topsells: any;
@@ -36,12 +38,21 @@ export class HomeComponent {
   recentlyAdded: any;
   Customer_Id: number;
   User_Details: any;
+  loading=true
   ngOnInit() {
     window.scrollTo(0, 0);
-
+    this._cartservice.Guest_cart_Generate()
+    this._cartservice.getItemCount()
+      this._cartservice.Subtotal()
     // setTimeout(() => {
     //   this.loading=false
     // }, 1500);
+    this.spinner.show();
+
+    setTimeout(() => {
+      /** spinner ends after 5 seconds */
+      this.spinner.hide();
+    }, 1500);
 
     this.topsells = this._ProductsService.Top_Sells();
     this.toprated = this._ProductsService.Top_Rated();
@@ -56,23 +67,17 @@ export class HomeComponent {
 
   ngAfterViewInit() {
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-    this.Customer_Id = this.User_Details.id;
+    if(this.User_Details){
+
+      this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
+    }
 
     // this.Showcart()
   }
   ShowcartArr: any = [];
   Showcart() {
-    const sampleData = {
-      id: this.Customer_Id,
-      items: [],
-    };
-    this._cartservice.ShowCart().subscribe((res: any) => {
-      if (res) {
-        this.ShowcartArr = res;
-        console.log('ShowcartArr', this.ShowcartArr);
-      }
-    });
+  
     this.router.events.subscribe((res: any) => {
       if (res.url) {
         let FindCustomer = this.ShowcartArr.find(
@@ -81,13 +86,10 @@ export class HomeComponent {
         console.log('FindCustomer', FindCustomer);
         if (!FindCustomer) {
           // console.log("NOt User")
-          this._cartservice.AddCart(sampleData).subscribe((res: any) => {
-            if (res) {
-              console.log('sampleData Of Cart', sampleData);
+          
               this._cartservice.getItemCount();
               this._cartservice.Subtotal();
-            }
-          });
+          
         }
       }
     });

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
@@ -14,7 +15,8 @@ export class ProductsComponent {
     private _cartservice: CartService,
     private productservice: ProductsService,
     private toastr: ToastrService,
-    private route: Router
+    private route: Router,
+ 
   ) {}
   filteredItems: any = [];
   Customer_Id: number;
@@ -42,19 +44,7 @@ export class ProductsComponent {
   Find_Customer_Cart: any;
   Find_Customer_Cart_Arr: any = [];
   Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        // console.log("Find Customer",this.Find_Customer_Cart)
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        // console.log("Find_Customer_Cart_Arr",this.Find_Customer_Cart_Arr)
-      }
-    });
-    // console.log("ShowcartArr",this.ShowcartArr)
-    return this.ShowcartArr;
+    
   }
   GetProducts() {
     this.productservice.getALLProducts().subscribe({
@@ -74,19 +64,18 @@ export class ProductsComponent {
   }
   quantity = 1;
   product_quantity = {
+    category:"all",
     quantity: this.quantity,
   };
   Add_cart(i, product) {
     // console.log("ShowCartArr",this.ShowcartArr)
     // console.log("Product",product)
-    this.existing_Product = this.Find_Customer_Cart_Arr.find(
-      (item) => item.title.toLowerCase() === product.title.toLowerCase()
-    );
-    // console.log("Existing Product",this.existing_Product)
+  if(this.User_Details){
 
     // console.log("Existing Product",this.existing_Product)
-    if (!this.existing_Product) {
-      console.log('id', i);
+    
+    // console.log("Existing Product",this.existing_Product)
+
       // console.log("Filtered Item Arr",this.filteredItems[i])
       this.ProductAddobj = this.filteredItems[i];
       this.ProductAddobj = Object.assign(
@@ -107,24 +96,22 @@ export class ProductsComponent {
       this._cartservice.cart.push(this.ProductAddobj);
       // emit updated cart data to subscribers
       this._cartservice.cartSubject.next(this._cartservice.cart);
+      this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
 
-      this._cartservice
-        .AddCartUserWise(this.Customer_Id, this.ProductAddobj)
-        .subscribe((res) => {
-          if (res) {
-            console.log(res);
-            this.toastr.success('Added to cart', product.title);
-            this.Showcart();
+      this.Showcart();
+            this._cartservice.getItemCount();
+            this._cartservice.Subtotal();
+          }else{
+            this.ProductAddobj = this.filteredItems[i];
+      this.ProductAddobj = Object.assign(
+        this.filteredItems[i],
+        this.product_quantity
+      );
+      if(!this.User_Details){
+            this._cartservice.Guest_User(this.ProductAddobj)
             this._cartservice.getItemCount();
             this._cartservice.Subtotal();
           }
-        });
-    } else {
-      this._cartservice.cartmsg = 'Item Already';
-      this.toastr.info('Already Added Please Go to Cart', product.title);
-
-      // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
-    }
-    this.Showcart();
+        }
   }
 }

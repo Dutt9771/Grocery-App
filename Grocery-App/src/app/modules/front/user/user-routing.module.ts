@@ -13,6 +13,7 @@ import { RegistrationComponent } from './registration/registration.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
 import { AddaddressComponent } from './addaddress/addaddress.component';
 import { ProfilenavComponent } from './profilenav/profilenav.component';
+import { AuthCheckoutGuard } from 'src/app/shared/guard/auth-checkout.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -33,7 +34,7 @@ const routes: Routes = [
     ]
   },
 
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent,canActivate:[AuthCheckoutGuard] },
   { path: 'home', component: HomeComponent },
   { path: 'contact-us', component: ContactUsComponent },
   { path: '**', component: ErrorPageComponent },

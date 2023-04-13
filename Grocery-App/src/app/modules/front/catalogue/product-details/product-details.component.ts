@@ -1,6 +1,7 @@
 import { AnimationKeyframesSequenceMetadata } from '@angular/animations';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 
 import { CartService } from 'src/app/shared/services/cart/cart.service';
@@ -26,7 +27,9 @@ export class ProductDetailsComponent {
     private _productsservice: ProductsService,
     private _cartservice: CartService,
     private route: Router,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private spinner: NgxSpinnerService
+    
   ) {
     this.router.paramMap.subscribe((params) => {
       this.product_id = params.get('id');
@@ -46,9 +49,12 @@ export class ProductDetailsComponent {
         if (Product_Res) {
           if (Product_Res.data) {
             this.filteredItems.push(Product_Res.data);
+            this.spinner.show();
+
             setTimeout(() => {
-              this.loading = false;
-            }, 1000);
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1500);
             console.log('Product_Res', this.filteredItems);
           }
         }
@@ -84,14 +90,28 @@ export class ProductDetailsComponent {
         window.scrollTo(0, 0);
       }
     });
-    this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
-    this.Customer_Id = this.User_Details.id;
-    console.log('Customer_Id', this.Customer_Id);
-    this.Showcart();
     this.encryption(this.product_id);
+    this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
+    if(this.User_Details){
+
+      this.Customer_Id = this.User_Details.id;
+      console.log('Customer_Id', this.Customer_Id);
+
     // console.log("User_Details",this.User_Details)
     console.log('Product_item', this.filteredItems);
-    console.log('Product_item', this.filteredItems);
+    // console.log('Product_item', this.filteredItems);
+    let Merge = JSON.parse(localStorage.getItem('Cart'));
+    let cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+  
+    console.log("cart",cart)
+    let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==this.product_id)
+    // this.existing_Product.quantity = this.existing_Product.quantity + 1;
+    if(duplicate){
+      this.product_quantity.quantity = duplicate.quantity;
+      this.QuantityErrMsg="Product is Existing"
+      console.log("duplicate",duplicate)
+    }
+  }
   }
 
   value: any;
@@ -119,7 +139,7 @@ export class ProductDetailsComponent {
   //       }
   //   }
   product_quantity = {
-    customer_id: 3,
+    category:"all",
     quantity: this.quantity,
   };
 
@@ -129,34 +149,17 @@ export class ProductDetailsComponent {
   QuantityErrMsg: string = '';
   existing_Product: any = [];
   Find_Customer_Cart_Arr: any;
-  Showcart() {
-    this._cartservice.ShowCart().subscribe((res) => {
-      if (res) {
-        this.ShowcartArr = res;
-        this.Find_Customer_Cart = this.ShowcartArr.find(
-          (item) => item.id === this.Customer_Id
-        );
-        console.log('Find Customer', this.Find_Customer_Cart);
-        this.Find_Customer_Cart_Arr = this.Find_Customer_Cart.items;
-        console.log('Find_Customer_Cart_Arr', this.Find_Customer_Cart_Arr);
-      }
-    });
-    console.log('ShowcartArr', this.ShowcartArr);
-    return this.ShowcartArr;
-  }
+  
   product_Existing: any;
   Find_Customer_Cart: any;
 
   Add_cart(product: any) {
-    console.log('ShowCartArr', this.ShowcartArr);
-    console.log('Product', product);
+    // console.log('ShowCartArr', this.ShowcartArr);
+    // console.log('Product', product);
+if(this.User_Details){
 
-    this.existing_Product = this.Find_Customer_Cart_Arr.find(
-      (item) => item.title.toLowerCase() === product.title.toLowerCase()
-    );
-    console.log('Existing Product', this.existing_Product);
-
-    if (this.product_quantity.quantity > 0 && !this.existing_Product) {
+  
+  if (this.product_quantity.quantity > 0) {
       console.log('Show Cart Arr', this.ShowcartArr);
 
       for (let i = 0; i < this.filteredItems.length; i++) {
@@ -170,66 +173,46 @@ export class ProductDetailsComponent {
         console.log('OBJ', this.ProductAddobj);
       }
 
-      this._cartservice
-        .AddCartUserWise(this.Customer_Id, this.ProductAddobj)
-        .subscribe((res) => {
-          if (res) {
-            console.log(res);
-            this.Showcart();
+      this._cartservice.ADD_Cart_User_Wise_Quantity(this.User_Details.username,this.ProductAddobj,product.id)
+            let Merge = JSON.parse(localStorage.getItem('Cart'));
+            let cart=Merge.find((user:any)=>user.username==this.User_Details.username)
+
+            console.log("cart",cart)
+            let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==product.id)
+            console.log("duplicate",duplicate)
+            // this.existing_Product.quantity = this.existing_Product.quantity + 1;
+            this.product_quantity.quantity = duplicate.quantity;
+            console.log("this.product_quantity.quantity",this.product_quantity.quantity)
             this._cartservice.getItemCount();
             this._cartservice.Subtotal();
-          }
-        });
+            if(duplicate){
+              this.QuantityErrMsg="Product is Existing"
+            }
+        
 
-      this._cartservice.cartmsg = this.filteredItems[0].name;
-      // this.route.navigate(['/front/cart'])
-      console.log('Filtered Item', this.filteredItems);
-      this._cartservice.cart.push(this.filteredItems);
-      // console.log("filteredItems.name",this.filteredItems[0].name)
-
-      // emit updated cart data to subscribers
-      // this._cartservice.cartMsg.next(this._cartservice.cartmsg);
-      this.toastr.success(' Added to cart', product.title);
-    } else if (this.existing_Product) {
-      this.QuantityErrMsg = 'Product Is Existing';
-      for (let i = 0; i < this.Find_Customer_Cart.items.length; i++) {
-        this.Find_Customer_Cart.items[i];
-        if (this.Find_Customer_Cart.items[i] == product) {
-          this.Find_Customer_Cart.items[i].quantity =
-            this.Find_Customer_Cart.items[i].quantity + 1;
-          this.product_quantity.quantity =
-            this.Find_Customer_Cart.items[i].quantity;
-
-          console.log('this.Find_Customer_Cart.items[i]', product);
-          console.log(
-            'this.Find_Customer_Cart.items[i].quantity',
-            this.Find_Customer_Cart.items[i].quantity
-          );
-          console.log(
-            'this.product_quantity.quantity',
-            this.product_quantity.quantity
-          );
-        }
-      }
-      console.log('Find_Customer_Cart', this.Find_Customer_Cart);
-
-      this.existing_Product.quantity = this.existing_Product.quantity + 1;
-      this.product_quantity.quantity = this.existing_Product.quantity;
-      this.toastr.info('Already Added Please Go to Cart', product.title);
-
-      this._cartservice
-        .EditCart(this.Customer_Id, this.Find_Customer_Cart)
-        .subscribe((cart) => {
-          if (cart) {
-            // console.log("cart in Service",cart)
-            // console.log("Product Index",productindex)
-            console.log('cart', cart);
-          }
-        });
     } else {
       this.QuantityErrMsg = 'Please Enter Valid Quantity';
       this.toastr.error('Please Enter Valid Quantity');
     }
-    this.Showcart();
+
+  }
+    else{
+      for (let i = 0; i < this.filteredItems.length; i++) {
+        this.ShowcartArr;
+        // this.filteredItems[i].moneyOfferPrice=this.product_quantity.quantity
+        this.ProductObj = this.filteredItems[i];
+        this.ProductAddobj = Object.assign(
+          this.ProductObj,
+          this.product_quantity
+        );
+        console.log('OBJ', this.ProductAddobj);
+      }
+if(!this.User_Details){
+
+  this._cartservice.Guest_User(this.ProductAddobj)
+  this._cartservice.getItemCount();
+            this._cartservice.Subtotal();
+}
+    }
   }
 }

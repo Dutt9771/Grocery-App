@@ -138,67 +138,30 @@ Showcart(){
       // console.log("FindCustomer",FindCustomer)
         if(!FindCustomer){
   // console.log("NOt User")
-          this._cartService.AddCart(sampleData).subscribe(res=>{
-            if(res){
-
-              console.log(
-                "sampleData Of Cart",sampleData
-                )
+          
                 this._cartService.getItemCount()
                 this._cartService.Subtotal()
-              }
-            })
+        
           }
 }
-DelectProduct(){
 
-  this._cartService.ShowCart().subscribe((res)=>{
-    if(res){
 
-      this.cart=res
-      console.log("cart",this.cart)
-      
-      this.Find_Customer_Cart=this.cart.find((item)=>item.id=== this.Customer_Id)
-      console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-      let Empty_Cart=[]
-      debugger
-      this._cartService.DelectUserCart(this.Customer_Id).subscribe((res)=>{
-        if(res){
-        console.log("Deleted Items",res)
-        this._cartService.getItemCount()
-        this._cartService.Subtotal()
-        
-      }
-      })
-      // }
-    }
-    })
+txt:boolean
+prompt_Fun(txt:any) {
+  if (confirm(txt)) {
+    this.txt =true
+  } else {
+    this.txt = false
   }
-  
-// DelectProduct(){
-//   this._cartService.ShowCart().subscribe((res)=>{
-//     this.cart=res
-
-
-//     for(let i=0;i<this.cart.length;i++){
-//      console.log("this.cart[i].id",this.cart[i].id)
-   
-//      this._cartService.DelectProduct(this.cart[i].id).subscribe((res)=>{
-//        console.log("Deleted Items",res)
-//        this._cartService.getItemCount()
-//    })
-//     }
-//     console.log("Cart Items",this.cart)
-//   })
-      
-
-
-// }
+}
 
 Place_Order(){
+  this.prompt_Fun("You Want to Place Order")
   // this.payment_status=this.encryption(this.status)
-  if(this.billing_address_id){
+  if(this.txt){
 
+    if(this.billing_address_id){
+      
 
   console.log("order_status",this.order_status)
   console.log("delivery_address_id",this.delivery_address_id)
@@ -227,10 +190,9 @@ if(this.Login_User){
         
         this._cartService.Get_Order_Detail_By_Id(this.Add_Order_Response_Data).subscribe({next:(Get_OrderById_res)=>{
           if(Get_OrderById_res){
+            this._cartService.Delete_User_Cart_LocalStorage(this.User_Details.username)
+            console.log("Get_OrderById_res",Get_OrderById_res) 
 
-            console.log("Get_OrderById_res",Get_OrderById_res)
-            this.DelectProduct()
-            
             this.route.navigate(['/front/cart/success'])
           }
         },error:(Get_Order_error)=>{
@@ -251,6 +213,7 @@ if(this.Login_User){
 }
 else{
   this.toastr.error("Please Select Address");
+}
 }
 }
 
