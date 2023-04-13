@@ -30,6 +30,7 @@
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/ngx-spinner/animations/ball-scale-multiple.css",
               "node_modules/@costlydeveloper/ngx-awesome-popup/styles/theme.css",
+              "node_modules/@costlydeveloper/ngx-awesome-popup/styles/theme.css",
               "src/styles.css"
             ],
             "scripts": [

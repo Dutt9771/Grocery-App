@@ -53,6 +53,12 @@ export class HeaderComponent {
     filteredItems:any=[]
     myControl = new FormControl('');
       ngOnInit(){ 
+        // let Guest_cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+        // // console.log("Guest_cart",Guest_cart)
+        // if(Guest_cart){
+        //       if(Guest_cart[0].items.length){
+        //         this.router.navigate(['/front/cart/cart'])
+        //       }}
         window.scrollTo(0,0) 
         this.GetAllCategory()
         // console.log("this._cartService.Subtotal()",this._cartService.Subtotal())

@@ -28,7 +28,7 @@
   class="table-responsive container mt-5"
   *ngIf="Customer_Cart.length; else EmptyCart"
 >
-  <table class="table" *ngIf="groupedProducts.length">
+  <table class="table" *ngIf="Customer_Cart.length != 0 && Subtotal()">
     <thead>
       <tr>
         <th scope="col" colspan="2">Item Description</th>
@@ -113,18 +113,23 @@
   </table>
 </div>
 <ng-template #EmptyCart>
-  <div *ngIf="!Guest_Cart[0].items.length" class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
+  <div *ngIf="!Subtotal() && !Customer_Cart.length" class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
+    {{ username?username:"Guest"}}, Your Cart is Empty
+  </div>
+</ng-template>
+<ng-template #EmptyCart_Second>
+  <div *ngIf="!Subtotal() && Customer_Cart.length" class="fs-3 fw-bold text-danger align-items-center text-center mt-4">
     {{ username?username:"Guest"}}, Your Cart is Empty
   </div>
 </ng-template>
 
 <div
   class="table-responsive container mt-5"
-  *ngIf="!Customer_Cart.length"
+  *ngIf="!Customer_Cart.length;else EmptyCart_Second"
 >
-  <table class="table" *ngIf="groupedProducts.length">
-    <thead>
-      <tr>
+  <table class="table" *ngIf="Subtotal()">
+    <thead *ngIf="Customer_Cart.length != 0">
+      <tr >
         <th scope="col" colspan="2">Item Description</th>
         <th scope="col">Unit Price</th>
         <th scope="col">Quantity</th>
@@ -132,9 +137,9 @@
       </tr>
     </thead>
     <tbody></tbody>
-
+    
     <tbody
-      class="table-group-divider"
+    class="table-group-divider"
       *ngFor="let group of groupedProducts; let y = index"
     >
       <tr>
@@ -171,9 +176,9 @@
               width="20"
               height="20"
               src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAeUlEQVR4nO3VwQ2DMAwFUM9XeugUCatCt+HWk6twYICA1Aa9J/27/RPJEQAAAAAAAABNzs/IukbWT2TNgdLmXSPLFCeXz/FTXp0F1PdNClh6C9h+P/wl2fyALlmmP3i9K/LoK+AooSxjXoF97hPLAwAAAAAAAMQ9fAHCeEX20iAlZgAAAABJRU5ErkJggg=="
-            />
-          </button>
-          {{ product.quantity }}
+              />
+            </button>
+            {{ product.quantity }}
           <button
             class="btn btn-outline-light btn-transparent"
             (click)="quantitymax(y, i,product)"
@@ -191,11 +196,11 @@
 
         <td>
           <button
-            type="button"
-            class="btn btn-transparent float-end"
-            (click)="DelectProduct(product.id, y, i, product)"
+          type="button"
+          class="btn btn-transparent float-end"
+          (click)="DelectProduct(product.id, y, i, product)"
           >
-            <img
+          <img
               src="https://img.icons8.com/material/96/null/delete-sign--v1.png"
               width="25"
               height="25"
@@ -213,6 +218,50 @@
   *ngIf="Customer_Cart.length != 0 && Subtotal()"
 > -->
 
+<div
+  class="table-responsive container d-flex justify-content-end mt-3 mb-3"
+  *ngIf="Customer_Cart.length == 0 && Subtotal()"
+> 
+
+  <table>
+    <tr>
+      <td class="fs-6">Subtotal:</td>
+      <td class="fs-6" #subtotalElement>
+        {{ Subtotal() | currency : "INR"  }}
+      </td>
+    </tr>
+    <tr>
+      <td class="fs-6">GST:</td>
+      <td class="fs-6">{{ GST | currency : "INR"  }}</td>
+    </tr>
+    <tr>
+      <td class="fs-6">Delivery Charges :</td>
+      <td class="fs-6">---</td>
+    </tr>
+    <tr>
+      <td colspan="2"><hr class="w-200 border border-dark border-2" /></td>
+    </tr>
+
+    <tr class="mb-2">
+      <td class="fs-6 fw-bolder">Total Price:</td>
+      <td class="fs-6 fw-bolder">{{ Total | currency : "INR"  }}</td>
+    </tr>
+    <tr>
+      <td colspan="2" class="text-center">
+        <button
+          type="button"
+          class="btn btn-outline-success btn-transparent w-100"
+          (click)="Checkout()"
+        >
+          Checkout
+        </button>
+      </td>
+    </tr>
+  </table>
+  <p class="d-flex justify-content-end"></p>
+  <p class="d-flex justify-content-end"></p>
+  <p class="d-flex justify-content-end"></p>
+</div>
 <div
   class="table-responsive container d-flex justify-content-end mt-3 mb-3"
   *ngIf="Customer_Cart.length != 0 && Subtotal()"

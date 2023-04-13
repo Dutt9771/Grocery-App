@@ -5,6 +5,7 @@ import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ConfirmBoxInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-checkout',
@@ -146,19 +147,26 @@ Showcart(){
 }
 
 
-txt:boolean
-prompt_Fun(txt:any) {
-  if (confirm(txt)) {
-    this.txt =true
-  } else {
-    this.txt = false
-  }
-}
+
 
 Place_Order(){
-  this.prompt_Fun("You Want to Place Order")
+  const confirmBox = new ConfirmBoxInitializer();
+  confirmBox.setTitle('Are you sure?');
+  confirmBox.setMessage(this.username+' Confirm to Checkout?');
+  confirmBox.setButtonLabels('CHECKOUT', 'CANCEL');
+
+  // Choose layout color type
+  confirmBox.setConfig({
+    layoutType: DialogLayoutDisplay.INFO, // SUCCESS | INFO | NONE | DANGER | WARNING
+  });
+
+  // Simply open the popup and listen which button is clicked
+  confirmBox.openConfirmBox$().subscribe((resp:any) => {
+    // IConfirmBoxPublicResponse
+    console.log('Clicked button response: ', resp);
+
+    if(resp.success){
   // this.payment_status=this.encryption(this.status)
-  if(this.txt){
 
     if(this.billing_address_id){
       
@@ -215,6 +223,7 @@ else{
   this.toastr.error("Please Select Address");
 }
 }
-}
+})
+    }  
 
 }

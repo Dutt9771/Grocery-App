@@ -5,7 +5,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { CartService } from 'src/app/shared/services/cart/cart.service';
 import { ProductsService } from 'src/app/shared/services/products/products.service';
-
+import { PromptService } from 'src/app/shared/services/prompt/prompt.service';
+import { ConfirmBoxInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-cart',
@@ -15,8 +16,14 @@ import { ProductsService } from 'src/app/shared/services/products/products.servi
 export class CartComponent {
   cartItems:any[]=[]
   loading:boolean=true
-  constructor( private spinner: NgxSpinnerService,private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService){
-   
+  constructor( private spinner: NgxSpinnerService,private _productservice:ProductsService,private _cartservice:CartService,private route:Router,private toastr:ToastrService,private router:Router,private _promptService:PromptService){
+    // router.events.subscribe((res:any)=>{
+    //   if(res.url){
+    //     this.groupedProducts
+    //     console.log("groupedproducts",this.groupedProducts)
+    //   }
+    // })
+    this.Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
   }
   cart:any=[]
   // cartItems;
@@ -33,10 +40,12 @@ export class CartComponent {
 User_Details:any
 Guest_Cart:any=[]
 username:string
+Login_User:any
     ngOnInit(){ 
       window.scrollTo(0,0)
+      this.Login_User=JSON.parse(sessionStorage.getItem("Login_User"))
       this.Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
-      // console.log("Guesut Cart",this.Guest_Cart)
+      console.log("Guesut Cart",this.Guest_Cart)
     this.User_Details=JSON.parse(sessionStorage.getItem('User_Details'))
     if(this.User_Details){
 
@@ -127,16 +136,36 @@ username:string
   Obj:any
   Subtotal_Per_Prod:any
   quantitymin(index:any,productindex:any,product:any){
-
+    let Guest = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+    console.log("Guest",Guest)
     if(this.groupedProducts[index].cart[productindex].quantity>1){
-      this._cartservice.Quantity_Minus(this.User_Details.username,product)
-      this.groupedProducts[index].cart[productindex].quantity-=1    
+      if(Guest){
+        if(Guest[0].items.length){
+          Guest[0].items[0].quantity-=1
+          this.groupedProducts[index].cart[productindex].quantity=Guest[0].items[0].quantity
+          console.log("Guest_Cart",Guest)
+          sessionStorage.setItem("Guest_Cart",JSON.stringify(Guest))
+        }
+      }else{
+        this._cartservice.Quantity_Minus(this.User_Details.username,product)
+        this.groupedProducts[index].cart[productindex].quantity-=1    
+      }     
   }
   }
   quantitymax(index:any,productindex:any,product:any){
+    let Guest = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+    if(Guest){
+      if(Guest[0].items.length){
+        Guest[0].items[0].quantity+=1
+        this.groupedProducts[index].cart[productindex].quantity= Guest[0].items[0].quantity
+        console.log("Guest_Cart",Guest)
+        this.Guest_Cart=sessionStorage.setItem("Guest_Cart",JSON.stringify(Guest))
+      }
+    } else{
     this._cartservice.Quantity_Plus(this.User_Details.username,product)
       this.groupedProducts[index].cart[productindex].quantity+=1  
   }
+}
   
   GST:any
   Total:any
@@ -192,33 +221,45 @@ username:string
   }
   cartItemCount:any
   clickedItem:any=[]
-  txt:boolean
-  prompt_Fun(txt:any) {
-    if (confirm(txt)) {
-      this.txt =true
-    } else {
-      this.txt = false
-    }
-  }
-  DelectProduct(id:any,index:any,productindex:any,product){
-    this.prompt_Fun("You Want to Delete "+product.title)
-    if(this.txt){
 
-      if(this.username){
+
+  DelectProduct(id:any,index:any,productindex:any,product:any){
+    const confirmBox = new ConfirmBoxInitializer();
+    confirmBox.setTitle('Are you sure?');
+    confirmBox.setMessage('Do you want to Delete '+product.title+' ?');
+    confirmBox.setButtonLabels('DELETE', 'NO');
+
+    // Choose layout color type
+    confirmBox.setConfig({
+      layoutType: DialogLayoutDisplay.DANGER, // SUCCESS | INFO | NONE | DANGER | WARNING
+    });
+
+    // Simply open the popup and listen which button is clicked
+    confirmBox.openConfirmBox$().subscribe((resp:any) => {
+      // IConfirmBoxPublicResponse
+      console.log('Clicked button response: ', resp);
+
+      if(resp.success){
         
-        // this.Check_Guest_User()
-        this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
-        this.groupedProducts[index].cart.splice(productindex,1)
+        if(this.username){
+          
+          // this.Check_Guest_User()
+          this._cartservice.Delete_Cart_LocalStorage(this.User_Details.username,product)
+          this.groupedProducts[index].cart.splice(productindex,1)
         this._cartservice.getItemCount()
         this._cartservice.Subtotal()
+
       }else{
         this._cartservice.Delete_Guest_cart()
         this.groupedProducts[index].cart.splice(productindex,1)
         this._cartservice.Subtotal()
         // this.Check_Guest_User()
         this._cartservice.getItemCount()
+        
       }
-    }
+    
+  }
+    });
     }
     product:any
     ProductArr=[]
@@ -234,7 +275,7 @@ username:string
     "discount_type": 1,
     "discount_amount": 10
 }
-  this.ProductArr.push(this.product)
+this.ProductArr.push(this.product)
 }
 
 console.log("ProductArr",this.ProductArr)
@@ -242,8 +283,12 @@ return this.ProductArr
   }
 
   Checkout(){
-    this.data={
-      "order_date": this.Date(0),
+    if(this.Login_User){
+
+      if(this.Find_Customer_Cart){
+        
+      this.data={
+        "order_date": this.Date(0),
       "special_note": "its special",
       "estimate_delivery_date": this.Date(3),
       "sub_total": this.Subtotal(),
@@ -253,7 +298,7 @@ return this.ProductArr
       "paid_amount": this.Total,
       "payment_type": 2,
       "order_products":this.get_cart_data(),
-  }
+    }
     console.log("cart",this.cart)
     this._cartservice.setCartTotal(this.Total);
     localStorage.setItem('Cart_Data', JSON.stringify(this.data)); // To set the value
@@ -261,8 +306,12 @@ return this.ProductArr
   console.log("this._cartservice.Cartdata",this._cartservice.Cartdata)
   
   
-    this.route.navigate(['/front/cart/checkout'])
-  }
+  this.route.navigate(['/front/cart/checkout'])
+}
+}else{
+  this.toastr.error("You Have To Login For Checkout","Please Login")
+}
+}
   
   
   

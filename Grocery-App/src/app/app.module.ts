@@ -95,10 +95,10 @@ import { ConfirmBoxConfigModule, DialogConfigModule, NgxAwesomePopupModule, Toas
         MatAutocompleteModule,
         MatFormFieldModule,
         CatalogueModule,
-        NgxAwesomePopupModule.forRoot(),
-    DialogConfigModule.forRoot(),
-        ConfirmBoxConfigModule.forRoot(),
-        ToastNotificationConfigModule.forRoot()
+        NgxAwesomePopupModule.forRoot(), // Essential, mandatory main module.
+        DialogConfigModule.forRoot(), // Needed for instantiating dynamic components.
+        ConfirmBoxConfigModule.forRoot(), // Needed for instantiating confirm boxes.
+        ToastNotificationConfigModule.forRoot() // Needed for instantiating toast notifications.
         
     ]
 })

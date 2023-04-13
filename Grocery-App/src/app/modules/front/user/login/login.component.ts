@@ -113,6 +113,8 @@ export class LoginComponent {
 
                 this._cartservice.ADD_Cart_User_Wise_Quantity(User_details_res.data.username,Guest_Cart[0].items[0],Guest_Cart[0].items[0].id)
                 sessionStorage.removeItem("Guest_Cart")
+                this._cartservice.getItemCount()
+                this._cartservice.Subtotal()
               }
               resolve(User_details_res);
             }
@@ -164,7 +166,7 @@ export class LoginComponent {
                 'Login_User',
                 JSON.stringify(this.user_login.value)
               );
-              
+
               this.toastr.success('Login Successfully');
               this.router.navigate(['/home']);
               // this.Get_Customer_Id()

@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import {
   BehaviorSubject,
@@ -16,7 +17,7 @@ import { environment } from 'src/environments/environment';
 })
 export class CartService {
   CartItemsLength: EventEmitter<any> = new EventEmitter();
-  constructor(private http: HttpClient, private toastr: ToastrService) {}
+  constructor(private http: HttpClient, private toastr: ToastrService,private router:Router) {}
   baseurl = environment.baseurl;
   baseUrl = environment.baseUrl;
   resname = environment.resname;
@@ -323,7 +324,8 @@ export class CartService {
     //   qunatity:quantity
     // }
     let Guest_cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
-    if (!Guest_cart) {
+    let Login_User = JSON.parse(sessionStorage.getItem('Login_User'));
+    if (!Guest_cart[0].items.length) {
       let Merge = JSON.parse(localStorage.getItem('Cart'));
       let cart = Merge.find((user: any) => user.username == username);
       let duplicate = cart.items.find((Duplicate: any) => Duplicate.id == id);
@@ -345,22 +347,25 @@ export class CartService {
       let duplicate = cart.items.find((Duplicate: any) => Duplicate.id == id);
       if (!duplicate) {
         cart.items.push(data);
-        if(Guest_cart[0].items.length){
+        if(!Login_User){
 
-          cart.items.push(Guest_cart[0].items[0]);
-          if (Guest_cart) {
-            let Merge = JSON.parse(localStorage.getItem('Guest_Cart'));
-            if (Merge) {
+          if(Guest_cart[0].items.length){
+            
+            cart.items.push(Guest_cart[0].items[0]);
+            if (Guest_cart) {
+              let Merge = JSON.parse(localStorage.getItem('Guest_Cart'));
+              if (Merge) {
               Merge[0].items = [];
               console.log("Merge",Merge)
               localStorage.setItem('Guest_Cart', JSON.stringify(Merge));
+              console.log('Cart in Service==>>', cart);
+              console.log('Merge', Merge);
+              localStorage.setItem('Cart', JSON.stringify(Merge));
+              this.toastr.success('Added to cart', data.title);
             }
           }
         }
-        console.log('Cart in Service==>>', cart);
-        console.log('Merge', Merge);
-        localStorage.setItem('Cart', JSON.stringify(Merge));
-        this.toastr.success('Added to cart', data.title);
+      }
       } else {
         // duplicate.quantity=duplicate.quantity+1
         console.log('Merge', Merge);

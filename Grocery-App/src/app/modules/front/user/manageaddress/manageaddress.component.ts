@@ -5,6 +5,7 @@ import { UserService } from 'src/app/shared/services/user/user.service';
 import { EncryptionService } from 'src/app/shared/services/encryption/encryption.service';
 import { PromptService } from 'src/app/shared/services/prompt/prompt.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { ConfirmBoxInitializer, DialogLayoutDisplay } from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-manageaddress',
@@ -76,20 +77,28 @@ export class ManageaddressComponent {
     // console.log("filteredUsers Address",this.filteredUsers);
   }
   encryption_data: any;
-  Delete_Address(i, id) {
+  Delete_Address(i:any, id:any) {
     this.encryption(i, JSON.stringify(id));
   }
-  txt:boolean
-  prompt_Fun(txt:any) {
-    if (confirm(txt)) {
-      this.txt =true
-    } else {
-      this.txt = false
-    }
-  }
+  
   Delete_Encryption(encryption: any, i: any) {
-    this.prompt_Fun("Are you Sure")
-    if(this.txt){
+    const confirmBox = new ConfirmBoxInitializer();
+  confirmBox.setTitle('Are you sure?');
+  confirmBox.setMessage('Do you want to Delete?');
+  confirmBox.setButtonLabels('DELETE', 'NO');
+
+  // Choose layout color type
+  confirmBox.setConfig({
+    layoutType: DialogLayoutDisplay.DANGER, // SUCCESS | INFO | NONE | DANGER | WARNING
+  });
+
+  // Simply open the popup and listen which button is clicked
+  confirmBox.openConfirmBox$().subscribe((resp:any) => {
+    // IConfirmBoxPublicResponse
+    console.log('Clicked button response: ', resp);
+
+    if(resp.success){
+
 
       this._userService.Delete_User_Address(encryption).subscribe({
         next: (Edit_address_res) => {
@@ -104,7 +113,8 @@ export class ManageaddressComponent {
       },
     });
   }
-  }
+  })
+}
   
   encryption(i, id) {
     this._encryptionservice.Encryption(id).subscribe({

@@ -21,10 +21,11 @@ export class SuccessComponent {
     this._cartservice.getItemCount()
       
       this._cartservice.Subtotal()
-      setTimeout(()=>{
-      this.route.navigate(['/home'])
-    },6000);
+    //   setTimeout(()=>{
+    //   this.route.navigate(['/home'])
+    // },6000);
   }
-  // ngDoCheck(){
-  // }
+  Back_to_home(){
+      this.route.navigate(['/home'])
+  }
 }
