@@ -17,17 +17,19 @@ export class ProductsComponent {
     private toastr: ToastrService,
     private route: Router,
  
-  ) {}
-  filteredItems: any = [];
-  Customer_Id: number;
-  User_Details: any;
-  categories_Path: any;
-  ngOnInit() {
+  ) {
     this.route.events.subscribe((res: any) => {
       if (res.url) {
         window.scrollTo(0, 0);
       }
     });
+  }
+  filteredItems: any = [];
+  Customer_Id: number;
+  User_Details: any;
+  categories_Path: any;
+  ngOnInit() {
+  
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     if (this.User_Details) {
       this.Customer_Id = this.User_Details.id;

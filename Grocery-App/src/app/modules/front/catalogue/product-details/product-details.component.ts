@@ -31,6 +31,11 @@ export class ProductDetailsComponent {
     private spinner: NgxSpinnerService
     
   ) {
+    this.route.events.subscribe((res: any) => {
+      if (res.url) {
+        window.scrollTo(0, 0);
+      }
+    });
     this.router.paramMap.subscribe((params) => {
       this.product_id = params.get('id');
       this.product_name = params.get('slug');
@@ -85,11 +90,7 @@ export class ProductDetailsComponent {
   Customer_Id: number;
   User_Details: any;
   ngOnInit() {
-    this.route.events.subscribe((res: any) => {
-      if (res.url) {
-        window.scrollTo(0, 0);
-      }
-    });
+    
     this.encryption(this.product_id);
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     if(this.User_Details){

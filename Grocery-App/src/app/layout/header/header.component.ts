@@ -34,6 +34,13 @@ export class HeaderComponent {
         }
         
       })
+      this.router.events.subscribe((res:any)=>{
+        if(res.url){
+          this.Check_User()
+          this._cartService.getItemCount()
+      this._cartService.Subtotal()
+        }
+      })
     }
     RegisterData:any
     User:any
@@ -66,13 +73,7 @@ export class HeaderComponent {
       });
       // console.log("this._cartService.getItemCount()",this._cartService.getItemCount())
       this.filteredItems=this._productsservice.getProducts()
-      this.router.events.subscribe((res:any)=>{
-        if(res.url){
-          this.Check_User()
-          this._cartService.getItemCount()
-      this._cartService.Subtotal()
-        }
-      })
+      
 
 
         

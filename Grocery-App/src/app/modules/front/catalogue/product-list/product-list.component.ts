@@ -34,6 +34,11 @@ export class ProductListComponent implements OnInit {
   ) {
     this.spinner.show();
     this.selectedCategory = this.defaultCategory;
+    this.router.events.subscribe((res: any) => {
+      if (res.url) {
+        window.scrollTo(0, 0);
+      }
+    });
   }
   category: any;
   product_quantity:any
@@ -174,11 +179,7 @@ export class ProductListComponent implements OnInit {
   quantity = 1;
   ngOnInit() {  
     this.Search_In_All_Product()
-    this.router.events.subscribe((res: any) => {
-      if (res.url) {
-        window.scrollTo(0, 0);
-      }
-    });
+
     this.route.paramMap.subscribe((params) => {
       if (params) {
         this.category_path = params.get('id');

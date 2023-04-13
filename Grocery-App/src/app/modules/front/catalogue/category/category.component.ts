@@ -12,14 +12,16 @@ export class CategoryComponent {
   constructor(
     private router: Router,
     private productservice: ProductsService
-  ) {}
-  Product_Arr: any;
-  ngOnInit() {
+  ) {
     this.router.events.subscribe((res: any) => {
       if (res.url) {
         window.scrollTo(0, 0);
       }
     });
+  }
+  Product_Arr: any;
+  ngOnInit() {
+
     this.GetAllCategory();
 
     this.Product_Arr = this.productservice.getProducts();
