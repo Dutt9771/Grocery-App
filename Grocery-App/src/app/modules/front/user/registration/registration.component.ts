@@ -64,6 +64,7 @@ export class RegistrationComponent {
   loading = true;
   errorMessage = '';
   Save_User_Register() {
+    this.User_Register.markAllAsTouched();
     if (this.User_Register.valid) {
       console.log(this.User_Register.value);
       this._authservice.User_Register(this.User_Register.value).subscribe({

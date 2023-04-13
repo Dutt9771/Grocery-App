@@ -146,6 +146,7 @@ export class LoginComponent {
   invalid: string;
   User_Login_Token: any;
   Save_User_Login() {
+    this.user_login.markAllAsTouched();
     if (this.user_login.valid) {
       // console.log("user_login Value",this.user_login.value)
       this._authservice.User_Login(this.user_login.value).subscribe({

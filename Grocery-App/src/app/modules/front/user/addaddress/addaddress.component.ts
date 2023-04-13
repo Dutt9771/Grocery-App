@@ -149,6 +149,7 @@ export class AddaddressComponent {
   }
 
   User_Address_Add_click() {
+    this.User_Address_Add.markAllAsTouched();
     if (this.Address_btn == 'ADD Address') {
       if (this.User_Address_Add.valid) {
         console.log('this.User_Address_Add.value', this.User_Address_Add.value);
