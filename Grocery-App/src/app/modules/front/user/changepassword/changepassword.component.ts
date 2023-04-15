@@ -1,11 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ChangePassword } from 'src/app/shared/Models/changepassword';
 import { UserService } from 'src/app/shared/services/user/user.service';
-import { CustomValidators } from './custom-validators';
 
 @Component({
   selector: 'app-changepassword',
@@ -13,47 +12,31 @@ import { CustomValidators } from './custom-validators';
   styleUrls: ['./changepassword.component.css']
 })
 export class ChangepasswordComponent {
-  Change_Password:FormGroup
-  constructor(private route:Router,private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService,private fb:FormBuilder){}
+  Change_Password:any
+  constructor(private route:Router,private _userService:UserService,private _snackBar:MatSnackBar,private toastr:ToastrService){}
     ngOnInit(){ 
       window.scrollTo(0,0) 
     // this.toastr.success('Change Password Successfully');
 
     this.Change_Password_Form()
   }
-  
-  
   Change_Password_Form(){
     
-    this.Change_Password =this.fb.group({
-      currentpassword: [null, [
+    this.Change_Password =new FormGroup({
+      currentpassword: new FormControl('', [
         Validators.required,
         Validators.minLength(8)
-      ]],
-      newpassword: [null, Validators.compose([
-        // 1. Password Field is Required
+      ]),
+      newpassword: new FormControl('', [
         Validators.required,
-        // 2. check whether the entered password has a number
-        CustomValidators.patternValidator(/\d/, { hasNumber: true }),
-        // 3. check whether the entered password has upper case letter
-        CustomValidators.patternValidator(/[A-Z]/, { hasCapitalCase: true }),
-        // 4. check whether the entered password has a lower-case letter
-        CustomValidators.patternValidator(/[a-z]/, { hasSmallCase: true }),
-        // 5. check whether the entered password has a special character
-        CustomValidators.patternValidator(/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/, { hasSpecialCharacters: true }),
-        // 6. Has a minimum length of 8 characters
-        Validators.minLength(8)])
-     ],
-      
-      confirm_new_password: [null, [
+        Validators.minLength(8)
+      ]),
+      confirm_new_password: new FormControl('', [
         Validators.required,
         Validators.minLength(8),
         this.matchPasswordValidator()
-      ]],
-    }),
-    {
-      validator: CustomValidators.passwordMatchValidator
-    }
+      ]),
+    })
   }
     
     get get_Change_password(){
