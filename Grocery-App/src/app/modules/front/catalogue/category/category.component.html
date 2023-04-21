@@ -53,7 +53,7 @@ product.category.toLowerCase()]" -->
   class="container"
   
 >
-  <div class="carousel-cell" *ngFor="let product of grocery_items">
+  <div class="carousel-cell" *ngFor="let product of grocery_items;let i=index">
     <div
       class="card bg-transparent p-3 m-2"
       [routerLink]="['../front/catalogue/products-list/', product.slug]"
@@ -63,7 +63,7 @@ product.category.toLowerCase()]" -->
       <img src="/assets/grocery_sample.jpg" alt="" width="120" height="120" />
       <div class="card-body text-center">
         <h4>{{ product.title }}</h4>
-        <small>{{ product.parent_id }}</small>
+        <small>{{ product.items }} Items</small>
       </div>
     </div>
   </div>

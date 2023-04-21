@@ -137,33 +137,49 @@ Login_User:any
   Subtotal_Per_Prod:any
   quantitymin(index:any,productindex:any,product:any){
     let Guest = JSON.parse(sessionStorage.getItem('Guest_Cart'));
-    console.log("Guest",Guest)
     if(this.groupedProducts[index].cart[productindex].quantity>1){
       if(Guest){
-        if(Guest[0].items.length){
+
+        if(Guest[0].items.length!=0){
           Guest[0].items[0].quantity-=1
           this.groupedProducts[index].cart[productindex].quantity=Guest[0].items[0].quantity
           console.log("Guest_Cart",Guest)
           sessionStorage.setItem("Guest_Cart",JSON.stringify(Guest))
         }
+        else{
+          this._cartservice.Quantity_Minus(this.User_Details.username,product)
+          console.log("product",product)
+          this.groupedProducts[index].cart[productindex].quantity-=1    
+        }     
       }else{
         this._cartservice.Quantity_Minus(this.User_Details.username,product)
-        this.groupedProducts[index].cart[productindex].quantity-=1    
-      }     
+          console.log("product",product)
+          this.groupedProducts[index].cart[productindex].quantity-=1    
+        
+      }
+  
   }
-  }
+}
   quantitymax(index:any,productindex:any,product:any){
     let Guest = JSON.parse(sessionStorage.getItem('Guest_Cart'));
     if(Guest){
-      if(Guest[0].items.length){
+      if(Guest[0].items.length!=0){
         Guest[0].items[0].quantity+=1
         this.groupedProducts[index].cart[productindex].quantity= Guest[0].items[0].quantity
         console.log("Guest_Cart",Guest)
         this.Guest_Cart=sessionStorage.setItem("Guest_Cart",JSON.stringify(Guest))
       }
-    } else{
-    this._cartservice.Quantity_Plus(this.User_Details.username,product)
+      
+      else{
+      this._cartservice.Quantity_Plus(this.User_Details.username,product)
+      console.log("product",product)
       this.groupedProducts[index].cart[productindex].quantity+=1  
+    }
+  }else{
+    this._cartservice.Quantity_Plus(this.User_Details.username,product)
+    console.log("product",product)
+    this.groupedProducts[index].cart[productindex].quantity+=1  
+  
   }
 }
   

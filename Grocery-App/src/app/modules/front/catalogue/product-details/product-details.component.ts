@@ -174,19 +174,19 @@ if(this.User_Details){
         console.log('OBJ', this.ProductAddobj);
       }
 
+      let Merge = JSON.parse(localStorage.getItem('Cart'));
       this._cartservice.ADD_Cart_User_Wise_Quantity(this.User_Details.username,this.ProductAddobj,product.id)
-            let Merge = JSON.parse(localStorage.getItem('Cart'));
             let cart=Merge.find((user:any)=>user.username==this.User_Details.username)
 
             console.log("cart",cart)
             let duplicate = cart.items.find((Duplicate:any)=>Duplicate.id==product.id)
             console.log("duplicate",duplicate)
             // this.existing_Product.quantity = this.existing_Product.quantity + 1;
-            this.product_quantity.quantity = duplicate.quantity;
-            console.log("this.product_quantity.quantity",this.product_quantity.quantity)
             this._cartservice.getItemCount();
             this._cartservice.Subtotal();
             if(duplicate){
+            this.product_quantity.quantity = duplicate.quantity;
+            console.log("this.product_quantity.quantity",this.product_quantity.quantity)
               this.QuantityErrMsg="Product is Existing"
             }
         

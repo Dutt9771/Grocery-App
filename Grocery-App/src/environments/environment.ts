@@ -1,6 +1,8 @@
 export const environment = {
     // baseUrl:"https://e099-117-217-127-105.in.ngrok.io/api/v1/",
-    baseUrl:"https://0305-117-217-127-105.ngrok-free.app/api/v1/",
+    // baseUrl:"https://0305-117-217-127-105.ngrok-free.app/api/v1/",
+    baseUrl:"http://localhost:8080/api/v1/",
+    // baseUrl:"http://5637-2402-8100-26b4-6361-1806-7769-fe1a-aa86.ngrok-free.app/api/v1/",
     baseurl:"http://localhost:3000/",
     resname:"cart",
     customers_routes:{
