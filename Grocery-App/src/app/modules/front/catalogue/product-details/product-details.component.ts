@@ -54,6 +54,7 @@ export class ProductDetailsComponent {
       next: (Product_Res: any) => {
         if (Product_Res) {
           if (Product_Res.data) {
+            this.product_item=Product_Res.data.title
             this.filteredItems.push(Product_Res.data);
             for(let i=0;i<this.Image_Arr.length;i++){
   

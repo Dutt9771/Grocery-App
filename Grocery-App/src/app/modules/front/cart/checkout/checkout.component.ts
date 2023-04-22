@@ -38,7 +38,8 @@ export class CheckoutComponent {
     this.username = this.User_Details.username;
     this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
-
+    // this.payment_status= this.encryption(JSON.stringify(1))
+    // this.order_status=this.encryption(JSON.stringify(2))
     this.Get_User_Details();
 
     // this.data=this._cartService.Cartdata
@@ -97,8 +98,10 @@ export class CheckoutComponent {
     });
   }
 
-  payment_status: any = 'JbAbzZt-w7vv_SPXXQI4Jw==';
-  order_status: any = 'IJjOhx0uYI4ZK5Y-Wzfm2Q==';
+  payment_status: any = 'IJjOhx0uYI4ZK5Y-Wzfm2Q==';
+  // payment_status: any 
+  order_status: any = 'JbAbzZt-w7vv_SPXXQI4Jw==';
+  // order_status: any 
   delivery_address_id: any;
   billing_address_id: any;
   Add_Order_Response_Data: any;

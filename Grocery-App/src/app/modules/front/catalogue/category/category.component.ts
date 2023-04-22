@@ -22,15 +22,16 @@ export class CategoryComponent {
     });
   }
   Product_Arr: any;
+  Image_Arr=[]
   ngOnInit() {
-
+    this.Image_Arr=this.productservice.GetImages_Category()
     this.GetAllCategory();
 
     this.Product_Arr = this.productservice.getProducts();
     // console.log(this.Product_Arr)
   }
   encryption_data:any
-  encryption(id) {
+  encryption(id:any) {
     this._encryptionservice.Encryption(id).subscribe({
       next: (encryption_res) => {
         if (encryption_res) {
@@ -48,7 +49,7 @@ export class CategoryComponent {
     });
   }
 
-  GetProductByCategory(encryption:any,id) {
+  GetProductByCategory(encryption:any,id:any) {
     this.productservice.getProductByCategoryId(encryption).subscribe({
       next: (Product_Res: any) => {
         if (Product_Res) {
@@ -60,6 +61,15 @@ export class CategoryComponent {
              this.grocery_items[i]={...this.grocery_items[i],'items':Product_Res.data.length}
               console.log("first",this.grocery_items[i])
               console.log("first",this.grocery_items)
+         
+                for(let j=0;j<this.Image_Arr.length;j++){
+    
+                  if(this.grocery_items[i].title==this.Image_Arr[j].title){
+                    this.grocery_items[i].avatar_image=this.Image_Arr[j].image
+                    // console.log('Product_Res', Product_Res.data);
+                  }
+                }
+              
             }
           }
         }

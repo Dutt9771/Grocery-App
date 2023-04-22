@@ -35,7 +35,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src="/assets/grocery_sample.jpg"
+          src={{product.avatar_image}}
           alt=""
           [routerLink]="['../products-list/', product.slug]"
           width="120"
@@ -43,6 +43,7 @@
         />
         <div class="card-body text-center">
           <h4>{{ product.title }}</h4>
+        <small>{{ product.items }} Items</small>
         </div>
       </div>
     </div>

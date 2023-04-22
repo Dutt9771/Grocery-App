@@ -338,13 +338,45 @@ export class ProductsService {
          image: "/assets/Meat/chicken.jpg"
       },
       {
-        title:"Aashirvaad Atta/Godihittu (1 Kg)",
+        title:"Aashirvaad Atta (1 Kg)",
          image: "/assets/Foodgrain/atta.jpg"
       },
       {
-        title:"Tata Sampann Organic Toor Dal (1 Kg)",
+        title:"Tata Toor Dal (1 Kg)",
          image: "/assets/Foodgrain/toordal.jpg"
       }
+   ];
+   
+   return imageArray
+  }
+  GetImages_Category(){
+    let imageArray = [
+      {
+        title:"Breakfast",
+         image: "/assets/Category/breakfast.jpg"
+      },
+      {
+        title:"Dairy",
+         image: "/assets/Category/dairy.jpg"
+      },
+      {
+        title:"FoodGrains",
+         image: "/assets/Category/foodgrains.jpg"
+      },
+      {
+        title:"Fruits",
+         image: "/assets/Category/fruits.jpg"
+      },
+      {
+        title:"Meat",
+         image: "/assets/Category/meat.jpg"
+      },
+      {
+        title:"Vegetables",
+         image: "/assets/Category/vegetables.jpg"
+      },
+  
+ 
    ];
    
    return imageArray

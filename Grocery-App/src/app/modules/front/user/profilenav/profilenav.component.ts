@@ -40,8 +40,11 @@ export class ProfilenavComponent {
           this.Title = 'Change Password';
         } else if (this.currentPath == '/front/user/user-profile/addaddress') {
           this.Title = 'Add Address';
-        } else {
+        } else if (this.currentPath == '/front/user/user-profile/edit-profile') {
           this.Title = 'Edit Profile';
+        } else {
+          // this.Title = 'Edit Profile';
+          this.Title = 'Edit Address';
         }
       }
     });

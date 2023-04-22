@@ -63,15 +63,17 @@ export class HomeComponent {
       email: ['', Validators.required],
       password: ['', Validators.required],
     });
-  }
 
-  ngAfterViewInit() {
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     if(this.User_Details){
 
       this.Customer_Id = this.User_Details.id;
     console.log('Customer_Id', this.Customer_Id);
     }
+  }
+
+  ngAfterViewInit() {
+    
 
     // this.Showcart()
   }

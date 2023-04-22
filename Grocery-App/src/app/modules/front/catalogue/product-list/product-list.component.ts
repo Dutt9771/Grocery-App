@@ -374,16 +374,20 @@ export class ProductListComponent implements OnInit {
         console.log('All Products', this.allProducts);
         console.log('id', i);
 
-        console.log('Filtered Item Arr', this.allProducts[i]);
-        this.ProductAddobj = this.allProducts[i];
-        this.ProductAddobj = Object.assign(
-          this.ProductAddobj,
-          this.product_quantity
-        );
-        this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
-        this._cartservice.getItemCount()
-      this._cartservice.Subtotal()
-      } else {
+        if(this.allProducts.length){
+          console.log('Filtered Item Arr', this.allProducts[i]);
+          this.ProductAddobj = this.allProducts[i];
+        }else{
+          this.ProductAddobj=product
+        }
+          this.ProductAddobj = Object.assign(
+            this.ProductAddobj,
+            this.product_quantity
+            );
+            this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
+            this._cartservice.getItemCount()
+            this._cartservice.Subtotal()
+          } else {
         console.log('id', i);
         console.log('Filtered Item Arr', this.filteredItems[i]);
         this.ProductAddobj = this.filteredItems[i].product;
