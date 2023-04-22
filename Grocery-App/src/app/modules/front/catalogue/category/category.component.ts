@@ -79,6 +79,7 @@ export class CategoryComponent {
             console.log('Category_Res', Category_Res.data);
             this.grocery_items = Category_Res.data;
             for(let i=0;i<this.grocery_items.length;i++){
+              
               this.encryption(JSON.stringify(this.grocery_items[i].id))
             }
           }

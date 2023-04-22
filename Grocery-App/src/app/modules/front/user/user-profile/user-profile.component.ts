@@ -99,6 +99,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   User_Profile_Edit() {
+    this.Profile.markAllAsTouched();
+
     if (this.Profile.valid) {
       let userData = this.Profile.value;
       console.log('user data', userData);

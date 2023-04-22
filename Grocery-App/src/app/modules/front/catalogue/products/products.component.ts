@@ -27,9 +27,10 @@ export class ProductsComponent {
   filteredItems: any = [];
   Customer_Id: number;
   User_Details: any;
+  Image_Arr=[]
   categories_Path: any;
   ngOnInit() {
-  
+  this.Image_Arr=this.productservice.GetImages()
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     if (this.User_Details) {
       this.Customer_Id = this.User_Details.id;
@@ -53,8 +54,17 @@ export class ProductsComponent {
       next: (get_all_products_res) => {
         if (get_all_products_res) {
           if (get_all_products_res.data) {
-            console.log('get_all_products_res', get_all_products_res.data);
             this.filteredItems = get_all_products_res.data;
+            console.log('get_all_products_res', get_all_products_res.data);
+            for(let i=0;i<this.filteredItems.length;i++){
+              for(let j=0;j<this.Image_Arr.length;j++){
+  
+                if(this.filteredItems[i].title==this.Image_Arr[j].title){
+                  this.filteredItems[i].avatar_image=this.Image_Arr[j].image
+                  // console.log('Product_Res', Product_Res.data);
+                }
+              }
+            }
             // console.log("allProducts",this.filteredItems)
           }
         }

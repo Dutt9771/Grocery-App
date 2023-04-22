@@ -73,7 +73,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src="/assets/tatasault.png"
+          src={{product.product.avatar_image}}
           alt=""
           [routerLink] = "['/front/catalogue/product-details/', product.product.id, product.product.slug]"
           style="cursor: pointer;"
@@ -104,13 +104,13 @@
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
                     title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
                     class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
-          <p>
+          <!-- <p>
             {{
               product.product.description
                 ? product.product.description
                 : "Product Description"
             }}
-          </p>
+          </p> -->
           <p>
             {{
               product.product.short_description
@@ -145,7 +145,8 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src="/assets/tatasault.png"
+          src={{product.avatar_image}}
+          
           alt=""
           [routerLink]="[
             '/front/catalogue/product-details/',
@@ -164,11 +165,11 @@
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
                     title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
                     class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
-          <p>
+          <!-- <p>
             {{
               product.description ? product.description : "Product Description"
             }}
-          </p>
+          </p> -->
           <p>
             {{
               product.short_description
@@ -219,11 +220,11 @@
                     text-primary" title="Poor"></i> <i class="fas fa-star fa-sm text-primary"
                     title="OK"></i> <i class="fas fa-star fa-sm text-primary" title="Good"></i> <i
                     class="far fa-star fa-sm text-primary" title="Excellent"></i> <br></ul> -->
-          <p>
+          <!-- <p>
             {{
               product.description ? product.description : "Product Description"
             }}
-          </p>
+          </p> -->
           <p>
             {{
               product.short_description

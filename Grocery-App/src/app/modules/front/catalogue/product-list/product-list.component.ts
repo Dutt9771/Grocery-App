@@ -54,8 +54,17 @@ export class ProductListComponent implements OnInit {
       next: (Product_Res: any) => {
         if (Product_Res) {
           if (Product_Res.data) {
-            console.log('Product_Res', Product_Res.data);
             this.filteredItems = Product_Res.data;
+            console.log('Product_Res', Product_Res.data);
+            for(let i=0;i<Product_Res.data.length;i++){
+            for(let j=0;j<this.Image_Arr.length;j++){
+
+              if(this.filteredItems[i].product.title==this.Image_Arr[j].title){
+                this.filteredItems[i].product.avatar_image=this.Image_Arr[j].image
+                // console.log('Product_Res', Product_Res.data);
+              }
+            }
+          }
           }
         }
       },
@@ -71,15 +80,21 @@ export class ProductListComponent implements OnInit {
       next: (get_all_products_res) => {
         if (get_all_products_res) {
           if (get_all_products_res.data) {
-            console.log('get_all_products_res', get_all_products_res);
+            // console.log('get_all_products_res', get_all_products_res);
             this.allProducts = get_all_products_res.data;
+            for(let i=0;i<this.allProducts.length;i++){
+              if(this.allProducts[i].title=this.Image_Arr[i].title){
+                this.allProducts[i].avatar_image=this.Image_Arr[i].image
+              }
+            }
             
-
-    setTimeout(() => {
-      /** spinner ends after 5 seconds */
-      this.spinner.hide();
-    }, 1500);
-            console.log('allProducts', this.allProducts);
+            
+            setTimeout(() => {
+              /** spinner ends after 5 seconds */
+              this.spinner.hide();
+            }, 1500);
+            // console.log("All Product Change with image===>",this.allProducts)
+            // console.log('allProducts', this.allProducts);
           }
         }
       },
@@ -94,7 +109,7 @@ export class ProductListComponent implements OnInit {
       next: (encryption_res) => {
         if (encryption_res) {
           if (encryption_res.data) {
-            console.log('encryption_res', encryption_res);
+            // console.log('encryption_res', encryption_res);
             this.encryption_data = encryption_res.data;
             console.log('encryption_data', this.encryption_data);
             this.GetProductByCategory(this.encryption_data);
@@ -116,7 +131,7 @@ export class ProductListComponent implements OnInit {
       next: (Category_Res: any) => {
         if (Category_Res) {
           if (Category_Res.data) {
-            console.log('Category_Res', Category_Res.data);
+            // console.log('Category_Res', Category_Res.data);
             this.grocery_items = Category_Res.data;
             if (this.category_path != 'all') {
               this.product_Obj = this.grocery_items.find(
@@ -158,7 +173,7 @@ export class ProductListComponent implements OnInit {
 
         if (this.category_path) {
           if (this.category_path == 'all') {
-            console.log("ALl products",this.allProducts)
+            // console.log("ALl products",this.allProducts)
             this.Search_Arr=this.allProducts.filter((product) =>
             // product.id.includes(query)
             product.title.toLowerCase().includes(query.toLowerCase()) ||
@@ -176,14 +191,16 @@ export class ProductListComponent implements OnInit {
       }
       })
   }
+  Image_Arr=[]
   quantity = 1;
   ngOnInit() {  
     this.Search_In_All_Product()
-
+    this.Image_Arr=this.productservice.GetImages()
+    // console.log("this.Image_Arr",this.Image_Arr)
     this.route.paramMap.subscribe((params) => {
       if (params) {
         this.category_path = params.get('id');
-        console.log('Category path', this.category_path);
+        // console.log('Category path', this.category_path);
         
           this.product_quantity = {
             category:this.category_path,
@@ -217,7 +234,7 @@ export class ProductListComponent implements OnInit {
     if (this.category_path) {
       if (this.category_path == 'all') {
         this.filteredItems = this.allProducts;
-        console.log('filteredItems', this.filteredItems);
+        // console.log('filteredItems', this.filteredItems);
         this.category = 'All Products';
       } else {
         this.filteredItems = this.filteredItems.filter(
@@ -226,14 +243,15 @@ export class ProductListComponent implements OnInit {
         this.category = this.category_path;
       }
 
-      console.log('Categories', this.categories);
-      console.log('productArray', this.productArray);
+      // console.log('Categories', this.categories);
+      // console.log('productArray', this.productArray);
     } else {
       this.Filter_Category(this.selectedCategory);
     }
   }
   Selected_Category: any;
   Filter_Category(category: any) {
+    console.log("Selected Category",category)
     this.Selected_Category = category;
     if (this.category_path == 'all') {
       this.selectedCategory = 'all';
@@ -244,13 +262,13 @@ export class ProductListComponent implements OnInit {
       } else {
         this.allProducts = [];
         let Filter_Category_Obj = this.grocery_items.find(
-          (item) => item.slug === category
+          (item) => item.slug === category.toLowerCase()
         );
         this.Category_Id = Filter_Category_Obj.id;
         // this.encryption((this.Category_Id).toString())
-        console.log('filteredItems', this.filteredItems);
-        console.log('allProducts', this.allProducts);
-        console.log('Customer_Id', this.Customer_Id);
+        // console.log('filteredItems', this.filteredItems);
+        // console.log('allProducts', this.allProducts);
+        // console.log('Customer_Id', this.Customer_Id);
         this.encryption(this.Category_Id.toString());
         // return this.filteredItems
       }
@@ -266,14 +284,15 @@ export class ProductListComponent implements OnInit {
           this.filteredItems.push(Obj);
           // console.log("Filter Items",this.filteredItems)
         }
+        
         return this.filteredItems;
       } else {
         this.product_Obj = this.grocery_items.find(
-          (item) => item.slug === category
+          (item) => item.slug === category.toLowerCase()
         );
         this.Category_Id = this.product_Obj.id;
         this.encryption(this.Category_Id.toString());
-        console.log(this.filteredItems);
+        // console.log(this.filteredItems);
         return this.filteredItems;
       }
     }

@@ -49,6 +49,8 @@ export class ChangepasswordComponent {
     errorMessage:any
     Change_Password_Obj:any
     Change_Password_Click(){
+    this.Change_Password.markAllAsTouched();
+
       if(this.Change_Password.valid){
 
         let userData = this.Change_Password.value

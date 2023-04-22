@@ -278,4 +278,75 @@ export class ProductsService {
   changeMessage(message: string) {
     this.messageSource.next(message)
   }
+
+  GetImages(){
+    let imageArray = [
+      {
+        title:"Oranges",
+         image: "/assets/Fruits/oranges.jpg"
+      },
+      {
+        title:"Banana",
+         image: "/assets/Fruits/banana.jpg"
+      },
+      {
+        title:"Apple",
+         image: "/assets/Fruits/apple.jpg"
+      },
+      {
+        title:"Kiwi",
+         image: "/assets/Fruits/kiwi.jpg"
+      },
+      {
+        title:"Watermelon",
+         image: "/assets/Fruits/watermelon.jpg"
+      },
+      {
+        title:"Potato",
+         image: "/assets/Vegetables/potato.jpg"
+      },
+      {
+        title:"Tomato",
+         image: "/assets/Vegetables/tomato.jpg"
+      },
+      {
+        title:"Onion (Loose)",
+         image: "/assets/Vegetables/onion.jpg"
+      },
+      {
+        title:"Saffola Oats",
+         image: "/assets/Breakfast/oats.jpg"
+      },
+      {
+        title:"Amul Milk",
+         image: "/assets/Dairy/milk.jpg"
+      },
+      {
+        title:"Amul Cheese (200g)",
+         image: "/assets/Dairy/cheese.jpg"
+      },
+      {
+        title:"Amul Butter (200g)",
+         image: "/assets/Dairy/butter.jpg"
+      },
+      {
+        title:"Amul Cream (1 ltr)",
+         image: "/assets/Dairy/cream.jpg"
+      },
+      {
+        title:"Chicken  (500g)",
+         image: "/assets/Meat/chicken.jpg"
+      },
+      {
+        title:"Aashirvaad Atta/Godihittu (1 Kg)",
+         image: "/assets/Foodgrain/atta.jpg"
+      },
+      {
+        title:"Tata Sampann Organic Toor Dal (1 Kg)",
+         image: "/assets/Foodgrain/toordal.jpg"
+      }
+   ];
+   
+   return imageArray
+  }
 }

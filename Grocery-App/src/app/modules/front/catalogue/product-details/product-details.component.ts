@@ -33,6 +33,7 @@ export class ProductDetailsComponent {
   ) {
     this.route.events.subscribe((res: any) => {
       if (res.url) {
+        this.spinner.show();
         window.scrollTo(0, 0);
       }
     });
@@ -54,8 +55,14 @@ export class ProductDetailsComponent {
         if (Product_Res) {
           if (Product_Res.data) {
             this.filteredItems.push(Product_Res.data);
-            this.spinner.show();
-
+            for(let i=0;i<this.Image_Arr.length;i++){
+  
+                if(this.filteredItems[0].title==this.Image_Arr[i].title){
+                  this.filteredItems[0].avatar_image=this.Image_Arr[i].image
+                  // console.log('Product_Res', Product_Res.data);
+                }
+              
+            }
             setTimeout(() => {
               /** spinner ends after 5 seconds */
               this.spinner.hide();
@@ -87,9 +94,11 @@ export class ProductDetailsComponent {
       },
     });
   }
+  Image_Arr=[]
   Customer_Id: number;
   User_Details: any;
   ngOnInit() {
+    this.Image_Arr=this._productsservice.GetImages()
     
     this.encryption(this.product_id);
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));

@@ -48,7 +48,7 @@
     <div class="card bg-white p-2 m-2 w-auto">
       <img
         class="rounded mx-auto d-block"
-        src="/assets/tatasault.png"
+        src={{product.avatar_image}}
         alt=""
         width="175"
         height="100"
@@ -70,7 +70,7 @@
           >{{ product.title }}</small
         >
         <!-- <h4>{{product.weight}}</h4> -->
-        <ul
+        <!-- <ul
           class="rating text-left"
           data-mdb-toggle="rating"
           [routerLink]="[
@@ -86,8 +86,8 @@
           <i class="fas fa-star fa-sm text-primary" title="Good"></i>
           <i class="far fa-star fa-sm text-primary" title="Excellent"></i>
           <br />
-        </ul>
-        <small
+        </ul> -->
+        <!-- <small
           [routerLink]="[
             '/front/catalogue/product-details',
             product.id,
@@ -95,7 +95,7 @@
           ]"
           style="cursor: pointer"
           >{{ product.short_description }}</small
-        >
+        > -->
         <div class="text-center">
           <i class="m-2">{{ product.amount | currency : "INR" }}</i>
           <!-- <i class="text-decoration-line-through m-2">{{product.price | currency}}</i> -->
