@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { Routes, Route } from "react-router-dom";
 import { styled, useTheme } from '@mui/material/styles';
 import Drawer from '@mui/material/Drawer';
 import { Link } from "react-router-dom";
@@ -10,7 +11,11 @@ import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemText from '@mui/material/ListItemText';
-import Paths from '../Paths';
+import AddProduct from '../Products/AddProduct';
+import EditProduct from '../Products/EditProduct';
+import EditCategory from '../Category/EditCategory';
+import AddCategory from '../Category/AddCategory';
+import Paths from "../Paths";
 
 const drawerWidth = 240;
 
@@ -130,6 +135,7 @@ export default function PersistentDrawerLeft({value,children}) {
       
         {children}
         <Paths />
+        
       {/* <Typography paragraph>
         Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
         eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim

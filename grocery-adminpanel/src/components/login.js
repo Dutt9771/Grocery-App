@@ -24,19 +24,21 @@ export default function Login(){
       console.log(values)
       const options = {
         method: 'post',
-        url: 'http://localhost:8080/api/v1/admin/register',
+        url: 'http://localhost:8080/api/v1/admin/login',
         data: values
       };
       
       axios.request(options).then(function (response) {
-        console.log(response.data);
-         toast.success('Login Successfully',{
+        if(response){
+         console.log(response.data);
+         toast.success(response.message,{
           position: "bottom-center",
           duration: 3000
         })
+    }
       }).catch(function (error) {
         console.error(error);
-        toast.error('Error',{
+        toast.error(error.response.data.message ? error.response.data.message :"Error With Login",{
           position: "bottom-center",
           duration: 3000
         })

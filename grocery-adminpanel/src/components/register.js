@@ -33,14 +33,17 @@ export default function Register(){
       };
       
       axios.request(options).then(function (response) {
-        console.log(response.data);
-         toast.success('Registration Successful',{
-          position: "bottom-center",
-          duration: 3000
-        })
+        if(response){
+
+          console.log(response.data);
+          toast.success(response.message,{
+            position: "bottom-center",
+            duration: 3000
+          })
+        }
       }).catch(function (error) {
-        console.error(error);
-        toast.error('Registration Successful',{
+        console.error(error.response.data.message);
+        toast.error(error.response.data.message ? error.response.data.message : "Error With Register",{
           position: "bottom-center",
           duration: 3000
         })
