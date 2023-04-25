@@ -3,7 +3,8 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
-
+import { toast, Toaster } from 'react-hot-toast';
+import axios from 'axios';
 const initialvalues ={
   name:'',
   email:'',
@@ -25,6 +26,25 @@ export default function Register(){
     validationSchema:Registrationschema,
     onSubmit:(values,action)=>{
       console.log(values)
+      const options = {
+        method: 'post',
+        url: 'http://localhost:8080/api/v1/admin/register',
+        data: values
+      };
+      
+      axios.request(options).then(function (response) {
+        console.log(response.data);
+         toast.success('Registration Successful',{
+          position: "bottom-center",
+          duration: 3000
+        })
+      }).catch(function (error) {
+        console.error(error);
+        toast.error('Registration Successful',{
+          position: "bottom-center",
+          duration: 3000
+        })
+      });
       action.resetForm();
     }
   })
@@ -33,6 +53,7 @@ export default function Register(){
     return (
       <form action="post" onSubmit={handleSubmit} noValidate
       autoComplete="off" >
+        <div><Toaster/></div>
         {/* component="form" */}
         <Box
       sx={{
