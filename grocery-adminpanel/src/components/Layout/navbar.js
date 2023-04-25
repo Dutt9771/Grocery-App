@@ -1,6 +1,10 @@
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
-import Register from "../components/register";
+import Register from "../register";
+import Header from "./Header";
+// import { useState } from "react";
 export default function Navbar() {
+
+  // const [showLogin, setShowLogin] = useState(true);
   return (
     <>
       <BrowserRouter>
@@ -19,22 +23,25 @@ export default function Navbar() {
                 color: isActive ? "green" : "black",
               })}
             >
-              Login
+              Register
             </NavLink>
           </div>
           <div style={{ margin: "10px" }}>
             <NavLink
-              to="/about"
+              to="/header"
               style={({ isActive }) => ({
                 color: isActive ? "green" : "black",
               })}
             >
-              Register
+              Header
             </NavLink>
           </div>
         </div>
         <Routes>
-          <Route exact path="/" element={<Register />} />
+          <Route path="/" element={<Register />} />
+          <Route path="/header" element={<Header />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+          
           {/* <Route exact path="/about" element={<Dashboard />} /> */}
         </Routes>
       </BrowserRouter>
