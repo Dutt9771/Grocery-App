@@ -9,6 +9,7 @@ import {
   ConfirmBoxInitializer,
   DialogLayoutDisplay,
 } from '@costlydeveloper/ngx-awesome-popup';
+import { PaymentGatewayService } from 'src/app/shared/services/payment/payment-gateway.service';
 
 @Component({
   selector: 'app-checkout',
@@ -21,7 +22,8 @@ export class CheckoutComponent {
     private _cartService: CartService,
     private _userService: UserService,
     private _encryptionservice: EncryptionService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private _paymentGatewayService:PaymentGatewayService
   ) {
     this.Radio_Address_Form();
   }
@@ -32,7 +34,13 @@ export class CheckoutComponent {
   username: any;
   Customer_Id: number;
   User_Details: any;
+  GrandTotal_Data:any;
+  GrandTotal:any;
   ngOnInit() {
+    this.PaymentMethod()
+  this.GrandTotal_Data = JSON.parse(localStorage.getItem('Cart_Data'));
+    this.GrandTotal=this.GrandTotal_Data.total_amount*100
+    console.log("GrandTotal",this.GrandTotal)
     window.scrollTo(0, 0);
     this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     this.username = this.User_Details.username;
@@ -51,6 +59,15 @@ export class CheckoutComponent {
     //   });
     console.log('data', this.data);
   }
+
+Payment_Method:any
+PaymentMethod(){
+  this.Payment_Method=new FormGroup({
+    payment_tag:new FormControl('',[Validators.required])
+  })
+}
+
+
 
   address: any;
   Login_User: any;
@@ -158,8 +175,18 @@ export class CheckoutComponent {
     }
   }
 
-  Place_Order() {
-    const confirmBox = new ConfirmBoxInitializer();
+  
+  
+  
+rzp1;
+options:any;
+Payment_id:any;
+Pay(){
+  
+  if(this.payment_Method_Value){
+    if (this.billing_address_id) {
+    if(this.payment_Method_Value=='onlinepayment'){
+  const confirmBox = new ConfirmBoxInitializer();
     confirmBox.setTitle('Are you sure?');
     confirmBox.setMessage(this.username + ' Confirm to Checkout?');
     confirmBox.setButtonLabels('CHECKOUT', 'CANCEL');
@@ -175,10 +202,127 @@ export class CheckoutComponent {
       console.log('Clicked button response: ', resp);
 
       if (resp.success) {
-        // this.payment_status=this.encryption(this.status)
 
-        if (this.billing_address_id) {
-          console.log('order_status', this.order_status);
+      // Razorpay Payment Gateway
+      this.options = {
+    "key": "rzp_test_XMtH9sEv4gUKNn", // Enter the Key ID generated from the Dashboard
+    "amount": this.GrandTotal, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+    "currency": "INR",
+    "name": "FreshCart", //your business name
+    "description": "Test Transaction",
+    "image": "https://img.icons8.com/bubbles/50/null/add-shopping-cart.png",
+    // "order_id": "order_9A33XWu170gUtm", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+    "handler": (response:any)=>{
+      if(response!= null && response.razorpay_payment_id!=null ){
+        this.paymentCapture(response);
+    }else{
+      this.toastr.error("Payment Failed")
+    }
+  },
+//     function (response){
+//       if(response){
+
+
+//         console.log("response payment",response)
+//         this.Payment_id=response
+//         if(response.razorpay_payment_id){
+//   console.log("Payment_id",this.Payment_id)
+//   alert(response.razorpay_payment_id);
+  
+// }
+// if(response.razorpay_order_id){
+
+//         alert(response.razorpay_order_id);
+// }
+// if(response.razorpay_signature){
+
+//   alert(response.razorpay_signature)
+// }
+      // }
+      // },
+    "prefill": {
+        "name": "Gaurav Kumar", //your customer's name
+        "email": "gaurav.kumar@example.com",
+        "contact": "9000090000"
+    },
+    "notes": {
+        "address": "Razorpay Corporate Office"
+    },
+    "theme": {
+        "color": "#006400"
+    }
+  };
+  // rzp1.on('payment.failed', function (response){
+    //         alert(response.error.code);
+    //         alert(response.error.description);
+    //         alert(response.error.source);
+    //         alert(response.error.step);
+    //         alert(response.error.reason);
+    //         alert(response.error.metadata.order_id);
+    //         alert(response.error.metadata.payment_id);
+    // });
+    // document.getElementById('rzp-button1').onclick = function(e){
+      //     rzp1.open();
+      //     e.preventDefault();
+      // }
+      
+      // Razorpay Payment Gateway 
+      this.rzp1 = new this._paymentGatewayService.nativeWindow.Razorpay(this.options);
+      this.rzp1.open();
+    }else{
+    this.Place_Order()
+
+}
+})
+}
+}else{
+  this.toastr.error('Please Select Address');
+  }
+}else{
+  this.toastr.error('Please Select Payment Method');
+}
+}
+
+paymentCapture(response) {
+if(response){
+debugger;
+  this.Payment_id = response.razorpay_payment_id;
+  this.Place_Order()
+  console.log("payment id "+this.Payment_id);
+}
+
+  //TODO
+}
+get getPaymentMethod(){
+  return this.Payment_Method.controls
+}
+payment_Method_Value:any
+Payment_Method_Fun(){
+console.log(this.Payment_Method.value.payment_tag)
+this.payment_Method_Value=this.Payment_Method.value.payment_tag
+}
+  Place_Order() {
+    // const confirmBox = new ConfirmBoxInitializer();
+    // confirmBox.setTitle('Are you sure?');
+    // confirmBox.setMessage(this.username + ' Confirm to Checkout?');
+    // confirmBox.setButtonLabels('CHECKOUT', 'CANCEL');
+
+    // // Choose layout color type
+    // confirmBox.setConfig({
+    //   layoutType: DialogLayoutDisplay.INFO, // SUCCESS | INFO | NONE | DANGER | WARNING
+    // });
+
+    // // Simply open the popup and listen which button is clicked
+    // confirmBox.openConfirmBox$().subscribe((resp: any) => {
+    //   // IConfirmBoxPublicResponse
+    //   console.log('Clicked button response: ', resp);
+
+    //   if (resp.success) {
+        // this.payment_status=this.encryption(this.status)
+        if(this.payment_Method_Value){
+
+          if (this.billing_address_id) {
+            console.log('order_status', this.order_status);
           console.log('delivery_address_id', this.delivery_address_id);
           console.log('billing_address_id', this.billing_address_id);
           console.log('Add_Order_Response_Data', this.Add_Order_Response_Data);
@@ -263,7 +407,106 @@ export class CheckoutComponent {
         } else {
           this.toastr.error('Please Select Address');
         }
-      }
-    });
+          }else{
+            this.toastr.error('Please Select Payment Method');
+          }
+    //   }
+    // });
+  }
+  Without_ConfirmBox_Place_Order() {
+    
+        // this.payment_status=this.encryption(this.status)
+        if(this.payment_Method_Value){
+
+          if (this.billing_address_id) {
+            console.log('order_status', this.order_status);
+          console.log('delivery_address_id', this.delivery_address_id);
+          console.log('billing_address_id', this.billing_address_id);
+          console.log('Add_Order_Response_Data', this.Add_Order_Response_Data);
+          console.log('payment_status', this.payment_status);
+          console.log('order_status', this.order_status);
+          console.log('delivery_address_id', this.delivery_address_id);
+          console.log('billing_address_id', this.billing_address_id);
+          // console.log("Add_Order_Response_Data",this.Add_Order_Response_Data)
+          this.Login_User = JSON.parse(sessionStorage.getItem('Login_User'));
+          if (this.Login_User) {
+            this._cartService
+              .Add_Order(
+                this.data,
+                this.delivery_address_id,
+                this.billing_address_id,
+                this.payment_status,
+                this.order_status
+              )
+              .subscribe({
+                next: (Add_Order_res) => {
+                  if (Add_Order_res) {
+                    console.log('Add_address_res', Add_Order_res);
+                    this.Add_Order_Response_Data = Add_Order_res.data.id;
+                    console.log(
+                      'Add_Order_Response_Data',
+                      this.Add_Order_Response_Data
+                    );
+
+                    this._encryptionservice
+                      .Encryption(JSON.stringify(this.Add_Order_Response_Data))
+                      .subscribe({
+                        next: (encryption_res) => {
+                          if (encryption_res) {
+                            console.log('encryption_res', encryption_res.data);
+                            this.Add_Order_Response_Data = encryption_res.data;
+
+                            this._cartService
+                              .Get_Order_Detail_By_Id(
+                                this.Add_Order_Response_Data
+                              )
+                              .subscribe({
+                                next: (Get_OrderById_res) => {
+                                  if (Get_OrderById_res) {
+                                    this._cartService.Delete_User_Cart_LocalStorage(
+                                      this.User_Details.username
+                                    );
+                                    console.log(
+                                      'Get_OrderById_res',
+                                      Get_OrderById_res
+                                    );
+
+                                    this.route.navigate([
+                                      '/front/cart/success',
+                                    ]);
+                                  }
+                                },
+                                error: (Get_Order_error) => {
+                                  console.log(
+                                    'Get_Order_error',
+                                    Get_Order_error
+                                  );
+                                  this.toastr.error(
+                                    Get_Order_error.error.message
+                                  );
+                                },
+                              });
+                          }
+                        },
+                        error: (encryption_error) => {
+                          console.log('encryption_error', encryption_error);
+                          this.toastr.error(encryption_error.error.message);
+                        },
+                      });
+                  }
+                },
+                error: (Add_Order_error) => {
+                  console.log('Add_Order_error', Add_Order_error);
+                  this.toastr.error(Add_Order_error.error.message);
+                },
+              });
+          }
+        } else {
+          this.toastr.error('Please Select Address');
+        }
+          }else{
+            this.toastr.error('Please Select Payment Method');
+          }
+    
   }
 }
