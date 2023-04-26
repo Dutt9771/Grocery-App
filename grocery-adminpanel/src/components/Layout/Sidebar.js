@@ -1,93 +1,86 @@
-import * as React from 'react';
-import { Routes, Route } from "react-router-dom";
-import { styled, useTheme } from '@mui/material/styles';
-import Drawer from '@mui/material/Drawer';
+import * as React from "react";
+import { styled, useTheme } from "@mui/material/styles";
+import Drawer from "@mui/material/Drawer";
 import { Link } from "react-router-dom";
-import List from '@mui/material/List';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import AddProduct from '../Products/AddProduct';
-import EditProduct from '../Products/EditProduct';
-import EditCategory from '../Category/EditCategory';
-import AddCategory from '../Category/AddCategory';
-import Paths from "../Paths";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemText from "@mui/material/ListItemText";
 
 const drawerWidth = 240;
 
-const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+const Main = styled("main", { shouldForwardProp: (prop) => prop !== "open" })(
   ({ theme, open }) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
-    transition: theme.transitions.create('margin', {
+    transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen,
     }),
     marginLeft: `-${drawerWidth}px`,
     ...(open && {
-      transition: theme.transitions.create('margin', {
+      transition: theme.transitions.create("margin", {
         easing: theme.transitions.easing.easeOut,
         duration: theme.transitions.duration.enteringScreen,
       }),
       marginLeft: 0,
     }),
-  }),
+  })
 );
 
-const Arr=[
-    {
-    title:'Add Product',
-    slug:"AddProduct"
-},
-    {
-    title:'Edit Product',
-    slug:"EditProduct"
-},
-    {
-    title:'Add Category',
-    slug:"AddCategory"
-},
-    {
-    title:'Edit Category',
-    slug:"EditCategory"
-},
-]
+const Arr = [
+  {
+    title: "Add Product",
+    slug: "AddProduct",
+  },
+  {
+    title: "Edit Product",
+    slug: "EditProduct",
+  },
+  {
+    title: "Add Category",
+    slug: "AddCategory",
+  },
+  {
+    title: "Edit Category",
+    slug: "EditCategory",
+  },
+];
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
+const DrawerHeader = styled("div")(({ theme }) => ({
+  display: "flex",
+  alignItems: "center",
   padding: theme.spacing(0, 1),
   // necessary for content to be below app bar
   ...theme.mixins.toolbar,
-  justifyContent: 'flex-end',
+  justifyContent: "flex-end",
 }));
 
-export default function PersistentDrawerLeft({value,children}) {
+export default function PersistentDrawerLeft({ value, children }) {
   const theme = useTheme();
-//   const [open, setOpen] = React.useState(false);
+  //   const [open, setOpen] = React.useState(false);
 
-//   const handleDrawerOpen = () => {
-//     setOpen(true);
-//   };
+  //   const handleDrawerOpen = () => {
+  //     setOpen(true);
+  //   };
 
-//   const handleDrawerClose = () => {
-//     setOpen(false);
-//   };
+  //   const handleDrawerClose = () => {
+  //     setOpen(false);
+  //   };
 
   return (
     <>
-
       <Drawer
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          '& .MuiDrawer-paper': {
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            boxSizing: 'border-box',
+            boxSizing: "border-box",
           },
         }}
         variant="persistent"
@@ -95,30 +88,39 @@ export default function PersistentDrawerLeft({value,children}) {
         open={value}
       >
         <DrawerHeader>
-          <IconButton >
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          <IconButton>
+            {theme.direction === "ltr" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
           </IconButton>
         </DrawerHeader>
         <Divider />
         <List>
           {Arr.map((text, index) => (
-            <Link to={`/${text.slug}`} style={{
-              textDecoration: 'none',color:'black'
-            }} key={index}>
-            <ListItem disablePadding>
-              <ListItemButton>
-                {/* <ListItemIcon>
+            <Link
+              to={`/dashboard/${text.slug}`}
+              style={{
+                textDecoration: "none",
+                color: "black",
+              }}
+              key={index}
+            >
+              <ListItem disablePadding>
+                <ListItemButton>
+                  {/* <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon> */}
-                <ListItemText primary={text.title} />
-              </ListItemButton>
-            </ListItem>
-                </Link>
+                  <ListItemText primary={text.title} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
         <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
                 {/* <ListItemIcon>
@@ -130,13 +132,12 @@ export default function PersistentDrawerLeft({value,children}) {
           ))}
         </List>
       </Drawer>
-  <Main open={value}>
+      <Main open={value}>
         <DrawerHeader />
-      
+
         {children}
-        <Paths />
-        
-      {/* <Typography paragraph>
+
+        {/* <Typography paragraph>
         Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
         eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
         neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
@@ -149,8 +150,7 @@ export default function PersistentDrawerLeft({value,children}) {
         eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
         posuere sollicitudin aliquam ultrices sagittis orci a.
       </Typography> */}
-    </Main>
-
+      </Main>
     </>
   );
 }

@@ -1,7 +1,12 @@
+import Dashboard from "../../containers/Dashboard";
+
+
 export default function EditProduct() {
     return (
         <>
-            <p>Edit Product</p>
+            <Dashboard>
+                              <p>Edit Product</p>
+            </Dashboard>
         </>
     );
 }

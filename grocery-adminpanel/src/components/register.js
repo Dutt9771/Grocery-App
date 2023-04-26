@@ -5,6 +5,7 @@ import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import { toast, Toaster } from 'react-hot-toast';
 import axios from 'axios';
+import { Link, useNavigate  } from 'react-router-dom';
 const initialvalues ={
   name:'',
   email:'',
@@ -19,14 +20,19 @@ export default function Register(){
         email:Yup.string().email().required('Email is required'),
         password:Yup.string().min(6).required('Password is required'),
         confirmpassword:Yup.string().oneOf([Yup.ref('password'), null], 'Passwords must match').required('Confirm Password is required')
-    })
+      })
+      
+      const navigate = useNavigate();
+let token= sessionStorage.getItem("token");
 
     const {values,errors,touched,handleBlur,handleChange,handleSubmit}=useFormik({
     initialValues:initialvalues,
     validationSchema:Registrationschema,
     onSubmit:(values,action)=>{
-      console.log(values)
-      const options = {
+      if(!token){
+
+        console.log(values)
+        const options = {
         method: 'post',
         url: 'http://localhost:8080/api/v1/admin/register',
         data: values
@@ -34,14 +40,15 @@ export default function Register(){
       
       axios.request(options).then(function (response) {
         if(response){
-
+          
           console.log(response.data);
-          toast.success(response.message,{
+          toast.success("Register Successfully",{
             position: "bottom-center",
             duration: 3000
           })
+          navigate('/login')
         }
-      }).catch(function (error) {
+      }).catch(function (error) {      
         console.error(error.response.data.message);
         toast.error(error.response.data.message ? error.response.data.message : "Error With Register",{
           position: "bottom-center",
@@ -49,7 +56,14 @@ export default function Register(){
         })
       });
       action.resetForm();
+    }else{
+      toast.error("You are already Register,Please Login",{
+        position: "bottom-center",
+        duration: 3000
+      })
+      navigate('/login')
     }
+  }
   })
   
   console.log("values",values)
@@ -148,8 +162,10 @@ export default function Register(){
       {errors.confirmpassword && touched.confirmpassword ? errors.confirmpassword : null}
       </div>
       <div>
-      <Button variant="outlined" type='submit' style={{marginTop:'10px'}}>Register</Button>
-
+      <Button variant="outlined" type='submit' style={{marginTop:'10px',marginRight:'20px'}}>Register</Button>
+      <Link to="/login">
+ <Button variant="outlined" type='submit' style={{marginTop:'10px'}} >Already Register</Button>
+ </Link>
       </div>
     </Box>
        </form>
