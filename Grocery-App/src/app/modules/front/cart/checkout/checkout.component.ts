@@ -38,6 +38,8 @@ export class CheckoutComponent {
   GrandTotal:any;
   ngOnInit() {
     this.PaymentMethod()
+    this.OrderStatus()
+    this.PaymentStatus()
   this.GrandTotal_Data = JSON.parse(localStorage.getItem('Cart_Data'));
     this.GrandTotal=this.GrandTotal_Data.total_amount*100
     console.log("GrandTotal",this.GrandTotal)
@@ -115,7 +117,7 @@ PaymentMethod(){
     });
   }
 
-  payment_status: any = 'IJjOhx0uYI4ZK5Y-Wzfm2Q==';
+  payment_status: any
   // payment_status: any 
   order_status: any = 'JbAbzZt-w7vv_SPXXQI4Jw==';
   // order_status: any 
@@ -124,6 +126,45 @@ PaymentMethod(){
   Add_Order_Response_Data: any;
   Encryptdata: any;
   // selected:any
+
+  PaymentStatus(){
+      // selected=true
+      this._encryptionservice.Encryption("2").subscribe({
+        next: (encryption_res) => {
+          if (encryption_res) {
+            console.log('encryption_res', encryption_res.data);
+            this.payment_status = encryption_res.data;
+            // return this.Encyption_Data
+            console.log('payment_status', this.payment_status);
+          }
+        },
+        error: (encryption_error) => {
+          console.log('encryption_error', encryption_error);
+        },
+      });
+      // this.delivery_address_id=this.encryption(addressSelect)
+    
+  
+  }
+  OrderStatus(){
+      // selected=true
+      this._encryptionservice.Encryption("1").subscribe({
+        next: (encryption_res) => {
+          if (encryption_res) {
+            console.log('encryption_res', encryption_res.data);
+            this.order_status = encryption_res.data;
+            // return this.Encyption_Data
+            console.log('order_status', this.order_status);
+          }
+        },
+        error: (encryption_error) => {
+          console.log('encryption_error', encryption_error);
+        },
+      });
+      // this.delivery_address_id=this.encryption(addressSelect)
+    
+  
+  }
   selectAdd(addressSelect) {
     // selected=true
     console.log('addressSelect', addressSelect);

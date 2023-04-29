@@ -68,12 +68,22 @@ Login_User:any
 
       this.Find_Customer_Cart=Merge.find((user:any)=>user.username==this.User_Details.username)
       if(this.Find_Customer_Cart){
-        this.Customer_Cart=this.Find_Customer_Cart.items
-        console.log("Find_Customer_Cart",this.Find_Customer_Cart)
-        console.log("Customer_Cart",this.Customer_Cart)
-        // this.Check_Guest_User()
-        
-        this.Category_wise_Filter(this.Customer_Cart)
+
+        this.Guest_Cart=JSON.parse(sessionStorage.getItem("Guest_Cart"))
+        if(this.Guest_Cart){
+if(this.Guest_Cart[0].items.length){
+
+  this.Guest_Cart[0].items=[]
+  sessionStorage.setItem('Guest_Cart',JSON.stringify(this.Guest_Cart))
+}
+
+        }
+          this.Customer_Cart=this.Find_Customer_Cart.items
+          console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+          console.log("Customer_Cart",this.Customer_Cart)
+          // this.Check_Guest_User()
+          
+          this.Category_wise_Filter(this.Customer_Cart)
       }
     }
     else{
