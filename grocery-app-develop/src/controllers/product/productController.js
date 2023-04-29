@@ -4,17 +4,39 @@ const APIResponseFormat = require("../../utils/APIResponseFormat");
 const Category = db.categories;
 const Product = db.products;
 const ProductCategory = db.product_categories;
-const fs = require("fs");
+const path = require('path');
+const { Op } = db.Sequelize;
+
 
 // make a function to save the file in public/products folder and get the file name
 const uploadImage = async (req, res) => {
   try {
-    if (!req.file) {
-      return APIResponseFormat._ResMissingRequiredField(res, "Image");
+    // if files are not uploaded then return error
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return APIResponseFormat._ResMissingRequiredField(res, "Avatar Image");
     }
-    let filedata = fs.readFileSync(req.file.path);
-    req.file.data = filedata;
-    return APIResponseFormat._ResDataCreated(res, { file: req.file });
+
+    let file = req.files.avatar_image;
+    // if file size is greater than 5MB then return error
+    if (file.size > 5 * 1024 * 1024) {
+      return APIResponseFormat._ResImageError(res, "Avatar Image size should be less than 5MB");
+    }
+
+    // if file type is not jpeg, jpg, png or gif then return error
+    if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(file.mimetype)) {
+      return APIResponseFormat._ResImageError(res, "Avatar Image should be jpeg, jpg, png or gif");
+    }
+
+    // move the file to public/products folder
+    let savePath = path.join(__dirname, '../', '../', 'public', 'products', '/');
+    let fileName = Date.now() + "-" + file.name.replace(/\s/g, '');
+    file.mv(savePath + fileName, (err) => {
+      if (err) {
+        return APIResponseFormat._ResImageError(res, err);
+      }
+    });
+
+    return APIResponseFormat._ResDataCreated(res, { fileName: fileName });
   } catch (error) {
     return APIResponseFormat._ResServerError(res, error);
   }
@@ -23,10 +45,36 @@ const uploadImage = async (req, res) => {
 // make an API for upload multiple images
 const uploadMultipleImages = async (req, res) => {
   try {
-    if (!req.files) {
-      return APIResponseFormat._ResMissingRequiredField(res, "Image");
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return APIResponseFormat._ResMissingRequiredField(res, "images");
     }
-    return APIResponseFormat._ResDataCreated(res, { files: req.files });
+
+    let files = req.files.images;
+    let savePath = path.join(__dirname, '../', '../', 'public', 'products', '/');
+    let fileNameArray = [];
+
+    files.forEach((file) => {
+      // if file size is greater than 50MB then return error
+      if (file.size > 5 * 1024 * 1024) {
+        return APIResponseFormat._ResImageError(res, "Image size should be less than 5MB");
+      }
+
+      // if file type is not jpeg, jpg, png or gif then return error
+      if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(file.mimetype)) {
+        return APIResponseFormat._ResImageError(res, "All files should be jpeg, jpg, png or gif");
+      }
+
+      let fileName = Date.now() + "-" + file.name.replace(/\s/g, '');
+      file.mv(savePath + fileName, (err) => {
+        if (err) {
+          return APIResponseFormat._ResImageError(res, err);
+        }
+      });
+
+      fileNameArray.push(fileName);
+    });
+
+    return APIResponseFormat._ResDataCreated(res, { fileNameArray: fileNameArray });
   } catch (error) {
     return APIResponseFormat._ResServerError(res, error);
   }
@@ -42,47 +90,108 @@ const addProduct = async (req, res) => {
     }
 
     let categoryArray = JSON.parse(categoryArrayFromBody);
+    console.log(categoryArray);
 
     // check categoryArray is not empty
     if (!categoryArray || categoryArray.length === 0) {
       return APIResponseFormat._ResMissingRequiredField(res, "Category");
     }
 
-    // check if image is uploaded or not    
-    if (!req.file) {
-      return APIResponseFormat._ResMissingRequiredField(res, "Image");
-    }
-    let avatar_image = req.file.filename;
-
-    // check if product already exists
-    const product = await Product.findOne({ where: { title } });
-    if (product) {
-      return APIResponseFormat._ResDataAlreadyExists(res)
+    // check if avatar_image is uploaded or not
+    if (!req.files || Object.keys(req.files).length === 0) {
+      return APIResponseFormat._ResMissingRequiredField(res, "Avatar Image");
     }
 
-    // create a product and insert data into it and also insert category_id in product_category table 
-    const newProduct = await Product.create({
-      title,
-      amount,
-      discount_type,
-      discount_amount,
-      short_description,
-      description,
-      avatar_image,
-      slug: title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
-    });
-    if (newProduct) {
-      // append produt_id in productCategoryArray
-      const productCategoryArray = [];
-      categoryArray.forEach((item) => {
-        productCategoryArray.push({ product_id: newProduct.id, category_id: item })
-      });
-      // insert data into product_category table
-      const productCategory = await ProductCategory.bulkCreate(productCategoryArray);
-      if (productCategory) {
-        return APIResponseFormat._ResDataCreated(res, newProduct);
+    let file = req.files.avatar_image;
+    // if file size is greater than 5MB then return error
+    if (file.size > 5 * 1024 * 1024) {
+      return APIResponseFormat._ResImageError(res, "Avatar Image size should be less than 5MB");
+    }
+
+    // if file type is not jpeg, jpg, png or gif then return error
+    if (!['image/jpeg', 'image/jpg', 'image/png', 'image/gif'].includes(file.mimetype)) {
+      return APIResponseFormat._ResImageError(res, "Avatar Image should be jpeg, jpg, png or gif");
+    }
+
+    // make a path to save the file in public/products folder
+    let savePath = path.join(__dirname, '../', '../', 'public', 'products', '/');
+    let fileName = Date.now() + "-" + file.name.replace(/\s/g, '');
+    file.mv(savePath + fileName, (err) => {
+      if (err) {
+        return APIResponseFormat._ResImageError(res, err);
       }
+    });
+
+    // findOrCreate product with paranoid true
+    const [product, created] = await Product.findOrCreate({
+      where: {
+        title: title,
+      },
+      paranoid: false,  // disable soft delete
+      defaults: {
+        amount,
+        discount_type,
+        discount_amount,
+        short_description,
+        description,
+        avatar_image: fileName,
+        slug: title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
+      }
+    });
+
+    if (created === false && product.deleted_at === null) {
+      return APIResponseFormat._ResDataAlreadyExists(res);
     }
+
+    if (created === false && product.deleted_at !== null) {
+      // restore product and update product with new values
+      await product.restore();
+      await product.update({
+        amount,
+        discount_type,
+        discount_amount,
+        short_description,
+        description,
+        avatar_image: fileName,
+        slug: title.toLowerCase().trim().replace(/[^\w\s-]/g, '').replace(/[\s_-]+/g, '-').replace(/^-+|-+$/g, '')
+      });
+
+      // update product_category with new values
+      categoryArray.forEach(async (category) => {
+        let productCategory = await ProductCategory.findOne({
+          where: {
+            product_id: product.id,
+            category_id: category
+          },
+          paranoid: false  // disable soft delete
+        });
+
+        if (productCategory) {
+          if (productCategory.deleted_at !== null) {
+            // restore product_category
+            await productCategory.restore();
+          }
+        } else {
+          // create product_category
+          await ProductCategory.create({
+            product_id: product.id,
+            category_id: category
+          });
+        }
+      });
+    }
+
+    if (created === true) {
+      // create product_category
+      categoryArray.forEach(async (category) => {
+        await ProductCategory.create({
+          product_id: product.id,
+          category_id: category
+        });
+      });
+    }
+    return APIResponseFormat._ResDataCreated(res, product);
+
   } catch (error) {
     return APIResponseFormat._ResServerError(res, error);
   }
@@ -113,26 +222,32 @@ const getProductById = async (req, res) => {
 // Get All Products by Category Id
 const getProductByCategory = async (req, res) => {
   try {
-    if (!req.header("category_id")) {
+    let category_id = req.header("category_id");
+    if (!category_id) {
       return APIResponseFormat._ResMissingRequiredField(res, "Category Id");
     }
 
     // check category id is valid or not
+    category_id = _doDecrypt(category_id);
     const category = await Category.findOne({
       where: {
-        id: _doDecrypt(req.header("category_id")),
+        id: category_id,
       },
     });
     if (category) {
       const products = await ProductCategory.findAll({
         where: {
-          category_id: _doDecrypt(req.header("category_id")),
+          category_id: category_id,
+          // is_active: true,
         },
         attributes: ["id", "product_id", "category_id"],
         include: [
           {
             model: Product,
             as: "product",
+            where: {
+              is_active: true,
+            },
           },
         ],
       });
@@ -254,19 +369,116 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const getAllProducts = async (req , res) => {
-  try{
+const getAllProducts = async (req, res) => {
+  try {
     const products = await Product.findAll();
-    if(products.length > 0){
+    if (products.length > 0) {
       return APIResponseFormat._ResDataFound(res, products);
-    }else{
+    } else {
       return APIResponseFormat._ResDataNotFound(res);
     }
 
-  }catch(error){
+  } catch (error) {
     return APIResponseFormat._ResServerError(res, error);
   }
 }
+
+
+const deleteProduct = async (req, res) => {
+  try {
+    let product_id = req.header("product_id");
+    if (!product_id) {
+      return APIResponseFormat._ResMissingRequiredField(res, "Product Id");
+    }
+
+    // check if product id is valid or not
+    product_id = _doDecrypt(product_id);
+    const existProduct = await Product.findOne({ where: { id: product_id } });
+    if (!existProduct) {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+
+    // delete product from product table and product_category table
+    const deletedProduct = await Product.destroy({
+      where: { id: product_id }
+    });
+    if (deletedProduct) {
+      await ProductCategory.destroy({
+        where: { product_id },
+      });
+      return APIResponseFormat._ResDataDeleted(res, "Product deleted successfully");
+    } else {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+  } catch (error) {
+    return APIResponseFormat._ResServerError(res, error);
+  }
+};
+
+const activeProduct = async (req, res) => {
+  try {
+    let product_id = req.header("product_id");
+    if (!product_id) {
+      return APIResponseFormat._ResMissingRequiredField(res, "Product Id");
+    }
+
+    // check if product id is valid or not
+    product_id = _doDecrypt(product_id);
+    const existProduct = await Product.findOne({ where: { id: product_id } });
+    if (!existProduct) {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+
+    // activeProduct
+    const activeProduct = await Product.update(
+      {
+        is_active: true
+      },
+      { where: { id: product_id } }
+    );
+    if (activeProduct) {
+      return APIResponseFormat._ResDataUpdated(res, "Product activated successfully");
+    } else {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+  } catch (error) {
+    return APIResponseFormat._ResServerError(res, error);
+  }
+};
+
+const inactiveProduct = async (req, res) => {
+  try {
+    let product_id = req.header("product_id");
+    if (!product_id) {
+      return APIResponseFormat._ResMissingRequiredField(res, "Product Id");
+    }
+
+    // check if product id is valid or not
+    product_id = _doDecrypt(product_id);
+    const existProduct = await Product.findOne({ where: { id: product_id } });
+    if (!existProduct) {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+
+    // inactiveProduct
+    const inactiveProduct = await Product.update(
+      {
+        is_active: false
+      },
+      { where: { id: product_id } }
+    );
+    if (inactiveProduct) {
+      return APIResponseFormat._ResDataUpdated(res, "Product inactivated successfully");
+    } else {
+      return APIResponseFormat._ResDataNotExists(res, "Product not found");
+    }
+  } catch (error) {
+    return APIResponseFormat._ResServerError(res, error);
+  }
+};
+
+
+
 
 module.exports = {
   getProductById,
@@ -275,5 +487,8 @@ module.exports = {
   addProduct,
   uploadImage,
   uploadMultipleImages,
-  getAllProducts
+  getAllProducts,
+  deleteProduct,
+  activeProduct,
+  inactiveProduct
 };

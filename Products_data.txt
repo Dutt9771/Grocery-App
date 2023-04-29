@@ -1,0 +1,47 @@
+//Add Category 
+
+
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('1', 'Fruits', '0');
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('2', 'Vegetables', '0');
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('3', 'Foodgrains', '0');
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('4', 'Meat', '0');
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('5', 'Dairy', '0');
+INSERT INTO `grocery`.`categories` (`id`, `title`, `parent_id`) VALUES ('6', 'Breakfast', '0');
+
+UPDATE `grocery`.`categories` SET `slug` = 'fruits' WHERE (`id` = '1');
+UPDATE `grocery`.`categories` SET `slug` = 'vegetables' WHERE (`id` = '2');
+UPDATE `grocery`.`categories` SET `slug` = 'foodgrains' WHERE (`id` = '3');
+UPDATE `grocery`.`categories` SET `slug` = 'meat' WHERE (`id` = '4');
+UPDATE `grocery`.`categories` SET `slug` = 'dairy' WHERE (`id` = '5');
+UPDATE `grocery`.`categories` SET `slug` = 'breakfast' WHERE (`id` = '6');
+
+
+//Fruits Products 
+
+INSERT INTO grocery.products (title, amount, discount_type, discount_amount, avatar_image, short_description, description,slug)
+VALUES 
+('Apple (1 Kg)', 180, 1, 0, 'apple.jpg', 'Fresh and crunchy apples', 'Fresh and crunchy apples perfect for snacking or baking.','apple'),
+('Banana (1 Kg)', 40, 1, 0, 'banana.jpg', 'Sweet and nutritious bananas', 'Sweet and nutritious bananas, great for a quick snack or smoothie.','banana'),
+('Orange (1 Kg)', 109, 1, 0, 'orange.jpg', 'Juicy and refreshing oranges', 'Juicy and refreshing oranges, packed with vitamin C.','orange'),
+('Strawberry (28 per Packet)', 80, 1, 0, 'strawberry.jpg', 'Sweet and succulent strawberries', 'Sweet and succulent strawberries, perfect for desserts or as a healthy snack.','strawberry'),
+('Mango (1 Kg)', 100, 1, 0, 'mango.jpg', 'Sweet and juicy mangoes', 'Sweet and juicy mangoes, perfect for smoothies or as a snack.','mango'),
+('Pineapple (1 Kg)', 80, 1, 0, 'pineapple.jpg', 'Tropical and refreshing pineapples', 'Tropical and refreshing pineapples, great for grilling or snacking.','pineapple'),
+('Grapes (1 Kg)', 89, 1, 0, 'grapes.jpg', 'Juicy and flavorful grapes', 'Juicy and flavorful grapes, perfect for snacking or adding to a fruit salad.','grapes'),
+('Watermelon (1 Kg)', 30, 1, 0, 'watermelon.jpg', 'Sweet and refreshing watermelon', 'Sweet and refreshing watermelon, perfect for picnics or as a healthy dessert.','watermelon'),
+('Blueberries (150 g)', 150, 1, 0, 'blueberries.jpg', 'Plump and juicy blueberries', 'Plump and juicy blueberries, great for adding to yogurt or baking into muffins.','blueberries');
+
+//Add fruits products in fruits category 
+
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '1', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '2', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '3', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '4', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '5', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '6', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '7', '1');
+INSERT INTO `grocery`.`product_categories` (`id`, `product_id`, `category_id`) VALUES ('', '8', '1');
+INSERT INTO `grocery`.`product_categories` (`product_id`, `category_id`) VALUES ('9', '1');
+INSERT INTO `grocery`.`product_categories` (`category_id`) VALUES ('');
+
+
+//

@@ -269,11 +269,28 @@ Pay(){
       // Razorpay Payment Gateway 
       this.rzp1 = new this._paymentGatewayService.nativeWindow.Razorpay(this.options);
       this.rzp1.open();
-    }else{
-    this.Place_Order()
-
-}
+    }
 })
+}else{
+  const confirmBox = new ConfirmBoxInitializer();
+  confirmBox.setTitle('Are you sure?');
+  confirmBox.setMessage(this.username + ' Confirm to Checkout?');
+  confirmBox.setButtonLabels('CHECKOUT', 'CANCEL');
+
+  // Choose layout color type
+  confirmBox.setConfig({
+    layoutType: DialogLayoutDisplay.INFO, // SUCCESS | INFO | NONE | DANGER | WARNING
+  });
+
+  // Simply open the popup and listen which button is clicked
+  confirmBox.openConfirmBox$().subscribe((resp: any) => {
+    // IConfirmBoxPublicResponse
+    console.log('Clicked button response: ', resp);
+
+    if (resp.success) {
+  this.Place_Order()
+    }
+  })
 }
 }else{
   this.toastr.error('Please Select Address');
