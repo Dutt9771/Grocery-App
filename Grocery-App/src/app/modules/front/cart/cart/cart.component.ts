@@ -149,7 +149,6 @@ if(this.Guest_Cart[0].items.length){
     let Guest = JSON.parse(sessionStorage.getItem('Guest_Cart'));
     if(this.groupedProducts[index].cart[productindex].quantity>1){
       if(Guest){
-
         if(Guest[0].items.length!=0){
           Guest[0].items[0].quantity-=1
           this.groupedProducts[index].cart[productindex].quantity=Guest[0].items[0].quantity

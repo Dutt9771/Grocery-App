@@ -154,7 +154,7 @@ export class CartService {
       );
 
       if (this.Find_Customer_Cart) {
-        // console.log("Find_Customer_Cart",this.Find_Customer_Cart)
+        // console.log("Find_Customer_Cart =======>>>>>",this.Find_Customer_Cart)
         this.Customer_Cart = this.Find_Customer_Cart.items;
         // console.log("Customer_Cart",this.Customer_Cart)
         // this.subtotalSource.next
@@ -172,11 +172,24 @@ export class CartService {
           }
         }
         this.subtotalSource.next(cartsubtotal);
+      }else {
+        // console.log("Find_Customer_Cart =======>>>>>",this.Find_Customer_Cart)
+        let Guest_Cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
+        if (Guest_Cart) {
+          // console.log("Guest_Cart[0].items[0]",Guest_Cart[0].items[0])
+          if (Guest_Cart[0].items[0]) {
+            let cartsubtotal = Guest_Cart[0].items[0].amount;
+            this.subtotalSource.next(cartsubtotal);
+          } else {
+            let cartsubtotal: number = 0;
+            this.subtotalSource.next(cartsubtotal);
+          }
+        }
       }
     } else {
+      // console.log("Find_Customer_Cart =======>>>>>",this.Find_Customer_Cart)
       let Guest_Cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
       if (Guest_Cart) {
-        let cartsubtotal: number = 0;
         // console.log("Guest_Cart[0].items[0]",Guest_Cart[0].items[0])
         if (Guest_Cart[0].items[0]) {
           let cartsubtotal = Guest_Cart[0].items[0].amount;
@@ -185,6 +198,9 @@ export class CartService {
           let cartsubtotal: number = 0;
           this.subtotalSource.next(cartsubtotal);
         }
+      } else {
+        let cartsubtotal: number = 0;
+        this.subtotalSource.next(cartsubtotal);
       }
     }
   }
@@ -327,21 +343,24 @@ export class CartService {
     // }
     let Guest_cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
     let Login_User = JSON.parse(sessionStorage.getItem('Login_User'));
-    if (Login_User) {
-      let Merge = JSON.parse(localStorage.getItem('Cart'));
-      let cart = Merge.find((user: any) => user.username == username);
-      let duplicate = cart.items.find((Duplicate: any) => Duplicate.id == id);
-      if (!duplicate) {
-        cart.items.push(data);
-        console.log('Cart in Service==>>', cart);
-        console.log('Merge', Merge);
-        localStorage.setItem('Cart', JSON.stringify(Merge));
-        this.toastr.success('Added to cart', data.title);
-      } else {
-        // duplicate.quantity=duplicate.quantity+1
-        console.log('Merge', Merge);
-        this.toastr.info('Already Added Please Go to Cart', data.title);
-        localStorage.setItem('Cart', JSON.stringify(Merge));
+    if (Guest_cart) {
+      if(Guest_cart[0].items.length){
+
+        let Merge = JSON.parse(localStorage.getItem('Cart'));
+        let cart = Merge.find((user: any) => user.username == username);
+        let duplicate = cart.items.find((Duplicate: any) => Duplicate.id == id);
+        if (!duplicate) {
+          cart.items.push(data);
+          console.log('Cart in Service==>>', cart);
+          console.log('Merge', Merge);
+          localStorage.setItem('Cart', JSON.stringify(Merge));
+          this.toastr.success('Added to cart', data.title);
+        } else {
+          // duplicate.quantity=duplicate.quantity+1
+          console.log('Merge', Merge);
+          this.toastr.info('Already Added Please Go to Cart', data.title);
+          localStorage.setItem('Cart', JSON.stringify(Merge));
+        }
       }
     } else {
       let Merge = JSON.parse(localStorage.getItem('Cart'));
