@@ -30,6 +30,11 @@ export class CategoryComponent {
     this.Product_Arr = this.productservice.getProducts();
     // console.log(this.Product_Arr)
   }
+  showImage(img){
+    let src="http://localhost:8080/api/v1/get-image/"
+    let image=img
+    return src+img
+  }
   encryption_data:any
   encryption(id:any) {
     this._encryptionservice.Encryption(id).subscribe({

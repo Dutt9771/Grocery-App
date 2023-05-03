@@ -56,15 +56,15 @@ export class ProductListComponent implements OnInit {
           if (Product_Res.data) {
             this.filteredItems = Product_Res.data;
             console.log('Product_Res', Product_Res.data);
-            for(let i=0;i<Product_Res.data.length;i++){
-            for(let j=0;j<this.Image_Arr.length;j++){
+          //   for(let i=0;i<Product_Res.data.length;i++){
+          //   for(let j=0;j<this.Image_Arr.length;j++){
 
-              if(this.filteredItems[i].product.title==this.Image_Arr[j].title){
-                this.filteredItems[i].product.avatar_image=this.Image_Arr[j].image
-                // console.log('Product_Res', Product_Res.data);
-              }
-            }
-          }
+          //     if(this.filteredItems[i].product.title==this.Image_Arr[j].title){
+          //       this.filteredItems[i].product.avatar_image=this.Image_Arr[j].image
+          //       // console.log('Product_Res', Product_Res.data);
+          //     }
+          //   }
+          // }
           }
         }
       },
@@ -75,6 +75,11 @@ export class ProductListComponent implements OnInit {
   }
   loading = true;
   allProducts: any = [];
+  showImage(img){
+    let src="http://localhost:8080/api/v1/get-image/"
+    let image=img
+    return src+img
+  }
   GetProducts() {
     this.productservice.getALLProducts().subscribe({
       next: (get_all_products_res) => {
@@ -82,11 +87,12 @@ export class ProductListComponent implements OnInit {
           if (get_all_products_res.data) {
             // console.log('get_all_products_res', get_all_products_res);
             this.allProducts = get_all_products_res.data;
-            for(let i=0;i<this.allProducts.length;i++){
-              if(this.allProducts[i].title=this.Image_Arr[i].title){
-                this.allProducts[i].avatar_image=this.Image_Arr[i].image
-              }
-            }
+            console.log("allProducts",get_all_products_res)
+            // for(let i=0;i<this.allProducts.length;i++){
+            //   if(this.allProducts[i].title=this.Image_Arr[i].title){
+            //     this.allProducts[i].avatar_image=this.Image_Arr[i].image
+            //   }
+            // }
             
             
             setTimeout(() => {

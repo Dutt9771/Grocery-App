@@ -129,7 +129,7 @@ PaymentMethod(){
 
   PaymentStatus(){
       // selected=true
-      this._encryptionservice.Encryption("2").subscribe({
+      this._encryptionservice.Encryption("3").subscribe({
         next: (encryption_res) => {
           if (encryption_res) {
             console.log('encryption_res', encryption_res.data);
@@ -148,7 +148,7 @@ PaymentMethod(){
   }
   OrderStatus(){
       // selected=true
-      this._encryptionservice.Encryption("1").subscribe({
+      this._encryptionservice.Encryption("4").subscribe({
         next: (encryption_res) => {
           if (encryption_res) {
             console.log('encryption_res', encryption_res.data);

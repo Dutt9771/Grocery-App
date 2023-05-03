@@ -49,6 +49,11 @@ export class ProductDetailsComponent {
   loading = true;
   ShowcartArr: any = [];
   quantity = 1;
+  showImage(img){
+    let src="http://localhost:8080/api/v1/get-image/"
+    let image=img
+    return src+img
+  }
   GetProductByProductId(encryption) {
     this._productsservice.getProductByProductId(encryption).subscribe({
       next: (Product_Res: any) => {
@@ -56,14 +61,14 @@ export class ProductDetailsComponent {
           if (Product_Res.data) {
             this.product_item=Product_Res.data.title
             this.filteredItems.push(Product_Res.data);
-            for(let i=0;i<this.Image_Arr.length;i++){
+            // for(let i=0;i<this.Image_Arr.length;i++){
   
-                if(this.filteredItems[0].title==this.Image_Arr[i].title){
-                  this.filteredItems[0].avatar_image=this.Image_Arr[i].image
-                  // console.log('Product_Res', Product_Res.data);
-                }
+            //     if(this.filteredItems[0].title==this.Image_Arr[i].title){
+            //       this.filteredItems[0].avatar_image=this.Image_Arr[i].image
+            //       // console.log('Product_Res', Product_Res.data);
+            //     }
               
-            }
+            // }
             setTimeout(() => {
               /** spinner ends after 5 seconds */
               this.spinner.hide();

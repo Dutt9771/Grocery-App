@@ -30,6 +30,11 @@ export class AllCategoryComponent {
     this.Product_Arr = this.productservice.getProducts();
     console.log(this.Product_Arr);
   }
+  showImage(img){
+    let src="http://localhost:8080/api/v1/get-image/"
+    let image=img
+    return src+img
+  }
   food: any;
   loading = true;
   encryption_data:any

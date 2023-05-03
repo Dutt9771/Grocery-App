@@ -48,7 +48,7 @@
     <div class="card bg-white p-2 m-2 w-auto">
       <img
         class="rounded mx-auto d-block"
-        src={{product.avatar_image}}
+        [src]="showImage(product.avatar_image)"
         alt=""
         width="175"
         height="100"

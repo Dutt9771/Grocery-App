@@ -46,8 +46,10 @@ export class ProductsComponent {
   existing_Product: any;
   Find_Customer_Cart: any;
   Find_Customer_Cart_Arr: any = [];
-  Showcart() {
-    
+  showImage(img){
+    let src="http://localhost:8080/api/v1/get-image/"
+    let image=img
+    return src+img
   }
   GetProducts() {
     this.productservice.getALLProducts().subscribe({
@@ -110,7 +112,6 @@ export class ProductsComponent {
       this._cartservice.cartSubject.next(this._cartservice.cart);
       this._cartservice.ADD_Cart_User_Wise(this.User_Details.username,this.ProductAddobj,product.id)
 
-      this.Showcart();
             this._cartservice.getItemCount();
             this._cartservice.Subtotal();
           }else{

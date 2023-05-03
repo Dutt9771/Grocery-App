@@ -111,7 +111,8 @@ this._cartService.currentSubtotal.subscribe(subtotal => this.subtotal = subtotal
     Select_Category(Category){
       this.Category_Select=Category
       console.log("Category",Category)
-          }
+      this.router.navigate(['../front/catalogue/products-list/'+Category.toLowerCase()])
+    }
 
   //   onSubmit(search) {
   //     console.log("Seach",search)

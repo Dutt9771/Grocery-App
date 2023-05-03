@@ -343,9 +343,7 @@ export class CartService {
     // }
     let Guest_cart = JSON.parse(sessionStorage.getItem('Guest_Cart'));
     let Login_User = JSON.parse(sessionStorage.getItem('Login_User'));
-    if (Guest_cart) {
-      if(Guest_cart[0].items.length){
-
+    if (Login_User) {
         let Merge = JSON.parse(localStorage.getItem('Cart'));
         let cart = Merge.find((user: any) => user.username == username);
         let duplicate = cart.items.find((Duplicate: any) => Duplicate.id == id);
@@ -361,7 +359,7 @@ export class CartService {
           this.toastr.info('Already Added Please Go to Cart', data.title);
           localStorage.setItem('Cart', JSON.stringify(Merge));
         }
-      }
+
     } else {
       let Merge = JSON.parse(localStorage.getItem('Cart'));
       let cart = Merge.find((user: any) => user.username == username);

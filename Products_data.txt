@@ -44,4 +44,20 @@ INSERT INTO `grocery`.`product_categories` (`product_id`, `category_id`) VALUES 
 INSERT INTO `grocery`.`product_categories` (`category_id`) VALUES ('');
 
 
-//
+//Payment And Order Status
+
+
+insert into grocery.order_status_master (title, is_active) values ('placed', true);
+insert into grocery.order_status_master (title, is_active) values ('Pending', true);
+insert into grocery.order_status_master (title, is_active) values ('Processing', true);
+insert into grocery.order_status_master (title, is_active) values ('Completed', true);
+insert into grocery.order_status_master (title, is_active) values ('Failed', true);
+insert into grocery.order_status_master (title, is_active) values ('Cancelled', true);
+insert into grocery.order_status_master (title, is_active) values ('Refunded', true);
+
+insert into grocery.payment_status_master (title, is_active) values ('Pending', true);
+insert into grocery.payment_status_master (title, is_active) values ('Processing', true);
+insert into grocery.payment_status_master (title, is_active) values ('paid', true);
+insert into grocery.payment_status_master (title, is_active) values ('Cancelled', true);
+insert into grocery.payment_status_master (title, is_active) values ('Refunded', true);
+insert into grocery.payment_status_master (title, is_active) values ('Failed', true);

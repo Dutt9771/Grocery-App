@@ -73,7 +73,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src={{product.product.avatar_image}}
+          [src]="showImage(product.product.avatar_image)"
           alt=""
           [routerLink] = "['/front/catalogue/product-details/', product.product.id, product.product.slug]"
           style="cursor: pointer;"
@@ -145,7 +145,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src={{product.avatar_image}}
+          [src]="showImage(product.avatar_image)"
           
           alt=""
           [routerLink]="[
@@ -201,7 +201,7 @@
       <div class="card bg-white p-2 m-2">
         <img
           class="rounded mx-auto d-block"
-          src="/assets/tatasault.png"
+          [src]="showImage(product.avatar_image)"
           alt=""
           [routerLink]="[
             '/front/catalogue/product-details/',
