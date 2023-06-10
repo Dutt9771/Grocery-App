@@ -85,7 +85,7 @@ export class ManageaddressComponent {
     const confirmBox = new ConfirmBoxInitializer();
   confirmBox.setTitle('Are you sure?');
   confirmBox.setMessage('Do you want to Delete?');
-  confirmBox.setButtonLabels('DELETE', 'NO');
+  confirmBox.setButtonLabels('YES', 'NO');
 
   // Choose layout color type
   confirmBox.setConfig({

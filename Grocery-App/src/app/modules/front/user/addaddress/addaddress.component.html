@@ -49,7 +49,7 @@
       />
       <div
         *ngIf="
-          get_User_Address.address_line_2.touched &&
+          (get_User_Address.address_line_2.touched || get_User_Address.address_line_2.dirty) &&
           get_User_Address.address_line_2.invalid
         "
         class="text-danger"
@@ -183,6 +183,12 @@
         </div>
         <div
           *ngIf="get_User_Address.postal_code.errors?.['maxlength']"
+          class="text-danger"
+        >
+          postal_code Must have 6 digits
+        </div>
+        <div
+          *ngIf="get_User_Address.postal_code.errors?.['pattern']"
           class="text-danger"
         >
           postal_code Must have 6 digits

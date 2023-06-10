@@ -82,6 +82,7 @@ export class ProductsComponent {
     quantity: this.quantity,
   };
   Add_cart(i, product) {
+    this.User_Details = JSON.parse(sessionStorage.getItem('User_Details'));
     // console.log("ShowCartArr",this.ShowcartArr)
     // console.log("Product",product)
   if(this.User_Details){

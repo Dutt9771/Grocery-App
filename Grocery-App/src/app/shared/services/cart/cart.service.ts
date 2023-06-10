@@ -321,7 +321,7 @@ export class CartService {
         username: username,
         items: [],
       };
-      if (!cart_Arr) {
+      
         console.log('username', username);
         console.log('cart', cart);
         let Arr = JSON.stringify([]);
@@ -334,7 +334,7 @@ export class CartService {
         console.log('Merge', Merge);
         localStorage.setItem('Cart', JSON.stringify(Merge));
         // localStorage.setItem("Cart",JSON.stringify(cart))
-      }
+     
     }
   }
   ADD_Cart_User_Wise(username: any, data: any, id: any) {
@@ -479,6 +479,7 @@ export class CartService {
   }
   Guest_User(data: any) {
     if (sessionStorage.getItem('Guest_Cart')) {
+
       let Merge = JSON.parse(sessionStorage.getItem('Guest_Cart'));
       if (Merge[0].items.length == 0) {
         let duplicate = Merge[0].items.find(

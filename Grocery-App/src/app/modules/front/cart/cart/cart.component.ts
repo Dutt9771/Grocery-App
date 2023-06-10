@@ -252,7 +252,7 @@ if(this.Guest_Cart[0].items.length){
     const confirmBox = new ConfirmBoxInitializer();
     confirmBox.setTitle('Are you sure?');
     confirmBox.setMessage('Do you want to Delete '+product.title+' ?');
-    confirmBox.setButtonLabels('DELETE', 'NO');
+    confirmBox.setButtonLabels('YES', 'NO');
 
     // Choose layout color type
     confirmBox.setConfig({

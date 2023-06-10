@@ -101,7 +101,7 @@ export class LoginComponent {
           if (User_details_res) {
             if (User_details_res.data) {
               console.log('User_Details', User_details_res.data);
-              this._cartservice.User_Add_Cart(User_details_res.data.username)
+              
               sessionStorage.setItem(
                 'User_Details',
                 JSON.stringify(User_details_res.data)
@@ -162,12 +162,15 @@ export class LoginComponent {
                 this.User_Login_Token.data.token,
                 { expires: 1, sameSite: 'Lax' }
               );
+              console.log("this.user_login.value.username",this.user_login.value.username)
+              this._cartservice.User_Add_Cart(this.user_login.value.username)
               this.Get_User_Details();
+
               sessionStorage.setItem(
                 'Login_User',
                 JSON.stringify(this.user_login.value)
               );
-
+                
               this.toastr.success('Login Successfully');
               this.router.navigate(['/home']);
               // this.Get_Customer_Id()

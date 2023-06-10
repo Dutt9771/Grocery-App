@@ -349,6 +349,7 @@ export class ProductsService {
    
    return imageArray
   }
+  
   GetImages_Category(){
     let imageArray = [
       {

@@ -43,7 +43,7 @@
         />
         <div class="card-body text-center">
           <h4>{{ product.title }}</h4>
-        <small>{{ product.items }} Items</small>
+          <small>{{ product.items > 0 ? product.items : '0' }} Items</small>
         </div>
       </div>
     </div>

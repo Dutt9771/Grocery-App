@@ -54,7 +54,7 @@
         />
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form> -->
-      <div class="d-flex justify-content-center col-md-5 col-lg-4 ms-5">
+      <!-- <div class="d-flex justify-content-center col-md-5 col-lg-4 ms-5">
         <Select class="form-select">
           <option value="Browse Category" selected disabled>
             Browse Category
@@ -69,7 +69,7 @@
         </Select>
         <input type="text" class="form-control me-2" placeholder="Search products..." [(ngModel)]="query">
         <button class="btn btn-outline-success" (click)="onSearchClick()">Search</button>
-      </div>
+      </div> -->
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0 me-5">
         <a class="nav-link fs-5 position-relative">
           <a (click)="Add_cart_count()" style="cursor: pointer;"><i class="fas fa-shopping-cart"></i></a>
@@ -104,17 +104,18 @@
                 class="dropdown-item"
                 [routerLink]="['front/user/user-profile']"
                 routerLinkActive="active"
+                *ngIf="User_name !='Login/Signup'"
                 >Edit Profile</a
               >
             </li>
-            <li>
-              <a
-                class="dropdown-item"
-                [routerLink]="['front/catalogue/products-list', 'all']"
-                routerLinkActive="active"
-                >Product List</a
-              >
-            </li>
+              <!-- <li>
+                <a
+                  class="dropdown-item"
+                  [routerLink]="['front/catalogue/products-list', 'all']"
+                  routerLinkActive="active"
+                  >Product List</a
+                >
+              </li> -->
             <li>
               <a
                 class="dropdown-item"

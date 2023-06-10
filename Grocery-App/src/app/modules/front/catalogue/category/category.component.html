@@ -63,7 +63,7 @@ product.category.toLowerCase()]" -->
       <img src={{product.avatar_image}} alt="" width="120" height="120" />
       <div class="card-body text-center">
         <h4>{{ product.title }}</h4>
-        <small>{{ product.items }} Items</small>
+        <small>{{ product.items > 0 ? product.items : '0' }} Items</small>
       </div>
     </div>
   </div>
